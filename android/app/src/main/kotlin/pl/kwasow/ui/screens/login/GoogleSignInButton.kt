@@ -3,6 +3,7 @@ package pl.kwasow.ui.screens.login
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ fun GoogleSignInButton(onClick: () -> Unit) {
         Image(
             painter = painterResource(id = R.drawable.ic_google),
             contentDescription = stringResource(id = R.string.contentDescription_google_icon),
+            modifier = Modifier.size(30.dp),
         )
         Text(
             modifier = Modifier.padding(start = 8.dp),

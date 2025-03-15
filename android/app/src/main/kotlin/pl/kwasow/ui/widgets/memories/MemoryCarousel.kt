@@ -3,6 +3,7 @@ package pl.kwasow.ui.widgets.memories
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -18,6 +19,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.carousel.HorizontalMultiBrowseCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
@@ -25,9 +27,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import pl.kwasow.R
 import pl.kwasow.data.Memory
 
 // ====== Public composables
@@ -38,7 +44,22 @@ fun MemoryCarousel(
 ) {
     val memoriesAndPhotos = getMemoriesWithPhotos(todayMemories)
 
-    if (memoriesAndPhotos.isEmpty()) {
+    if (todayMemories.isEmpty() && leadingMemories.isEmpty()) {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16f / 9f),
+        ) {
+            Text(
+                text = stringResource(id = R.string.widget_memories_no_memories),
+                textAlign = TextAlign.Center,
+                fontStyle = FontStyle.Italic,
+                style = MaterialTheme.typography.labelMedium,
+            )
+        }
+    } else if (memoriesAndPhotos.isEmpty()) {
         PhotoGallery(memories = leadingMemories)
     } else {
         MemoryGallery(memories = memoriesAndPhotos)
