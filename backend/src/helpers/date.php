@@ -8,7 +8,7 @@ function findRelationshipYear($stringDate)
     $month = intval(substr($stringDate, 5, 2));
     $day = intval(substr($stringDate, 8, 2));
 
-    $config = getSunshineConfig();
+    $config = getFlamingoConfig();
     $anniversaryMonth = $config['anniversaryMonth'];
     $anniversaryDay = $config['anniversaryDay'];
 

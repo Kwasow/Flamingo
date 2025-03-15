@@ -17,7 +17,7 @@ import pl.kwasow.managers.NotificationManager
 import pl.kwasow.utils.DownloadUtils
 
 @UnstableApi
-class SunshineDownloadService : DownloadService(
+class FlamingoDownloadService : DownloadService(
     FOREGROUND_NOTIFICATION_ID,
     DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
     null,

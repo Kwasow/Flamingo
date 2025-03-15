@@ -1,6 +1,6 @@
 -- Select database
-USE sunshine;
-GRANT ALL PRIVILEGES ON sunshine.* TO 'sunshine-user'@'%';
+USE flamingo;
+GRANT ALL PRIVILEGES ON flamingo.* TO 'flamingo-user'@'%';
 FLUSH PRIVILEGES;
 
 -- Create tables

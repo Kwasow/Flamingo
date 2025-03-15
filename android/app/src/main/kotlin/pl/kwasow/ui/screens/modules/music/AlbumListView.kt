@@ -28,7 +28,7 @@ import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.data.Album
 import pl.kwasow.ui.components.PhotoView
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @Composable
@@ -54,7 +54,7 @@ fun AlbumListView(albums: List<Album>) {
 @Composable
 private fun AlbumView(album: Album) {
     val viewModel = koinViewModel<MusicModuleViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     ElevatedCard(
         modifier =

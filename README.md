@@ -1,7 +1,7 @@
 # Flamingo
 
-[![Android](https://github.com/Kwasow/Sunshine/actions/workflows/android.yml/badge.svg)](https://github.com/Kwasow/Sunshine/actions/workflows/android.yml)
-[![CodeQL Advanced](https://github.com/Kwasow/Sunshine/actions/workflows/codeql.yml/badge.svg)](https://github.com/Kwasow/Sunshine/actions/workflows/codeql.yml)
+[![Android](https://github.com/Kwasow/Flamingo/actions/workflows/android.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/android.yml)
+[![CodeQL Advanced](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml)
 
 An app for couples for storing and celebrating memories, sharing wishes, sending
 nudges and much more.
@@ -118,17 +118,17 @@ Create a file under `backend/config/config.php` and put in the following, while
 substituting the default values with the appropriate ones for you:
 
 ```php
-<?php namespace Sunshine\Config;
+<?php
 
-function getSunshineConfig() {
+function getFlamingoConfig() {
   return [
     "anniversaryMonth" => 8,
     "anniversaryDay" => 31,
     
     "databaseAddress" => "database",
-    "databaseUsername" => "sunshine-user",
-    "databasePassword" => "sunshine-user",
-    "databaseName" => "sunshine"
+    "databaseUsername" => "flamingo-user",
+    "databasePassword" => "flamingo-user",
+    "databaseName" => "flamingo"
   ];
 }
 

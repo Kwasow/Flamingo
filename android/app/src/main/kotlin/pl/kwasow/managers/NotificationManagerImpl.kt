@@ -11,7 +11,7 @@ import androidx.core.app.NotificationManagerCompat
 import pl.kwasow.MainActivity
 import pl.kwasow.R
 import pl.kwasow.data.NotificationChannelInfo
-import pl.kwasow.utils.SunshineLogger
+import pl.kwasow.utils.FlamingoLogger
 import java.time.Instant
 import android.app.NotificationManager as AndroidNotificationManager
 
@@ -129,7 +129,7 @@ class NotificationManagerImpl(
             NotificationManagerCompat.from(context).notify(id, notification)
         } catch (e: SecurityException) {
             // Notification permission not granted
-            SunshineLogger.e("Notification permission not granted", e)
+            FlamingoLogger.e("Notification permission not granted", e)
         }
     }
 

@@ -1,6 +1,6 @@
 {
-  "name": "kwasow/sunshine",
-  "description": "The backend for the Sunshine Android app",
+  "name": "kwasow/flamingo",
+  "description": "The backend for the Flamingo Android app",
   "type": "project",
   "license": "proprietary",
   "require": {

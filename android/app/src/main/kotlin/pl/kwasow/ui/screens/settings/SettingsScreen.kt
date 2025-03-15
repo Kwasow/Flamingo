@@ -30,18 +30,18 @@ import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.BuildConfig
 import pl.kwasow.R
-import pl.kwasow.ui.components.SunshineTopAppBar
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.components.FlamingoTopAppBar
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen() {
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     Scaffold(
         topBar = {
-            SunshineTopAppBar(
+            FlamingoTopAppBar(
                 onBackPressed = navigation.navigateBack,
                 title = stringResource(id = R.string.settings_label),
             )
@@ -103,7 +103,7 @@ private fun AppDetails() {
 @Composable
 private fun GeneralSettingsSection() {
     val viewModel = koinViewModel<SettingsScreenViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     SettingsSection(title = stringResource(id = R.string.settings_general)) {
         BackgroundLocationEntry()

@@ -20,7 +20,7 @@ import pl.kwasow.R
 // ====== Public composables
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SunshineTopAppBar(
+fun FlamingoTopAppBar(
     title: String,
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
@@ -52,8 +52,8 @@ fun SunshineTopAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-private fun SunshineTopAppBarPreview() {
-    SunshineTopAppBar(
+private fun FlamingoTopAppBarPreview() {
+    FlamingoTopAppBar(
         title = "Preview",
         onBackPressed = {},
     )
@@ -62,8 +62,8 @@ private fun SunshineTopAppBarPreview() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-private fun SunshineTopAppBarWithActionsPreview() {
-    SunshineTopAppBar(
+private fun FlamingoTopAppBarWithActionsPreview() {
+    FlamingoTopAppBar(
         title = "Preview",
         onBackPressed = {},
         actions = {

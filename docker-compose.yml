@@ -2,7 +2,7 @@ services:
   main:
     build: backend/
     volumes:
-      - ./backend:/usr/local/apache2/htdocs/sunshine
+      - ./backend:/usr/local/apache2/htdocs/flamingo
     ports:
       - 8080:8080
     env_file:

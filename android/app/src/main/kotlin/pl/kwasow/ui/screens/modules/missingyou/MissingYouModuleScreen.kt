@@ -39,27 +39,27 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.ui.components.SunshineBackgroundLight
-import pl.kwasow.ui.components.SunshineTopAppBar
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.components.FlamingoBackgroundLight
+import pl.kwasow.ui.components.FlamingoTopAppBar
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MissingYouModuleScreen() {
     val viewModel = koinViewModel<MissingYouModuleViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     Scaffold(
         topBar = {
-            SunshineTopAppBar(
+            FlamingoTopAppBar(
                 title = stringResource(MissingYouModuleInfo.nameId),
                 onBackPressed = navigation.navigateBack,
             )
         },
         snackbarHost = { SnackbarHost(hostState = viewModel.snackbarHostState) },
     ) { paddingValues ->
-        SunshineBackgroundLight(modifier = Modifier.padding(paddingValues))
+        FlamingoBackgroundLight(modifier = Modifier.padding(paddingValues))
 
         MainView(paddingValues = paddingValues)
     }

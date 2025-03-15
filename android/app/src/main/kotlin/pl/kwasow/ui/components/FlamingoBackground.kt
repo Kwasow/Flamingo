@@ -14,13 +14,14 @@ import pl.kwasow.R
 
 private const val COLUMNS = 9
 
+// ====== Public composables
 @Composable
-fun SunshineBackgroundLight(modifier: Modifier = Modifier) {
-    SunshineBackground(modifier = modifier.alpha(0.35F))
+fun FlamingoBackgroundLight(modifier: Modifier = Modifier) {
+    FlamingoBackground(modifier = modifier.alpha(0.35F))
 }
 
 @Composable
-fun SunshineBackground(modifier: Modifier = Modifier) {
+fun FlamingoBackground(modifier: Modifier = Modifier) {
     val painter = painterResource(id = R.drawable.ic_background_icon)
 
     LazyVerticalGrid(

@@ -21,9 +21,9 @@ import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.ui.components.ErrorDialog
+import pl.kwasow.ui.components.FlamingoBackgroundLight
 import pl.kwasow.ui.components.LoadingView
-import pl.kwasow.ui.components.SunshineBackgroundLight
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @Composable
@@ -31,7 +31,7 @@ fun LoginScreen() {
     val viewModel = koinViewModel<LoginScreenViewModel>()
 
     Box(modifier = Modifier.fillMaxSize()) {
-        SunshineBackgroundLight()
+        FlamingoBackgroundLight()
 
         MainView()
 
@@ -62,7 +62,7 @@ fun LoginScreen() {
 @Composable
 private fun MainView() {
     val viewModel = koinViewModel<LoginScreenViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     Column(
         modifier = Modifier.systemBarsPadding(),

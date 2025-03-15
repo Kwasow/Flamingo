@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 import pl.kwasow.ui.screens.modules.ModuleListItem
 import pl.kwasow.ui.screens.modules.location.LocationModuleInfo
 import pl.kwasow.ui.screens.modules.memories.MemoriesModuleInfo
@@ -19,7 +19,7 @@ import pl.kwasow.ui.screens.modules.whishlist.WishlistModuleInfo
 // ====== Public composables
 @Composable
 fun ModuleList(navigationBarPadding: Dp) {
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     Column(
         modifier =

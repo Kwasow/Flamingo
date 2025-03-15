@@ -1,4 +1,4 @@
-package pl.kwasow.sunshine
+package pl.kwasow
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -31,17 +31,17 @@ import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
 import dev.chrisbanes.haze.materials.HazeMaterials
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.ui.components.SunshineBackgroundLight
-import pl.kwasow.ui.components.SunshineTopAppBar
+import pl.kwasow.ui.components.FlamingoBackgroundLight
+import pl.kwasow.ui.components.FlamingoTopAppBar
 import pl.kwasow.ui.components.YearPickerDialog
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
 @Composable
 fun MemoriesModuleScreen() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
     val hazeState = remember { HazeState() }
     val style = HazeMaterials.ultraThin(MaterialTheme.colorScheme.surface)
     var yearPickerOpen by remember { mutableStateOf(false) }
@@ -89,7 +89,7 @@ private fun AppBar(
 ) {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
-    SunshineTopAppBar(
+    FlamingoTopAppBar(
         title = stringResource(id = MemoriesModuleInfo.nameId),
         onBackPressed = onBackPressed,
         colors =
@@ -122,7 +122,7 @@ private fun MainView(
 ) {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
-    SunshineBackgroundLight(
+    FlamingoBackgroundLight(
         modifier =
             Modifier
                 .hazeSource(state = hazeState)

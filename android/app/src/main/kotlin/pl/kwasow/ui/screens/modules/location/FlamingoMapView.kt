@@ -25,7 +25,7 @@ import pl.kwasow.utils.bitmapDescriptorFromVector
 
 // ====== Public composables
 @Composable
-fun SunshineMapView(
+fun FlamingoMapView(
     hazeState: HazeState,
     paddingValues: PaddingValues,
 ) {
