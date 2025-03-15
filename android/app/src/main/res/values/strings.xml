@@ -98,7 +98,6 @@
     <string name="contentDescription_karonia_logo">App logo</string>
     <string name="contentDescription_module_icon">%1$s module</string>
     <string name="contentDescription_navigate_back">Back navigation arrow</string>
-    <string name="contentDescription_music_icon">Music</string>
     <string name="contentDescription_album_cover">Album cover</string>
     <string name="contentDescription_download_icon">Download</string>
     <string name="contentDescription_trash_icon">Trash</string>
