@@ -4,7 +4,7 @@ require_once __DIR__.'/../../config/config.php';
 
 function openConnection()
 {
-    $config = getSunshineConfig();
+    $config = getFlamingoConfig();
 
     $db_address = $config['databaseAddress'];
     $db_username = $config['databaseUsername'];
