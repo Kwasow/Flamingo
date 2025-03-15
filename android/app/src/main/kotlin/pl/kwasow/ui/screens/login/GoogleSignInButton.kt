@@ -27,7 +27,7 @@ fun GoogleSignInButton(onClick: () -> Unit) {
         Image(
             painter = painterResource(id = R.drawable.ic_google),
             contentDescription = stringResource(id = R.string.contentDescription_google_icon),
-            modifier = Modifier.size(30.dp)
+            modifier = Modifier.size(30.dp),
         )
         Text(
             modifier = Modifier.padding(start = 8.dp),
