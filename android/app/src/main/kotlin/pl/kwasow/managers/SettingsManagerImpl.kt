@@ -8,7 +8,7 @@ class SettingsManagerImpl(
 ) : SettingsManager {
     // ====== Fields
     companion object {
-        private const val PREFERENCES_FILE = "pl.kwasow.sunshine.ApplicationSharedPreferences"
+        private const val PREFERENCES_FILE = "pl.kwasow.flamingo.ApplicationSharedPreferences"
 
         private const val ALLOW_LOCATION_REQUESTS_KEY = "AllowLocationRequests"
     }

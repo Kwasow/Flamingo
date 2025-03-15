@@ -2,7 +2,7 @@ package pl.kwasow.ui.composition
 
 import androidx.compose.runtime.compositionLocalOf
 
-data class SunshineNavigation(
+data class FlamingoNavigation(
     val navigateToHome: () -> Unit = {},
     val navigateToLogin: () -> Unit = {},
     val navigateToPhoto: (uri: String) -> Unit = {},
@@ -16,7 +16,7 @@ data class SunshineNavigation(
     val navigateBack: () -> Unit = {},
 )
 
-val LocalSunshineNavigation =
+val LocalFlamingoNavigation =
     compositionLocalOf {
-        SunshineNavigation()
+        FlamingoNavigation()
     }

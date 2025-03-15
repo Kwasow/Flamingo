@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import pl.kwasow.R
 import pl.kwasow.ui.components.PhotoView
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -42,7 +42,7 @@ fun PhotoPreviewScreen(uri: String) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TopAppBar() {
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     CenterAlignedTopAppBar(
         title = {},

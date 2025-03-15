@@ -31,14 +31,14 @@ import dev.chrisbanes.haze.materials.HazeMaterials
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.ui.components.AnimatedRefreshButton
-import pl.kwasow.ui.components.SunshineTopAppBar
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.components.FlamingoTopAppBar
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
 @Composable
 fun LocationModuleScreen() {
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
     val hazeState = remember { HazeState() }
     val style = HazeMaterials.ultraThin(MaterialTheme.colorScheme.surface)
 
@@ -69,7 +69,7 @@ private fun AppBar(
     val viewModel = koinViewModel<LocationModuleViewModel>()
     val locationPermission = viewModel.rememberLocationPermissionState()
 
-    SunshineTopAppBar(
+    FlamingoTopAppBar(
         title = stringResource(LocationModuleInfo.nameId),
         onBackPressed = onBackPressed,
         modifier = Modifier.hazeEffect(state = hazeState, style = style),
@@ -103,7 +103,7 @@ private fun MainView(
     }
 
     if (locationPermission.allPermissionsGranted) {
-        SunshineMapView(
+        FlamingoMapView(
             hazeState = hazeState,
             paddingValues = paddingValues,
         )

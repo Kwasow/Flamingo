@@ -6,7 +6,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 @Composable
-fun SunshineTheme(content: @Composable () -> Unit) {
+fun FlamingoTheme(content: @Composable () -> Unit) {
     val colorScheme = lightScheme
 
     MaterialTheme(

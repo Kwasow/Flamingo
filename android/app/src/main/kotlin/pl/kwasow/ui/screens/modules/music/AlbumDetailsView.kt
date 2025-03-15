@@ -16,15 +16,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.ui.components.SunshineTopAppBar
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.components.FlamingoTopAppBar
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlbumDetailsView(albumUuid: String) {
     val viewModel = koinViewModel<MusicModuleViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     val album =
         viewModel.getAlbumByUuid(albumUuid)
@@ -32,7 +32,7 @@ fun AlbumDetailsView(albumUuid: String) {
 
     Scaffold(
         topBar = {
-            SunshineTopAppBar(
+            FlamingoTopAppBar(
                 title = album.title,
                 onBackPressed = navigation.navigateBack,
             )

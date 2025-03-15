@@ -8,7 +8,7 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.tasks.await
 import pl.kwasow.data.UserLocation
-import pl.kwasow.utils.SunshineLogger
+import pl.kwasow.utils.FlamingoLogger
 
 class LocationManagerImpl(
     context: Context,
@@ -55,10 +55,10 @@ class LocationManagerImpl(
 
             return location
         } catch (e: SecurityException) {
-            SunshineLogger.e("Location permission not granted", e)
+            FlamingoLogger.e("Location permission not granted", e)
             return null
         } catch (e: Exception) {
-            SunshineLogger.e("Error getting location", e)
+            FlamingoLogger.e("Error getting location", e)
             return null
         }
     }
@@ -76,10 +76,10 @@ class LocationManagerImpl(
 
             return location
         } catch (e: SecurityException) {
-            SunshineLogger.e("Location permission not granted", e)
+            FlamingoLogger.e("Location permission not granted", e)
             return null
         } catch (e: Exception) {
-            SunshineLogger.e("Error getting location", e)
+            FlamingoLogger.e("Error getting location", e)
             return null
         }
     }
@@ -90,9 +90,9 @@ class LocationManagerImpl(
         }
 
         if (requestManager.updateLocation(location)) {
-            SunshineLogger.i("Location updated on server")
+            FlamingoLogger.i("Location updated on server")
         } else {
-            SunshineLogger.e("Location update on server failed")
+            FlamingoLogger.e("Location update on server failed")
         }
     }
 }

@@ -1,4 +1,4 @@
-package pl.kwasow.sunshine
+package pl.kwasow
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

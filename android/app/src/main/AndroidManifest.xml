@@ -23,13 +23,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Sunshine"
+        android:theme="@style/Theme.Flamingo"
         android:enableOnBackInvokedCallback="true">
 
         <activity
             android:name="pl.kwasow.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Sunshine">
+            android:theme="@style/Theme.Flamingo">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +46,7 @@
             </intent-filter>
         </service>
 
-        <service android:name="pl.kwasow.services.SunshineDownloadService"
+        <service android:name="pl.kwasow.services.FlamingoDownloadService"
             android:exported="false"
             android:foregroundServiceType="dataSync">
             <!-- This is needed for Scheduler -->
@@ -56,7 +56,7 @@
             </intent-filter>
         </service>
 
-        <service android:name="pl.kwasow.services.SunshineMessagingService"
+        <service android:name="pl.kwasow.services.FlamingoMessagingService"
             android:permission="com.google.android.c2dm.permission.SEND"
             android:foregroundServiceType="remoteMessaging"
             android:exported="true">

@@ -14,7 +14,7 @@ import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
 import pl.kwasow.data.Album
 import pl.kwasow.data.AudioTrack
-import pl.kwasow.services.SunshineDownloadService
+import pl.kwasow.services.FlamingoDownloadService
 import java.io.File
 import java.net.URL
 
@@ -97,7 +97,7 @@ class AudioManagerImpl(
         album.tracks.forEach { track ->
             DownloadService.sendRemoveDownload(
                 context,
-                SunshineDownloadService::class.java,
+                FlamingoDownloadService::class.java,
                 getTrackId(track),
                 false,
             )
@@ -108,7 +108,7 @@ class AudioManagerImpl(
     override fun removeAllDownloads() {
         DownloadService.sendRemoveAllDownloads(
             context,
-            SunshineDownloadService::class.java,
+            FlamingoDownloadService::class.java,
             false,
         )
 
@@ -163,7 +163,7 @@ class AudioManagerImpl(
 
         DownloadService.sendAddDownload(
             context,
-            SunshineDownloadService::class.java,
+            FlamingoDownloadService::class.java,
             downloadRequest,
             false,
         )

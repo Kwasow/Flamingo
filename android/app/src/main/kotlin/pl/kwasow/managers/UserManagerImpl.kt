@@ -20,7 +20,7 @@ import pl.kwasow.R
 import pl.kwasow.data.AuthenticationResult
 import pl.kwasow.data.User
 import pl.kwasow.managers.UserManager.LoginContext
-import pl.kwasow.utils.SunshineLogger
+import pl.kwasow.utils.FlamingoLogger
 
 class UserManagerImpl(
     private val context: Context,
@@ -104,7 +104,7 @@ class UserManagerImpl(
                     )
                 handleSignIn(result, loginContext)
             } catch (e: GetCredentialException) {
-                SunshineLogger.e(
+                FlamingoLogger.e(
                     "Google login failed - filterByAuthorizedAccounts: " +
                         "$filterAuthorizedAccounts - ($e)",
                 )
@@ -120,7 +120,7 @@ class UserManagerImpl(
         val credential = result.credential
 
         val onUnknownCredential = {
-            SunshineLogger.e("Unknown credential type")
+            FlamingoLogger.e("Unknown credential type")
             loginContext.onError(context.getString(R.string.login_error))
         }
 
@@ -164,22 +164,22 @@ class UserManagerImpl(
 
                 when (authResult.authorization) {
                     AuthenticationResult.Authorization.AUTHORIZED -> {
-                        SunshineLogger.i("Google and Firebase login success")
+                        FlamingoLogger.i("Google and Firebase login success")
                         loginContext.onSuccess()
                     }
                     AuthenticationResult.Authorization.UNAUTHORIZED -> {
-                        SunshineLogger.e("Firebase login failed - access not granted")
+                        FlamingoLogger.e("Firebase login failed - access not granted")
                         loginContext.onError(context.getString(R.string.login_error_no_access))
                         signOut()
                     }
                     AuthenticationResult.Authorization.UNKNOWN -> {
-                        SunshineLogger.e("Firebase login failed - couldn't connect to server")
+                        FlamingoLogger.e("Firebase login failed - couldn't connect to server")
                         loginContext.onError(context.getString(R.string.login_error_no_connection))
                         signOut()
                     }
                 }
             } else {
-                SunshineLogger.e("Firebase login failed (${task.exception})")
+                FlamingoLogger.e("Firebase login failed (${task.exception})")
                 loginContext.onError(context.getString(R.string.login_error))
             }
         }

@@ -14,7 +14,7 @@ import androidx.compose.ui.text.style.TextAlign
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import pl.kwasow.R
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 @Composable
 fun PhotoView(
@@ -25,7 +25,7 @@ fun PhotoView(
     clickable: Boolean = true,
 ) {
     val context = LocalContext.current
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     val imageRequest =
         ImageRequest.Builder(context)

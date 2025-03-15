@@ -24,7 +24,7 @@ import pl.kwasow.data.Memory
 import pl.kwasow.data.User
 import pl.kwasow.data.UserLocation
 import pl.kwasow.data.Wish
-import pl.kwasow.utils.SunshineLogger
+import pl.kwasow.utils.FlamingoLogger
 
 class RequestManagerImpl(
     private val tokenManager: TokenManager,
@@ -226,7 +226,7 @@ class RequestManagerImpl(
             try {
                 json.decodeFromString<T>(response.bodyAsText())
             } catch (e: Exception) {
-                SunshineLogger.d("Failed to decode json response", e)
+                FlamingoLogger.d("Failed to decode json response", e)
                 null
             }
 
@@ -265,7 +265,7 @@ class RequestManagerImpl(
                     }
                 }
 
-            SunshineLogger.d(
+            FlamingoLogger.d(
                 "Request (auth) to $url [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
@@ -301,7 +301,7 @@ class RequestManagerImpl(
                     }
                 }
 
-            SunshineLogger.d(
+            FlamingoLogger.d(
                 "Request (no auth) to $url [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request

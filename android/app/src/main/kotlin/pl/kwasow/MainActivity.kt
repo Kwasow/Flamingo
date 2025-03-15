@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import org.koin.compose.KoinContext
 import pl.kwasow.ui.App
-import pl.kwasow.ui.theme.SunshineTheme
+import pl.kwasow.ui.theme.FlamingoTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         setupSystemBars()
 
         setContent {
-            SunshineTheme {
+            FlamingoTheme {
                 KoinContext {
                     App()
                 }

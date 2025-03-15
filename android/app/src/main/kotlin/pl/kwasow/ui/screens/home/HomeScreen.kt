@@ -28,15 +28,15 @@ import androidx.compose.ui.unit.dp
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.ui.components.SunshineBackgroundLight
-import pl.kwasow.ui.composition.LocalSunshineNavigation
+import pl.kwasow.ui.components.FlamingoBackgroundLight
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun HomeScreen() {
     val viewModel = koinViewModel<HomeScreenViewModel>()
-    val navigation = LocalSunshineNavigation.current
+    val navigation = LocalFlamingoNavigation.current
 
     LaunchedEffect(true) {
         viewModel.doLaunchTasks(navigation.navigateToLogin)
@@ -52,7 +52,7 @@ fun HomeScreen() {
 
     Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
         Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
-            SunshineBackgroundLight()
+            FlamingoBackgroundLight()
 
             Column(
                 modifier = Modifier.verticalScroll(rememberScrollState()),

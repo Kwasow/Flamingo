@@ -12,9 +12,9 @@ import pl.kwasow.managers.MemoriesManager
 import pl.kwasow.managers.MessagingManager
 import pl.kwasow.managers.NotificationManager
 import pl.kwasow.managers.SettingsManager
-import pl.kwasow.utils.SunshineLogger
+import pl.kwasow.utils.FlamingoLogger
 
-class SunshineMessagingService : FirebaseMessagingService() {
+class FlamingoMessagingService : FirebaseMessagingService() {
     // ====== Fields
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
@@ -28,7 +28,7 @@ class SunshineMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        SunshineLogger.d("FCM token updated")
+        FlamingoLogger.d("FCM token updated")
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
@@ -81,6 +81,6 @@ class SunshineMessagingService : FirebaseMessagingService() {
     }
 
     private fun handleIncorrectMessage() {
-        SunshineLogger.e("Received incorrect Firebase message")
+        FlamingoLogger.e("Received incorrect Firebase message")
     }
 }

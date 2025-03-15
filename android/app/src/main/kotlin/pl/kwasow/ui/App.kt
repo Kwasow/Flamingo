@@ -16,8 +16,8 @@ import androidx.navigation.toRoute
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.extensions.slideComposable
 import pl.kwasow.ui.components.RootLayout
-import pl.kwasow.ui.composition.LocalSunshineNavigation
-import pl.kwasow.ui.composition.SunshineNavigation
+import pl.kwasow.ui.composition.FlamingoNavigation
+import pl.kwasow.ui.composition.LocalFlamingoNavigation
 import pl.kwasow.ui.screens.home.HomeScreen
 import pl.kwasow.ui.screens.login.LoginScreen
 import pl.kwasow.ui.screens.modules.location.LocationModuleScreen
@@ -49,7 +49,7 @@ fun App() {
 private fun NavContainer(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
 
-    SunshineNavHost(
+    FlamingoNavHost(
         navController = navController,
         modifier = modifier,
     ) {
@@ -102,14 +102,14 @@ private fun NavContainer(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun SunshineNavHost(
+private fun FlamingoNavHost(
     navController: NavHostController,
     modifier: Modifier,
     builder: NavGraphBuilder.() -> Unit,
 ) {
     val viewModel = koinViewModel<AppViewModel>()
-    val sunshineNavigation =
-        SunshineNavigation(
+    val flamingoNavigation =
+        FlamingoNavigation(
             navigateToHome = { navController.navigate(HomeScreen) { popUpTo(0) } },
             navigateToLogin = { navController.navigate(LoginScreen) { popUpTo(0) } },
             navigateToPhoto = { navController.navigate(PhotoScreen(it)) },
@@ -123,7 +123,7 @@ private fun SunshineNavHost(
             navigateBack = { navController.popBackStack() },
         )
 
-    CompositionLocalProvider(LocalSunshineNavigation provides sunshineNavigation) {
+    CompositionLocalProvider(LocalFlamingoNavigation provides flamingoNavigation) {
         NavHost(
             navController = navController,
             startDestination = viewModel.getInitialRoute(),

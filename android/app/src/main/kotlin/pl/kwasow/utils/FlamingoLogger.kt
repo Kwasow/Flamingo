@@ -2,9 +2,9 @@ package pl.kwasow.utils
 
 import android.util.Log
 
-object SunshineLogger {
+object FlamingoLogger {
     // ====== Fields
-    private const val TAG = "Sunshine"
+    private const val TAG = "Flamingo"
 
     // ====== Public methods
 
