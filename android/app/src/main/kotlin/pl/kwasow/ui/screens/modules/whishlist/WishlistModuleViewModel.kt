@@ -3,7 +3,6 @@ package pl.kwasow.ui.screens.modules.whishlist
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -22,8 +21,6 @@ class WishlistModuleViewModel(
 ) : ViewModel() {
     // ====== Fields
     val tabs = TabItem.getWishlistTabs(userManager.getCachedUser())
-    var tabIndex: Int by mutableIntStateOf(0)
-        private set
 
     var isWishlistLoading: Boolean by mutableStateOf(true)
         private set
