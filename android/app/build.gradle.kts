@@ -134,6 +134,7 @@ dependencies {
     // BoM
     implementation(platform(libs.compose.bom))
     implementation(platform(libs.firebase.bom))
+    implementation(platform(libs.koin.bom))
 
     // Firebase and Google
     implementation(libs.firebase.analytics)
