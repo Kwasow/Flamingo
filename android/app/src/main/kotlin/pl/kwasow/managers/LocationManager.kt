@@ -7,6 +7,7 @@ import pl.kwasow.data.UserLocation
 interface LocationManager {
     // ====== Fields
     val userLocation: LiveData<Location?>
+
     val partnerLocation: LiveData<UserLocation?>
 
     // ====== Public methods
