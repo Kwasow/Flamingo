@@ -10,12 +10,15 @@ import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import kotlinx.coroutines.launch
+import pl.kwasow.data.User
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.PermissionManager
+import pl.kwasow.managers.UserManager
 
 class LocationModuleViewModel(
     private val locationManager: LocationManager,
     private val permissionManager: PermissionManager,
+    private val userManager: UserManager,
 ) : ViewModel() {
     // ====== Fields
     var isLoading by mutableStateOf(false)
@@ -33,6 +36,8 @@ class LocationModuleViewModel(
             isLoading = false
         }
     }
+
+    fun getUser(): User? = userManager.getCachedUser()
 
     @ExperimentalPermissionsApi
     @Composable

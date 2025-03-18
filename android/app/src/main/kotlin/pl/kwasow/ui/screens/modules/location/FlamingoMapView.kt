@@ -1,21 +1,30 @@
 package pl.kwasow.ui.screens.modules.location
 
 import android.location.Location
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -30,6 +39,8 @@ import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
+import pl.kwasow.data.User
+import pl.kwasow.data.UserIcon
 import pl.kwasow.data.UserLocation
 import pl.kwasow.utils.FlamingoDateUtils
 
@@ -42,6 +53,7 @@ fun FlamingoMapView(
     val viewModel = koinViewModel<LocationModuleViewModel>()
     val userLocation = viewModel.userLocation.observeAsState()
     val partnerLocation = viewModel.partnerLocation.observeAsState()
+    val user = viewModel.getUser()
 
     val warsaw = LatLng(52.229845, 21.0104188)
     val cameraPositionState =
@@ -81,12 +93,12 @@ fun FlamingoMapView(
     ) {
         val userLoc = userLocation.value
         if (userLoc != null) {
-            CurrentLocationMarker(location = userLoc)
+            CurrentLocationMarker(location = userLoc, user = user)
         }
 
         val partnerLoc = partnerLocation.value
         if (partnerLoc != null) {
-            PersonMarker(location = partnerLoc)
+            PersonMarker(location = partnerLoc, user = user)
         }
     }
 }
@@ -94,44 +106,84 @@ fun FlamingoMapView(
 // ====== Private composables
 @Composable
 private fun CurrentLocationMarker(
+    user: User?,
     location: Location,
-    onClick: () -> Boolean = { false },
 ) {
-    val markerState = rememberMarkerState(position = LatLng(location.latitude, location.longitude))
-    val title = stringResource(id = R.string.module_location_your_location)
-
-    MarkerInfoWindowComposable(
-        state = markerState,
-        title = title,
-        onClick = { onClick() },
-        infoContent = { MarkerInfo(name = title, time = location.time) },
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_current_location),
-            contentDescription = stringResource(id = R.string.module_location_your_location),
-            modifier = Modifier.size(32.dp),
-        )
-    }
+    FlamingoMarker(
+        latitude = location.latitude,
+        longitude = location.longitude,
+        title = stringResource(id = R.string.module_location_your_location),
+        time = location.time,
+        icon = user?.icon,
+        fallbackIcon = R.drawable.ic_current_location,
+    )
 }
 
 @Composable
 private fun PersonMarker(
+    user: User?,
     location: UserLocation,
-    onClick: () -> Boolean = { false },
 ) {
-    val markerState = rememberMarkerState(position = LatLng(location.latitude, location.longitude))
+    FlamingoMarker(
+        latitude = location.latitude,
+        longitude = location.longitude,
+        title = location.userName,
+        time = location.timestamp,
+        icon = user?.missingYouRecipient?.icon,
+        fallbackIcon = R.drawable.ic_map_user_marker,
+    )
+}
+
+@Composable
+private fun FlamingoMarker(
+    latitude: Double,
+    longitude: Double,
+    title: String,
+    time: Long,
+    icon: UserIcon?,
+    @DrawableRes fallbackIcon: Int,
+) {
+    val markerState = rememberMarkerState(position = LatLng(latitude, longitude))
 
     MarkerInfoWindowComposable(
         state = markerState,
-        title = location.userName,
-        onClick = { onClick() },
-        infoContent = { MarkerInfo(name = location.userName, time = location.timestamp) },
+        title = title,
+        infoContent = {
+            MarkerInfo(
+                name = title,
+                time = time,
+                icon = icon,
+            )
+        },
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_map_user_marker),
-            contentDescription = location.userName,
-            modifier = Modifier.size(32.dp),
-        )
+        if (icon != null) {
+            Card(
+                elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+                shape = CircleShape,
+                modifier =
+                    Modifier.border(
+                        1.dp,
+                        MaterialTheme.colorScheme.onBackground,
+                        CircleShape,
+                    ),
+            ) {
+                Icon(
+                    painter = painterResource(id = icon.res),
+                    contentDescription = title,
+                    modifier =
+                        Modifier
+                            .background(MaterialTheme.colorScheme.background)
+                            .padding(4.dp)
+                            .size(16.dp),
+                )
+            }
+        } else {
+            Image(
+                painter = painterResource(id = fallbackIcon),
+                contentDescription = title,
+                modifier = Modifier.size(24.dp),
+            )
+        }
     }
 }
 
@@ -139,14 +191,37 @@ private fun PersonMarker(
 private fun MarkerInfo(
     name: String,
     time: Long,
+    icon: UserIcon?,
 ) {
-    Card {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                text = name,
-                style = MaterialTheme.typography.headlineSmall,
-            )
-            Text(FlamingoDateUtils.getRelativeTimeString(time))
+    Card(modifier = Modifier.padding(4.dp)) {
+        Row(
+            modifier = Modifier.padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Column {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.titleMedium,
+                )
+                Text(
+                    text = FlamingoDateUtils.getRelativeTimeString(time),
+                    style = MaterialTheme.typography.bodySmall,
+                    fontStyle = FontStyle.Italic,
+                )
+            }
+
+            icon?.res?.let { resId ->
+                Icon(
+                    painter = painterResource(id = resId),
+                    contentDescription = name,
+                    modifier =
+                        Modifier
+                            .padding(start = 16.dp)
+                            .background(MaterialTheme.colorScheme.background, shape = CircleShape)
+                            .padding(8.dp)
+                            .size(32.dp),
+                )
+            }
         }
     }
 }
@@ -158,5 +233,6 @@ private fun MarkerInfoPreview() {
     MarkerInfo(
         name = "My location",
         time = System.currentTimeMillis() - 1000000,
+        icon = UserIcon.SHEEP,
     )
 }

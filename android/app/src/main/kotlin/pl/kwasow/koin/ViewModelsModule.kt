@@ -30,7 +30,7 @@ val viewModelsModule =
         }
 
         viewModel {
-            LocationModuleViewModel(get(), get())
+            LocationModuleViewModel(get(), get(), get())
         }
 
         viewModel {
