@@ -38,7 +38,7 @@ import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.data.Wish
 import pl.kwasow.extensions.linkify
-import pl.kwasow.utils.DateUtils
+import pl.kwasow.utils.FlamingoDateUtils
 
 // ====== Public composables
 @Composable
@@ -141,7 +141,7 @@ private fun Content(
             )
         }
         Text(
-            text = DateUtils.timestampToString(wish.timestamp),
+            text = FlamingoDateUtils.timestampToString(wish.timestamp),
             style = MaterialTheme.typography.labelSmall,
             color = Color.Gray,
         )

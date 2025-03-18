@@ -1,11 +1,12 @@
 package pl.kwasow.utils
 
+import android.text.format.DateUtils
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.ZoneId
 
-object DateUtils {
+object FlamingoDateUtils {
     // ====== Public methods
     fun timestampToString(timestamp: Long): String {
         val instant = Instant.ofEpochMilli(timestamp)
@@ -29,5 +30,11 @@ object DateUtils {
             }
 
         return "${date.dayOfMonth} $month ${date.year}"
+    }
+
+    fun getRelativeTimeString(time: Long): String {
+        return DateUtils
+            .getRelativeTimeSpanString(time, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS)
+            .toString()
     }
 }
