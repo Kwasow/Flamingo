@@ -3,6 +3,8 @@ package pl.kwasow.koin
 import org.koin.dsl.module
 import pl.kwasow.managers.AudioManager
 import pl.kwasow.managers.AudioManagerImpl
+import pl.kwasow.managers.FlamingoDownloadManager
+import pl.kwasow.managers.FlamingoDownloadManagerImpl
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.LocationManagerImpl
 import pl.kwasow.managers.MemoriesManager
@@ -32,6 +34,10 @@ val managersModule =
     module {
         single<AudioManager> {
             AudioManagerImpl(get(), get())
+        }
+
+        single<FlamingoDownloadManager> {
+            FlamingoDownloadManagerImpl(get(), get())
         }
 
         single<LocationManager> {

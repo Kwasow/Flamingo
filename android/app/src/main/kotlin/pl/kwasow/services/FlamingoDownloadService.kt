@@ -13,8 +13,7 @@ import androidx.media3.exoplayer.scheduler.PlatformScheduler
 import androidx.media3.exoplayer.scheduler.Scheduler
 import org.koin.android.ext.android.inject
 import pl.kwasow.R
-import pl.kwasow.managers.NotificationManager
-import pl.kwasow.utils.DownloadUtils
+import pl.kwasow.managers.FlamingoDownloadManager
 
 @UnstableApi
 class FlamingoDownloadService : DownloadService(
@@ -68,18 +67,14 @@ class FlamingoDownloadService : DownloadService(
         }
     }
 
-    private val notificationManager by inject<NotificationManager>()
+    private val flamingoDownloadManager by inject<FlamingoDownloadManager>()
 
     // ====== Interface methods
     override fun getDownloadManager(): DownloadManager {
         // This will only happen once, because getDownloadManager is guaranteed to be called only once
         // in the life cycle of the process.
-        val downloadManager = DownloadUtils.getDownloadManager(this)
-        val helper =
-            DownloadUtils.getDownloadNotificationHelper(
-                this,
-                notificationManager.downloadChannelInfo.channelId,
-            )
+        val downloadManager = flamingoDownloadManager.downloadManager
+        val helper = flamingoDownloadManager.downloadNotificationHelper
         downloadManager.addListener(
             TerminalStateNotificationHelper(this, helper, FOREGROUND_NOTIFICATION_ID + 1),
         )
@@ -93,10 +88,7 @@ class FlamingoDownloadService : DownloadService(
         downloads: MutableList<Download>,
         notMetRequirements: Int,
     ): Notification {
-        return DownloadUtils.getDownloadNotificationHelper(
-            this,
-            notificationManager.downloadChannelInfo.channelId,
-        )
+        return flamingoDownloadManager.downloadNotificationHelper
             .buildProgressNotification(
                 this,
                 R.drawable.ic_download,

@@ -19,10 +19,10 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     private val job = SupervisorJob()
     private val scope = CoroutineScope(Dispatchers.IO + job)
 
-    private val locationManager by lazy { inject<LocationManager>() }
-    private val memoriesManager by lazy { inject<MemoriesManager>() }
-    private val notificationManager by lazy { inject<NotificationManager>() }
-    private val settingsManager by lazy { inject<SettingsManager>() }
+    private val locationManager by inject<LocationManager>()
+    private val memoriesManager by inject<MemoriesManager>()
+    private val notificationManager by inject<NotificationManager>()
+    private val settingsManager by inject<SettingsManager>()
 
     // ====== Interface methods
     override fun onNewToken(token: String) {
@@ -53,30 +53,30 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     // ====== Private methods
     private fun handleMissingYouMessage(data: Map<String, String>) {
         val senderName = data["name"] ?: return handleIncorrectMessage()
-        notificationManager.value.postMissingYouNotification(senderName)
+        notificationManager.postMissingYouNotification(senderName)
     }
 
     private fun handleDailyMemoryMessage() {
         scope.launch {
-            if (memoriesManager.value.getTodayMemories().isNotEmpty()) {
-                notificationManager.value.postMemoryNotification()
+            if (memoriesManager.getTodayMemories().isNotEmpty()) {
+                notificationManager.postMemoryNotification()
             }
         }
     }
 
     private fun handleRequestLocationMessage() {
-        if (!settingsManager.value.allowLocationRequests) {
+        if (!settingsManager.allowLocationRequests) {
             return
         }
 
         scope.launch {
-            locationManager.value.requestLocation()
+            locationManager.requestLocation()
         }
     }
 
     private fun handleLocationUpdatedMessage() {
         scope.launch {
-            locationManager.value.requestPartnerLocation()
+            locationManager.requestPartnerLocation()
         }
     }
 
