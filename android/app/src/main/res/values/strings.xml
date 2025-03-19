@@ -22,9 +22,9 @@
     <string name="settings_location_sharing">Location requests</string>
     <string name="settings_location_sharing_description">Send location in the background</string>
     <string name="settings_location_dialog_title">Location</string>
+    <string name="settings_location_dialog_content">Background location access is required if you want to check where %1$s is while they are not using the app. The app will also share your location in the background.\n\nPress \"OK\" to launch settings and then choose \"Permissions\" > \"Location\" > \"Allow all the time\"</string>
 
     <!-- General -->
-    <string name="settings_location_dialog_content">Background location access is required if you want to check where %1$s is while they are not using the app. The app will also share your location in the background.\n\nPress \"OK\" to launch settings and then choose \"Permissions\" > \"Location\" > \"Allow all the time\"</string>
     <string name="ok">OK</string>
     <string name="failed_loading_photo">Failed to load photo</string>
     <string name="confirm">Confirm</string>
@@ -64,9 +64,9 @@
     <string name="module_missingyou_miss_you">I miss you</string>
     <string name="module_missingyou_sending_success">❤️ Missing you message sent</string>
     <string name="module_missingyou_sending_failed">😢 Failed to send missing you message</string>
+    <string name="module_missingyou_touch_to_send">Touch to send missing you notification</string>
 
     <!-- Module: Location -->
-    <string name="module_missingyou_touch_to_send">Touch to send missing you notification</string>
     <string name="module_location_name">Location</string>
     <string name="module_location_no_permission">Location permission not granted</string>
     <string name="module_location_your_location">Your location</string>

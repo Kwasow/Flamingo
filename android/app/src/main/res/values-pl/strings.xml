@@ -19,8 +19,8 @@
     <string name="settings_location_sharing">Prośby o lokalizację</string>
     <string name="settings_location_sharing_description">Wysyłaj lokalizację w tle</string>
     <string name="settings_location_dialog_title">Lokalizacja</string>
-    <!-- General -->
     <string name="settings_location_dialog_content">Dostęp do lokalizacji w tle jest wymagany, jeśli chcesz móc sprawdzać, gdzie jest %1$s, kiedy nie korzysta z aplikacji. Aplikacja będzie też udostępniać Twoją lokalizację, nawet jeśli z niej nie korzystasz.\n\nKliknij \"OK\" aby przejść od ustawień, a następnie wybierz \"Uprawnienia\" &gt; \"Lokalizacja\" &gt; \"Zawsze zezwalaj\"</string>
+    <!-- General -->
     <string name="ok">OK</string>
     <string name="failed_loading_photo">Nie udało się załadować zdjęcia</string>
     <string name="confirm">Potwierdź</string>
@@ -55,8 +55,8 @@
     <string name="module_missingyou_miss_you">Tęsknię</string>
     <string name="module_missingyou_sending_success">❤️ Tęsknota wysłana</string>
     <string name="module_missingyou_sending_failed">😢 Nie udało się wysłać tęsknoty</string>
-    <!-- Module: Location -->
     <string name="module_missingyou_touch_to_send">Dotknij naszyjnika, by wysłać tęsknotę</string>
+    <!-- Module: Location -->
     <string name="module_location_name">Lokalizacja</string>
     <string name="module_location_no_permission">Nie nadano uprawnień do korzystania z lokalizacji</string>
     <string name="module_location_your_location">Twoja lokalizacja</string>
