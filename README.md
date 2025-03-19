@@ -2,7 +2,7 @@
 
 [![Android](https://github.com/Kwasow/Flamingo/actions/workflows/android.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/android.yml)
 [![CodeQL Advanced](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml)
-[![Crowdin](https://badges.crowdin.net/flamingo-app/localized.svg)](https://crowdin.com)
+[![Crowdin](https://badges.crowdin.net/flamingo-app/localized.svg)](https://crowdin.com/project/flamingo-app)
 
 An app for couples for storing and celebrating memories, sharing wishes, sending
 nudges and much more.
