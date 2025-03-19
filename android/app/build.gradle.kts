@@ -108,10 +108,6 @@ android {
         kotlinCompilerExtensionVersion = "1.5.15"
     }
 
-    androidResources {
-        generateLocaleConfig = true
-    }
-
     // Specify build flavors
     flavorDimensions += "version"
     productFlavors {
