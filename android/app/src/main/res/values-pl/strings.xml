@@ -20,7 +20,7 @@
     <string name="settings_location_sharing_description">Wysyłaj lokalizację w tle</string>
     <string name="settings_location_dialog_title">Lokalizacja</string>
     <!-- General -->
-    <string name="settings_location_dialog_content">Dostęp do lokalizacji w tle jest wymagany, jeśli chcesz móc sprawdzać, gdzie jest %1$s, kiedy nie korzysta z aplikacji. Aplikacja będzie też udostępniać Twoją lokalizację, nawet jeśli z niej nie korzystasz.\n\nKliknij \"OK\" aby przejść od ustawień, a następnie wybierz \"Uprawnienia\" &gt; \"Lokalizacja\" &gt; \"Zawsze zezwalaj\".</string>
+    <string name="settings_location_dialog_content">Dostęp do lokalizacji w tle jest wymagany, jeśli chcesz móc sprawdzać, gdzie jest %1$s, kiedy nie korzysta z aplikacji. Aplikacja będzie też udostępniać Twoją lokalizację, nawet jeśli z niej nie korzystasz.\n\nKliknij \"OK\" aby przejść od ustawień, a następnie wybierz \"Uprawnienia\" &gt; \"Lokalizacja\" &gt; \"Zawsze zezwalaj\"</string>
     <string name="ok">OK</string>
     <string name="failed_loading_photo">Nie udało się załadować zdjęcia</string>
     <string name="confirm">Potwierdź</string>
@@ -36,7 +36,7 @@
     <string name="module_memories_name">Wspomnienia</string>
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>
     <!-- Widget: Memories -->
-    <string name="widget_memories_no_memories">Kocham Cię ❤️</string>
+    <string name="widget_memories_no_memories">Brak wspomnień\nKocham Cię ❤️</string>
     <!-- Module: Music -->
     <string name="module_music_name">Piosenki</string>
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>
@@ -48,7 +48,7 @@
     <string name="module_wishlist_delete_dialog_header">Usuwanie prezentu</string>
     <string name="module_wishlist_delete_dialog_text">Czy na pewno chcesz usunąć \"%1$s\" z listy?</string>
     <string name="module_wishlist_add_failed">Nie udało się dodać życzenia</string>
-    <string name="module_wishlist_update_failed">Nie udało się zaaktualizować życzenia</string>
+    <string name="module_wishlist_update_failed">Nie udało się zaktualizować życzenia</string>
     <string name="module_wishlist_remove_failed">Nie udało się usunąć życzenia</string>
     <!-- Module: Missing You -->
     <string name="module_missingyou_name">Tęsknota</string>
