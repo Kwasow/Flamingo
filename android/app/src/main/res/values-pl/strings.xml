@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Login -->
     <string name="login_error_no_access">Nie masz uprawnień do korzystania z tej aplikacji. Spróbuj zalogować się innym kontem.</string>
     <string name="login_error_no_connection">Nie udało się połączyć z serwerem.</string>
     <string name="login_error">Nieznany błąd logowania</string>
     <string name="login_google">Zaloguj przez Google</string>
-
     <!-- Settings screen -->
     <string name="settings_label">Ustawienia</string>
     <string name="settings_play_store">Sklep Play</string>
@@ -19,9 +19,8 @@
     <string name="settings_location_sharing">Prośby o lokalizację</string>
     <string name="settings_location_sharing_description">Wysyłaj lokalizację w tle</string>
     <string name="settings_location_dialog_title">Lokalizacja</string>
-    <string name="settings_location_dialog_content">Dostęp do lokalizacji w tle jest wymagany, jeśli chcesz móc sprawdzać, gdzie jest %1$s, kiedy nie korzysta z aplikacji. Aplikacja będzie też udostępniać Twoją lokalizację, nawet jeśli z niej nie korzystasz.\n\nKliknij \"OK\" aby przejść od ustawień, a następnie wybierz \"Uprawnienia\" > \"Lokalizacja\" > \"Zawsze zezwalaj\".</string>
-
     <!-- General -->
+    <string name="settings_location_dialog_content">Dostęp do lokalizacji w tle jest wymagany, jeśli chcesz móc sprawdzać, gdzie jest %1$s, kiedy nie korzysta z aplikacji. Aplikacja będzie też udostępniać Twoją lokalizację, nawet jeśli z niej nie korzystasz.\n\nKliknij \"OK\" aby przejść od ustawień, a następnie wybierz \"Uprawnienia\" &gt; \"Lokalizacja\" &gt; \"Zawsze zezwalaj\".</string>
     <string name="ok">OK</string>
     <string name="failed_loading_photo">Nie udało się załadować zdjęcia</string>
     <string name="confirm">Potwierdź</string>
@@ -33,20 +32,16 @@
     <string name="dialog_year_picker_title">Wybierz rok</string>
     <string name="something_went_wrong">Coś poszło nie tak</string>
     <string name="partner">partner</string>
-
     <!-- Module: Memories -->
     <string name="module_memories_name">Wspomnienia</string>
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>
-
     <!-- Widget: Memories -->
     <string name="widget_memories_no_memories">Kocham Cię ❤️</string>
-
     <!-- Module: Music -->
     <string name="module_music_name">Piosenki</string>
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>
     <string name="module_music_delete_dialog_header">Usuwanie albumu</string>
     <string name="module_music_delete_dialog_text">Czy na pewno chcesz usunąć album \"%1$s\"?</string>
-
     <!-- Module: Wishlist -->
     <string name="module_wishlist_name">Prezenty</string>
     <string name="module_wishlist_wish_entry_hint">Zacznij pisać…</string>
@@ -55,41 +50,33 @@
     <string name="module_wishlist_add_failed">Nie udało się dodać życzenia</string>
     <string name="module_wishlist_update_failed">Nie udało się zaaktualizować życzenia</string>
     <string name="module_wishlist_remove_failed">Nie udało się usunąć życzenia</string>
-
     <!-- Module: Missing You -->
     <string name="module_missingyou_name">Tęsknota</string>
     <string name="module_missingyou_miss_you">Tęsknię</string>
     <string name="module_missingyou_sending_success">❤️ Tęsknota wysłana</string>
     <string name="module_missingyou_sending_failed">😢 Nie udało się wysłać tęsknoty</string>
-    <string name="module_missingyou_touch_to_send">Dotknij naszyjnika, by wysłać tęsknotę</string>
-
     <!-- Module: Location -->
+    <string name="module_missingyou_touch_to_send">Dotknij naszyjnika, by wysłać tęsknotę</string>
     <string name="module_location_name">Lokalizacja</string>
     <string name="module_location_no_permission">Nie nadano uprawnień do korzystania z lokalizacji</string>
     <string name="module_location_your_location">Twoja lokalizacja</string>
-
     <!-- Widget: Days Together -->
     <string name="widget_daystogether_day_together">dzień razem</string>
-
     <!-- Widget: Now playing -->
     <string name="widget_nowplaying_no_title">(utwór bez nazwy)</string>
     <string name="widget_nowplaying_no_artist">(artysta bez nazwy)</string>
-
     <!-- Notification channels -->
     <string name="notificationChannel_memories">Wspomnienia</string>
     <string name="notificationChannel_memories_description">Tutaj będą się pojawiały powiadomienia o wspomnieniach</string>
     <string name="notification_memories_title">Wspomnienia</string>
     <string name="notification_memories_text">Masz wspomnienia na dzisiaj!</string>
-
     <string name="notificationChannel_downloads">Pobieranie</string>
     <string name="notificationChannel_downloads_description">Tutaj będą się pojawiały powiadomienia o aktywnym pobieraniu</string>
-
     <string name="notificationChannel_missingyou">Tęsknota</string>
     <string name="notificationChannel_missingyou_description">Tutaj będą się pojawiały powiadomienia o tym, że tęsknimy</string>
     <string name="notification_missingyou_title1">%1$s bardzo za Tobą tęskni</string>
     <string name="notification_missingyou_title2">Ktoś się za Tobą stęsknił</string>
     <string name="notification_missingyou_title3">Brakuje mi Ciebie - %1$s</string>
-
     <!-- Content description -->
     <string name="contentDescription_google_icon">Logo Google</string>
     <string name="contentDescription_karonia_logo">Logo aplikacji</string>
