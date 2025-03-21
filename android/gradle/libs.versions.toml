@@ -3,7 +3,7 @@
 compileSdk = "35"
 targetSdk = "35"
 minSdk = "26"
-versionCode = "41"
+versionCode = "44"
 versionName = "2.2.0"
 
 # Libraries

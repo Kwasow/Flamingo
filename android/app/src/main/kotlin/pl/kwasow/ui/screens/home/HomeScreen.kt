@@ -79,9 +79,10 @@ private fun TopBar(navigateToSettings: () -> Unit) {
             painter = painterResource(id = R.drawable.logo),
             contentDescription = stringResource(id = R.string.contentDescription_karonia_logo),
             contentScale = ContentScale.FillHeight,
-            modifier = Modifier
-                .height(40.dp)
-                .padding(horizontal = 16.dp),
+            modifier =
+                Modifier
+                    .height(40.dp)
+                    .padding(horizontal = 16.dp),
         )
 
         IconButton(onClick = { navigateToSettings() }) {

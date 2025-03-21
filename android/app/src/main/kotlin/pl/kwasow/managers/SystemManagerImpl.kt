@@ -23,6 +23,30 @@ class SystemManagerImpl(
         private const val USER_CACHE_FILE = "user_cache.json"
     }
 
+    private val storeIntent by lazy {
+        val intent =
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}"),
+            )
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        return@lazy intent
+    }
+
+    private val webStoreIntent by lazy {
+        val intent =
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(
+                    "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}",
+                ),
+            )
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+        return@lazy intent
+    }
+
     private val json = Json { ignoreUnknownKeys = true }
 
     // ====== Interface methods
@@ -69,22 +93,9 @@ class SystemManagerImpl(
 
     override fun launchStore() {
         try {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}"),
-                ),
-            )
+            context.startActivity(storeIntent)
         } catch (_: ActivityNotFoundException) {
-            context.startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse(
-                        "https://play.google.com/store/apps/details?id=" +
-                            BuildConfig.APPLICATION_ID,
-                    ),
-                ),
-            )
+            context.startActivity(webStoreIntent)
         }
     }
 
