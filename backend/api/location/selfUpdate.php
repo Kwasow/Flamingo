@@ -37,7 +37,7 @@ $stmt = mysqli_prepare(
 mysqli_stmt_bind_param(
     $stmt,
     'idddddddd',
-    $postData,
+    $userId,
     $latitude,
     $longitude,
     $accuracy,

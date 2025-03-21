@@ -14,12 +14,14 @@ $firebaseMessaging = $factory->createMessaging();
 
 function sendTopicFirebaseMessage($topic, $data)
 {
+    $messaging = $GLOBALS['firebaseMessaging'];
+
     if ($topic == null) {
         return null;
     }
 
-    $message = CloudMessage::withTarget('topic', $data)
+    $message = CloudMessage::withTarget('topic', $topic)
         ->withData($data);
-    
-    return $firebaseMessaging->send($message);
+        
+    return $messaging->send($message);
 }
