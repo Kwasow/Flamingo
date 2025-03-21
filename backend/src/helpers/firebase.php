@@ -18,7 +18,7 @@ function sendTopicFirebaseMessage($topic, $data)
         return null;
     }
 
-    $message = CloudMessage::withTarget('topic', $topic)
+    $message = CloudMessage::withTarget('topic', $data)
         ->withData($data);
     
     return $firebaseMessaging->send($message);

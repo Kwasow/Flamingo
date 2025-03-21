@@ -3,6 +3,7 @@
 require_once __DIR__.'/../../src/entities/userLocation.php';
 require_once __DIR__.'/../../src/helpers/authorization.php';
 require_once __DIR__.'/../../src/helpers/database.php';
+require_once __DIR__.'/../../src/helpers/firebase.php';
 
 // Open database connection
 $conn = openConnection();
