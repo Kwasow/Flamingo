@@ -3,6 +3,7 @@
 require_once __DIR__.'/../../src/entities/userLocation.php';
 require_once __DIR__.'/../../src/helpers/authorization.php';
 require_once __DIR__.'/../../src/helpers/database.php';
+require_once __DIR__.'/../../src/helpers/firebase.php';
 
 // Open database connection
 $conn = openConnection();
@@ -36,7 +37,7 @@ $stmt = mysqli_prepare(
 mysqli_stmt_bind_param(
     $stmt,
     'idddddddd',
-    $postData,
+    $userId,
     $latitude,
     $longitude,
     $accuracy,

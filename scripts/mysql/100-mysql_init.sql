@@ -49,7 +49,7 @@ CREATE TABLE Locations(
   user_id INT NOT NULL,
   latitude FLOAT NOT NULL,
   longitude FLOAT NOT NULL,
-  accuracy INT NOT NULL,
+  accuracy FLOAT NOT NULL,
   time_stamp BIGINT NOT NULL,
   PRIMARY KEY (user_id),
   CONSTRAINT FK_User FOREIGN KEY (user_id) REFERENCES User(id)
