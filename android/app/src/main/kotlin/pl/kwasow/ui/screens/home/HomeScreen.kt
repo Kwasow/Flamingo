@@ -82,7 +82,7 @@ private fun TopBar(navigateToSettings: () -> Unit) {
             modifier =
                 Modifier
                     .height(40.dp)
-                    .padding(horizontal = 16.dp),
+                    .padding(start = 24.dp, bottom = 4.dp),
         )
 
         IconButton(onClick = { navigateToSettings() }) {
