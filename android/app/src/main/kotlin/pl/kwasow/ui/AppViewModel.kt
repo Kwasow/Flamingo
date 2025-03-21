@@ -15,7 +15,7 @@ class AppViewModel(
         return if (userManager.isUserLoggedIn()) {
             HomeScreen
         } else {
-            LoginScreen
+            HomeScreen
         }
     }
 }
