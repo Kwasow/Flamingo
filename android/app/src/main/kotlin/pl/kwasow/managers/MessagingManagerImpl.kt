@@ -18,12 +18,12 @@ class MessagingManagerImpl(
 
     // ====== Interface methods
     override suspend fun sendFcmToken(checkAge: Boolean) {
-        val token = Firebase.messaging.token.await()
-
         val lastSyncTime = settingsManager.lastFCMTokenSyncTimestamp
         val currentTime = System.currentTimeMillis()
 
         if (!checkAge || currentTime - lastSyncTime > MONTH) {
+            val token = Firebase.messaging.token.await()
+
             if (requestManager.updateFcmToken(token)) {
                 settingsManager.lastFCMTokenSyncTimestamp = currentTime
             }
