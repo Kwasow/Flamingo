@@ -22,10 +22,24 @@ if ($user !== null) {
 // Get wishlist from database and return as JSON
 header('Content-Type: application/json; charset=utf-8');
 
-$result = mysqli_query(
+$userId = $user->getId();
+$partnerId = $user->getPartner()->getId();
+
+$stmt = mysqli_prepare(
     $conn,
-    'SELECT * FROM Wishlist'
+    'SELECT
+        w.id, u.first_name AS author,
+        w.content,
+        w.done,
+        w.time_stamp
+    FROM Wishlist w
+    JOIN Users u ON w.author = u.id
+    WHERE author = ? OR author = ?'
 );
+mysqli_stmt_bind_param($stmt, 'ii', $userId, $partnerId);
+mysqli_stmt_execute($stmt);
+$result = $stmt->get_result();
+$stmt->close();
 
 $wishlist = [];
 while ($row = mysqli_fetch_assoc($result)) {

@@ -24,14 +24,22 @@ $postData = json_decode(file_get_contents('php://input'), true);
 $id = $postData['id'];
 $content = $postData['content'];
 $done = intval($postData['done']);
+$userId = $user->getId();
+$partnerId = $user->getPartner()->getId();
 
 // Update wish in database
 $stmt = mysqli_prepare(
     $conn,
-    'UPDATE Wishlist SET content=?,done=? WHERE id=?'
+    'UPDATE Wishlist
+    SET content = ?, done = ?
+    WHERE id = ? AND (author = ? OR author = ?)'
 );
-mysqli_stmt_bind_param($stmt, 'sii', $content, $done, $id);
+mysqli_stmt_bind_param(
+    $stmt, 'siiii',
+    $content, $done, $id, $userId, $partnerId
+);
 mysqli_stmt_execute($stmt);
+$stmt->close();
 
 mysqli_close($conn);
 exit();
