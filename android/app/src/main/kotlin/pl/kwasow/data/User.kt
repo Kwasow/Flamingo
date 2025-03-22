@@ -16,7 +16,7 @@ interface MinimalUser {
 data class MissingYouRecipient(
     override val id: Int,
     override val firstName: String,
-    override val icon: UserIcon?,
+    override val icon: UserIcon,
 ) : MinimalUser
 
 @Serializable
@@ -25,7 +25,7 @@ data class User(
     override val firstName: String,
     val lastName: String,
     val email: String,
-    override val icon: UserIcon?,
+    override val icon: UserIcon,
     val missingYouRecipient: MissingYouRecipient,
 ) : MinimalUser
 

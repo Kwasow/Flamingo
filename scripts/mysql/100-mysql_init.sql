@@ -9,20 +9,26 @@ CREATE TABLE Users(
   first_name VARCHAR(64) NOT NULL,
   last_name VARCHAR(64) NOT NULL,
   email VARCHAR(64) NOT NULL,
-  missing_you_recipient INT NOT NULL,
-  icon VARCHAR(64),
+  icon VARCHAR(64) NOT NULL,
+  couple_id INT NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_User_MissingYouRecipient FOREIGN KEY (missing_you_recipient) REFERENCES Users(id),
-  CONSTRAINT UK_User_Email UNIQUE (email)
+  CONSTRAINT UK_User_Email UNIQUE (email),
+  CONSTRAINT FK_User_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
+
+CREATE TABLE Couples(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (id)
+)
 
 CREATE TABLE Wishlist(
   id INT NOT NULL AUTO_INCREMENT,
-  author VARCHAR(64) NOT NULL,
+  author INT NOT NULL,
   content TEXT NOT NULL,
   done TINYINT(1) NOT NULL,
   time_stamp BIGINT NOT NULL,
-  PRIMARY KEY (id)
+  PRIMARY KEY (id),
+  CONSTRAINT FK_Wishlist_Author FOREIGN KEY (author) REFERENCES Users(id)
 );
 
 CREATE TABLE Albums(
@@ -31,8 +37,10 @@ CREATE TABLE Albums(
   title TEXT NOT NULL,
   artist VARCHAR(64) NOT NULL,
   cover_name VARCHAR(50) NOT NULL,
+  couple_id INT NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT UC_Album_Uuid UNIQUE (uuid)
+  CONSTRAINT UC_Album_Uuid UNIQUE (uuid),
+  CONSTRAINT FK_Album_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
 
 CREATE TABLE Tracks(

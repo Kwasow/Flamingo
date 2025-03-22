@@ -17,20 +17,19 @@ data class TabItem(
                 return emptyList()
             }
 
-            val useIcons = user.icon != null && user.missingYouRecipient.icon != null
             val otherUser = user.missingYouRecipient
 
             return listOf(
                 TabItem(
                     title = user.firstName,
-                    icon = if (useIcons) user.icon?.res else null,
-                    iconDescription = if (useIcons) user.icon?.description else null,
+                    icon = user.icon.res,
+                    iconDescription = user.icon.description,
                     view = { WishlistView(person = user.firstName) },
                 ),
                 TabItem(
                     title = otherUser.firstName,
-                    icon = if (useIcons) otherUser.icon?.res else null,
-                    iconDescription = if (useIcons) otherUser.icon?.description else null,
+                    icon = otherUser.icon.res,
+                    iconDescription = otherUser.icon.description,
                     view = { WishlistView(person = otherUser.firstName) },
                 ),
             )
