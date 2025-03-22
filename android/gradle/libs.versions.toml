@@ -3,12 +3,12 @@
 compileSdk = "35"
 targetSdk = "35"
 minSdk = "26"
-versionCode = "45"
-versionName = "2.2.0"
+versionCode = "47"
+versionName = "2.2.1"
 
 # Libraries
 composeBom = "2025.03.00"
-firebaseBom = "33.10.0"
+firebaseBom = "33.11.0"
 koinBom = "4.0.2"
 
 accompanistPermissions = "0.37.2"
