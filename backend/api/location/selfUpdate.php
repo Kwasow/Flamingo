@@ -48,9 +48,10 @@ mysqli_stmt_bind_param(
     $timestamp
 );
 mysqli_stmt_execute($stmt);
+$stmt->close();
 
 // Notify partner location updated
-$partnerId = $user->getMissingYouRecipient()->getId();
+$partnerId = $user->getPartner()->getId();
 $data = [
 'type' => 'location_updated'
 ];
