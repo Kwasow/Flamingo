@@ -49,7 +49,7 @@ val managersModule =
         }
 
         single<MessagingManager> {
-            MessagingManagerImpl(get(), get())
+            MessagingManagerImpl(get(), get(), get())
         }
 
         single<NotificationManager> {

@@ -9,7 +9,7 @@ class TokenManagerImpl : TokenManager {
     private val firebaseAuth = Firebase.auth
 
     // ====== Interface methods
-    override suspend fun getToken(): String? =
+    override suspend fun getIdToken(): String? =
         firebaseAuth.currentUser?.getIdToken(
             false,
         )?.await()?.token

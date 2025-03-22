@@ -34,4 +34,6 @@ interface RequestManager {
     suspend fun getPartnerLocation(cached: Boolean = true): UserLocation?
 
     suspend fun updateLocation(location: Location): Boolean
+
+    suspend fun updateFcmToken(token: String): Boolean
 }

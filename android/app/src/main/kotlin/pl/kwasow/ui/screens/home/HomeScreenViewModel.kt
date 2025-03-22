@@ -22,6 +22,7 @@ class HomeScreenViewModel(
     suspend fun doLaunchTasks(navigateToLogin: () -> Unit) {
         // This is not initialized in MainActivity, because the user has to be
         // logged in
+        messagingManager.sendFcmToken()
         messagingManager.subscribeToTopics()
 
         // Check if user is authenticated
