@@ -30,11 +30,6 @@ class UserLocation implements jsonSerializable
         return $this->firstName;
     }
 
-    public function getUserTopic()
-    {
-        return str_replace('@', '.', $this->email);
-    }
-
     public function jsonSerialize()
     {
         return [

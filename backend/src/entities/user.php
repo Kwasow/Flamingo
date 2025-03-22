@@ -25,11 +25,6 @@ class MissingYouRecipient implements jsonSerializable
         return $this->firstName;
     }
 
-    public function getUserTopic()
-    {
-        return str_replace('@', '.', $this->email);
-    }
-
     public function jsonSerialize()
     {
         return [
@@ -73,7 +68,6 @@ class User extends MissingYouRecipient implements JsonSerializable
         'firstName' => $this->firstName,
         'lastName' => $this->lastName,
         'email' => $this->email,
-        'userTopic' => $this->getUserTopic(),
         'icon' => $this->icon,
         'missingYouRecipient' => $this->missingYouRecipient
         ];

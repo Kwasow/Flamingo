@@ -26,19 +26,19 @@ $postData = json_decode(file_get_contents('php://input'), true);
 $type = $postData['type'];
 
 // Send message
-$topic = null;
+$partnerId = null;
 $data = null;
 
 switch ($type) {
     case 'missing_you':
-        $topic = $user->getMissingYouRecipient()->getUserTopic();
+        $partnerId = $user->getMissingYouRecipient()->getId();
         $data = [
             'type' => 'missing_you',
             'name' => $user->getFirstName()
         ];
         break;
     case 'request_location':
-        $topic = $user->getMissingYouRecipient()->getUserTopic();
+        $partnerId = $user->getMissingYouRecipient()->getId();
         $data = [
         'type' => 'request_location'
         ];
@@ -48,7 +48,7 @@ switch ($type) {
 }
 
 try {
-    $result = sendTopicFirebaseMessage($topic, $data);
+    $result = sendUserFirebaseMessage($partnerId, $data, $conn);
 
     if ($result == null) {
         http_response_code(400);
