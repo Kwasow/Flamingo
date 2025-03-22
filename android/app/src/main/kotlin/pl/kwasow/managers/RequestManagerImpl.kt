@@ -37,6 +37,7 @@ class RequestManagerImpl(
         private const val AUTH_URL = "/api/auth.php"
 
         private const val POST_MESSAGE_URL = "/api/messaging/send.php"
+        private const val POST_UPDATE_FCM_TOKEN_URL = "/api/messaging/updateToken.php"
 
         private const val GET_MEMORIES_URL = "/api/memories/get.php"
 
@@ -202,6 +203,23 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
+    override suspend fun updateFcmToken(token: String): Boolean {
+        val body =
+            buildJsonObject {
+                put("token", token)
+                put("debug", BuildConfig.DEBUG)
+            }
+
+        val response =
+            makeAuthRequest(
+                type = HttpMethod.Post,
+                url = POST_UPDATE_FCM_TOKEN_URL,
+                body = body.toString(),
+            )
+
+        return response?.status == HttpStatusCode.OK
+    }
+
     // ====== Private methods
     private suspend inline fun <reified T> makeAuthJsonRequest(
         type: HttpMethod,
@@ -239,7 +257,7 @@ class RequestManagerImpl(
         body: String? = null,
         parameters: Map<String, String>? = null,
     ): HttpResponse? {
-        val token = tokenManager.getToken() ?: return null
+        val token = tokenManager.getIdToken() ?: return null
 
         try {
             val request =

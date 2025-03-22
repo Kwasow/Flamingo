@@ -31,8 +31,8 @@ $timestamp = $postData['timestamp'];
 $stmt = mysqli_prepare(
     $conn,
     'INSERT INTO Locations VALUES(?, ?, ?, ?, ?)
-  ON DUPLICATE KEY
-  UPDATE latitude=?, longitude=?, accuracy=?, time_stamp=?'
+    ON DUPLICATE KEY
+    UPDATE latitude=?, longitude=?, accuracy=?, time_stamp=?'
 );
 mysqli_stmt_bind_param(
     $stmt,
