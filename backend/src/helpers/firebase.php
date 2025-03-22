@@ -25,3 +25,7 @@ function sendTopicFirebaseMessage($topic, $data)
         
     return $messaging->send($message);
 }
+
+function sendUserFirebaseMessage($userId, $data, $connection) {
+
+}

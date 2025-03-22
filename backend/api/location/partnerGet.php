@@ -66,13 +66,13 @@ if (isset($_GET['cached'])) {
 }
 
 if ($cached == false) {
-    $topic = $user->getMissingYouRecipient()->getUserTopic();
+    $partnerId = $user->getMissingYouRecipient()->getId();
     $data = [
     'type' => 'request_location'
     ];
 
     try {
-        $result = sendTopicFirebaseMessage($topic, $data);
+        $result = sendUserFirebaseMessage($partnerId, $data, $conn);
 
         if ($result == null) {
             error_log("[ERROR] Error sending location request");
