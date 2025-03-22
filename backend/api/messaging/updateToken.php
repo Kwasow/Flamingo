@@ -31,12 +31,12 @@ mysqli_stmt_execute($stmt);
 $result = $stmt->get_result();
 
 // Update if exists, else add
-if (($row = mysqli_fetch_row($result)) != null) {
+if (($row = mysqli_fetch_assoc($result)) != null) {
     $stmt = mysqli_prepare(
         $conn,
         'UPDATE FirebaseTokens SET time_stamp = ? WHERE id = ?'
     );
-    mysqli_stmt_bind_param($stmt, 'ii', time(), $row[0]);
+    mysqli_stmt_bind_param($stmt, 'ii', time(), $row['id']);
     mysqli_stmt_execute($stmt);
 } else {
     $stmt = mysqli_prepare(
