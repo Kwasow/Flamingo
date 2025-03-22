@@ -4,10 +4,14 @@ GRANT ALL PRIVILEGES ON flamingo.* TO 'flamingo-user'@'%';
 FLUSH PRIVILEGES;
 
 -- Create tables
+CREATE TABLE Couples(
+  id INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE Users(
   id INT NOT NULL AUTO_INCREMENT,
   first_name VARCHAR(64) NOT NULL,
-  last_name VARCHAR(64) NOT NULL,
   email VARCHAR(64) NOT NULL,
   icon VARCHAR(64) NOT NULL,
   couple_id INT NOT NULL,
@@ -15,11 +19,6 @@ CREATE TABLE Users(
   CONSTRAINT UK_User_Email UNIQUE (email),
   CONSTRAINT FK_User_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
-
-CREATE TABLE Couples(
-  id INT NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (id)
-)
 
 CREATE TABLE Wishlist(
   id INT NOT NULL AUTO_INCREMENT,
