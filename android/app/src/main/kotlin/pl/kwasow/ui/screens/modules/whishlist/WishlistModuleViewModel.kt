@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pl.kwasow.R
+import pl.kwasow.data.MinimalUser
 import pl.kwasow.data.TabItem
 import pl.kwasow.data.Wish
 import pl.kwasow.managers.UserManager
@@ -24,7 +25,7 @@ class WishlistModuleViewModel(
 
     var isWishlistLoading: Boolean by mutableStateOf(true)
         private set
-    var wishlist: Map<String, MutableList<Wish>> by mutableStateOf(emptyMap())
+    var wishlist: Map<Int, MutableList<Wish>> by mutableStateOf(emptyMap())
         private set
 
     var editedWish: Wish? by mutableStateOf(null)
@@ -48,9 +49,13 @@ class WishlistModuleViewModel(
         }
     }
 
-    fun getPersonsWishes(author: String): List<Wish> = wishlist.getOrDefault(author, emptyList())
+    fun getPersonsWishes(user: MinimalUser): List<Wish> =
+        wishlist.getOrDefault(
+            user.id,
+            emptyList(),
+        )
 
-    fun addWish(author: String) {
+    fun addWish(user: MinimalUser) {
         if (inputWishContent.isBlank()) {
             return
         }
@@ -58,7 +63,7 @@ class WishlistModuleViewModel(
         viewModelScope.launch {
             sendingWish = true
 
-            if (wishlistManager.addWish(author, inputWishContent)) {
+            if (wishlistManager.addWish(user.id, inputWishContent)) {
                 inputWishContent = ""
             } else {
                 Toast.makeText(

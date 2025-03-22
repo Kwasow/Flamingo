@@ -3,15 +3,15 @@
 class Wish implements JsonSerializable
 {
     private $id;
-    private $author;
+    private $authorId;
     private $content;
     private $done;
     private $timestamp;
 
-    public function __construct($id, $author, $content, $done, $timestamp)
+    public function __construct($id, $authorId, $content, $done, $timestamp)
     {
         $this->id = $id;
-        $this->author = $author;
+        $this->authorId = $authorId;
         $this->content = $content;
         $this->done = $done;
         $this->timestamp = $timestamp;
@@ -21,7 +21,7 @@ class Wish implements JsonSerializable
     {
         return [
         'id' => $this->id,
-        'author' => $this->author,
+        'authorId' => $this->authorId,
         'content' => $this->content,
         'done' => $this->done,
         'timestamp' => $this->timestamp

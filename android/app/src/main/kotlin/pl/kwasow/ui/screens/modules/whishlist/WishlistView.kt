@@ -2,7 +2,6 @@ package pl.kwasow.ui.screens.modules.whishlist
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,27 +29,30 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
+import pl.kwasow.data.MinimalUser
+import pl.kwasow.data.Partner
+import pl.kwasow.data.UserIcon
 import pl.kwasow.data.Wish
 import pl.kwasow.ui.components.UndecoratedTextField
 
 // ====== Public composables
 @Composable
-fun WishlistView(person: String) {
+fun WishlistView(user: MinimalUser) {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
 
     WishlistView(
-        newWishAuthor = person,
-        wishes = viewModel.getPersonsWishes(person),
+        user = user,
+        wishes = viewModel.getPersonsWishes(user),
         isRefreshing = viewModel.isWishlistLoading,
         onRefresh = { viewModel.refreshWishlist() },
     )
 }
 
 // ====== Private composables
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WishlistView(
-    newWishAuthor: String,
+    user: MinimalUser,
     wishes: List<Wish>,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
@@ -63,7 +65,7 @@ fun WishlistView(
         LazyColumn {
             item {
                 WishInput(
-                    author = newWishAuthor,
+                    user = user,
                     modifier = Modifier.padding(horizontal = 16.dp),
                 )
 
@@ -92,7 +94,7 @@ fun WishlistView(
 
 @Composable
 private fun WishInput(
-    author: String,
+    user: MinimalUser,
     modifier: Modifier = Modifier,
 ) {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
@@ -116,12 +118,12 @@ private fun WishInput(
             )
         }
 
-        WishInputActions(author = author)
+        WishInputActions(user = user)
     }
 }
 
 @Composable
-private fun WishInputActions(author: String) {
+private fun WishInputActions(user: MinimalUser) {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
 
     AnimatedVisibility(visible = viewModel.inputWishContent.isNotBlank()) {
@@ -140,7 +142,7 @@ private fun WishInputActions(author: String) {
                 if (viewModel.editedWish != null) {
                     EditWishActions()
                 } else {
-                    AddWishActions(author = author)
+                    AddWishActions(user = user)
                 }
             }
         }
@@ -170,11 +172,11 @@ private fun EditWishActions() {
 }
 
 @Composable
-private fun AddWishActions(author: String) {
+private fun AddWishActions(user: MinimalUser) {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
 
     TextButton(
-        onClick = { viewModel.addWish(author) },
+        onClick = { viewModel.addWish(user) },
     ) {
         Text(text = stringResource(id = R.string.add))
     }
@@ -188,14 +190,14 @@ private fun WishlistViewPreview() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a link to https://google.com",
             timestamp = 0,
             done = true,
         )
 
     WishlistView(
-        newWishAuthor = "Anon",
+        user = Partner(123, "Anon", UserIcon.SHEEP),
         wishes = listOf(wish, wish, wish),
         isRefreshing = false,
         onRefresh = {},

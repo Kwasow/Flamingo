@@ -27,14 +27,7 @@ $partnerId = $user->getPartner()->getId();
 
 $stmt = mysqli_prepare(
     $conn,
-    'SELECT
-        w.id, u.first_name AS author,
-        w.content,
-        w.done,
-        w.time_stamp
-    FROM Wishlist w
-    JOIN Users u ON w.author = u.id
-    WHERE author = ? OR author = ?'
+    'SELECT * FROM Wishlist WHERE author = ? OR author = ?'
 );
 mysqli_stmt_bind_param($stmt, 'ii', $userId, $partnerId);
 mysqli_stmt_execute($stmt);

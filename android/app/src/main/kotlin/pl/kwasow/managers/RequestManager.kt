@@ -20,7 +20,7 @@ interface RequestManager {
     suspend fun getWishlist(): List<Wish>?
 
     suspend fun addWish(
-        author: String,
+        authorId: Int,
         content: String,
         timestamp: Long,
     ): Boolean

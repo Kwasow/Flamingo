@@ -216,7 +216,7 @@ private fun WishViewPreview() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a link to https://google.com",
             timestamp = 0,
             done = false,
@@ -237,7 +237,7 @@ private fun WishViewPreviewDone() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a link to https://google.com",
             timestamp = 0,
             done = true,
@@ -258,7 +258,7 @@ private fun WishViewPreviewLoading() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a link to https://google.com",
             timestamp = 0,
             done = false,
@@ -279,7 +279,7 @@ private fun WishViewPreviewNoLink() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a wish without links",
             timestamp = 0,
             done = false,

@@ -6,17 +6,17 @@ class WishlistManagerImpl(
     private val requestManager: RequestManager,
 ) : WishlistManager {
     // ====== Public methods
-    override suspend fun getWishlist(): Map<String, List<Wish>>? {
+    override suspend fun getWishlist(): Map<Int, List<Wish>>? {
         val wishlist = requestManager.getWishlist() ?: return null
-        val grouped = wishlist.sortedByDescending { it.timestamp }.groupBy { it.author }
+        val grouped = wishlist.sortedByDescending { it.timestamp }.groupBy { it.authorId }
 
         return grouped
     }
 
     override suspend fun addWish(
-        author: String,
+        authorId: Int,
         content: String,
-    ): Boolean = requestManager.addWish(author, content, System.currentTimeMillis())
+    ): Boolean = requestManager.addWish(authorId, content, System.currentTimeMillis())
 
     override suspend fun removeWish(wish: Wish): Boolean = requestManager.removeWish(wish)
 
