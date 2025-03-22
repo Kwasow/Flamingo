@@ -25,22 +25,25 @@ $endDate = $postData['endDate'];
 $title = $postData['title'];
 $description = $postData['description'];
 $photo = $postData['photo'];
+$coupleId = $user->getCoupleId();
 
 // Add wish to database
 $stmt = mysqli_prepare(
     $conn,
-    'INSERT INTO Memories VALUES(NULL, ?, ?, ?, ?, ?)'
+    'INSERT INTO Memories VALUES(NULL, ?, ?, ?, ?, ?, ?)'
 );
 mysqli_stmt_bind_param(
     $stmt,
-    'sssss',
+    'sssssi',
     $startDate,
     $endDate,
     $title,
     $description,
-    $photo
+    $photo,
+    $coupleId
 );
 mysqli_stmt_execute($stmt);
+$stmt->close();
 
 mysqli_close($conn);
 exit();

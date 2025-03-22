@@ -60,7 +60,9 @@ CREATE TABLE Memories(
   title TEXT NOT NULL,
   memory_description TEXT NOT NULL,
   photo TEXT,
-  PRIMARY KEY (id)
+  couple_id INT NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT FK_Memory_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
 
 CREATE TABLE Locations(
