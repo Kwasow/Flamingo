@@ -53,6 +53,16 @@ CREATE TABLE Tracks(
   CONSTRAINT FK_Track_Album FOREIGN KEY (album_uuid) REFERENCES Albums(uuid)
 );
 
+CREATE TABLE Memories(
+  id INT NOT NULL AUTO_INCREMENT,
+  startDate VARCHAR(10) NOT NULL,
+  endDate VARCHAR(10),
+  title TEXT NOT NULL,
+  memory_description TEXT NOT NULL,
+  photo TEXT,
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE Locations(
   user_id INT NOT NULL,
   latitude FLOAT NOT NULL,
