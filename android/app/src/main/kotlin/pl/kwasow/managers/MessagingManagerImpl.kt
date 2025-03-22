@@ -24,8 +24,9 @@ class MessagingManagerImpl(
         val currentTime = System.currentTimeMillis()
 
         if (!checkAge || currentTime - lastSyncTime > MONTH) {
-            requestManager.updateFcmToken(token)
-            settingsManager.lastFCMTokenSyncTimestamp = currentTime
+            if (requestManager.updateFcmToken(token)) {
+                settingsManager.lastFCMTokenSyncTimestamp = currentTime
+            }
         }
     }
 

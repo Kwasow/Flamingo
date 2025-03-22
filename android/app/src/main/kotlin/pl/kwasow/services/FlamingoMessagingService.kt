@@ -21,6 +21,7 @@ class FlamingoMessagingService : FirebaseMessagingService() {
 
     private val locationManager by inject<LocationManager>()
     private val memoriesManager by inject<MemoriesManager>()
+    private val messagingManager by inject<MessagingManager>()
     private val notificationManager by inject<NotificationManager>()
     private val settingsManager by inject<SettingsManager>()
 
@@ -28,7 +29,10 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        FlamingoLogger.d("FCM token updated")
+        scope.launch {
+            messagingManager.sendFcmToken(checkAge = false)
+            FlamingoLogger.d("FCM token updated")
+        }
     }
 
     override fun onMessageReceived(message: RemoteMessage) {
