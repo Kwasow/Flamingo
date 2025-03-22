@@ -17,7 +17,7 @@ data class TabItem(
                 return emptyList()
             }
 
-            val otherUser = user.missingYouRecipient
+            val partner = user.partner
 
             return listOf(
                 TabItem(
@@ -27,10 +27,10 @@ data class TabItem(
                     view = { WishlistView(person = user.firstName) },
                 ),
                 TabItem(
-                    title = otherUser.firstName,
-                    icon = otherUser.icon.res,
-                    iconDescription = otherUser.icon.description,
-                    view = { WishlistView(person = otherUser.firstName) },
+                    title = partner.firstName,
+                    icon = partner.icon.res,
+                    iconDescription = partner.icon.description,
+                    view = { WishlistView(person = partner.firstName) },
                 ),
             )
         }

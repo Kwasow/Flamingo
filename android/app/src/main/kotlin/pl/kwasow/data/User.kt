@@ -9,11 +9,11 @@ import pl.kwasow.R
 interface MinimalUser {
     val id: Int
     val firstName: String
-    val icon: UserIcon?
+    val icon: UserIcon
 }
 
 @Serializable
-data class MissingYouRecipient(
+data class Partner(
     override val id: Int,
     override val firstName: String,
     override val icon: UserIcon,
@@ -23,10 +23,9 @@ data class MissingYouRecipient(
 data class User(
     override val id: Int,
     override val firstName: String,
-    val lastName: String,
     val email: String,
     override val icon: UserIcon,
-    val missingYouRecipient: MissingYouRecipient,
+    val partner: Partner,
 ) : MinimalUser
 
 @Serializable
