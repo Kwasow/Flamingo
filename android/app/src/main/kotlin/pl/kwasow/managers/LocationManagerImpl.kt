@@ -40,7 +40,7 @@ class LocationManagerImpl(
         // request the server cached location
         val partnerLocation =
             requestManager.getPartnerLocation(
-                cached && !settingsManager.allowLocationRequests,
+                cached || !settingsManager.allowLocationRequests,
             )
         if (partnerLocation != null) {
             this.partnerLocation.postValue(partnerLocation)
