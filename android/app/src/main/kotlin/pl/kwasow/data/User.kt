@@ -25,7 +25,6 @@ data class User(
     override val firstName: String,
     val lastName: String,
     val email: String,
-    val userTopic: String,
     override val icon: UserIcon?,
     val missingYouRecipient: MissingYouRecipient,
 ) : MinimalUser

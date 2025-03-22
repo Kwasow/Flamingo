@@ -31,7 +31,6 @@ class MessagingManagerImpl(
     }
 
     override suspend fun subscribeToTopics() {
-        subscribeToUserTopic()
         subscribeToAllTopic()
     }
 
@@ -40,12 +39,5 @@ class MessagingManagerImpl(
     // ====== Private methods
     private fun subscribeToAllTopic() {
         firebaseMessaging.subscribeToTopic("all")
-    }
-
-    private suspend fun subscribeToUserTopic() {
-        val user = userManager.getUser()
-        user?.userTopic?.let { userTopic ->
-            firebaseMessaging.subscribeToTopic(userTopic)
-        }
     }
 }
