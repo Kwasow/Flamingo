@@ -13,7 +13,7 @@ CREATE TABLE Users(
   icon VARCHAR(64),
   PRIMARY KEY (id),
   CONSTRAINT FK_User_MissingYouRecipient FOREIGN KEY (missing_you_recipient) REFERENCES Users(id),
-  CONSTRAINT UK_Email UNIQUE (email)
+  CONSTRAINT UK_User_Email UNIQUE (email)
 );
 
 CREATE TABLE Wishlist(
@@ -32,7 +32,7 @@ CREATE TABLE Albums(
   artist VARCHAR(64) NOT NULL,
   cover_name VARCHAR(50) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT UC_Uuid UNIQUE (uuid)
+  CONSTRAINT UC_Album_Uuid UNIQUE (uuid)
 );
 
 CREATE TABLE Tracks(

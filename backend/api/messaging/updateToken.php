@@ -17,8 +17,8 @@ if ($user !== null) {
 // Get request details
 $postData = json_decode(file_get_contents('php://input'), true);
 $token = $postData['token'];
-$debug = $postData['debug'];
-$userId = $user->getId;
+$isDebug = $postData['debug'];
+$userId = $user->getId();
 
 $stmt = mysqli_prepare(
     $conn,
@@ -42,7 +42,7 @@ if (($row = mysqli_fetch_row($result)) != null) {
         $conn,
         'INSERT INTO FirebaseTokens VALUES(NULL, ?, ?, ?, ?)'
     );
-    mysqli_stmt_bind_param($stmt, 'iisi', $userId, time(), $token, $debug);
+    mysqli_stmt_bind_param($stmt, 'iisi', $userId, time(), $token, $isDebug);
     mysqli_stmt_execute($stmt);
 }
 
