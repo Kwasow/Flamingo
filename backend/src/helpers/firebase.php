@@ -28,26 +28,25 @@ function sendTopicFirebaseMessage($topic, $data)
 
 function sendUserFirebaseMessage($userId, $data, $connection) {
     $stmt = mysqli_prepare(
-        $conn,
+        $connection,
         'SELECT token FROM FirebaseTokens WHERE user_id = ?'
     );
     mysqli_stmt_bind_param($stmt, 'i', $userId);
     mysqli_stmt_execute($stmt);
 
-    $tokens = $stmt->get_result();
+    $result = $stmt->get_result();
 
-    if ($tokens == null) {
+    $tokens = [];
+    while (($row = mysqli_fetch_row($result)) != null) {
+        $tokens[] = $row[0];
+    }
+
+    if (count($tokens) == 0) {
         return null;
     }
 
     $messaging = $GLOBALS['firebaseMessaging'];
-
-    $messages = [];
-    foreach ($tokens as $token) {
-        $message = CloudMessage::new()
-            ->withData($data)
-            ->toToken($token);
-    }
-
-    return $messaging->sendAll($messages);
+    $message = CloudMessage::new()
+        ->withData($data);
+    return $messaging->sendMulticast($message, $tokens);
 }
