@@ -3,8 +3,8 @@
 compileSdk = "35"
 targetSdk = "35"
 minSdk = "26"
-versionCode = "52"
-versionName = "2.2.2"
+versionCode = "53"
+versionName = "2.3.0"
 
 # Libraries
 composeBom = "2025.03.00"
