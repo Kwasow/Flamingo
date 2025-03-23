@@ -31,14 +31,14 @@ $data = null;
 
 switch ($type) {
     case 'missing_you':
-        $partnerId = $user->getMissingYouRecipient()->getId();
+        $partnerId = $user->getPartner()->getId();
         $data = [
             'type' => 'missing_you',
             'name' => $user->getFirstName()
         ];
         break;
     case 'request_location':
-        $partnerId = $user->getMissingYouRecipient()->getId();
+        $partnerId = $user->getPartner()->getId();
         $data = [
         'type' => 'request_location'
         ];

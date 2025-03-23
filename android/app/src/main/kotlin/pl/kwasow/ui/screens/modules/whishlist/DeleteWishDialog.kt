@@ -116,7 +116,7 @@ private fun DeleteWishDialogPreview() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a link to https://google.com",
             timestamp = 0,
             done = true,
@@ -136,7 +136,7 @@ private fun DeleteWishDialogPreviewButtonsDisabled() {
     val wish =
         Wish(
             id = 0,
-            author = "Anon",
+            authorId = 123,
             content = "This is a link to https://google.com",
             timestamp = 0,
             done = true,

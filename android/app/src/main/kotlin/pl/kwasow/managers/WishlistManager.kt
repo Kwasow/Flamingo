@@ -4,10 +4,10 @@ import pl.kwasow.data.types.Wish
 
 interface WishlistManager {
     // ====== Methods
-    suspend fun getWishlist(): Map<String, List<Wish>>?
+    suspend fun getWishlist(): Map<Int, List<Wish>>?
 
     suspend fun addWish(
-        author: String,
+        authorId: Int,
         content: String,
     ): Boolean
 

@@ -5,7 +5,7 @@ require_once __DIR__.'/../../src/helpers/firebase.php';
 
 use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
 
-function checkAuthorization($dbConnection)
+function checkAuthorization($connection)
 {
     $token = getBearerToken();
 
@@ -23,18 +23,18 @@ function checkAuthorization($dbConnection)
 
     // Check database
     $email = $verifiedIdToken->claims()->get('email');
-    $stmt = mysqli_prepare(
-        $dbConnection,
+    $query =
         'SELECT
-        this.*,
-        other.id AS other_id,
-        other.first_name AS other_name,
-        other.email AS other_email,
-        other.icon AS other_icon
-     FROM Users AS this
-     LEFT JOIN Users AS other ON this.missing_you_recipient = other.id
-     WHERE this.email = ?'
-    );
+            this.*,
+            other.id AS other_id,
+            other.first_name AS other_name,
+            other.email AS other_email,
+            other.icon AS other_icon,
+            other.couple AS other_couple
+        FROM Users this
+        LEFT JOIN Users other ON this.couple = other.couple AND this.id != other.id
+        WHERE this.email = ?';
+    $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($stmt, 's', $email);
     mysqli_stmt_execute($stmt);
 
@@ -47,20 +47,23 @@ function checkAuthorization($dbConnection)
 
     $user = mysqli_fetch_assoc($result);
 
-    $otherUser = new MissingYouRecipient(
-        $user['other_id'],
-        $user['other_name'],
-        $user['other_email'],
-        $user['other_icon']
-    );
+    $partner = null;
+    if ($user['other_id'] != null) {
+        $partner = new Partner(
+            $user['other_id'],
+            $user['other_name'],
+            $user['other_icon'],
+            $user['other_couple']
+        );
+    }
 
     return new User(
         $user['id'],
         $user['first_name'],
-        $user['last_name'],
         $user['email'],
         $user['icon'],
-        $otherUser
+        $user['couple'],
+        $partner
     );
 }
 

@@ -121,13 +121,13 @@ class RequestManagerImpl(
     }
 
     override suspend fun addWish(
-        author: String,
+        authorId: Int,
         content: String,
         timestamp: Long,
     ): Boolean {
         val body =
             buildJsonObject {
-                put("author", author)
+                put("authorId", authorId)
                 put("content", content)
                 put("timestamp", timestamp)
             }

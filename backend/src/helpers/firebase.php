@@ -37,8 +37,8 @@ function sendUserFirebaseMessage($userId, $data, $connection) {
     $result = $stmt->get_result();
 
     $tokens = [];
-    while (($row = mysqli_fetch_row($result)) != null) {
-        $tokens[] = $row[0];
+    while (($row = mysqli_fetch_assoc($result)) != null) {
+        $tokens[] = $row['token'];
     }
 
     if (count($tokens) == 0) {

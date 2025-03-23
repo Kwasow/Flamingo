@@ -129,7 +129,7 @@ private fun PersonMarker(
         longitude = location.longitude,
         title = location.userName,
         time = location.timestamp,
-        icon = user?.missingYouRecipient?.icon,
+        icon = user?.partner?.icon,
         fallbackIcon = R.drawable.ic_map_user_marker,
     )
 }

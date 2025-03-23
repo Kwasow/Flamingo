@@ -22,14 +22,17 @@ if ($user !== null) {
 // Get request details
 $postData = json_decode(file_get_contents('php://input'), true);
 $id = $postData['id'];
+$userId = $user->getId();
+$partnerId = $user->getPartner()->getId();
 
 // Remove wish from database
 $stmt = mysqli_prepare(
     $conn,
-    'DELETE FROM Wishlist WHERE id=?'
+    'DELETE FROM Wishlist WHERE id=? AND (author = ? OR author = ?)'
 );
-mysqli_stmt_bind_param($stmt, 'i', $id);
+mysqli_stmt_bind_param($stmt, 'iii', $id, $userId, $partnerId);
 mysqli_stmt_execute($stmt);
+$stmt->close();
 
 mysqli_close($conn);
 exit();

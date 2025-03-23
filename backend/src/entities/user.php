@@ -1,18 +1,18 @@
 <?php
 
-class MissingYouRecipient implements jsonSerializable
+class Partner implements jsonSerializable
 {
     protected $id;
     protected $firstName;
-    protected $email;
     protected $icon;
+    protected $coupleId;
 
-    public function __construct($id, $firstName, $email, $icon)
+    public function __construct($id, $firstName, $icon, $coupleId)
     {
         $this->id = $id;
         $this->firstName = $firstName;
-        $this->email = $email;
         $this->icon = $icon;
+        $this->coupleId = $coupleId;
     }
 
     public function getId()
@@ -25,6 +25,11 @@ class MissingYouRecipient implements jsonSerializable
         return $this->firstName;
     }
 
+    public function getCoupleId()
+    {
+        return $this->coupleId;
+    }
+
     public function jsonSerialize()
     {
         return [
@@ -35,30 +40,30 @@ class MissingYouRecipient implements jsonSerializable
     }
 }
 
-class User extends MissingYouRecipient implements JsonSerializable
+class User extends Partner implements JsonSerializable
 {
-    private $lastName;
-    private $missingYouRecipient;
+    private $email;
+    private $partner;
 
     public function __construct(
         $id,
         $firstName,
-        $lastName,
         $email,
         $icon,
-        $missingYouRecipient
+        $coupleId,
+        $partner
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
-        $this->lastName = $lastName;
         $this->email = $email;
         $this->icon = $icon;
-        $this->missingYouRecipient = $missingYouRecipient;
+        $this->coupleId = $coupleId;
+        $this->partner = $partner;
     }
 
-    public function getMissingYouRecipient()
+    public function getPartner()
     {
-        return $this->missingYouRecipient;
+        return $this->partner;
     }
 
     public function jsonSerialize()
@@ -66,10 +71,9 @@ class User extends MissingYouRecipient implements JsonSerializable
         return [
         'id' => $this->id,
         'firstName' => $this->firstName,
-        'lastName' => $this->lastName,
         'email' => $this->email,
         'icon' => $this->icon,
-        'missingYouRecipient' => $this->missingYouRecipient
+        'partner' => $this->partner
         ];
     }
 }

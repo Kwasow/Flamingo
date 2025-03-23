@@ -24,7 +24,7 @@ class SettingsScreenViewModel(
     val allowLocationRequests = preferencesManager.allowLocationRequests
 
     val partnerName =
-        userManager.getCachedUser()?.missingYouRecipient?.firstName
+        userManager.getCachedUser()?.partner?.firstName
             ?: applicationContext.getString(R.string.partner)
 
     // ====== Methods
