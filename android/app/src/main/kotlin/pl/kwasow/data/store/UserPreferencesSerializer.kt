@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.dataStore
 import com.google.protobuf.InvalidProtocolBufferException
 import pl.kwasow.UserPreferences
@@ -34,4 +35,5 @@ object UserPreferencesSerializer : Serializer<UserPreferences> {
 val Context.userPreferencesDataStore: DataStore<UserPreferences> by dataStore(
     fileName = "user_preferences.pb",
     serializer = UserPreferencesSerializer,
+    corruptionHandler = ReplaceFileCorruptionHandler { UserPreferencesSerializer.defaultValue },
 )
