@@ -68,7 +68,7 @@ if (isset($_GET['cached'])) {
 }
 
 if ($cached == false) {
-    $partnerId = $user->getMissingYouRecipient()->getId();
+    $partnerId = $user->getPartner()->getId();
     $data = [
     'type' => 'request_location'
     ];
