@@ -17,8 +17,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import pl.kwasow.BuildConfig
 import pl.kwasow.R
-import pl.kwasow.data.AuthenticationResult
-import pl.kwasow.data.User
+import pl.kwasow.data.types.AuthenticationResult
+import pl.kwasow.data.types.User
 import pl.kwasow.managers.UserManager.LoginContext
 import pl.kwasow.utils.FlamingoLogger
 

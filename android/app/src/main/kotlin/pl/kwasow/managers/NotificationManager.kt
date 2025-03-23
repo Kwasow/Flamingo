@@ -1,6 +1,6 @@
 package pl.kwasow.managers
 
-import pl.kwasow.data.NotificationChannelInfo
+import pl.kwasow.data.types.NotificationChannelInfo
 
 interface NotificationManager {
     // ====== Fields

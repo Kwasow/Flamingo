@@ -17,10 +17,10 @@ import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.PermissionManagerImpl
 import pl.kwasow.managers.PlaybackManager
 import pl.kwasow.managers.PlaybackManagerImpl
-import pl.kwasow.managers.RequestManager
-import pl.kwasow.managers.RequestManagerImpl
 import pl.kwasow.managers.PreferencesManager
 import pl.kwasow.managers.PreferencesManagerImpl
+import pl.kwasow.managers.RequestManager
+import pl.kwasow.managers.RequestManagerImpl
 import pl.kwasow.managers.SystemManager
 import pl.kwasow.managers.SystemManagerImpl
 import pl.kwasow.managers.TokenManager

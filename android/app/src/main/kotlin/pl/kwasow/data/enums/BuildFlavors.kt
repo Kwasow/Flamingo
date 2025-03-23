@@ -1,4 +1,4 @@
-package pl.kwasow.data
+package pl.kwasow.data.enums
 
 enum class BuildFlavors(val flavorName: String) {
     DEFAULT("Flamingo"),

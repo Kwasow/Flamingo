@@ -2,6 +2,9 @@ package pl.kwasow.managers
 
 import android.content.Context
 import androidx.core.content.edit
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import pl.kwasow.data.store.userPreferencesDataStore
 
 class PreferencesManagerImpl(
     val context: Context,
@@ -20,14 +23,11 @@ class PreferencesManagerImpl(
             Context.MODE_PRIVATE,
         )
 
-    override var allowLocationRequests: Boolean
-        get() = sharedPreferences.getBoolean(ALLOW_LOCATION_REQUESTS_KEY, true)
-        set(value) {
-            sharedPreferences.edit {
-                putBoolean(ALLOW_LOCATION_REQUESTS_KEY, value)
-                apply()
+    override val allowLocationRequests: Flow<Boolean> =
+        context.userPreferencesDataStore.data
+            .map { preferences ->
+                preferences.allowLocationRequests
             }
-        }
 
     override var lastFCMTokenSyncTimestamp: Long
         get() = sharedPreferences.getLong(LAST_FCM_TOKEN_SYNC_TIMESTAMP_KEY, 0L)
@@ -37,4 +37,13 @@ class PreferencesManagerImpl(
                 apply()
             }
         }
+
+    // ====== Public methods
+    override suspend fun setAllowLocationRequests(value: Boolean) {
+        context.userPreferencesDataStore.updateData { currentPreferences ->
+            currentPreferences.toBuilder()
+                .setAllowLocationRequests(value)
+                .build()
+        }
+    }
 }

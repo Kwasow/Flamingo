@@ -39,9 +39,9 @@ import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.data.User
-import pl.kwasow.data.UserIcon
-import pl.kwasow.data.UserLocation
+import pl.kwasow.data.types.User
+import pl.kwasow.data.types.UserIcon
+import pl.kwasow.data.types.UserLocation
 import pl.kwasow.utils.FlamingoDateUtils
 
 // ====== Public composables

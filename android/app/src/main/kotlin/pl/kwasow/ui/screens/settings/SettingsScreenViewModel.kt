@@ -3,8 +3,10 @@ package pl.kwasow.ui.screens.settings
 import android.app.Activity
 import android.content.Context
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import pl.kwasow.R
 import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.PreferencesManager
@@ -19,12 +21,7 @@ class SettingsScreenViewModel(
     private val userManager: UserManager,
 ) : ViewModel() {
     // ====== Fields
-    var allowLocationRequests =
-        MutableLiveData(
-            preferencesManager.allowLocationRequests &&
-                permissionManager.checkBackgroundLocationPermission(),
-        )
-        private set
+    val allowLocationRequests = preferencesManager.allowLocationRequests
 
     val partnerName =
         userManager.getCachedUser()?.missingYouRecipient?.firstName
@@ -51,21 +48,22 @@ class SettingsScreenViewModel(
         permissionManager.launchPermissionSettings(activity)
 
     fun toggleAllowLocationRequests(onPermissionMissing: () -> Unit) {
-        if (!permissionManager.checkBackgroundLocationPermission()) {
-            onPermissionMissing()
-        } else {
-            val newValue = allowLocationRequests.value != true
-            preferencesManager.allowLocationRequests = newValue
-            allowLocationRequests.value = newValue
+        viewModelScope.launch {
+            if (!permissionManager.checkBackgroundLocationPermission()) {
+                onPermissionMissing()
+            } else {
+                preferencesManager.setAllowLocationRequests(!allowLocationRequests.first())
+            }
         }
     }
 
     fun updateAllowLocationRequestState(wasPermissionMissing: Boolean) {
-        if (wasPermissionMissing) {
-            val newValue = permissionManager.checkBackgroundLocationPermission()
-
-            allowLocationRequests.value = newValue
-            preferencesManager.allowLocationRequests = newValue
+        viewModelScope.launch {
+            if (wasPermissionMissing) {
+                preferencesManager.setAllowLocationRequests(
+                    permissionManager.checkBackgroundLocationPermission(),
+                )
+            }
         }
     }
 }

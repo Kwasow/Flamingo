@@ -2,7 +2,7 @@ package pl.kwasow.managers
 
 import androidx.lifecycle.LiveData
 import androidx.media3.common.MediaItem
-import pl.kwasow.data.Album
+import pl.kwasow.data.types.Album
 
 interface PlaybackManager {
     // ====== Fields

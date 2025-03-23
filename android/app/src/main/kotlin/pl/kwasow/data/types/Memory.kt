@@ -1,4 +1,4 @@
-package pl.kwasow.data
+package pl.kwasow.data.types
 
 import kotlinx.serialization.Serializable
 import java.time.LocalDate

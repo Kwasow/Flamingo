@@ -5,6 +5,7 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import pl.kwasow.managers.LocationManager
@@ -69,11 +70,11 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     }
 
     private fun handleRequestLocationMessage() {
-        if (!preferencesManager.allowLocationRequests) {
-            return
-        }
-
         scope.launch {
+            if (!preferencesManager.allowLocationRequests.first()) {
+                return@launch
+            }
+
             locationManager.requestLocation()
         }
     }

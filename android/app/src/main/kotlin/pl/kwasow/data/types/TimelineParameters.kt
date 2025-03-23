@@ -1,4 +1,4 @@
-package pl.kwasow.data
+package pl.kwasow.data.types
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

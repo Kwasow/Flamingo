@@ -10,8 +10,8 @@ import coil.annotation.ExperimentalCoilApi
 import coil.imageLoader
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
-import pl.kwasow.data.Memory
-import pl.kwasow.data.User
+import pl.kwasow.data.types.Memory
+import pl.kwasow.data.types.User
 import java.io.File
 
 class SystemManagerImpl(
