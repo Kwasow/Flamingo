@@ -6,8 +6,10 @@ interface PreferencesManager {
     // ====== Fields
     val allowLocationRequests: Flow<Boolean>
 
-    var lastFCMTokenSyncTimestamp: Long
+    var lastFcmTokenSyncTimestamp: Flow<Long>
 
     // ====== Methods
     suspend fun setAllowLocationRequests(value: Boolean)
+
+    suspend fun setLastFcmTokenSyncTimestamp(value: Long)
 }

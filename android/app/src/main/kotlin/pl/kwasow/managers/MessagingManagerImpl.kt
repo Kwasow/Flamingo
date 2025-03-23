@@ -2,6 +2,7 @@ package pl.kwasow.managers
 
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 
 class MessagingManagerImpl(
@@ -18,14 +19,14 @@ class MessagingManagerImpl(
 
     // ====== Interface methods
     override suspend fun sendFcmToken(checkAge: Boolean) {
-        val lastSyncTime = preferencesManager.lastFCMTokenSyncTimestamp
+        val lastSyncTime = preferencesManager.lastFcmTokenSyncTimestamp.first()
         val currentTime = System.currentTimeMillis()
 
         if (!checkAge || currentTime - lastSyncTime > MONTH) {
             val token = Firebase.messaging.token.await()
 
             if (requestManager.updateFcmToken(token)) {
-                preferencesManager.lastFCMTokenSyncTimestamp = currentTime
+                preferencesManager.setLastFcmTokenSyncTimestamp(currentTime)
             }
         }
     }
