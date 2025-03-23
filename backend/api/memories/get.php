@@ -26,7 +26,7 @@ $coupleId = $user->getCoupleId();
 
 $stmt = mysqli_prepare(
     $conn,
-    'SELECT * FROM Memories WHERE couple_id = ?'
+    'SELECT * FROM Memories WHERE couple = ?'
 );
 mysqli_stmt_bind_param($stmt, 'i', $coupleId);
 mysqli_stmt_execute($stmt);

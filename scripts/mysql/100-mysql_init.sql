@@ -14,10 +14,10 @@ CREATE TABLE Users(
   first_name VARCHAR(64) NOT NULL,
   email VARCHAR(64) NOT NULL,
   icon VARCHAR(64) NOT NULL,
-  couple_id INT NOT NULL,
+  couple INT NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT UK_User_Email UNIQUE (email),
-  CONSTRAINT FK_User_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
+  CONSTRAINT FK_User_Couple FOREIGN KEY (couple) REFERENCES Couples(id)
 );
 
 CREATE TABLE Wishlist(
@@ -36,10 +36,10 @@ CREATE TABLE Albums(
   title TEXT NOT NULL,
   artist VARCHAR(64) NOT NULL,
   cover_name VARCHAR(50) NOT NULL,
-  couple_id INT NOT NULL,
+  couple INT NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT UC_Album_Uuid UNIQUE (uuid),
-  CONSTRAINT FK_Album_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
+  CONSTRAINT FK_Album_Couple FOREIGN KEY (couple) REFERENCES Couples(id)
 );
 
 CREATE TABLE Tracks(
@@ -60,9 +60,9 @@ CREATE TABLE Memories(
   title TEXT NOT NULL,
   memory_description TEXT NOT NULL,
   photo TEXT,
-  couple_id INT NOT NULL,
+  couple INT NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT FK_Memory_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
+  CONSTRAINT FK_Memory_Couple FOREIGN KEY (couple) REFERENCES Couples(id)
 );
 
 CREATE TABLE Locations(

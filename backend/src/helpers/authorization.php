@@ -30,9 +30,9 @@ function checkAuthorization($connection)
             other.first_name AS other_name,
             other.email AS other_email,
             other.icon AS other_icon,
-            other.couple_id AS other_couple_id
+            other.couple AS other_couple
         FROM Users this
-        LEFT JOIN Users other ON this.couple_id = other.couple_id AND this.id != other.id
+        LEFT JOIN Users other ON this.couple = other.couple AND this.id != other.id
         WHERE this.email = ?';
     $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($stmt, 's', $email);
@@ -53,7 +53,7 @@ function checkAuthorization($connection)
             $user['other_id'],
             $user['other_name'],
             $user['other_icon'],
-            $user['other_couple_id']
+            $user['other_couple']
         );
     }
 
@@ -62,7 +62,7 @@ function checkAuthorization($connection)
         $user['first_name'],
         $user['email'],
         $user['icon'],
-        $user['couple_id'],
+        $user['couple'],
         $partner
     );
 }

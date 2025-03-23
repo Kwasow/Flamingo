@@ -27,7 +27,7 @@ $coupleId = $user->getCoupleId();
 
 $stmt = mysqli_prepare(
     $conn,
-    'SELECT * FROM Albums WHERE couple_id = ? ORDER BY id'
+    'SELECT * FROM Albums WHERE couple = ? ORDER BY id'
 );
 mysqli_stmt_bind_param($stmt, 'i', $coupleId);
 mysqli_stmt_execute($stmt);
