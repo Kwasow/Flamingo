@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
@@ -40,26 +38,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-
-            // App config
-            val properties = Properties()
-            properties.load(project.rootProject.file("secrets.properties").inputStream())
-
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                properties.getProperty("BASE_URL"),
-            )
-            buildConfigField(
-                "String",
-                "GOOGLE_WEB_CLIENT_ID",
-                properties.getProperty("GOOGLE_WEB_CLIENT_ID"),
-            )
-            buildConfigField(
-                "String",
-                "RELATIONSHIP_START",
-                properties.getProperty("RELATIONSHIP_START"),
-            )
         }
 
         debug {
@@ -67,26 +45,6 @@ android {
 
             versionNameSuffix = "-beta"
             applicationIdSuffix = ".beta"
-
-            // App config
-            val properties = Properties()
-            properties.load(project.rootProject.file("secrets.properties").inputStream())
-
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                properties.getProperty("DEVELOPMENT_BASE_URL"),
-            )
-            buildConfigField(
-                "String",
-                "GOOGLE_WEB_CLIENT_ID",
-                properties.getProperty("GOOGLE_WEB_CLIENT_ID"),
-            )
-            buildConfigField(
-                "String",
-                "RELATIONSHIP_START",
-                properties.getProperty("RELATIONSHIP_START"),
-            )
         }
     }
 
