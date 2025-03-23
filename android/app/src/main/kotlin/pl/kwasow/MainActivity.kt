@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.WindowCompat
 import org.koin.compose.KoinContext
-import pl.kwasow.data.BuildFlavors
+import pl.kwasow.data.enums.BuildFlavors
 import pl.kwasow.ui.App
 import pl.kwasow.ui.theme.FlamingoTheme
 

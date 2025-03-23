@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
-import pl.kwasow.data.Memory
+import pl.kwasow.data.types.Memory
 
 // ====== Public composables
 @Composable

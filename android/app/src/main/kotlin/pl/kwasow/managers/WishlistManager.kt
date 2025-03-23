@@ -1,6 +1,6 @@
 package pl.kwasow.managers
 
-import pl.kwasow.data.Wish
+import pl.kwasow.data.types.Wish
 
 interface WishlistManager {
     // ====== Methods

@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.data.Album
+import pl.kwasow.data.types.Album
 import pl.kwasow.ui.components.PhotoView
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 

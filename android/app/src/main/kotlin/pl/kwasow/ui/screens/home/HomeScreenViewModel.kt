@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import pl.kwasow.data.AuthenticationResult
+import pl.kwasow.data.types.AuthenticationResult
 import pl.kwasow.managers.MessagingManager
 import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.RequestManager

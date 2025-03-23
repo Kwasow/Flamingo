@@ -2,7 +2,7 @@ package pl.kwasow.managers
 
 import android.location.Location
 import androidx.lifecycle.LiveData
-import pl.kwasow.data.UserLocation
+import pl.kwasow.data.types.UserLocation
 
 interface LocationManager {
     // ====== Fields
