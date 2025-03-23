@@ -147,7 +147,7 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:4.30.1"
+        artifact = libs.google.libraries.protobuf.compiler.get().toString()
     }
 
     generateProtoTasks {
