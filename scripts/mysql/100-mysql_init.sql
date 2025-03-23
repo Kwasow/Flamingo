@@ -25,7 +25,7 @@ CREATE TABLE Wishlist(
   id INT NOT NULL AUTO_INCREMENT,
   author INT NOT NULL,
   content TEXT NOT NULL,
-  done TINYINT(1) NOT NULL,
+  done BOOLEAN NOT NULL,
   time_stamp BIGINT NOT NULL,
   PRIMARY KEY (id),
   CONSTRAINT FK_Wishlist_Author FOREIGN KEY (author) REFERENCES Users(id)

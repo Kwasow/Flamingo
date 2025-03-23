@@ -47,7 +47,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $row['photo']
     );
 
-    $year = findRelationshipYear($row['startDate'], $row['anniversary_date']);
+    $year = findRelationshipYear($row['start_date'], $row['anniversary_date']);
     if (array_key_exists($year, $memories)) {
         $memories[$year][] = $memory;
     } else {
