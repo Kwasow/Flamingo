@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import pl.kwasow.R
-import pl.kwasow.data.TabItem
-import pl.kwasow.data.Wish
+import pl.kwasow.data.types.TabItem
+import pl.kwasow.data.types.Wish
 import pl.kwasow.managers.UserManager
 import pl.kwasow.managers.WishlistManager
 

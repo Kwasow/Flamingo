@@ -10,7 +10,7 @@ import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
-import pl.kwasow.data.Album
+import pl.kwasow.data.types.Album
 import pl.kwasow.services.PlaybackService
 
 class PlaybackManagerImpl(

@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -37,7 +36,7 @@ fun BackgroundLocationEntry() {
     val viewModel = koinViewModel<SettingsScreenViewModel>()
     val activity = LocalContext.current as Activity
     val lifecycleState by LocalLifecycleOwner.current.lifecycle.currentStateFlow.collectAsState()
-    val allowLocationRequests by viewModel.allowLocationRequests.observeAsState()
+    val allowLocationRequests by viewModel.allowLocationRequests.collectAsState(false)
     var showDialog by remember { mutableStateOf(false) }
 
     val onToggle = {

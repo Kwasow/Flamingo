@@ -10,7 +10,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import pl.kwasow.MainActivity
 import pl.kwasow.R
-import pl.kwasow.data.NotificationChannelInfo
+import pl.kwasow.data.types.NotificationChannelInfo
 import pl.kwasow.utils.FlamingoLogger
 import java.time.Instant
 import android.app.NotificationManager as AndroidNotificationManager

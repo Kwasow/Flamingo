@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.dp
-import pl.kwasow.data.TimelineParameters
+import pl.kwasow.data.types.TimelineParameters
 
 // ====== Public composables
 @Composable

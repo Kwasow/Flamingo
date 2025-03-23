@@ -1,4 +1,4 @@
-package pl.kwasow.data
+package pl.kwasow.data.types
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes

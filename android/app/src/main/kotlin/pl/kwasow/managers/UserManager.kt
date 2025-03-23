@@ -2,8 +2,8 @@ package pl.kwasow.managers
 
 import android.content.Context
 import kotlinx.coroutines.CoroutineScope
-import pl.kwasow.data.AuthenticationResult
-import pl.kwasow.data.User
+import pl.kwasow.data.types.AuthenticationResult
+import pl.kwasow.data.types.User
 
 interface UserManager {
     // ====== Classes

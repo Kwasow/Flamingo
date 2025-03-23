@@ -1,7 +1,7 @@
 package pl.kwasow.managers
 
-import pl.kwasow.data.Memory
-import pl.kwasow.data.User
+import pl.kwasow.data.types.Memory
+import pl.kwasow.data.types.User
 
 interface SystemManager {
     // ====== Methods

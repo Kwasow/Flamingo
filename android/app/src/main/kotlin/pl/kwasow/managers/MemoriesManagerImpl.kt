@@ -1,6 +1,6 @@
 package pl.kwasow.managers
 
-import pl.kwasow.data.Memory
+import pl.kwasow.data.types.Memory
 import java.time.LocalDate
 
 class MemoriesManagerImpl(
