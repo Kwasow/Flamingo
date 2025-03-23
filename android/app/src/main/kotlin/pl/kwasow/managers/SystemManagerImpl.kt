@@ -10,9 +10,9 @@ import coil.annotation.ExperimentalCoilApi
 import coil.imageLoader
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
-import pl.kwasow.utils.FlamingoLogger
 import pl.kwasow.data.types.Memory
 import pl.kwasow.data.types.User
+import pl.kwasow.utils.FlamingoLogger
 import java.io.File
 
 class SystemManagerImpl(
