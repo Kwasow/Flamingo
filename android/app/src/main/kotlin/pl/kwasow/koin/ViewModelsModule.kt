@@ -26,7 +26,7 @@ val viewModelsModule =
         }
 
         viewModel {
-            HomeScreenViewModel(get(), get(), get(), get())
+            HomeScreenViewModel(get(), get(), get())
         }
 
         viewModel {

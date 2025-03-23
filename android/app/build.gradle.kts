@@ -99,7 +99,7 @@ dependencies {
     implementation(libs.google.services.maps)
     implementation(libs.google.libraries.googleid)
     implementation(libs.google.libraries.maps.compose)
-    implementation(libs.google.libraries.protobuf)
+    implementation(libs.google.libraries.protobuf.kotlin)
 
     // Kotlin
     implementation(libs.kotlin.core)
