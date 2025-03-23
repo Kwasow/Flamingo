@@ -16,7 +16,7 @@ class PreferencesManagerImpl(
                 preferences.allowLocationRequests
             }
 
-    override var lastFcmTokenSyncTimestamp: Flow<Long> =
+    override val lastFcmTokenSyncTimestamp: Flow<Long> =
         context.appStateDataStore.data
             .map { preferences ->
                 preferences.lastFcmTokenSync
