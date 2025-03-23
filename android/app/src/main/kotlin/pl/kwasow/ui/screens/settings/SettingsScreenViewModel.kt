@@ -7,21 +7,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import pl.kwasow.R
 import pl.kwasow.managers.PermissionManager
-import pl.kwasow.managers.SettingsManager
+import pl.kwasow.managers.PreferencesManager
 import pl.kwasow.managers.SystemManager
 import pl.kwasow.managers.UserManager
 
 class SettingsScreenViewModel(
     private val applicationContext: Context,
     private val permissionManager: PermissionManager,
-    private val settingsManager: SettingsManager,
+    private val preferencesManager: PreferencesManager,
     private val systemManager: SystemManager,
     private val userManager: UserManager,
 ) : ViewModel() {
     // ====== Fields
     var allowLocationRequests =
         MutableLiveData(
-            settingsManager.allowLocationRequests &&
+            preferencesManager.allowLocationRequests &&
                 permissionManager.checkBackgroundLocationPermission(),
         )
         private set
@@ -55,7 +55,7 @@ class SettingsScreenViewModel(
             onPermissionMissing()
         } else {
             val newValue = allowLocationRequests.value != true
-            settingsManager.allowLocationRequests = newValue
+            preferencesManager.allowLocationRequests = newValue
             allowLocationRequests.value = newValue
         }
     }
@@ -65,7 +65,7 @@ class SettingsScreenViewModel(
             val newValue = permissionManager.checkBackgroundLocationPermission()
 
             allowLocationRequests.value = newValue
-            settingsManager.allowLocationRequests = newValue
+            preferencesManager.allowLocationRequests = newValue
         }
     }
 }

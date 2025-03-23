@@ -3,9 +3,9 @@ package pl.kwasow.managers
 import android.content.Context
 import androidx.core.content.edit
 
-class SettingsManagerImpl(
+class PreferencesManagerImpl(
     val context: Context,
-) : SettingsManager {
+) : PreferencesManager {
     // ====== Fields
     companion object {
         private const val PREFERENCES_FILE = "pl.kwasow.flamingo.ApplicationSharedPreferences"

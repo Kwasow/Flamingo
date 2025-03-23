@@ -13,7 +13,7 @@ import pl.kwasow.utils.FlamingoLogger
 class LocationManagerImpl(
     context: Context,
     private val requestManager: RequestManager,
-    private val settingsManager: SettingsManager,
+    private val preferencesManager: PreferencesManager,
 ) : LocationManager {
     // ====== Fields
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -40,7 +40,7 @@ class LocationManagerImpl(
         // request the server cached location
         val partnerLocation =
             requestManager.getPartnerLocation(
-                cached || !settingsManager.allowLocationRequests,
+                cached || !preferencesManager.allowLocationRequests,
             )
         if (partnerLocation != null) {
             this.partnerLocation.postValue(partnerLocation)

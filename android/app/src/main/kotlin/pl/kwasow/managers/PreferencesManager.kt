@@ -1,6 +1,6 @@
 package pl.kwasow.managers
 
-interface SettingsManager {
+interface PreferencesManager {
     // ====== Fields
     var allowLocationRequests: Boolean
 

@@ -19,8 +19,8 @@ import pl.kwasow.managers.PlaybackManager
 import pl.kwasow.managers.PlaybackManagerImpl
 import pl.kwasow.managers.RequestManager
 import pl.kwasow.managers.RequestManagerImpl
-import pl.kwasow.managers.SettingsManager
-import pl.kwasow.managers.SettingsManagerImpl
+import pl.kwasow.managers.PreferencesManager
+import pl.kwasow.managers.PreferencesManagerImpl
 import pl.kwasow.managers.SystemManager
 import pl.kwasow.managers.SystemManagerImpl
 import pl.kwasow.managers.TokenManager
@@ -68,8 +68,8 @@ val managersModule =
             RequestManagerImpl(get())
         }
 
-        single<SettingsManager> {
-            SettingsManagerImpl(get())
+        single<PreferencesManager> {
+            PreferencesManagerImpl(get())
         }
 
         single<SystemManager> {

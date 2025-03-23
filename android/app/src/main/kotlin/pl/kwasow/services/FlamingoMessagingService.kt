@@ -11,7 +11,7 @@ import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.MemoriesManager
 import pl.kwasow.managers.MessagingManager
 import pl.kwasow.managers.NotificationManager
-import pl.kwasow.managers.SettingsManager
+import pl.kwasow.managers.PreferencesManager
 import pl.kwasow.utils.FlamingoLogger
 
 class FlamingoMessagingService : FirebaseMessagingService() {
@@ -23,7 +23,7 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     private val memoriesManager by inject<MemoriesManager>()
     private val messagingManager by inject<MessagingManager>()
     private val notificationManager by inject<NotificationManager>()
-    private val settingsManager by inject<SettingsManager>()
+    private val preferencesManager by inject<PreferencesManager>()
 
     // ====== Interface methods
     override fun onNewToken(token: String) {
@@ -69,7 +69,7 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     }
 
     private fun handleRequestLocationMessage() {
-        if (!settingsManager.allowLocationRequests) {
+        if (!preferencesManager.allowLocationRequests) {
             return
         }
 

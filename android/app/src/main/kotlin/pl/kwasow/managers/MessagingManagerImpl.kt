@@ -6,7 +6,7 @@ import kotlinx.coroutines.tasks.await
 
 class MessagingManagerImpl(
     private val requestManager: RequestManager,
-    private val settingsManager: SettingsManager,
+    private val preferencesManager: PreferencesManager,
     private val userManager: UserManager,
 ) : MessagingManager {
     // ====== Fields
@@ -18,14 +18,14 @@ class MessagingManagerImpl(
 
     // ====== Interface methods
     override suspend fun sendFcmToken(checkAge: Boolean) {
-        val lastSyncTime = settingsManager.lastFCMTokenSyncTimestamp
+        val lastSyncTime = preferencesManager.lastFCMTokenSyncTimestamp
         val currentTime = System.currentTimeMillis()
 
         if (!checkAge || currentTime - lastSyncTime > MONTH) {
             val token = Firebase.messaging.token.await()
 
             if (requestManager.updateFcmToken(token)) {
-                settingsManager.lastFCMTokenSyncTimestamp = currentTime
+                preferencesManager.lastFCMTokenSyncTimestamp = currentTime
             }
         }
     }
