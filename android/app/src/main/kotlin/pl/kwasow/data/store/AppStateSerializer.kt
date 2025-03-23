@@ -7,14 +7,15 @@ import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import com.google.protobuf.InvalidProtocolBufferException
 import pl.kwasow.AppState
+import pl.kwasow.appState
 import java.io.InputStream
 import java.io.OutputStream
 
 object AppStateSerializer : Serializer<AppState> {
     override val defaultValue: AppState =
-        AppState.getDefaultInstance().toBuilder()
-            .setLastFcmTokenSync(0)
-            .build()
+        appState {
+            lastFcmTokenSync = 0
+        }
 
     override suspend fun readFrom(input: InputStream): AppState {
         try {

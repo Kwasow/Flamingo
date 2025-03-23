@@ -7,14 +7,15 @@ import androidx.datastore.core.Serializer
 import androidx.datastore.dataStore
 import com.google.protobuf.InvalidProtocolBufferException
 import pl.kwasow.UserPreferences
+import pl.kwasow.userPreferences
 import java.io.InputStream
 import java.io.OutputStream
 
 object UserPreferencesSerializer : Serializer<UserPreferences> {
     override val defaultValue: UserPreferences =
-        UserPreferences.getDefaultInstance().toBuilder()
-            .setAllowLocationRequests(false)
-            .build()
+        userPreferences {
+            allowLocationRequests = false
+        }
 
     override suspend fun readFrom(input: InputStream): UserPreferences {
         try {
