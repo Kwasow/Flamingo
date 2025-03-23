@@ -9,19 +9,17 @@ import com.google.accompanist.permissions.PermissionState
 import pl.kwasow.data.AuthenticationResult
 import pl.kwasow.managers.MessagingManager
 import pl.kwasow.managers.PermissionManager
-import pl.kwasow.managers.RequestManager
 import pl.kwasow.managers.UserManager
 
 class HomeScreenViewModel(
     private val messagingManager: MessagingManager,
     private val permissionManager: PermissionManager,
-    private val requestManager: RequestManager,
     private val userManager: UserManager,
 ) : ViewModel() {
     // ====== Public methods
     suspend fun doLaunchTasks(navigateToLogin: () -> Unit) {
         // Check if user is authenticated
-        val authenticationResult = requestManager.getAuthenticatedUser()
+        val authenticationResult = userManager.getAuthenticatedUser()
         if (authenticationResult.authorization == AuthenticationResult.Authorization.UNAUTHORIZED) {
             userManager.signOut()
             navigateToLogin()
