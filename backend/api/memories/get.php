@@ -26,7 +26,10 @@ $coupleId = $user->getCoupleId();
 
 $stmt = mysqli_prepare(
     $conn,
-    'SELECT * FROM Memories WHERE couple = ?'
+    'SELECT m.*, c.anniversary_date
+    FROM Memories m
+    LEFT JOIN Couples c ON m.couple = c.id
+    WHERE couple = ?'
 );
 mysqli_stmt_bind_param($stmt, 'i', $coupleId);
 mysqli_stmt_execute($stmt);
@@ -44,7 +47,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $row['photo']
     );
 
-    $year = findRelationshipYear($row['startDate']);
+    $year = findRelationshipYear($row['startDate'], $row['anniversary_date']);
     if (array_key_exists($year, $memories)) {
         $memories[$year][] = $memory;
     } else {

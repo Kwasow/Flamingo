@@ -6,6 +6,7 @@ FLUSH PRIVILEGES;
 -- Create tables
 CREATE TABLE Couples(
   id INT NOT NULL AUTO_INCREMENT,
+  anniversary_date DATE NOT NULL,
   PRIMARY KEY (id)
 );
 
