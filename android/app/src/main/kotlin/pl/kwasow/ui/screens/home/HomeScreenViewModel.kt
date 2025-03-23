@@ -20,16 +20,15 @@ class HomeScreenViewModel(
 ) : ViewModel() {
     // ====== Public methods
     suspend fun doLaunchTasks(navigateToLogin: () -> Unit) {
-        // This is not initialized in MainActivity, because the user has to be
-        // logged in
-        messagingManager.sendFcmToken()
-        messagingManager.subscribeToTopics()
-
         // Check if user is authenticated
         val authenticationResult = requestManager.getAuthenticatedUser()
         if (authenticationResult.authorization == AuthenticationResult.Authorization.UNAUTHORIZED) {
             userManager.signOut()
             navigateToLogin()
+        } else {
+            // These tasks require the user to be logged in
+            messagingManager.sendFcmToken()
+            messagingManager.subscribeToTopics()
         }
     }
 
