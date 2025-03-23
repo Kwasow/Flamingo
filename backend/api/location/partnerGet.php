@@ -22,6 +22,8 @@ if ($user !== null) {
 // Get location from database and return as JSON
 header('Content-Type: application/json; charset=utf-8');
 
+$partnerId = $user->getPartner()->getId();
+
 $stmt = mysqli_prepare(
     $conn,
     'SELECT l.*, u.first_name AS name
@@ -29,7 +31,7 @@ $stmt = mysqli_prepare(
     LEFT JOIN Users AS u ON l.user_id = u.id
     WHERE l.user_id = ?'
 );
-mysqli_stmt_bind_param($stmt, 'i', $user->getPartner()->getId());
+mysqli_stmt_bind_param($stmt, 'i', $partnerId);
 mysqli_stmt_execute($stmt);
 
 $result = $stmt->get_result();
