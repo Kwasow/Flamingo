@@ -56,8 +56,8 @@ CREATE TABLE Tracks(
 
 CREATE TABLE Memories(
   id INT NOT NULL AUTO_INCREMENT,
-  startDate VARCHAR(10) NOT NULL,
-  endDate VARCHAR(10),
+  `start_date` DATE NOT NULL,
+  end_date DATE,
   title TEXT NOT NULL,
   memory_description TEXT NOT NULL,
   photo TEXT,

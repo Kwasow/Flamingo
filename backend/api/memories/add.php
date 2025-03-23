@@ -20,8 +20,8 @@ if ($user !== null) {
 
 // Get request details
 $postData = json_decode(file_get_contents('php://input'), true);
-$startDate = $postData['startDate'];
-$endDate = $postData['endDate'];
+$startDate = $postData['start_date'];
+$endDate = $postData['end_date'];
 $title = $postData['title'];
 $description = $postData['description'];
 $photo = $postData['photo'];

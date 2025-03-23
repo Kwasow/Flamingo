@@ -40,8 +40,8 @@ $memories = [];
 while ($row = mysqli_fetch_assoc($result)) {
     $memory = new Memory(
         intval($row['id']),
-        $row['startDate'],
-        $row['endDate'],
+        $row['start_date'],
+        $row['end_date'],
         $row['title'],
         $row['memory_description'],
         $row['photo']
