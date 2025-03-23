@@ -75,18 +75,8 @@ mysql database - I use OVHCloud for my setup, since it is pretty cheap at around
 
 Through the hosting provider, access your database and create all the necessary
 tables based on the `scripts/mysql/100-mysql_init.sql` file. Then insert the
-necessary details into the `Users` table. You might have to modify the table
-temporarily:
-
-```sql
-ALTER TABLE User
-DROP CONSTRAINT FK_MissingYouRecipient;
-
--- Insert what you need here
-
-ALTER TABLE User
-ADD CONSTRAINT FK_MissingYouRecipient FOREIGN KEY (missing_you_recipient) REFERENCES User(id);
-```
+necessary details first into the `Couples` table and then into the `Users`
+table.
 
 Now go into the `backend/` directory and run `composer install` to install the
 servers dependencies.
@@ -99,13 +89,10 @@ substituting the default values with the appropriate ones for you:
 
 function getFlamingoConfig() {
   return [
-    "anniversaryMonth" => 8,
-    "anniversaryDay" => 31,
-    
-    "databaseAddress" => "database",
-    "databaseUsername" => "flamingo-user",
-    "databasePassword" => "flamingo-user",
-    "databaseName" => "flamingo"
+    "databaseAddress" => "your-database-address",
+    "databaseUsername" => "your-database-user",
+    "databasePassword" => "your-database-password",
+    "databaseName" => "your-database-name"
   ];
 }
 
