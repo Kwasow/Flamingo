@@ -10,8 +10,9 @@ import coil.annotation.ExperimentalCoilApi
 import coil.imageLoader
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
-import pl.kwasow.data.Memory
-import pl.kwasow.data.User
+import pl.kwasow.data.types.Memory
+import pl.kwasow.data.types.User
+import pl.kwasow.utils.FlamingoLogger
 import java.io.File
 
 class SystemManagerImpl(
@@ -125,6 +126,9 @@ class SystemManagerImpl(
         return try {
             json.decodeFromString(rawJson)
         } catch (e: Exception) {
+            // Delete the broken cache file
+            file.delete()
+            FlamingoLogger.e("Error while reading cache: $e", e)
             null
         }
     }

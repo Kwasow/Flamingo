@@ -18,12 +18,12 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import pl.kwasow.BuildConfig
-import pl.kwasow.data.Album
-import pl.kwasow.data.AuthenticationResult
-import pl.kwasow.data.Memory
-import pl.kwasow.data.User
-import pl.kwasow.data.UserLocation
-import pl.kwasow.data.Wish
+import pl.kwasow.data.types.Album
+import pl.kwasow.data.types.AuthenticationResult
+import pl.kwasow.data.types.Memory
+import pl.kwasow.data.types.User
+import pl.kwasow.data.types.UserLocation
+import pl.kwasow.data.types.Wish
 import pl.kwasow.utils.FlamingoLogger
 
 class RequestManagerImpl(

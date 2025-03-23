@@ -6,14 +6,15 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
-import pl.kwasow.data.UserLocation
+import pl.kwasow.data.types.UserLocation
 import pl.kwasow.utils.FlamingoLogger
 
 class LocationManagerImpl(
     context: Context,
     private val requestManager: RequestManager,
-    private val settingsManager: SettingsManager,
+    private val preferencesManager: PreferencesManager,
 ) : LocationManager {
     // ====== Fields
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
@@ -40,7 +41,7 @@ class LocationManagerImpl(
         // request the server cached location
         val partnerLocation =
             requestManager.getPartnerLocation(
-                cached || !settingsManager.allowLocationRequests,
+                cached || !preferencesManager.allowLocationRequests.first(),
             )
         if (partnerLocation != null) {
             this.partnerLocation.postValue(partnerLocation)

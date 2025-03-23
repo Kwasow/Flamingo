@@ -1,11 +1,10 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
 
     alias(libs.plugins.android.application)
     alias(libs.plugins.google.mapsplatform)
+    alias(libs.plugins.google.protobuf)
     alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ktlint)
@@ -40,26 +39,6 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
-
-            // App config
-            val properties = Properties()
-            properties.load(project.rootProject.file("secrets.properties").inputStream())
-
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                properties.getProperty("BASE_URL"),
-            )
-            buildConfigField(
-                "String",
-                "GOOGLE_WEB_CLIENT_ID",
-                properties.getProperty("GOOGLE_WEB_CLIENT_ID"),
-            )
-            buildConfigField(
-                "String",
-                "RELATIONSHIP_START",
-                properties.getProperty("RELATIONSHIP_START"),
-            )
         }
 
         debug {
@@ -67,26 +46,6 @@ android {
 
             versionNameSuffix = "-beta"
             applicationIdSuffix = ".beta"
-
-            // App config
-            val properties = Properties()
-            properties.load(project.rootProject.file("secrets.properties").inputStream())
-
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                properties.getProperty("DEVELOPMENT_BASE_URL"),
-            )
-            buildConfigField(
-                "String",
-                "GOOGLE_WEB_CLIENT_ID",
-                properties.getProperty("GOOGLE_WEB_CLIENT_ID"),
-            )
-            buildConfigField(
-                "String",
-                "RELATIONSHIP_START",
-                properties.getProperty("RELATIONSHIP_START"),
-            )
         }
     }
 
@@ -140,6 +99,7 @@ dependencies {
     implementation(libs.google.services.maps)
     implementation(libs.google.libraries.googleid)
     implementation(libs.google.libraries.maps.compose)
+    implementation(libs.google.libraries.protobuf.kotlin)
 
     // Kotlin
     implementation(libs.kotlin.core)
@@ -166,6 +126,7 @@ dependencies {
     // Other
     implementation(libs.android.credentials.base)
     implementation(libs.android.credentials.services)
+    implementation(libs.android.dataStore)
     implementation(libs.android.lifecycle)
     implementation(libs.android.media.common)
     implementation(libs.android.media.exoplayer)
@@ -182,4 +143,23 @@ dependencies {
     androidTestImplementation(libs.compose.ui.test.junit4)
     debugImplementation(libs.compose.ui.tooling.base)
     debugImplementation(libs.compose.ui.test.manifest)
+}
+
+protobuf {
+    protoc {
+        artifact = libs.google.libraries.protobuf.compiler.get().toString()
+    }
+
+    generateProtoTasks {
+        all().forEach { task ->
+            task.builtins {
+                create("java") {
+                    option("lite")
+                }
+                create("kotlin") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package pl.kwasow.data
+package pl.kwasow.data.types
 
 data class AuthenticationResult(
     val authorization: Authorization,

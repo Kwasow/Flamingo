@@ -10,7 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
 import kotlinx.coroutines.launch
-import pl.kwasow.data.User
+import pl.kwasow.data.types.User
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.UserManager

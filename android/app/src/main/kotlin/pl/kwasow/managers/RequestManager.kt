@@ -1,11 +1,11 @@
 package pl.kwasow.managers
 
 import android.location.Location
-import pl.kwasow.data.Album
-import pl.kwasow.data.AuthenticationResult
-import pl.kwasow.data.Memory
-import pl.kwasow.data.UserLocation
-import pl.kwasow.data.Wish
+import pl.kwasow.data.types.Album
+import pl.kwasow.data.types.AuthenticationResult
+import pl.kwasow.data.types.Memory
+import pl.kwasow.data.types.UserLocation
+import pl.kwasow.data.types.Wish
 
 interface RequestManager {
     // ====== Methods

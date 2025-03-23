@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import pl.kwasow.R
-import pl.kwasow.data.Memory
+import pl.kwasow.data.types.Memory
 import pl.kwasow.extensions.nonScaledSp
 import pl.kwasow.ui.components.PhotoView
 
