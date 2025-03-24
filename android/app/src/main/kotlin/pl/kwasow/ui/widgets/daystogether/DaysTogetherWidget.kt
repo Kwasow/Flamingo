@@ -1,5 +1,12 @@
 package pl.kwasow.ui.widgets.daystogether
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.ContentTransform
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,31 +33,64 @@ fun DaysTogetherWidget(modifier: Modifier = Modifier) {
         modifier = modifier,
         verticalAlignment = Alignment.Bottom,
     ) {
-        Text(
-            buildAnnotatedString {
-                withStyle(
-                    style =
-                        SpanStyle(
-                            fontWeight = FontWeight.Bold,
-                            fontSize = MaterialTheme.typography.displayMedium.fontSize,
-                        ),
-                ) {
-                    val days = daysTogether.value
-                    if (days == null) {
-                        append("---- ")
-                    } else {
-                        append("$days ")
-                    }
+        AnimatedContent(
+            targetState = daysTogether.value,
+            label = "days_together",
+            transitionSpec = { daysTogetherTransitionSpec(this) },
+        ) { value ->
+            if (value == null) {
+                DaysTogetherText(null)
+            } else {
+                DaysTogetherText(value)
+            }
+        }
+    }
+}
+
+// ====== Private composables
+@Composable
+private fun DaysTogetherText(daysTogether: Long?) {
+    Text(
+        buildAnnotatedString {
+            withStyle(
+                style =
+                    SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = MaterialTheme.typography.displayMedium.fontSize,
+                    ),
+            ) {
+                if (daysTogether == null) {
+                    append("---- ")
+                } else {
+                    append("$daysTogether ")
                 }
-                withStyle(
-                    style = SpanStyle(),
-                ) {
-                    append(
-                        stringResource(id = R.string.widget_daystogether_day_together).uppercase(),
-                    )
-                }
-            },
+            }
+            withStyle(
+                style = SpanStyle(),
+            ) {
+                append(
+                    stringResource(id = R.string.widget_daystogether_day_together).uppercase(),
+                )
+            }
+        },
+    )
+}
+
+private fun daysTogetherTransitionSpec(
+    scope: AnimatedContentTransitionScope<Long?>,
+): ContentTransform {
+    return with(scope) {
+        val enterTransition = (
+            fadeIn(animationSpec = tween(500)) +
+                slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
         )
+
+        val exitTransition = (
+            fadeOut(animationSpec = tween(500)) +
+                slideOutOfContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
+        )
+
+        enterTransition.togetherWith(exitTransition)
     }
 }
 
