@@ -64,8 +64,6 @@ values:
 - _DEVELOPMENT\_BASE\_URL_ - the URL where your test server is hosted (could be
   the same as _BASE\_URL_)
 - _GOOGLE\_WEB\_CLIENT\_ID_ -
-- _RELATIONSHIP\_START_ - the date you started dating (or what you consider the
-  start of your relationship) in the "YYYY-MM-DD" format
 
 ### Server setup
 
