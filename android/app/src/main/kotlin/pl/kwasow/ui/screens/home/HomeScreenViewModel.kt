@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
-import pl.kwasow.data.types.AuthenticationResult
+import pl.kwasow.data.types.AuthenticationResult.Authorization
 import pl.kwasow.managers.MessagingManager
 import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.UserManager
@@ -17,26 +17,11 @@ class HomeScreenViewModel(
     private val userManager: UserManager,
 ) : ViewModel() {
     // ====== Fields
-    private var authorizationStatus = AuthenticationResult.Authorization.UNKNOWN
+    private var authorizationStatus = Authorization.UNKNOWN
 
     // ====== Public methods
     suspend fun doLaunchTasks(navigateToLogin: () -> Unit) {
-        if (authorizationStatus == AuthenticationResult.Authorization.AUTHORIZED) {
-            return
-        }
-
-        // Check if user is authenticated
-        val authenticationResult = userManager.getAuthenticatedUser()
-        authorizationStatus = authenticationResult.authorization
-
-        if (authenticationResult.authorization == AuthenticationResult.Authorization.UNAUTHORIZED) {
-            userManager.signOut()
-            navigateToLogin()
-        } else {
-            // These tasks require the user to be logged in
-            messagingManager.sendFcmToken()
-            messagingManager.subscribeToTopics()
-        }
+        checkAuthorization(navigateToLogin)
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -44,4 +29,28 @@ class HomeScreenViewModel(
     @Composable
     fun rememberNotificationPermissionState(): PermissionState =
         permissionManager.rememberNotificationPermissionState()
+
+    // ======= Private methods
+    private suspend fun checkAuthorization(navigateToLogin: () -> Unit) {
+        when (authorizationStatus) {
+            Authorization.AUTHORIZED -> return
+            Authorization.UNAUTHORIZED -> signOut(navigateToLogin)
+            Authorization.UNKNOWN -> {
+                val authenticationResult = userManager.getAuthenticatedUser()
+                authorizationStatus = authenticationResult.authorization
+
+                if (authenticationResult.authorization == Authorization.UNAUTHORIZED) {
+                    signOut(navigateToLogin)
+                } else {
+                    messagingManager.sendFcmToken()
+                    messagingManager.subscribeToTopics()
+                }
+            }
+        }
+    }
+
+    private fun signOut(navigateToLogin: () -> Unit) {
+        userManager.signOut()
+        navigateToLogin()
+    }
 }
