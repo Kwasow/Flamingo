@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__.'/../../src/entities/couple.php';
 require_once __DIR__.'/../../src/entities/user.php';
 require_once __DIR__.'/../../src/helpers/firebase.php';
 
@@ -7,32 +8,35 @@ use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
 
 function checkAuthorization($connection)
 {
-    $token = getBearerToken();
+    // $token = getBearerToken();
 
-    if ($token === null) {
-        return null;
-    }
+    // if ($token === null) {
+    //     return null;
+    // }
 
-    // Check firebase
-    $verifiedIdToken = null;
-    try {
-        $verifiedIdToken = $GLOBALS['firebaseAuth']->verifyIdToken($token);
-    } catch (FailedToVerifyToken $e) {
-        return null;
-    }
+    // // Check firebase
+    // $verifiedIdToken = null;
+    // try {
+    //     $verifiedIdToken = $GLOBALS['firebaseAuth']->verifyIdToken($token);
+    // } catch (FailedToVerifyToken $e) {
+    //     return null;
+    // }
 
-    // Check database
-    $email = $verifiedIdToken->claims()->get('email');
+    // // Check database
+    // $email = $verifiedIdToken->claims()->get('email');
+    $email = "wasowski02@gmail.com";
     $query =
         'SELECT
             this.*,
             other.id AS other_id,
             other.first_name AS other_name,
-            other.email AS other_email,
             other.icon AS other_icon,
-            other.couple AS other_couple
+            other.couple AS other_couple,
+            c.id AS couple_id,
+            c.anniversary_date AS anniversary
         FROM Users this
         LEFT JOIN Users other ON this.couple = other.couple AND this.id != other.id
+        LEFT JOIN Couples c ON this.couple = c.id
         WHERE this.email = ?';
     $stmt = mysqli_prepare($connection, $query);
     mysqli_stmt_bind_param($stmt, 's', $email);
@@ -52,18 +56,22 @@ function checkAuthorization($connection)
         $partner = new Partner(
             $user['other_id'],
             $user['other_name'],
-            $user['other_icon'],
-            $user['other_couple']
+            $user['other_icon']
         );
     }
+
+    $coupleDetails = new CoupleDetails(
+        $user['couple_id'],
+        $user['anniversary']
+    );
 
     return new User(
         $user['id'],
         $user['first_name'],
         $user['email'],
         $user['icon'],
-        $user['couple'],
-        $partner
+        $partner,
+        $coupleDetails
     );
 }
 

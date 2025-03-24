@@ -23,7 +23,7 @@ if ($user !== null) {
 // Get albums from database and return as JSON
 header('Content-Type: application/json; charset=utf-8');
 
-$coupleId = $user->getCoupleId();
+$coupleId = $user->getCoupleDetails()->getId();
 
 $stmt = mysqli_prepare(
     $conn,

@@ -25,7 +25,7 @@ $endDate = $postData['end_date'];
 $title = $postData['title'];
 $description = $postData['description'];
 $photo = $postData['photo'];
-$coupleId = $user->getCoupleId();
+$coupleId = $user->getCoupleDetails()->getId();
 
 // Add wish to database
 $stmt = mysqli_prepare(
