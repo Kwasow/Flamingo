@@ -8,23 +8,22 @@ use Kreait\Firebase\Exception\Auth\FailedToVerifyToken;
 
 function checkAuthorization($connection)
 {
-    // $token = getBearerToken();
+    $token = getBearerToken();
 
-    // if ($token === null) {
-    //     return null;
-    // }
+    if ($token === null) {
+        return null;
+    }
 
-    // // Check firebase
-    // $verifiedIdToken = null;
-    // try {
-    //     $verifiedIdToken = $GLOBALS['firebaseAuth']->verifyIdToken($token);
-    // } catch (FailedToVerifyToken $e) {
-    //     return null;
-    // }
+    // Check firebase
+    $verifiedIdToken = null;
+    try {
+        $verifiedIdToken = $GLOBALS['firebaseAuth']->verifyIdToken($token);
+    } catch (FailedToVerifyToken $e) {
+        return null;
+    }
 
-    // // Check database
-    // $email = $verifiedIdToken->claims()->get('email');
-    $email = "wasowski02@gmail.com";
+    // Check database
+    $email = $verifiedIdToken->claims()->get('email');
     $query =
         'SELECT
             this.*,
