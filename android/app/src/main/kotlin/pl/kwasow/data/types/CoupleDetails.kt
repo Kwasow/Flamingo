@@ -6,13 +6,8 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 @Serializable
-data class Memory(
-    val id: Int,
-    val startDate: String,
-    val endDate: String?,
-    val title: String,
-    val description: String,
-    val photo: String?,
+data class CoupleDetails(
+    val anniversary: String,
 ) {
     // ====== Fields
     companion object {
@@ -20,16 +15,16 @@ data class Memory(
     }
 
     // ====== Public methods
-    fun getLocalStartDate(): LocalDate? {
+    fun getLocalAnniversaryDate(): LocalDate? {
         return try {
-            LocalDate.parse(startDate)
+            LocalDate.parse(anniversary)
         } catch (e: Exception) {
             null
         }
     }
 
-    fun getStringStartDate(): String {
-        val localDate = getLocalStartDate() ?: return startDate
+    fun getStringAnniversaryDate(): String {
+        val localDate = getLocalAnniversaryDate() ?: return anniversary
 
         return dateFormatter.format(localDate)
     }
