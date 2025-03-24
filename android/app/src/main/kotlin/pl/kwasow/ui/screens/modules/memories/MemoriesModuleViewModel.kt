@@ -23,6 +23,11 @@ class MemoriesModuleViewModel(
     var memoriesLoaded: Boolean by mutableStateOf(false)
         private set
 
+    // ====== Constructors
+    init {
+        refreshMemories()
+    }
+
     // ====== Public methods
     fun refreshMemories(force: Boolean = false) {
         viewModelScope.launch {
