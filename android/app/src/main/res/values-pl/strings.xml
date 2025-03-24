@@ -61,7 +61,7 @@
     <string name="module_location_no_permission">Nie nadano uprawnień do korzystania z lokalizacji</string>
     <string name="module_location_your_location">Twoja lokalizacja</string>
     <!-- Widget: Days Together -->
-    <string name="widget_daystogether_day_together">dzień razem</string>
+    <string name="widget_daystogether_day_together">dni razem</string>
     <!-- Widget: Now playing -->
     <string name="widget_nowplaying_no_title">(utwór bez nazwy)</string>
     <string name="widget_nowplaying_no_artist">(artysta bez nazwy)</string>

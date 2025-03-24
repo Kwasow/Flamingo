@@ -50,7 +50,7 @@ val viewModelsModule =
         }
 
         viewModel {
-            DaysTogetherViewModel()
+            DaysTogetherViewModel(get())
         }
 
         viewModel {

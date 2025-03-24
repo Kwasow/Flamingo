@@ -21,7 +21,7 @@ class WishlistModuleViewModel(
     private val wishlistManager: WishlistManager,
 ) : ViewModel() {
     // ====== Fields
-    val tabs = TabItem.getWishlistTabs(userManager.getCachedUser())
+    val tabs = TabItem.getWishlistTabs(userManager.user.value)
 
     var isWishlistLoading: Boolean by mutableStateOf(true)
         private set

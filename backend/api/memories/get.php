@@ -22,15 +22,10 @@ if ($user !== null) {
 // Parse memories CSV to JSON
 header('Content-Type: application/json; charset=utf-8');
 
-$coupleId = $user->getCoupleId();
+$coupleId = $user->getCoupleDetails()->getId();
+$anniversary = $user->getCoupleDetails()->getAnniversary();
 
-$stmt = mysqli_prepare(
-    $conn,
-    'SELECT m.*, c.anniversary_date
-    FROM Memories m
-    LEFT JOIN Couples c ON m.couple = c.id
-    WHERE couple = ?'
-);
+$stmt = mysqli_prepare($conn, 'SELECT m.* FROM Memories m WHERE couple = ?');
 mysqli_stmt_bind_param($stmt, 'i', $coupleId);
 mysqli_stmt_execute($stmt);
 $result = $stmt->get_result();
@@ -47,7 +42,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $row['photo']
     );
 
-    $year = findRelationshipYear($row['start_date'], $row['anniversary_date']);
+    $year = findRelationshipYear($row['start_date'], $anniversary);
     if (array_key_exists($year, $memories)) {
         $memories[$year][] = $memory;
     } else {

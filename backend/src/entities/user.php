@@ -5,14 +5,12 @@ class Partner implements jsonSerializable
     protected $id;
     protected $firstName;
     protected $icon;
-    protected $coupleId;
 
-    public function __construct($id, $firstName, $icon, $coupleId)
+    public function __construct($id, $firstName, $icon)
     {
         $this->id = $id;
         $this->firstName = $firstName;
         $this->icon = $icon;
-        $this->coupleId = $coupleId;
     }
 
     public function getId()
@@ -23,11 +21,6 @@ class Partner implements jsonSerializable
     public function getFirstName()
     {
         return $this->firstName;
-    }
-
-    public function getCoupleId()
-    {
-        return $this->coupleId;
     }
 
     public function jsonSerialize()
@@ -44,26 +37,32 @@ class User extends Partner implements JsonSerializable
 {
     private $email;
     private $partner;
+    private $coupleDetails;
 
     public function __construct(
         $id,
         $firstName,
         $email,
         $icon,
-        $coupleId,
-        $partner
+        $partner,
+        $coupleDetails
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
         $this->email = $email;
         $this->icon = $icon;
-        $this->coupleId = $coupleId;
         $this->partner = $partner;
+        $this->coupleDetails = $coupleDetails;
     }
 
     public function getPartner()
     {
         return $this->partner;
+    }
+
+    public function getCoupleDetails()
+    {
+        return $this->coupleDetails;
     }
 
     public function jsonSerialize()
@@ -73,7 +72,8 @@ class User extends Partner implements JsonSerializable
         'firstName' => $this->firstName,
         'email' => $this->email,
         'icon' => $this->icon,
-        'partner' => $this->partner
+        'partner' => $this->partner,
+        'coupleDetails' => $this->coupleDetails
         ];
     }
 }

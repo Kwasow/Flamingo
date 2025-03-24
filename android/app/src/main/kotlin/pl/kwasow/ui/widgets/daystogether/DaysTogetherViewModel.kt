@@ -1,14 +1,19 @@
 package pl.kwasow.ui.widgets.daystogether
 
 import androidx.lifecycle.ViewModel
-import pl.kwasow.BuildConfig
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import pl.kwasow.managers.UserManager
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
-class DaysTogetherViewModel : ViewModel() {
+class DaysTogetherViewModel(
+    userManager: UserManager,
+) : ViewModel() {
     // ====== Fields
-    val start: LocalDate = LocalDate.parse(BuildConfig.RELATIONSHIP_START)
-
-    // ====== Public methods
-    fun getDaysTogether(): Long = ChronoUnit.DAYS.between(start, LocalDate.now())
+    val daysTogether: Flow<Long?> =
+        userManager.userFlow.map { user ->
+            val anniversaryDate = user?.coupleDetails?.getLocalAnniversaryDate() ?: return@map null
+            ChronoUnit.DAYS.between(anniversaryDate, LocalDate.now())
+        }
 }
