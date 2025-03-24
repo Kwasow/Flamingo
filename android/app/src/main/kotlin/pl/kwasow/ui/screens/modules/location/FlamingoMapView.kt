@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +54,7 @@ fun FlamingoMapView(
     val viewModel = koinViewModel<LocationModuleViewModel>()
     val userLocation = viewModel.userLocation.observeAsState()
     val partnerLocation = viewModel.partnerLocation.observeAsState()
-    val user = viewModel.getUser()
+    val user = viewModel.user.collectAsState(null)
 
     val warsaw = LatLng(52.229845, 21.0104188)
     val cameraPositionState =
@@ -93,12 +94,12 @@ fun FlamingoMapView(
     ) {
         val userLoc = userLocation.value
         if (userLoc != null) {
-            CurrentLocationMarker(location = userLoc, user = user)
+            CurrentLocationMarker(location = userLoc, user = user.value)
         }
 
         val partnerLoc = partnerLocation.value
         if (partnerLoc != null) {
-            PersonMarker(location = partnerLoc, user = user)
+            PersonMarker(location = partnerLoc, user = user.value)
         }
     }
 }

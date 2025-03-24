@@ -36,10 +36,10 @@ class HomeScreenViewModel(
             Authorization.AUTHORIZED -> return
             Authorization.UNAUTHORIZED -> signOut(navigateToLogin)
             Authorization.UNKNOWN -> {
-                val authenticationResult = userManager.getAuthenticatedUser()
-                authorizationStatus = authenticationResult.authorization
+                val authorization = userManager.checkAuthorization()
+                authorizationStatus = authorization
 
-                if (authenticationResult.authorization == Authorization.UNAUTHORIZED) {
+                if (authorization == Authorization.UNAUTHORIZED) {
                     signOut(navigateToLogin)
                 } else {
                     messagingManager.sendFcmToken()

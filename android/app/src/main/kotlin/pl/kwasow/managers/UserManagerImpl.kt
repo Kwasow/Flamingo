@@ -7,6 +7,8 @@ import androidx.credentials.CustomCredential
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.GetCredentialResponse
 import androidx.credentials.exceptions.GetCredentialException
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asFlow
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -14,6 +16,8 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import pl.kwasow.BuildConfig
 import pl.kwasow.R
@@ -32,30 +36,20 @@ class UserManagerImpl(
     private val firebaseAuth = Firebase.auth
     private val credentialManager = CredentialManager.create(context)
 
-    private var cachedUser: User? = null
+    override val user: MutableLiveData<User?> = MutableLiveData(null)
+    override val userFlow: Flow<User?> = user.asFlow()
 
     // ====== Public methods
     override fun isUserLoggedIn(): Boolean {
         return firebaseAuth.currentUser != null
     }
 
-    override suspend fun getAuthenticatedUser(): AuthenticationResult {
-        val authenticatedUser = requestManager.getAuthenticatedUser()
-        val storedUser = systemManager.getCachedUser()
-        val returnedUser = authenticatedUser.authenticatedUser ?: storedUser ?: cachedUser
+    override suspend fun checkAuthorization(): AuthenticationResult.Authorization =
+        getAuthenticatedUser().authorization
 
-        cachedUser = returnedUser
-        systemManager.cacheUser(returnedUser)
-
-        return AuthenticationResult(
-            authenticatedUser.authorization,
-            returnedUser,
-        )
+    override suspend fun refreshUser() {
+        getAuthenticatedUser()
     }
-
-    override suspend fun getUser(): User? = getAuthenticatedUser().authenticatedUser
-
-    override fun getCachedUser(): User? = cachedUser
 
     override fun launchGoogleLogin(loginContext: LoginContext) = launchGoogleSignIn(loginContext)
 
@@ -66,6 +60,20 @@ class UserManagerImpl(
     }
 
     // ====== Private methods
+    private suspend fun getAuthenticatedUser(): AuthenticationResult {
+        val authenticatedUser = requestManager.getAuthenticatedUser()
+        val storedUser = systemManager.getCachedUser()
+        val returnedUser = authenticatedUser.authenticatedUser ?: storedUser ?: userFlow.first()
+
+        systemManager.cacheUser(returnedUser)
+        user.postValue(returnedUser)
+
+        return AuthenticationResult(
+            authenticatedUser.authorization,
+            returnedUser,
+        )
+    }
+
     private fun launchGoogleSignIn(loginContext: LoginContext) {
         launchGoogleLoginShared(loginContext, true) {
             launchGoogleSignUp(loginContext)

@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.MultiplePermissionsState
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import pl.kwasow.data.types.User
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.UserManager
@@ -22,8 +22,18 @@ class LocationModuleViewModel(
 ) : ViewModel() {
     // ====== Fields
     var isLoading by mutableStateOf(false)
+    val user = userManager.userFlow
     val userLocation = locationManager.userLocation
     val partnerLocation = locationManager.partnerLocation
+
+    // ====== Constructors
+    init {
+        viewModelScope.launch {
+            if (user.first() == null) {
+                userManager.refreshUser()
+            }
+        }
+    }
 
     // ====== Public methods
     fun refreshUserLocation() {
@@ -36,8 +46,6 @@ class LocationModuleViewModel(
             isLoading = false
         }
     }
-
-    fun getUser(): User? = userManager.getCachedUser()
 
     @ExperimentalPermissionsApi
     @Composable
