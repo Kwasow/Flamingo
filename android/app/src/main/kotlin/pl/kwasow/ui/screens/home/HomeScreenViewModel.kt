@@ -16,10 +16,19 @@ class HomeScreenViewModel(
     private val permissionManager: PermissionManager,
     private val userManager: UserManager,
 ) : ViewModel() {
+    // ====== Fields
+    private var authorizationStatus = AuthenticationResult.Authorization.UNKNOWN
+
     // ====== Public methods
     suspend fun doLaunchTasks(navigateToLogin: () -> Unit) {
+        if (authorizationStatus == AuthenticationResult.Authorization.AUTHORIZED) {
+            return
+        }
+
         // Check if user is authenticated
         val authenticationResult = userManager.getAuthenticatedUser()
+        authorizationStatus = authenticationResult.authorization
+
         if (authenticationResult.authorization == AuthenticationResult.Authorization.UNAUTHORIZED) {
             userManager.signOut()
             navigateToLogin()
