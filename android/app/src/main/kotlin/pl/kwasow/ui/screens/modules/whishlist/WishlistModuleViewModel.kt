@@ -21,11 +21,11 @@ class WishlistModuleViewModel(
     private val wishlistManager: WishlistManager,
 ) : ViewModel() {
     // ====== Fields
+    private var wishlist: Map<Int, MutableList<Wish>> by mutableStateOf(emptyMap())
+
     val tabs = TabItem.getWishlistTabs(userManager.user.value)
 
     var isWishlistLoading: Boolean by mutableStateOf(true)
-        private set
-    var wishlist: Map<Int, MutableList<Wish>> by mutableStateOf(emptyMap())
         private set
 
     var editedWish: Wish? by mutableStateOf(null)
