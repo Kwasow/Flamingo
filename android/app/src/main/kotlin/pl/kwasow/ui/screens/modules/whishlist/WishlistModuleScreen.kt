@@ -115,14 +115,15 @@ private fun WishlistTabs(paddingValues: PaddingValues) {
 private fun ErrorLoadingUserDetails() {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(16.dp),
     ) {
         Text(
             stringResource(id = R.string.error_loading_user),
             textAlign = TextAlign.Center,
-            fontStyle = FontStyle.Italic
+            fontStyle = FontStyle.Italic,
         )
     }
 }
