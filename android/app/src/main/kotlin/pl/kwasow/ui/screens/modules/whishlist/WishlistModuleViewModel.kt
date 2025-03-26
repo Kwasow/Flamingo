@@ -7,6 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import pl.kwasow.R
 import pl.kwasow.data.types.MinimalUser
@@ -23,7 +25,7 @@ class WishlistModuleViewModel(
     // ====== Fields
     private var wishlist: Map<Int, MutableList<Wish>> by mutableStateOf(emptyMap())
 
-    val tabs = TabItem.getWishlistTabs(userManager.user.value)
+    val tabs = userManager.userFlow.map { TabItem.getWishlistTabs(it) }
 
     var isWishlistLoading: Boolean by mutableStateOf(true)
         private set
@@ -39,6 +41,15 @@ class WishlistModuleViewModel(
         private set
     var wishToUpdate: Wish? by mutableStateOf(null)
         private set
+
+    // ====== Constructors
+    init {
+        viewModelScope.launch {
+            if (tabs.firstOrNull() == null) {
+                userManager.refreshUser()
+            }
+        }
+    }
 
     // ====== Public methods
     fun refreshWishlist() {

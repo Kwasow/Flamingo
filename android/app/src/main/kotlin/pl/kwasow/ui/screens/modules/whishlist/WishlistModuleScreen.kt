@@ -16,6 +16,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
+import pl.kwasow.data.types.TabItem
 import pl.kwasow.ui.components.FlamingoBackgroundLight
 import pl.kwasow.ui.components.FlamingoTopAppBar
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
@@ -61,19 +63,26 @@ fun WishlistModuleScreen() {
 @Composable
 private fun MainView(paddingValues: PaddingValues) {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
+    val tabs = viewModel.tabs.collectAsState(null)
 
-    if (viewModel.tabs.isEmpty()) {
+    val tabsValue = tabs.value
+    if (tabsValue == null) {
         ErrorLoadingUserDetails()
     } else {
-        WishlistTabs(paddingValues = paddingValues)
+        WishlistTabs(
+            paddingValues = paddingValues,
+            tabs = tabsValue,
+        )
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun WishlistTabs(paddingValues: PaddingValues) {
-    val viewModel = koinViewModel<WishlistModuleViewModel>()
-    val pagerState = rememberPagerState(pageCount = { viewModel.tabs.size })
+private fun WishlistTabs(
+    paddingValues: PaddingValues,
+    tabs: List<TabItem>,
+) {
+    val pagerState = rememberPagerState(pageCount = { tabs.size })
     val coroutineScope = rememberCoroutineScope()
 
     Column(
@@ -83,7 +92,7 @@ private fun WishlistTabs(paddingValues: PaddingValues) {
                 .padding(paddingValues),
     ) {
         PrimaryTabRow(selectedTabIndex = pagerState.currentPage) {
-            viewModel.tabs.forEachIndexed { index, item ->
+            tabs.forEachIndexed { index, item ->
                 Tab(
                     text = { Text(text = item.title) },
                     icon = {
@@ -106,7 +115,7 @@ private fun WishlistTabs(paddingValues: PaddingValues) {
         }
 
         HorizontalPager(state = pagerState) { index ->
-            viewModel.tabs[index].view()
+            tabs[index].view()
         }
     }
 }
