@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import pl.kwasow.R
@@ -45,7 +45,7 @@ class WishlistModuleViewModel(
     // ====== Constructors
     init {
         viewModelScope.launch {
-            if (tabs.firstOrNull() == null) {
+            if (tabs.first() == null) {
                 userManager.refreshUser()
             }
         }

@@ -12,9 +12,9 @@ data class TabItem(
     val view: @Composable () -> Unit,
 ) {
     companion object {
-        fun getWishlistTabs(user: User?): List<TabItem> {
+        fun getWishlistTabs(user: User?): List<TabItem>? {
             if (user == null) {
-                return emptyList()
+                return null
             }
 
             val partner = user.partner
