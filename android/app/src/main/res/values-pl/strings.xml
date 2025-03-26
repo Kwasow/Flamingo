@@ -32,6 +32,7 @@
     <string name="dialog_year_picker_title">Wybierz rok</string>
     <string name="something_went_wrong">Coś poszło nie tak</string>
     <string name="partner">partner</string>
+    <string name="error_loading_user">Coś poszło nie tak w trakcie wczytywania danych o użytkownikach</string>
     <!-- Module: Memories -->
     <string name="module_memories_name">Wspomnienia</string>
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>

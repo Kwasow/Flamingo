@@ -1,7 +1,6 @@
 package pl.kwasow.ui.screens.modules.whishlist
 
-import android.content.Context
-import android.widget.Toast
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,11 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
@@ -59,13 +61,12 @@ fun WishlistModuleScreen() {
 @Composable
 private fun MainView(paddingValues: PaddingValues) {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
-    val navigation = LocalFlamingoNavigation.current
 
     if (viewModel.tabs.isEmpty()) {
-        return errorLoadingWishlist(navigation.navigateBack, LocalContext.current)
+        ErrorLoadingUserDetails()
+    } else {
+        WishlistTabs(paddingValues = paddingValues)
     }
-
-    WishlistTabs(paddingValues = paddingValues)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -110,12 +111,20 @@ private fun WishlistTabs(paddingValues: PaddingValues) {
     }
 }
 
-private fun errorLoadingWishlist(
-    onBackPressed: () -> Unit,
-    context: Context,
-) {
-    Toast.makeText(context, R.string.something_went_wrong, Toast.LENGTH_LONG).show()
-    onBackPressed()
+@Composable
+private fun ErrorLoadingUserDetails() {
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Text(
+            stringResource(id = R.string.error_loading_user),
+            textAlign = TextAlign.Center,
+            fontStyle = FontStyle.Italic
+        )
+    }
 }
 
 // ====== Previews
