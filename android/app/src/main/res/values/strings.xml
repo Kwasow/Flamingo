@@ -36,6 +36,8 @@
     <string name="dialog_year_picker_title">Pick year</string>
     <string name="something_went_wrong">Something went wrong</string>
     <string name="partner">partner</string>
+    <string name="error_loading_user">Something went wrong while loading the user details</string>
+    <string name="error">Error</string>
 
     <!-- Module: Memories -->
     <string name="module_memories_name">Memories</string>
@@ -49,6 +51,7 @@
     <string name="module_music_no_albums">Failed to load albums</string>
     <string name="module_music_delete_dialog_header">Deleting album</string>
     <string name="module_music_delete_dialog_text">Are you sure you want to delete the \"%1$s\" album?</string>
+    <string name="module_music_unknown_album_uuid">Couldn\'t load album for UUID \"%1$s\"</string>
 
     <!-- Module: Wishlist -->
     <string name="module_wishlist_name">Wishlist</string>
