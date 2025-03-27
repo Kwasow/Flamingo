@@ -32,6 +32,8 @@
     <string name="dialog_year_picker_title">Wybierz rok</string>
     <string name="something_went_wrong">Coś poszło nie tak</string>
     <string name="partner">partner</string>
+    <string name="error_loading_user">Coś poszło nie tak w trakcie wczytywania danych o użytkownikach</string>
+    <string name="error">Błąd</string>
     <!-- Module: Memories -->
     <string name="module_memories_name">Wspomnienia</string>
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>
@@ -42,6 +44,7 @@
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>
     <string name="module_music_delete_dialog_header">Usuwanie albumu</string>
     <string name="module_music_delete_dialog_text">Czy na pewno chcesz usunąć album \"%1$s\"?</string>
+    <string name="module_music_unknown_album_uuid">Nie udało się załadować albumu o UUID \"%1$s\"</string>
     <!-- Module: Wishlist -->
     <string name="module_wishlist_name">Prezenty</string>
     <string name="module_wishlist_wish_entry_hint">Zacznij pisać…</string>
