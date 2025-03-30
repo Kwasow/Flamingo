@@ -3,13 +3,13 @@ package pl.kwasow.ui.screens.home
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -54,20 +54,24 @@ fun HomeScreen() {
         }
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-        val topPadding = paddingValues.calculateTopPadding()
-        val bottomPadding = bottomBarHeight + paddingValues.calculateBottomPadding()
+    Scaffold(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+    ) { paddingValues ->
+        FlamingoBackgroundLight()
 
-        Box(modifier = Modifier.padding(top = topPadding)) {
-            FlamingoBackgroundLight()
-
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
-            ) {
-                TopBar(navigateToSettings = navigation.navigateToSettings)
-                WidgetsView()
-                ModuleList(navigationBarPadding = bottomPadding)
-            }
+        Column(
+            modifier =
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(paddingValues)
+                    .padding(bottom = bottomBarHeight),
+        ) {
+            TopBar(navigateToSettings = navigation.navigateToSettings)
+            WidgetsView()
+            ModuleList()
         }
     }
 }
