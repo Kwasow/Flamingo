@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.core.net.toUri
 import pl.kwasow.MainActivity
+import pl.kwasow.data.enums.InteractionSource
 
 class IntentManagerImpl(
     private val context: Context,
@@ -13,12 +14,15 @@ class IntentManagerImpl(
     companion object {
         private const val PREFIX = "flamingo://"
 
-        const val MEMORY_NOTIFICATION_URL = "$PREFIX/memory/notification"
-        const val MISSING_YOU_NOTIFICATION_URL = "$PREFIX/missingyou?source=notification"
-        const val MISSING_YOU_SHORTCUT_URL = "$PREFIX/missingyou?source=shortcut"
+        private const val MEMORY_URL = "$PREFIX/memory/notification"
+        private const val MISSING_YOU_URL = "$PREFIX/missingyou"
     }
 
     // ====== Interface methods
+    override fun getMemoryUrl(): String = MEMORY_URL
+
+    override fun getMissingYouUrl(): String = MISSING_YOU_URL
+
     override fun buildPendingIntent(intent: Intent): PendingIntent =
         PendingIntent.getActivity(
             context,
@@ -28,11 +32,13 @@ class IntentManagerImpl(
         )
 
     override fun buildMissingYouNotificationIntent(): Intent =
-        buildDataIntent(MISSING_YOU_NOTIFICATION_URL)
+        buildDataIntent("$MISSING_YOU_URL?source=${InteractionSource.Notification}")
 
-    override fun buildMissingYouShortcutIntent(): Intent = buildDataIntent(MISSING_YOU_SHORTCUT_URL)
+    override fun buildMissingYouShortcutIntent(): Intent =
+        buildDataIntent("$MISSING_YOU_URL?source=${InteractionSource.Shortcut}")
 
-    override fun buildMemoryNotificationIntent(): Intent = buildDataIntent(MEMORY_NOTIFICATION_URL)
+    override fun buildMemoryNotificationIntent(): Intent =
+        buildDataIntent("$MEMORY_URL?source=${InteractionSource.Notification}")
 
     // ====== Private methods
     private fun buildDataIntent(stringData: String?): Intent =

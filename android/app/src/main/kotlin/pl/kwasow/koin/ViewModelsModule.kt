@@ -18,7 +18,7 @@ import pl.kwasow.ui.widgets.music.PlaybackWidgetViewModel
 val viewModelsModule =
     module {
         viewModel {
-            AppViewModel(get())
+            AppViewModel(get(), get())
         }
 
         viewModel {

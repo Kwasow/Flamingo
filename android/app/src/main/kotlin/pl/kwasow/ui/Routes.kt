@@ -1,6 +1,8 @@
 package pl.kwasow.ui
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import pl.kwasow.data.enums.InteractionSource
 
 // ====== Main navigation
 @Serializable
@@ -29,7 +31,10 @@ data class AlbumScreen(val albumUuid: String)
 object WishlistScreen
 
 @Serializable
-object MissingYouScreen
+data class MissingYouScreen(
+    @SerialName("source")
+    val interactionSource: InteractionSource = InteractionSource.User,
+)
 
 @Serializable
 object LocationScreen
