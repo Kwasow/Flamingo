@@ -14,22 +14,17 @@ fun RootLayout(
     bottomBar: @Composable () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        Box {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-            ) {
-                content()
-            }
+    Box {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            content()
+        }
 
-            Box(
-                modifier = Modifier.align(Alignment.BottomCenter),
-            ) {
-                bottomBar()
-            }
+        Box(
+            modifier = Modifier.align(Alignment.BottomCenter),
+        ) {
+            bottomBar()
         }
     }
 }
