@@ -33,10 +33,10 @@ fun MemoriesTimeline(
         modifier = modifier.padding(horizontal = 16.dp),
         contentPadding = contentPadding,
         dataArray = memories,
-    ) { memory, modifier ->
+    ) { memory, innerModifier ->
         MemoryView(
             memory = memory,
-            modifier = modifier,
+            modifier = innerModifier,
         )
     }
 }
