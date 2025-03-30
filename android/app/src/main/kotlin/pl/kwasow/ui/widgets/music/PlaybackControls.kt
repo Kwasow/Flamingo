@@ -67,6 +67,7 @@ private fun PlaybackControls(
     cover: Uri?,
 ) {
     val viewModel = koinViewModel<PlaybackWidgetViewModel>()
+    val density = LocalDensity.current
 
     val dismissState =
         rememberSwipeToDismissBoxState(
@@ -81,7 +82,7 @@ private fun PlaybackControls(
                 // We always want to reset the state back to it's initial value
                 return@rememberSwipeToDismissBoxState false
             },
-            positionalThreshold = with(LocalDensity.current) { { 150.dp.toPx() } },
+            positionalThreshold = with(density) { { 150.dp.toPx() } },
         )
 
     SwipeToDismissBox(

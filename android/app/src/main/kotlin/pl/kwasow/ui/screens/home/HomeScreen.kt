@@ -31,6 +31,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.ui.components.FlamingoBackgroundLight
+import pl.kwasow.ui.composition.LocalBottomBarHeight
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
@@ -38,6 +39,7 @@ import pl.kwasow.ui.composition.LocalFlamingoNavigation
 @Composable
 fun HomeScreen() {
     val viewModel = koinViewModel<HomeScreenViewModel>()
+    val bottomBarHeight = LocalBottomBarHeight.current
     val navigation = LocalFlamingoNavigation.current
 
     LaunchedEffect(true) {
@@ -53,7 +55,15 @@ fun HomeScreen() {
     }
 
     Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-        Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
+        val topPadding = paddingValues.calculateTopPadding()
+        val bottomPadding =
+            if (bottomBarHeight != 0.dp) {
+                bottomBarHeight
+            } else {
+                paddingValues.calculateBottomPadding()
+            }
+
+        Box(modifier = Modifier.padding(top = topPadding)) {
             FlamingoBackgroundLight()
 
             Column(
@@ -61,7 +71,7 @@ fun HomeScreen() {
             ) {
                 TopBar(navigateToSettings = navigation.navigateToSettings)
                 WidgetsView()
-                ModuleList(navigationBarPadding = paddingValues.calculateBottomPadding())
+                ModuleList(navigationBarPadding = bottomPadding)
             }
         }
     }
