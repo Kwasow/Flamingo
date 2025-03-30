@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -90,6 +91,7 @@ private fun AlbumCover(uri: Uri) {
             contentDescription = stringResource(id = R.string.contentDescription_album_cover),
             contentScale = ContentScale.Crop,
             clickable = false,
+            modifier = Modifier.fillMaxSize()
         )
     }
 }
