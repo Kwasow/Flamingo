@@ -91,7 +91,7 @@ private fun AlbumCover(uri: Uri) {
             contentDescription = stringResource(id = R.string.contentDescription_album_cover),
             contentScale = ContentScale.Crop,
             clickable = false,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         )
     }
 }
