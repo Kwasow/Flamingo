@@ -2,13 +2,9 @@ package pl.kwasow.managers
 
 import android.app.Notification
 import android.app.NotificationChannel
-import android.app.PendingIntent
-import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import pl.kwasow.MainActivity
 import pl.kwasow.R
 import pl.kwasow.data.types.NotificationChannelInfo
 import pl.kwasow.utils.FlamingoLogger
@@ -17,6 +13,7 @@ import android.app.NotificationManager as AndroidNotificationManager
 
 class NotificationManagerImpl(
     private val context: Context,
+    private val intentManager: IntentManager,
 ) : NotificationManager {
     // ====== Fields
     override val memoriesChannelInfo =
@@ -51,26 +48,15 @@ class NotificationManagerImpl(
 
     // ====== Public methods
     override fun postMemoryNotification() {
-        val startAppIntent =
-            Intent(Intent.ACTION_MAIN).apply {
-                component = ComponentName(context, MainActivity::class.java)
-                `package` = context.packageName
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
-        val startAppPendingIntent =
-            PendingIntent.getActivity(
-                context,
-                0,
-                startAppIntent,
-                PendingIntent.FLAG_IMMUTABLE,
-            )
+        val intent = intentManager.buildMemoryNotificationIntent()
+        val pendingIntent = intentManager.buildPendingIntent(intent)
 
         val notification =
             NotificationCompat.Builder(context, memoriesChannelInfo.channelId)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.notification_memories_title))
                 .setContentText(context.getString(R.string.notification_memories_text))
-                .setContentIntent(startAppPendingIntent)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
@@ -80,26 +66,15 @@ class NotificationManagerImpl(
     }
 
     override fun postMissingYouNotification(senderName: String) {
-        val startAppIntent =
-            Intent(Intent.ACTION_MAIN).apply {
-                component = ComponentName(context, MainActivity::class.java)
-                `package` = context.packageName
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            }
-        val startAppPendingIntent =
-            PendingIntent.getActivity(
-                context,
-                0,
-                startAppIntent,
-                PendingIntent.FLAG_IMMUTABLE,
-            )
+        val intent = intentManager.buildMissingYouNotificationIntent()
+        val pendingIntent = intentManager.buildPendingIntent(intent)
 
         val notification =
             NotificationCompat.Builder(context, missingYouChannelInfo.channelId)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.module_missingyou_miss_you))
                 .setContentText(getRandomMissingYouText(context, senderName))
-                .setContentIntent(startAppPendingIntent)
+                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .build()
 
