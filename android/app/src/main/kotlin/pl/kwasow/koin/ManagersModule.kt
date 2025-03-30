@@ -81,7 +81,7 @@ val managersModule =
         }
 
         single<UserManager> {
-            UserManagerImpl(get(), get(), get(), get())
+            UserManagerImpl(get(), get(), get(), get(), get())
         }
 
         single<WishlistManager> {

@@ -3,13 +3,13 @@ package pl.kwasow.ui.screens.home
 import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -31,6 +31,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.ui.components.FlamingoBackgroundLight
+import pl.kwasow.ui.composition.LocalBottomBarHeight
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
@@ -38,6 +39,7 @@ import pl.kwasow.ui.composition.LocalFlamingoNavigation
 @Composable
 fun HomeScreen() {
     val viewModel = koinViewModel<HomeScreenViewModel>()
+    val bottomBarHeight = LocalBottomBarHeight.current
     val navigation = LocalFlamingoNavigation.current
 
     LaunchedEffect(true) {
@@ -52,17 +54,24 @@ fun HomeScreen() {
         }
     }
 
-    Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
-        Box(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
-            FlamingoBackgroundLight()
+    Scaffold(
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .statusBarsPadding(),
+    ) { paddingValues ->
+        FlamingoBackgroundLight()
 
-            Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
-            ) {
-                TopBar(navigateToSettings = navigation.navigateToSettings)
-                WidgetsView()
-                ModuleList(navigationBarPadding = paddingValues.calculateBottomPadding())
-            }
+        Column(
+            modifier =
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .padding(paddingValues)
+                    .padding(bottom = bottomBarHeight),
+        ) {
+            TopBar(navigateToSettings = navigation.navigateToSettings)
+            WidgetsView()
+            ModuleList()
         }
     }
 }

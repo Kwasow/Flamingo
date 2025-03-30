@@ -31,6 +31,7 @@ import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.BuildConfig
 import pl.kwasow.R
 import pl.kwasow.ui.components.FlamingoTopAppBar
+import pl.kwasow.ui.composition.LocalBottomBarHeight
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
@@ -38,6 +39,7 @@ import pl.kwasow.ui.composition.LocalFlamingoNavigation
 @Composable
 fun SettingsScreen() {
     val navigation = LocalFlamingoNavigation.current
+    val bottomBarHeight = LocalBottomBarHeight.current
 
     Scaffold(
         topBar = {
@@ -51,7 +53,8 @@ fun SettingsScreen() {
             modifier =
                 Modifier
                     .verticalScroll(rememberScrollState())
-                    .padding(paddingValues),
+                    .padding(paddingValues)
+                    .padding(bottom = bottomBarHeight),
         ) {
             AppDetails()
             InfoSettingsSection()

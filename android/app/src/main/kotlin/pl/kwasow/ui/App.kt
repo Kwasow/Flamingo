@@ -2,8 +2,6 @@ package pl.kwasow.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -33,15 +31,10 @@ import pl.kwasow.ui.widgets.music.PlaybackControls
 // ====== Public composables
 @Composable
 fun App() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
-    ) {
-        RootLayout(
-            bottomBar = { BottomActions() },
-            content = { NavContainer(modifier = Modifier.fillMaxSize()) },
-        )
-    }
+    RootLayout(
+        bottomBar = { modifier -> BottomActions(modifier = modifier) },
+        content = { NavContainer(modifier = Modifier.fillMaxSize()) },
+    )
 }
 
 // ====== Private composables

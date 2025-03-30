@@ -29,6 +29,7 @@ import pl.kwasow.utils.FlamingoLogger
 class UserManagerImpl(
     private val context: Context,
     private val audioManager: AudioManager,
+    private val playbackManager: PlaybackManager,
     private val requestManager: RequestManager,
     private val systemManager: SystemManager,
 ) : UserManager {
@@ -55,6 +56,7 @@ class UserManagerImpl(
 
     override fun signOut() {
         firebaseAuth.signOut()
+        playbackManager.stop()
         audioManager.removeAllDownloads()
         systemManager.clearCache()
     }
