@@ -2,6 +2,7 @@ package pl.kwasow.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -14,11 +15,12 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import pl.kwasow.ui.composition.LocalBottomBarHeight
+import pl.kwasow.utils.FlamingoLogger
 
 // ====== Public composables
 @Composable
 fun RootLayout(
-    bottomBar: @Composable () -> Unit = {},
+    bottomBar: @Composable (Modifier) -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     var bottomBarHeight by remember { mutableStateOf(0.dp) }
@@ -37,13 +39,16 @@ fun RootLayout(
             modifier =
                 Modifier
                     .align(Alignment.BottomCenter)
-                    .onGloballyPositioned { coordinates ->
-                        with(density) {
-                            bottomBarHeight = coordinates.size.height.toDp()
-                        }
-                    },
+                    .navigationBarsPadding(),
         ) {
-            bottomBar()
+            bottomBar(
+                Modifier.onGloballyPositioned { coordinates ->
+                    with(density) {
+                        bottomBarHeight = coordinates.size.height.toDp()
+                        FlamingoLogger.d(bottomBarHeight.toString())
+                    }
+                },
+            )
         }
     }
 }

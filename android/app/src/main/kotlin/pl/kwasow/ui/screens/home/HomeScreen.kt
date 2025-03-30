@@ -56,12 +56,7 @@ fun HomeScreen() {
 
     Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
         val topPadding = paddingValues.calculateTopPadding()
-        val bottomPadding =
-            if (bottomBarHeight != 0.dp) {
-                bottomBarHeight
-            } else {
-                paddingValues.calculateBottomPadding()
-            }
+        val bottomPadding = bottomBarHeight + paddingValues.calculateBottomPadding()
 
         Box(modifier = Modifier.padding(top = topPadding)) {
             FlamingoBackgroundLight()

@@ -32,7 +32,7 @@ import pl.kwasow.ui.widgets.music.PlaybackControls
 @Composable
 fun App() {
     RootLayout(
-        bottomBar = { BottomActions() },
+        bottomBar = { modifier -> BottomActions(modifier = modifier) },
         content = { NavContainer(modifier = Modifier.fillMaxSize()) },
     )
 }
