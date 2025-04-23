@@ -1,14 +1,11 @@
 package pl.kwasow.ui.screens.modules.location
 
 import android.app.Activity
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.MultiplePermissionsState
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import pl.kwasow.managers.LocationManager
@@ -46,11 +43,6 @@ class LocationModuleViewModel(
             isLoading = false
         }
     }
-
-    @ExperimentalPermissionsApi
-    @Composable
-    fun rememberLocationPermissionState(): MultiplePermissionsState =
-        permissionManager.rememberLocationPermissionState()
 
     fun launchPermissionSettings(activity: Activity) =
         permissionManager.launchPermissionSettings(activity)

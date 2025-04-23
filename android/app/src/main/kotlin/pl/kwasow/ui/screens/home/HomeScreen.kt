@@ -1,6 +1,5 @@
 package pl.kwasow.ui.screens.home
 
-import android.os.Build
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,6 +30,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.ui.components.FlamingoBackgroundLight
+import pl.kwasow.ui.components.PermissionNotificationView
 import pl.kwasow.ui.composition.LocalBottomBarHeight
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
@@ -46,32 +46,26 @@ fun HomeScreen() {
         viewModel.doLaunchTasks(navigation.navigateToLogin)
     }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        val notificationPermission = viewModel.rememberNotificationPermissionState()
-
-        LaunchedEffect(true) {
-            notificationPermission.launchPermissionRequest()
-        }
-    }
-
-    Scaffold(
-        modifier =
-            Modifier
-                .fillMaxSize()
-                .statusBarsPadding(),
-    ) { paddingValues ->
-        FlamingoBackgroundLight()
-
-        Column(
+    PermissionNotificationView {
+        Scaffold(
             modifier =
                 Modifier
-                    .verticalScroll(rememberScrollState())
-                    .padding(paddingValues)
-                    .padding(bottom = bottomBarHeight),
-        ) {
-            TopBar(navigateToSettings = navigation.navigateToSettings)
-            WidgetsView()
-            ModuleList()
+                    .fillMaxSize()
+                    .statusBarsPadding(),
+        ) { paddingValues ->
+            FlamingoBackgroundLight()
+
+            Column(
+                modifier =
+                    Modifier
+                        .verticalScroll(rememberScrollState())
+                        .padding(paddingValues)
+                        .padding(bottom = bottomBarHeight),
+            ) {
+                TopBar(navigateToSettings = navigation.navigateToSettings)
+                WidgetsView()
+                ModuleList()
+            }
         }
     }
 }

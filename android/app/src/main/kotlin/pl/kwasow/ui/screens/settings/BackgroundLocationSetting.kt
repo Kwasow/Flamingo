@@ -66,7 +66,7 @@ fun BackgroundLocationEntry() {
             VerticalDivider(modifier = Modifier.padding(end = 12.dp))
 
             Switch(
-                checked = allowLocationRequests == true,
+                checked = allowLocationRequests,
                 onCheckedChange = { onToggle() },
             )
         }
