@@ -13,7 +13,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,7 +21,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.HazeStyle
 import dev.chrisbanes.haze.hazeEffect
@@ -32,6 +30,7 @@ import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.ui.components.AnimatedRefreshButton
 import pl.kwasow.ui.components.FlamingoTopAppBar
+import pl.kwasow.ui.components.PermissionLocationView
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 
 // ====== Public composables
@@ -42,32 +41,36 @@ fun LocationModuleScreen() {
     val hazeState = remember { HazeState() }
     val style = HazeMaterials.ultraThin(MaterialTheme.colorScheme.surface)
 
-    Scaffold(
-        topBar = {
-            AppBar(
-                onBackPressed = navigation.navigateBack,
+    PermissionLocationView { granted ->
+        Scaffold(
+            topBar = {
+                AppBar(
+                    onBackPressed = navigation.navigateBack,
+                    hazeState = hazeState,
+                    style = style,
+                    permissionGranted = granted,
+                )
+            },
+        ) { paddingValues ->
+            MainView(
+                paddingValues = paddingValues,
                 hazeState = hazeState,
-                style = style,
+                permissionGranted = granted,
             )
-        },
-    ) { paddingValues ->
-        MainView(
-            paddingValues = paddingValues,
-            hazeState = hazeState,
-        )
+        }
     }
 }
 
 // ====== Private composables
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar(
     onBackPressed: () -> Unit,
     hazeState: HazeState,
     style: HazeStyle,
+    permissionGranted: Boolean,
 ) {
     val viewModel = koinViewModel<LocationModuleViewModel>()
-    val locationPermission = viewModel.rememberLocationPermissionState()
 
     FlamingoTopAppBar(
         title = stringResource(LocationModuleInfo.nameId),
@@ -79,7 +82,7 @@ private fun AppBar(
                 scrolledContainerColor = Color.Transparent,
             ),
         actions = {
-            if (locationPermission.allPermissionsGranted) {
+            if (permissionGranted) {
                 AnimatedRefreshButton(
                     onRefresh = { viewModel.refreshUserLocation() },
                     isRefreshing = viewModel.isLoading,
@@ -89,20 +92,13 @@ private fun AppBar(
     )
 }
 
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun MainView(
     paddingValues: PaddingValues,
     hazeState: HazeState,
+    permissionGranted: Boolean,
 ) {
-    val viewModel = koinViewModel<LocationModuleViewModel>()
-    val locationPermission = viewModel.rememberLocationPermissionState()
-
-    LaunchedEffect(true) {
-        locationPermission.launchMultiplePermissionRequest()
-    }
-
-    if (locationPermission.allPermissionsGranted) {
+    if (permissionGranted) {
         FlamingoMapView(
             hazeState = hazeState,
             paddingValues = paddingValues,
