@@ -121,7 +121,7 @@ private fun FlamingoNavHost(
             navigateToMusic = { navController.navigate(MusicScreen) },
             navigateToMusicAlbum = { navController.navigate(AlbumScreen(it)) },
             navigateToWishlist = { navController.navigate(WishlistScreen) },
-            navigateToMissingYou = { navController.navigate(MissingYouScreen) },
+            navigateToMissingYou = { navController.navigate(MissingYouScreen()) },
             navigateToLocation = { navController.navigate(LocationScreen) },
             navigateBack = { navController.popBackStack() },
         )

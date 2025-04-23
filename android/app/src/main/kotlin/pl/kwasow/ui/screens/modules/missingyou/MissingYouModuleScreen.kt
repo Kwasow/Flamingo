@@ -21,6 +21,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -43,6 +44,7 @@ import pl.kwasow.data.enums.InteractionSource
 import pl.kwasow.ui.components.FlamingoBackgroundLight
 import pl.kwasow.ui.components.FlamingoTopAppBar
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
+import pl.kwasow.utils.FlamingoLogger
 
 // ====== Public composables
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,6 +53,9 @@ fun MissingYouModuleScreen(interactionSource: InteractionSource) {
     val viewModel = koinViewModel<MissingYouModuleViewModel>()
     val navigation = LocalFlamingoNavigation.current
 
+    LaunchedEffect(true) {
+        FlamingoLogger.d("MissingYouModuleScreen, source: $interactionSource")
+    }
     Scaffold(
         topBar = {
             FlamingoTopAppBar(
