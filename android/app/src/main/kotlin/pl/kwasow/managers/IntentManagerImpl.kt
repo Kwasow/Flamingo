@@ -3,6 +3,9 @@ package pl.kwasow.managers
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -10,6 +13,7 @@ import androidx.core.net.toUri
 import pl.kwasow.MainActivity
 import pl.kwasow.R
 import pl.kwasow.data.enums.InteractionSource
+import pl.kwasow.data.types.Shortcut
 
 class IntentManagerImpl(
     private val context: Context,
@@ -24,15 +28,14 @@ class IntentManagerImpl(
 
     // ====== Interface methods
     override fun setupShortcuts() {
-        val shortcut =
-            ShortcutInfoCompat.Builder(context, "missingyou")
-                .setShortLabel(context.getString(R.string.module_missingyou_name))
-                .setLongLabel(context.getString(R.string.module_missingyou_name))
-                .setIcon(IconCompat.createWithResource(context, R.drawable.ic_vibrate))
-                .setIntent(buildMissingYouShortcutIntent())
-                .build()
-
-        ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
+        setupShortcut(
+            Shortcut(
+                "missingyou",
+                R.string.module_missingyou_name,
+                R.drawable.ic_vibrate,
+                buildMissingYouShortcutIntent(),
+            )
+        )
     }
 
     override fun getMemoryUrl(): String = MEMORY_URL
@@ -65,4 +68,20 @@ class IntentManagerImpl(
                 data = stringData.toUri()
             }
         }
+
+    private fun setupShortcut(details: Shortcut) {
+        val icon = IconCompat.createWithResource(context, details.icon).apply {
+            setTint(context.getColor(R.color.primary))
+        }
+
+        val shortcut =
+            ShortcutInfoCompat.Builder(context, details.id)
+                .setShortLabel(context.getString(details.label))
+                .setLongLabel(context.getString(details.label))
+                .setIcon(icon)
+                .setIntent(details.intent)
+                .build()
+
+        ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
+    }
 }
