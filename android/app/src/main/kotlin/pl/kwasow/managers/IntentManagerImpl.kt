@@ -24,12 +24,13 @@ class IntentManagerImpl(
 
     // ====== Interface methods
     override fun setupShortcuts() {
-        val shortcut = ShortcutInfoCompat.Builder(context, "missingyou")
-            .setShortLabel(context.getString(R.string.module_missingyou_name))
-            .setLongLabel(context.getString(R.string.module_missingyou_name))
-            .setIcon(IconCompat.createWithResource(context, R.drawable.ic_vibrate))
-            .setIntent(buildMissingYouShortcutIntent())
-            .build()
+        val shortcut =
+            ShortcutInfoCompat.Builder(context, "missingyou")
+                .setShortLabel(context.getString(R.string.module_missingyou_name))
+                .setLongLabel(context.getString(R.string.module_missingyou_name))
+                .setIcon(IconCompat.createWithResource(context, R.drawable.ic_vibrate))
+                .setIntent(buildMissingYouShortcutIntent())
+                .build()
 
         ShortcutManagerCompat.pushDynamicShortcut(context, shortcut)
     }
