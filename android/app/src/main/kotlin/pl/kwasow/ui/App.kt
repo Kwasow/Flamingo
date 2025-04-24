@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -33,6 +34,12 @@ import pl.kwasow.ui.widgets.music.PlaybackControls
 // ====== Public composables
 @Composable
 fun App() {
+    val viewModel = koinViewModel<AppViewModel>()
+
+    LaunchedEffect(true) {
+        viewModel.runStartupTasks()
+    }
+
     RootLayout(
         bottomBar = { modifier -> BottomActions(modifier = modifier) },
         content = { NavContainer(modifier = Modifier.fillMaxSize()) },

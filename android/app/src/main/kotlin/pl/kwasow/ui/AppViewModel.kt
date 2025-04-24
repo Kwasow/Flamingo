@@ -9,7 +9,7 @@ import pl.kwasow.managers.UserManager
 // This is not a global view model! Don't use it as such! It is a view model for the
 // App composable and shouldn't be used in any other case.
 class AppViewModel(
-    intentManager: IntentManager,
+    private val intentManager: IntentManager,
     private val userManager: UserManager,
 ) : ViewModel() {
     // ====== Fields
@@ -22,5 +22,9 @@ class AppViewModel(
         } else {
             LoginScreen
         }
+    }
+
+    fun runStartupTasks() {
+        intentManager.setupShortcuts()
     }
 }
