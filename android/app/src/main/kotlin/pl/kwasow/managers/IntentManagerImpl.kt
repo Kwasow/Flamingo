@@ -32,7 +32,7 @@ class IntentManagerImpl(
             Shortcut(
                 "missingyou",
                 R.string.module_missingyou_name,
-                R.drawable.ic_vibrate,
+                R.drawable.ic_shortcut_missingyou,
                 buildMissingYouShortcutIntent(),
             )
         )
@@ -70,9 +70,7 @@ class IntentManagerImpl(
         }
 
     private fun setupShortcut(details: Shortcut) {
-        val icon = IconCompat.createWithResource(context, details.icon).apply {
-            setTint(context.getColor(R.color.primary))
-        }
+        val icon = IconCompat.createWithResource(context, details.icon)
 
         val shortcut =
             ShortcutInfoCompat.Builder(context, details.id)
