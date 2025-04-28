@@ -3,9 +3,6 @@ package pl.kwasow.managers
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
@@ -34,7 +31,7 @@ class IntentManagerImpl(
                 R.string.module_missingyou_name,
                 R.drawable.ic_shortcut_missingyou,
                 buildMissingYouShortcutIntent(),
-            )
+            ),
         )
     }
 

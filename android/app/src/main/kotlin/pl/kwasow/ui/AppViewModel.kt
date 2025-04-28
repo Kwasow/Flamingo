@@ -1,6 +1,5 @@
 package pl.kwasow.ui
 
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import pl.kwasow.managers.IntentManager
 import pl.kwasow.managers.UserManager

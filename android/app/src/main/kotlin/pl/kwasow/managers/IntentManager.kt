@@ -2,7 +2,6 @@ package pl.kwasow.managers
 
 import android.app.PendingIntent
 import android.content.Intent
-import androidx.compose.ui.graphics.Color
 
 interface IntentManager {
     // ====== Methods
