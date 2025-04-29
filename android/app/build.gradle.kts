@@ -94,6 +94,7 @@ dependencies {
     // Firebase and Google
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
+    implementation(libs.firebase.crashlytics)
     implementation(libs.firebase.messaging)
     implementation(libs.google.services.location)
     implementation(libs.google.services.maps)
