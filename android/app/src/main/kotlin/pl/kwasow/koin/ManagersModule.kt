@@ -5,6 +5,8 @@ import pl.kwasow.managers.AudioManager
 import pl.kwasow.managers.AudioManagerImpl
 import pl.kwasow.managers.FlamingoDownloadManager
 import pl.kwasow.managers.FlamingoDownloadManagerImpl
+import pl.kwasow.managers.IntentManager
+import pl.kwasow.managers.IntentManagerImpl
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.LocationManagerImpl
 import pl.kwasow.managers.MemoriesManager
@@ -40,6 +42,10 @@ val managersModule =
             FlamingoDownloadManagerImpl(get(), get())
         }
 
+        single<IntentManager> {
+            IntentManagerImpl(get())
+        }
+
         single<LocationManager> {
             LocationManagerImpl(get(), get(), get())
         }
@@ -53,7 +59,7 @@ val managersModule =
         }
 
         single<NotificationManager> {
-            NotificationManagerImpl(get())
+            NotificationManagerImpl(get(), get())
         }
 
         single<PermissionManager> {

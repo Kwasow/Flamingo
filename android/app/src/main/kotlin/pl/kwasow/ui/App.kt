@@ -4,14 +4,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 import pl.kwasow.extensions.slideComposable
 import pl.kwasow.ui.components.RootLayout
 import pl.kwasow.ui.composition.FlamingoNavigation
@@ -31,6 +34,12 @@ import pl.kwasow.ui.widgets.music.PlaybackControls
 // ====== Public composables
 @Composable
 fun App() {
+    val viewModel = koinViewModel<AppViewModel>()
+
+    LaunchedEffect(true) {
+        viewModel.runStartupTasks()
+    }
+
     RootLayout(
         bottomBar = { modifier -> BottomActions(modifier = modifier) },
         content = { NavContainer(modifier = Modifier.fillMaxSize()) },
@@ -41,6 +50,7 @@ fun App() {
 @Composable
 private fun NavContainer(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
+    val viewModel = koinInject<AppViewModel>()
 
     FlamingoNavHost(
         navController = navController,
@@ -84,8 +94,15 @@ private fun NavContainer(modifier: Modifier = Modifier) {
             WishlistModuleScreen()
         }
 
-        slideComposable<MissingYouScreen> {
-            MissingYouModuleScreen()
+        slideComposable<MissingYouScreen>(
+            deepLinks =
+                listOf(
+                    navDeepLink<MissingYouScreen>(basePath = viewModel.missingYouUrl),
+                ),
+        ) { backStackEntry ->
+            val missingYou: MissingYouScreen = backStackEntry.toRoute()
+
+            MissingYouModuleScreen(interactionSource = missingYou.interactionSource)
         }
 
         slideComposable<LocationScreen> {
@@ -111,7 +128,7 @@ private fun FlamingoNavHost(
             navigateToMusic = { navController.navigate(MusicScreen) },
             navigateToMusicAlbum = { navController.navigate(AlbumScreen(it)) },
             navigateToWishlist = { navController.navigate(WishlistScreen) },
-            navigateToMissingYou = { navController.navigate(MissingYouScreen) },
+            navigateToMissingYou = { navController.navigate(MissingYouScreen()) },
             navigateToLocation = { navController.navigate(LocationScreen) },
             navigateBack = { navController.popBackStack() },
         )

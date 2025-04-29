@@ -12,7 +12,7 @@ import pl.kwasow.ui.App
 import pl.kwasow.ui.theme.FlamingoTheme
 
 class MainActivity : AppCompatActivity() {
-    // ====== Public methods
+    // ====== Interface methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

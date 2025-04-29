@@ -9,10 +9,12 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavDeepLink
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 
 inline fun <reified T : Any> NavGraphBuilder.slideComposable(
+    deepLinks: List<NavDeepLink> = emptyList(),
     noinline content: @Composable AnimatedContentScope.(NavBackStackEntry) -> Unit,
 ) {
     val animationTime = 400
@@ -51,5 +53,6 @@ inline fun <reified T : Any> NavGraphBuilder.slideComposable(
                 animationSpec = tween(animationTime),
             )
         },
+        deepLinks = deepLinks,
     )
 }
