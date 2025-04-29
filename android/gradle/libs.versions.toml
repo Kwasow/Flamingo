@@ -33,6 +33,7 @@ protobuf = "4.30.1"
 
 # Plugins
 androidGradlePlugin = "8.8.2"
+firebaseCrashlyticsPlugin = "3.0.3"
 googleMapsplatformPlugin = "2.0.1"
 googleProtobufPlugin = "0.9.4"
 googleServicesPlugin = "4.4.2"
@@ -63,9 +64,9 @@ compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-mani
 compose-ui-tooling-base = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
-firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 google-libraries-googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 google-libraries-maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
@@ -86,6 +87,7 @@ ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref =
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref="firebaseCrashlyticsPlugin" }
 google-mapsplatform = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleMapsplatformPlugin" }
 google-protobuf = { id = "com.google.protobuf", version.ref = "googleProtobufPlugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }

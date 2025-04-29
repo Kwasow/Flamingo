@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
 
     alias(libs.plugins.android.application)
+    alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.google.mapsplatform)
     alias(libs.plugins.google.protobuf)
     alias(libs.plugins.google.services)
