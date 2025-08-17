@@ -40,9 +40,10 @@ import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.data.types.User
-import pl.kwasow.data.types.UserIcon
-import pl.kwasow.data.types.UserLocation
+import pl.kwasow.data.types.UserIconDetails
+import pl.kwasow.extensions.details
+import pl.kwasow.flamingo.types.location.UserLocation
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.utils.FlamingoDateUtils
 
 // ====== Public composables
@@ -115,7 +116,7 @@ private fun CurrentLocationMarker(
         longitude = location.longitude,
         title = stringResource(id = R.string.module_location_your_location),
         time = location.time,
-        icon = user?.icon,
+        icon = user?.icon?.details(),
         fallbackIcon = R.drawable.ic_current_location,
     )
 }
@@ -130,7 +131,7 @@ private fun PersonMarker(
         longitude = location.longitude,
         title = location.userName,
         time = location.timestamp,
-        icon = user?.partner?.icon,
+        icon = user?.partner?.icon?.details(),
         fallbackIcon = R.drawable.ic_map_user_marker,
     )
 }
@@ -141,7 +142,7 @@ private fun FlamingoMarker(
     longitude: Double,
     title: String,
     time: Long,
-    icon: UserIcon?,
+    icon: UserIconDetails?,
     @DrawableRes fallbackIcon: Int,
 ) {
     val markerState = rememberMarkerState(position = LatLng(latitude, longitude))
@@ -192,7 +193,7 @@ private fun FlamingoMarker(
 private fun MarkerInfo(
     name: String,
     time: Long,
-    icon: UserIcon?,
+    icon: UserIconDetails?,
 ) {
     Card(modifier = Modifier.padding(4.dp)) {
         Row(
@@ -234,6 +235,6 @@ private fun MarkerInfoPreview() {
     MarkerInfo(
         name = "My location",
         time = System.currentTimeMillis() - 1000000,
-        icon = UserIcon.SHEEP,
+        icon = UserIconDetails(R.drawable.ic_sheep, R.string.contentDescription_sheep_icon),
     )
 }

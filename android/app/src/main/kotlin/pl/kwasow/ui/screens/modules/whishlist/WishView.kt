@@ -36,8 +36,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.data.types.Wish
 import pl.kwasow.extensions.linkify
+import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.utils.FlamingoDateUtils
 
 // ====== Public composables

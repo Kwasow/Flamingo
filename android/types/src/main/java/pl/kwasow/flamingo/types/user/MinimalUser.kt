@@ -1,4 +1,4 @@
-package pl.kwasow.data.types
+package pl.kwasow.flamingo.types.user
 
 interface MinimalUser {
     val id: Int

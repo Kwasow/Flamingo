@@ -21,8 +21,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import pl.kwasow.BuildConfig
 import pl.kwasow.R
-import pl.kwasow.data.types.AuthenticationResult
-import pl.kwasow.data.types.User
+import pl.kwasow.flamingo.types.auth.AuthenticationResult
+import pl.kwasow.flamingo.types.auth.Authorization
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.managers.UserManager.LoginContext
 import pl.kwasow.utils.FlamingoLogger
 
@@ -45,8 +46,7 @@ class UserManagerImpl(
         return firebaseAuth.currentUser != null
     }
 
-    override suspend fun checkAuthorization(): AuthenticationResult.Authorization =
-        getAuthenticatedUser().authorization
+    override suspend fun checkAuthorization(): Authorization = getAuthenticatedUser().authorization
 
     override suspend fun refreshUser() {
         getAuthenticatedUser()
@@ -173,16 +173,16 @@ class UserManagerImpl(
                 val authResult = requestManager.getAuthenticatedUser()
 
                 when (authResult.authorization) {
-                    AuthenticationResult.Authorization.AUTHORIZED -> {
+                    Authorization.AUTHORIZED -> {
                         FlamingoLogger.i("Google and Firebase login success")
                         loginContext.onSuccess()
                     }
-                    AuthenticationResult.Authorization.UNAUTHORIZED -> {
+                    Authorization.UNAUTHORIZED -> {
                         FlamingoLogger.e("Firebase login failed - access not granted")
                         loginContext.onError(context.getString(R.string.login_error_no_access))
                         signOut()
                     }
-                    AuthenticationResult.Authorization.UNKNOWN -> {
+                    Authorization.UNKNOWN -> {
                         FlamingoLogger.e("Firebase login failed - couldn't connect to server")
                         loginContext.onError(context.getString(R.string.login_error_no_connection))
                         signOut()

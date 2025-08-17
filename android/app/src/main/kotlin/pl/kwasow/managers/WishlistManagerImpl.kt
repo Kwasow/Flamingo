@@ -1,6 +1,6 @@
 package pl.kwasow.managers
 
-import pl.kwasow.data.types.Wish
+import pl.kwasow.flamingo.types.wishlist.Wish
 
 class WishlistManagerImpl(
     private val requestManager: RequestManager,

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import pl.kwasow.data.types.AuthenticationResult
-import pl.kwasow.data.types.User
+import pl.kwasow.flamingo.types.auth.Authorization
+import pl.kwasow.flamingo.types.user.User
 
 interface UserManager {
     // ====== Classes
@@ -23,7 +23,7 @@ interface UserManager {
     // ====== Methods
     fun isUserLoggedIn(): Boolean
 
-    suspend fun checkAuthorization(): AuthenticationResult.Authorization
+    suspend fun checkAuthorization(): Authorization
 
     suspend fun refreshUser()
 

@@ -10,8 +10,8 @@ import coil.annotation.ExperimentalCoilApi
 import coil.imageLoader
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
-import pl.kwasow.data.types.User
-import pl.kwasow.flamingo.types.Memory
+import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.utils.FlamingoLogger
 import java.io.File
 

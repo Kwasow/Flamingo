@@ -1,4 +1,4 @@
-package pl.kwasow.data.types
+package pl.kwasow.flamingo.types.memories
 
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -6,8 +6,13 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 @Serializable
-data class CoupleDetails(
-    val anniversary: String,
+data class Memory(
+    val id: Int,
+    val startDate: String,
+    val endDate: String?,
+    val title: String,
+    val description: String,
+    val photo: String?,
 ) {
     // ====== Fields
     companion object {
@@ -15,16 +20,16 @@ data class CoupleDetails(
     }
 
     // ====== Public methods
-    fun getLocalAnniversaryDate(): LocalDate? {
+    fun getLocalStartDate(): LocalDate? {
         return try {
-            LocalDate.parse(anniversary)
-        } catch (e: Exception) {
+            LocalDate.parse(startDate)
+        } catch (_: Exception) {
             null
         }
     }
 
-    fun getStringAnniversaryDate(): String {
-        val localDate = getLocalAnniversaryDate() ?: return anniversary
+    fun getStringStartDate(): String {
+        val localDate = getLocalStartDate() ?: return startDate
 
         return dateFormatter.format(localDate)
     }

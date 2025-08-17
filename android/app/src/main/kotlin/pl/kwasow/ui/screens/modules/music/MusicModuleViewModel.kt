@@ -7,8 +7,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pl.kwasow.data.types.Album
-import pl.kwasow.data.types.AudioTrack
+import pl.kwasow.flamingo.types.music.Album
+import pl.kwasow.flamingo.types.music.AudioTrack
 import pl.kwasow.managers.AudioManager
 import pl.kwasow.managers.PlaybackManager
 

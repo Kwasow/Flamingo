@@ -29,10 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.data.types.MinimalUser
-import pl.kwasow.data.types.Partner
-import pl.kwasow.data.types.UserIcon
-import pl.kwasow.data.types.Wish
+import pl.kwasow.flamingo.types.user.MinimalUser
+import pl.kwasow.flamingo.types.user.Partner
+import pl.kwasow.flamingo.types.user.UserIcon
+import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.ui.components.UndecoratedTextField
 
 // ====== Public composables

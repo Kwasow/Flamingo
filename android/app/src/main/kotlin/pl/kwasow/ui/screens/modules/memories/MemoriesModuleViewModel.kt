@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import pl.kwasow.flamingo.types.Memory
+import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.managers.MemoriesManager
 
 class MemoriesModuleViewModel(

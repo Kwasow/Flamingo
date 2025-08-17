@@ -8,7 +8,7 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
-import pl.kwasow.data.types.UserLocation
+import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.utils.FlamingoLogger
 
 class LocationManagerImpl(

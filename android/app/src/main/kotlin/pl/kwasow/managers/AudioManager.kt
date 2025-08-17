@@ -1,8 +1,8 @@
 package pl.kwasow.managers
 
 import android.net.Uri
-import pl.kwasow.data.types.Album
-import pl.kwasow.data.types.AudioTrack
+import pl.kwasow.flamingo.types.music.Album
+import pl.kwasow.flamingo.types.music.AudioTrack
 
 interface AudioManager {
     // ====== Methods
