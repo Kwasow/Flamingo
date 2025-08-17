@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
-import pl.kwasow.data.types.Memory
+import pl.kwasow.flamingo.types.Memory
 
 // ====== Public composables
 @Composable
@@ -182,12 +182,12 @@ private fun IndicatorDot(
 private fun getMemoriesWithPhotos(memories: List<Memory>): List<Any> {
     val result = mutableListOf<Any>()
 
-    memories.forEach {
-        if (it.photo != null) {
-            result.add(it.photo)
+    memories.forEach { memory ->
+        memory.photo?.let { photo ->
+            result.add(photo)
         }
 
-        result.add(it)
+        result.add(memory)
     }
 
     return result

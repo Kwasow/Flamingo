@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
-import pl.kwasow.data.types.Memory
+import pl.kwasow.flamingo.types.Memory
 import pl.kwasow.ui.components.TimelineView
 
 // ====== Public composables

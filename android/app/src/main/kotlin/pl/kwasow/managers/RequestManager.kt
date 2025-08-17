@@ -3,9 +3,9 @@ package pl.kwasow.managers
 import android.location.Location
 import pl.kwasow.data.types.Album
 import pl.kwasow.data.types.AuthenticationResult
-import pl.kwasow.data.types.Memory
 import pl.kwasow.data.types.UserLocation
 import pl.kwasow.data.types.Wish
+import pl.kwasow.flamingo.types.Memory
 
 interface RequestManager {
     // ====== Methods

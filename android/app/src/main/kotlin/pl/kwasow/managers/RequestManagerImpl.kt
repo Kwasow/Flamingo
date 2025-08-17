@@ -20,10 +20,10 @@ import kotlinx.serialization.json.put
 import pl.kwasow.BuildConfig
 import pl.kwasow.data.types.Album
 import pl.kwasow.data.types.AuthenticationResult
-import pl.kwasow.data.types.Memory
 import pl.kwasow.data.types.User
 import pl.kwasow.data.types.UserLocation
 import pl.kwasow.data.types.Wish
+import pl.kwasow.flamingo.types.Memory
 import pl.kwasow.utils.FlamingoLogger
 
 class RequestManagerImpl(

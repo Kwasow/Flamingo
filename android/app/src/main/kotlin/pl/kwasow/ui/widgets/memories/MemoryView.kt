@@ -28,8 +28,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import pl.kwasow.R
-import pl.kwasow.data.types.Memory
 import pl.kwasow.extensions.nonScaledSp
+import pl.kwasow.flamingo.types.Memory
 import pl.kwasow.ui.components.PhotoView
 
 // ====== Public composables
@@ -71,7 +71,7 @@ private fun MemoryDialog(
                         .padding(24.dp)
                         .verticalScroll(rememberScrollState()),
             ) {
-                if (memory.photo != null) {
+                memory.photo?.let { photo ->
                     Card(
                         modifier =
                             Modifier
@@ -80,7 +80,7 @@ private fun MemoryDialog(
                                 .padding(bottom = 12.dp),
                     ) {
                         PhotoView(
-                            uri = memory.photo,
+                            uri = photo,
                             contentDescription =
                                 stringResource(
                                     id = R.string.contentDescription_memory_photo,

@@ -1,4 +1,4 @@
-package pl.kwasow.data.types
+package pl.kwasow.flamingo.types
 
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -23,7 +23,7 @@ data class Memory(
     fun getLocalStartDate(): LocalDate? {
         return try {
             LocalDate.parse(startDate)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             null
         }
     }

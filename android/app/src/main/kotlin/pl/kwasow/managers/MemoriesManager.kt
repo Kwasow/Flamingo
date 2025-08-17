@@ -1,6 +1,6 @@
 package pl.kwasow.managers
 
-import pl.kwasow.data.types.Memory
+import pl.kwasow.flamingo.types.Memory
 
 interface MemoriesManager {
     // ====== Methods

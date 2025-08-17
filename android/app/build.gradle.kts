@@ -87,6 +87,9 @@ android {
 }
 
 dependencies {
+    // Internal
+    implementation(project(":types"))
+
     // BoM
     implementation(platform(libs.compose.bom))
     implementation(platform(libs.firebase.bom))
