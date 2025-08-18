@@ -30,7 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.data.types.Album
+import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.ui.components.PhotoView
 
 // ====== Public composables

@@ -12,8 +12,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
-import pl.kwasow.data.types.Album
-import pl.kwasow.data.types.AudioTrack
+import pl.kwasow.flamingo.types.music.Album
+import pl.kwasow.flamingo.types.music.AudioTrack
 import pl.kwasow.services.FlamingoDownloadService
 import java.io.File
 import java.net.URL

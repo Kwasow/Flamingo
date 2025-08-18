@@ -1,4 +1,4 @@
-package pl.kwasow.data.types
+package pl.kwasow.flamingo.types.wishlist
 
 import kotlinx.serialization.Serializable
 

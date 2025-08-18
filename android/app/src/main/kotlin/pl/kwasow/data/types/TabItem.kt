@@ -3,6 +3,8 @@ package pl.kwasow.data.types
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
+import pl.kwasow.extensions.details
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.ui.screens.modules.whishlist.WishlistView
 
 data class TabItem(
@@ -18,18 +20,20 @@ data class TabItem(
             }
 
             val partner = user.partner
+            val userIcon = user.icon.details()
+            val partnerIcon = partner.icon.details()
 
             return listOf(
                 TabItem(
                     title = user.firstName,
-                    icon = user.icon.res,
-                    iconDescription = user.icon.description,
+                    icon = userIcon.res,
+                    iconDescription = userIcon.description,
                     view = { WishlistView(user = user) },
                 ),
                 TabItem(
                     title = partner.firstName,
-                    icon = partner.icon.res,
-                    iconDescription = partner.icon.description,
+                    icon = partnerIcon.res,
+                    iconDescription = partnerIcon.description,
                     view = { WishlistView(user = partner) },
                 ),
             )

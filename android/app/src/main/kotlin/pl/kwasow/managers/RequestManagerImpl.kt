@@ -18,12 +18,13 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import pl.kwasow.BuildConfig
-import pl.kwasow.data.types.Album
-import pl.kwasow.data.types.AuthenticationResult
-import pl.kwasow.data.types.Memory
-import pl.kwasow.data.types.User
-import pl.kwasow.data.types.UserLocation
-import pl.kwasow.data.types.Wish
+import pl.kwasow.flamingo.types.auth.AuthenticationResult
+import pl.kwasow.flamingo.types.auth.Authorization
+import pl.kwasow.flamingo.types.location.UserLocation
+import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.types.music.Album
+import pl.kwasow.flamingo.types.user.User
+import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.utils.FlamingoLogger
 
 class RequestManagerImpl(
@@ -78,13 +79,13 @@ class RequestManagerImpl(
         val authorization =
             if (httpResponse?.status == HttpStatusCode.OK) {
                 // Got response: OK
-                AuthenticationResult.Authorization.AUTHORIZED
+                Authorization.AUTHORIZED
             } else if (httpResponse != null) {
                 // Got response: non-OK
-                AuthenticationResult.Authorization.UNAUTHORIZED
+                Authorization.UNAUTHORIZED
             } else {
                 // No response
-                AuthenticationResult.Authorization.UNKNOWN
+                Authorization.UNKNOWN
             }
 
         return AuthenticationResult(authorization, response.second)

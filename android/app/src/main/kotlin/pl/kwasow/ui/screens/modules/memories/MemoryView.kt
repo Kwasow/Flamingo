@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
-import pl.kwasow.data.types.Memory
+import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.ui.components.PhotoView
 
 // ====== Public composables
@@ -42,8 +42,8 @@ fun MemoryView(
 
         Text(text = memory.description)
 
-        if (memory.photo != null) {
-            MemoryPhoto(url = memory.photo)
+        memory.photo?.let { photo ->
+            MemoryPhoto(url = photo)
         }
     }
 }

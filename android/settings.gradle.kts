@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Flamingo"
 include(":app")
+include(":types")

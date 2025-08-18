@@ -1,7 +1,7 @@
 package pl.kwasow.ui.screens.home
 
 import androidx.lifecycle.ViewModel
-import pl.kwasow.data.types.AuthenticationResult.Authorization
+import pl.kwasow.flamingo.types.auth.Authorization
 import pl.kwasow.managers.MessagingManager
 import pl.kwasow.managers.PermissionManager
 import pl.kwasow.managers.UserManager
