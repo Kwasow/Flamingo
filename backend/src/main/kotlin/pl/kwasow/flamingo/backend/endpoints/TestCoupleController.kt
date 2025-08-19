@@ -8,14 +8,14 @@ import pl.kwasow.flamingo.backend.repositories.CoupleRepository
 import pl.kwasow.flamingo.types.user.Couple
 
 @RestController
-@RequestMapping("/couples")
+@RequestMapping("/test")
 class TestCoupleController {
     @Autowired
     lateinit var coupleRepository: CoupleRepository
 
     @GetMapping
-    fun error(): String = "Try /couples/all"
+    fun error(): String = "Try /test/{tableName}"
 
-    @GetMapping("/all")
+    @GetMapping("/couples")
     fun getCouples(): List<Couple> = coupleRepository.findAll()
 }

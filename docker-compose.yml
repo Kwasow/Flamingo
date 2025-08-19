@@ -1,9 +1,10 @@
 services:
   backend:
-    build:
-      dockerfile: ./backend/Dockerfile
+    image: openjdk:21-jdk
     ports:
       - "8080:8080"
+    networks:
+      - dev
 
   database:
     image: mysql:latest
@@ -11,5 +12,10 @@ services:
       - ./scripts/mysql:/docker-entrypoint-initdb.d
     env_file:
       - env/development.env
-    expose:
-      - "3306"
+    ports:
+      - "3306:3306"
+    networks:
+      - dev
+
+networks:
+  dev:
