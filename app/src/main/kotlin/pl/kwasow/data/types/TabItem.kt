@@ -19,24 +19,31 @@ data class TabItem(
                 return null
             }
 
-            val partner = user.partner
             val userIcon = user.icon.details()
-            val partnerIcon = partner.icon.details()
+            val tabs =
+                mutableListOf(
+                    TabItem(
+                        title = user.firstName,
+                        icon = userIcon.res,
+                        iconDescription = userIcon.description,
+                        view = { WishlistView(user = user) },
+                    ),
+                )
 
-            return listOf(
-                TabItem(
-                    title = user.firstName,
-                    icon = userIcon.res,
-                    iconDescription = userIcon.description,
-                    view = { WishlistView(user = user) },
-                ),
-                TabItem(
-                    title = partner.firstName,
-                    icon = partnerIcon.res,
-                    iconDescription = partnerIcon.description,
-                    view = { WishlistView(user = partner) },
-                ),
-            )
+            user.partner?.let { partner ->
+                val partnerIcon = partner.icon.details()
+
+                tabs.add(
+                    TabItem(
+                        title = partner.firstName,
+                        icon = partnerIcon.res,
+                        iconDescription = partnerIcon.description,
+                        view = { WishlistView(user = partner) },
+                    ),
+                )
+            }
+
+            return tabs
         }
     }
 }
