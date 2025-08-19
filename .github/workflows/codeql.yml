@@ -41,8 +41,6 @@ jobs:
         include:
         - language: java-kotlin
           build-mode: manual
-        - language: javascript-typescript
-          build-mode: none
         - language: actions
           build-mode: none
         # CodeQL supports the following values keywords for 'language': 'c-cpp',
@@ -67,8 +65,7 @@ jobs:
       run: |
         cp secrets.default.properties secrets.properties
         echo $JSON > app/google-services.json
-        ./gradlew build
-      working-directory: android
+        ./gradlew :app:build
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
