@@ -2,9 +2,11 @@ package pl.kwasow.flamingo.types.user
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
 import pl.kwasow.flamingo.serializers.LocalDateSerializer
@@ -22,6 +24,8 @@ data class Couple(
     @Serializable(with = LocalDateSerializer::class)
     @Column(name = "anniversary_date")
     val anniversary: LocalDate,
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupleId")
+    val members: List<Partner>,
 ) {
     // ====== Fields
     companion object {
@@ -29,7 +33,7 @@ data class Couple(
     }
 
     // ====== Constructors
-    constructor() : this(-1, LocalDate.MIN)
+    constructor() : this(-1, LocalDate.MIN, emptyList())
 
     // ====== Public methods
     fun getStringAnniversaryDate(): String =

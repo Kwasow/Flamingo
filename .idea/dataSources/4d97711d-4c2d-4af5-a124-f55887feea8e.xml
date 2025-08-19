@@ -1245,7 +1245,7 @@ resource_name</ColNames>
       <UnderlyingIndexName>UC_Track</UnderlyingIndexName>
     </key>
     <column id="354" parent="298" name="id">
-      <AutoIncrement>3</AutoIncrement>
+      <AutoIncrement>4</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int|0s</StoredType>
@@ -1265,13 +1265,13 @@ resource_name</ColNames>
       <Position>4</Position>
       <StoredType>varchar(64)|0s</StoredType>
     </column>
-    <column id="358" parent="298" name="couple">
+    <column id="358" parent="298" name="couple_id">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>int|0s</StoredType>
     </column>
     <foreign-key id="359" parent="298" name="FK_User_Couple">
-      <ColNames>couple</ColNames>
+      <ColNames>couple_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>Couples</RefTableName>
     </foreign-key>
@@ -1286,7 +1286,7 @@ resource_name</ColNames>
       <Unique>1</Unique>
     </index>
     <index id="362" parent="298" name="FK_User_Couple">
-      <ColNames>couple</ColNames>
+      <ColNames>couple_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="363" parent="298" name="PRIMARY">
