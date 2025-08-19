@@ -36,6 +36,5 @@ data class Couple(
     constructor() : this(-1, LocalDate.MIN, emptyList())
 
     // ====== Public methods
-    fun getStringAnniversaryDate(): String =
-        dateFormatter.format(anniversary)
+    fun getStringAnniversaryDate(): String = dateFormatter.format(anniversary)
 }
