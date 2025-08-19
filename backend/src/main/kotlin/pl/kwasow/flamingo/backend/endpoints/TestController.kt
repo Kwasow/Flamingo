@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import pl.kwasow.flamingo.backend.repositories.CoupleRepository
+import pl.kwasow.flamingo.backend.repositories.MemoryRepository
 import pl.kwasow.flamingo.backend.repositories.UserRepository
 import pl.kwasow.flamingo.backend.repositories.WishlistRepository
+import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.user.Couple
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
@@ -15,6 +17,7 @@ import pl.kwasow.flamingo.types.wishlist.Wish
 @RestController
 @RequestMapping("/test")
 class TestController {
+    // ====== Repositories
     @Autowired
     lateinit var coupleRepository: CoupleRepository
 
@@ -24,6 +27,10 @@ class TestController {
     @Autowired
     lateinit var wishlistRepository: WishlistRepository
 
+    @Autowired
+    lateinit var memoryRepository: MemoryRepository
+
+    // ====== Handlers
     @GetMapping
     fun error(): String = "Try /test/{tableName}"
 
@@ -39,4 +46,7 @@ class TestController {
     @GetMapping("/wishlist/{userId}")
     fun getUserWishlist(@PathVariable userId: Int): List<Wish> =
         wishlistRepository.findByAuthorId(userId)
+
+    @GetMapping("/memories")
+    fun getMemories(): List<Memory> = memoryRepository.findAll()
 }

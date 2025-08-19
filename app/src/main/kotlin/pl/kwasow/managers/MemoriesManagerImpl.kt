@@ -32,11 +32,10 @@ class MemoriesManagerImpl(
 
         memories.values.flatten().forEach { memory ->
             val today = LocalDate.now()
-            val memoryDate = memory.getLocalStartDate()
 
             if (
-                today.month == memoryDate?.month &&
-                today.dayOfMonth == memoryDate?.dayOfMonth
+                today.month == memory.startDate.month &&
+                today.dayOfMonth == memory.startDate.dayOfMonth
             ) {
                 todayMemories.add(memory)
             }

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
+import java.time.LocalDate
 
 // ====== Public composables
 @Composable
@@ -200,13 +201,14 @@ private fun PhotoGalleryPreview() {
     val memory =
         Memory(
             id = 0,
-            startDate = "2024-01-01",
-            endDate = "2024-01-15",
+            startDate = LocalDate.of(2024, 1, 1),
+            endDate = LocalDate.of(2024, 1, 15),
             title = "Event name",
             description = "This is a description of a memory",
             photo =
                 "https://en.wikipedia.org/wiki/Photograph#/media/" +
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
+            coupleId = -1,
         )
 
     PhotoGallery(
@@ -220,13 +222,14 @@ private fun MemoryGalleryPreview() {
     val memory =
         Memory(
             id = 0,
-            startDate = "2024-01-01",
-            endDate = "2024-01-15",
+            startDate = LocalDate.of(2024, 1, 1),
+            endDate = LocalDate.of(2024, 1, 15),
             title = "Event name",
             description = "This is a description of a memory",
             photo =
                 "https://en.wikipedia.org/wiki/Photograph#/media/" +
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
+            coupleId = -1,
         )
 
     MemoryGallery(
