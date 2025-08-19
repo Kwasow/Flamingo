@@ -1,4 +1,5 @@
 [versions]
+# ================== APP ================== #
 # Build details
 compileSdk = "35"
 targetSdk = "35"
@@ -37,11 +38,16 @@ firebaseCrashlyticsPlugin = "3.0.3"
 googleMapsplatformPlugin = "2.0.1"
 googleProtobufPlugin = "0.9.4"
 googleServicesPlugin = "4.4.2"
-kotlinPlugins = "2.1.10"
+kotlinAndroidPlugins = "2.1.10"
+
+# ================ SERVER ================= #
+kotlinJvmPlugins = "2.1.10"
+
+# ================ SHARED ================= #
 ktlintPlugin = "12.2.0"
-jetbrainsKotlinJvm = "2.1.10"
 
 [libraries]
+# ================== APP ================== #
 android-credentials-base = { group = "androidx.credentials", name = "credentials", version.ref = "androidCredentials" }
 android-credentials-services = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "androidCredentials" }
 android-dataStore = { group = "androidx.datastore", name = "datastore", version.ref = "androidDataStore" }
@@ -86,14 +92,23 @@ kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-s
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 
+# ================ SERVER ================= #
+
 [plugins]
+# ================== APP ================== #
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref="firebaseCrashlyticsPlugin" }
 google-mapsplatform = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleMapsplatformPlugin" }
 google-protobuf = { id = "com.google.protobuf", version.ref = "googleProtobufPlugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinPlugins" }
-kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinPlugins" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinPlugins" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroidPlugins" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinAndroidPlugins" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPlugin" }
-jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+
+# ================ SERVER ================= #
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvmPlugins" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlinJvmPlugins" }
+kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlinJvmPlugins" }
+
+# ================ SHARED ================= #
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinAndroidPlugins" }
