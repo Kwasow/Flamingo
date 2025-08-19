@@ -9,5 +9,5 @@ data class User(
     val email: String,
     override val icon: UserIcon,
     val partner: Partner,
-    val coupleDetails: CoupleDetails,
+    val couple: Couple,
 ) : MinimalUser

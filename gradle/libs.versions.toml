@@ -42,9 +42,14 @@ kotlinAndroidPlugins = "2.1.10"
 
 # ================ SERVER ================= #
 kotlinJvmPlugins = "2.1.10"
+springBoot = "3.5.4"
+springManager = "1.1.7"
 
 # ================ SHARED ================= #
 ktlintPlugin = "12.2.0"
+
+# ================= TYPES ================= #
+jakartaPersistence = "3.2.0"
 
 [libraries]
 # ================== APP ================== #
@@ -94,6 +99,9 @@ ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref =
 
 # ================ SERVER ================= #
 
+# ================= TYPES ================= #
+jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "jakartaPersistence" }
+
 [plugins]
 # ================== APP ================== #
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
@@ -109,6 +117,8 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvmPlugins" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlinJvmPlugins" }
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlinJvmPlugins" }
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-manager = { id = "io.spring.dependency-management", version.ref = "springManager" }
 
 # ================ SHARED ================= #
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinAndroidPlugins" }

@@ -13,7 +13,7 @@ class DaysTogetherViewModel(
     // ====== Fields
     val daysTogether: Flow<Long?> =
         userManager.userFlow.map { user ->
-            val anniversaryDate = user?.coupleDetails?.getLocalAnniversaryDate() ?: return@map null
+            val anniversaryDate = user?.couple?.anniversary ?: return@map null
             ChronoUnit.DAYS.between(anniversaryDate, LocalDate.now())
         }
 }

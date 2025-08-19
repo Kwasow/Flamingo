@@ -3,6 +3,8 @@ services:
     image: openjdk:21-jdk
     ports:
       - "8080:8080"
+    depends_on:
+      - database
 
   database:
     image: mysql:latest
@@ -10,3 +12,5 @@ services:
       - ./scripts/mysql:/docker-entrypoint-initdb.d
     env_file:
       - env/development.env
+    ports:
+      - "3306:3306"

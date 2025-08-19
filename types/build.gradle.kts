@@ -18,4 +18,5 @@ kotlin {
 
 dependencies {
     implementation(libs.kotlin.serialization.json)
+    implementation(libs.jakarta.persistence)
 }
