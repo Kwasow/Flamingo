@@ -9,9 +9,9 @@ import pl.kwasow.flamingo.types.user.Couple
 
 @RestController
 @RequestMapping("/couples")
-class TestCoupleController(private val coupleRepository: CoupleRepository) {
-//    @Autowired
-//    lateinit var coupleRepository: CoupleRepository
+class TestCoupleController {
+    @Autowired
+    lateinit var coupleRepository: CoupleRepository
 
     @GetMapping
     fun error(): String = "Try /couples/all"
