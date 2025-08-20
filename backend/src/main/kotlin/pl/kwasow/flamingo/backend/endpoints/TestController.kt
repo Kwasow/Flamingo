@@ -5,7 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import pl.kwasow.flamingo.backend.data.FirebaseToken
 import pl.kwasow.flamingo.backend.repositories.CoupleRepository
+import pl.kwasow.flamingo.backend.repositories.FirebaseTokenRepository
 import pl.kwasow.flamingo.backend.repositories.MemoryRepository
 import pl.kwasow.flamingo.backend.repositories.UserRepository
 import pl.kwasow.flamingo.backend.repositories.WishlistRepository
@@ -30,6 +32,9 @@ class TestController {
     @Autowired
     lateinit var memoryRepository: MemoryRepository
 
+    @Autowired
+    lateinit var tokenRepository: FirebaseTokenRepository
+
     // ====== Handlers
     @GetMapping
     fun error(): String = "Try /test/{tableName}"
@@ -49,4 +54,7 @@ class TestController {
 
     @GetMapping("/memories")
     fun getMemories(): List<Memory> = memoryRepository.findAll()
+
+    @GetMapping("/tokens")
+    fun getTokens(): List<FirebaseToken> = tokenRepository.findAll()
 }
