@@ -41,6 +41,10 @@ googleServicesPlugin = "4.4.2"
 kotlinAndroidPlugins = "2.1.10"
 
 # ================ SERVER ================= #
+# Libraries
+firebaseAdmin = "9.5.0"
+
+# Plugins
 kotlinJvmPlugins = "2.1.10"
 springBoot = "3.5.4"
 springManager = "1.1.7"
@@ -98,6 +102,7 @@ ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 
 # ================ SERVER ================= #
+firebase-admin = { group = "com.google.firebase", name = "firebase-admin", version.ref = "firebaseAdmin" }
 
 # ================= TYPES ================= #
 jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "jakartaPersistence" }
