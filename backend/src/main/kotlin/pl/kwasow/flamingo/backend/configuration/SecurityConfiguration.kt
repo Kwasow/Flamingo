@@ -23,7 +23,7 @@ class SecurityConfiguration(
             .csrf { disable() }
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers("/api/ping").permitAll()
+                    .requestMatchers("/ping").permitAll()
                     .anyRequest().authenticated()
             }
             .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
