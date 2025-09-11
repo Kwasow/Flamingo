@@ -10,11 +10,13 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import pl.kwasow.flamingo.backend.filters.FirebaseTokenFilter
+import pl.kwasow.flamingo.backend.services.UserService
 
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
     private val firebaseAuth: FirebaseAuth,
+    private val userService: UserService,
 ) {
 
     @Bean
@@ -27,7 +29,7 @@ class SecurityConfiguration(
                     .anyRequest().authenticated()
             }
             .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .addFilterBefore(FirebaseTokenFilter(firebaseAuth),
+            .addFilterBefore(FirebaseTokenFilter(firebaseAuth, userService),
                 UsernamePasswordAuthenticationFilter::class.java)
 
         return http.build()

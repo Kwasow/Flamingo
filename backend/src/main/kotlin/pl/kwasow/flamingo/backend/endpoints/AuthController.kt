@@ -4,21 +4,12 @@ import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
-import pl.kwasow.flamingo.backend.services.UserService
 import pl.kwasow.flamingo.types.user.User
 
 @RestController
-class AuthController(
-    private val userService: UserService,
-) {
+class AuthController {
     @GetMapping("/auth")
-    fun authenticateUser(@AuthenticationPrincipal email: String): ResponseEntity<User> {
-        val userDetails = userService.getUserByEmail(email)
-
-        return if (userDetails == null) {
-            ResponseEntity.internalServerError().build()
-        } else {
-            ResponseEntity.ok(userDetails)
-        }
+    fun authenticateUser(@AuthenticationPrincipal user: User): ResponseEntity<User> {
+        return ResponseEntity.ok(user)
     }
 }
