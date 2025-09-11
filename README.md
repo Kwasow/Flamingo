@@ -4,6 +4,9 @@
 [![CodeQL Advanced](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml)
 [![Crowdin](https://badges.crowdin.net/flamingo-app/localized.svg)](https://crowdin.com/project/flamingo-app)
 
+**The backend is currently being rewritten to Spring Boot, some instructions
+in this repositories README files might be outdated.**
+
 An app for couples for storing and celebrating memories, sharing wishes, sending
 nudges and much more.
 
@@ -66,3 +69,4 @@ notifications reliably wakes up the app and allows it to do it's job. The
 Firebase Functions task itself doesn't have any memories related logic, it
 doesn't check if there are any memories for the day and it doesn't communicate
 with the server. It's only job is to wake up the app so it can do it's thing.
+
