@@ -26,4 +26,8 @@ class MemoryService(
             }
         }
     }
+
+    fun addUpdateMemory(memory: Memory) {
+        memoryRepository.save(memory)
+    }
 }
