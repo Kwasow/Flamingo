@@ -4,11 +4,13 @@ import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.MemoryRepository
 import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.user.User
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class MemoryService(
     private val memoryRepository: MemoryRepository,
 ) {
+    // ====== Public methods
     fun getMemoriesForUserByYear(user: User): Map<Int, List<Memory>> {
         val memories = memoryRepository.findByCoupleId(user.couple.id)
         val anniversary = user.couple.anniversary
@@ -27,7 +29,13 @@ class MemoryService(
         }
     }
 
-    fun addUpdateMemory(memory: Memory): Memory =
+    fun saveMemory(memory: Memory): Memory =
         memoryRepository.save(memory)
+
+    fun deleteMemory(id: Int) =
+        memoryRepository.deleteById(id)
+
+    fun findOwner(memoryId: Int): Int? =
+        memoryRepository.findById(memoryId).getOrNull()?.coupleId
 
 }
