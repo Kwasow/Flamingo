@@ -8,6 +8,7 @@ import pl.kwasow.flamingo.types.user.User
 class UserService(
     private val userRepository: UserRepository,
 ) {
+    // ====== Public methods
     fun getUserByEmail(email: String): User? =
         userRepository.findByEmail(email)
 }

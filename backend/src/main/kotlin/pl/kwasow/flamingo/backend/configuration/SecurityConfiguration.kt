@@ -18,6 +18,7 @@ class SecurityConfiguration(
     private val userService: UserService,
 ) {
 
+    // ====== Public methods
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
@@ -33,4 +34,5 @@ class SecurityConfiguration(
 
         return http.build()
     }
+
 }

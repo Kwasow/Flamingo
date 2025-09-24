@@ -10,6 +10,7 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "FirebaseTokens")
 data class FirebaseToken(
+    // ====== Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int,

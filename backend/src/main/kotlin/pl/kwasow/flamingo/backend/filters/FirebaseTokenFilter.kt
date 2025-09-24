@@ -14,6 +14,7 @@ class FirebaseTokenFilter(
     private val userService: UserService,
 ) : OncePerRequestFilter() {
 
+    // ====== Interface methods
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,

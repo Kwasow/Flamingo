@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class PingController {
+    // ====== Endpoints
     @GetMapping("/ping")
     fun pingResponse() = ResponseEntity.ok("PONG")
 }

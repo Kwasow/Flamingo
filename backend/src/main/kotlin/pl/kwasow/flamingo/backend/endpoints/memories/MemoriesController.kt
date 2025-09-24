@@ -56,7 +56,7 @@ class MemoriesController(
             .body(editedMemory)
     }
 
-    @GetMapping("/memories/delete")
+    @DeleteMapping("/memories/delete")
     fun deleteMemory(
         @AuthenticationPrincipal user: User,
         id: Int

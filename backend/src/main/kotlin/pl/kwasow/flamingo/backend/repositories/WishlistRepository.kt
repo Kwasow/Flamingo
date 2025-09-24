@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import pl.kwasow.flamingo.types.wishlist.Wish
 
 interface WishlistRepository : JpaRepository<Wish, Int> {
+    // ====== Public methods
 
     fun findByAuthorId(userId: Int): List<Wish>
 
