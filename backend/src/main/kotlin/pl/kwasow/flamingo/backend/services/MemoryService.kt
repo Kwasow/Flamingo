@@ -1,5 +1,6 @@
 package pl.kwasow.flamingo.backend.services
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.MemoryRepository
 import pl.kwasow.flamingo.types.memories.Memory
@@ -36,6 +37,6 @@ class MemoryService(
         memoryRepository.deleteById(id)
 
     fun findOwner(memoryId: Int): Int? =
-        memoryRepository.findById(memoryId).getOrNull()?.coupleId
+        memoryRepository.findByIdOrNull(memoryId)?.coupleId
 
 }

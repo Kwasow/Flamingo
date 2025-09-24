@@ -37,4 +37,6 @@ data class Couple(
 
     // ====== Public methods
     fun getStringAnniversaryDate(): String = dateFormatter.format(anniversary)
+
+    fun getMemberIds(): List<Int> = members.map { it.id }
 }

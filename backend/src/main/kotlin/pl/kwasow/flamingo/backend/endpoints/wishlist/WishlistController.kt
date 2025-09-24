@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend.endpoints.memories
+package pl.kwasow.flamingo.backend.endpoints.wishlist
 
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -8,77 +8,77 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import pl.kwasow.flamingo.backend.services.MemoryService
-import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.backend.services.WishlistService
 import pl.kwasow.flamingo.types.user.User
+import pl.kwasow.flamingo.types.wishlist.Wish
 
 @RestController
-class MemoriesController(
-    private val memoryService: MemoryService,
+class WishlistController(
+    private val wishlistService: WishlistService
 ) {
     // ====== Endpoints
-    @GetMapping("/memories/get")
-    fun getMemories(
+    @GetMapping("/wishlist/get")
+    fun getWishlist(
         @AuthenticationPrincipal user: User
-    ): ResponseEntity<Map<Int, List<Memory>>> {
-        return ResponseEntity.ok(memoryService.getMemoriesForUserByYear(user))
+    ): ResponseEntity<List<Wish>> {
+        return ResponseEntity.ok().body(wishlistService.getWishlistForCouple(user.couple))
     }
 
-    @PostMapping("/memories/add")
-    fun addMemory(
+    @PostMapping("/wishlist/add")
+    fun addWish(
         @AuthenticationPrincipal user: User,
-        @RequestBody memory: Memory
-    ): ResponseEntity<Memory> {
-        val incomingMemory = memory.copy(id = null)
-        if (!verifyAuthor(user, incomingMemory)) {
+        @RequestBody wish: Wish
+    ): ResponseEntity<Wish> {
+        val incomingWish = wish.copy(id = null)
+        if (!verifyAuthor(user, incomingWish)) {
             return ResponseEntity
                 .badRequest()
-                .build()
+                .body(null)
         }
 
-        val newMemory = memoryService.saveMemory(incomingMemory)
+        val newWish = wishlistService.saveWish(incomingWish)
 
         return ResponseEntity
             .ok()
-            .body(newMemory)
+            .body(newWish)
     }
 
-    @PostMapping("/memories/update")
-    fun updateMemory(
+    @PostMapping("/wishlist/update")
+    fun updateWish(
         @AuthenticationPrincipal user: User,
-        @RequestBody memory: Memory
-    ): ResponseEntity<Memory?> {
-        if (!verifyAuthor(user, memory)) {
+        @RequestBody wish: Wish
+    ): ResponseEntity<Wish?> {
+        if (!verifyAuthor(user, wish)) {
             return ResponseEntity
                 .badRequest()
-                .build()
+                .body(null)
         }
 
-        val errorResponse = verifyMemory(user, memory.id)
+        val errorResponse = verifyWish(user, wish.id)
 
         if (errorResponse != null) {
             return errorResponse
         }
 
-        val editedMemory = memoryService.saveMemory(memory)
+        val editedMemory = wishlistService.saveWish(wish)
 
         return ResponseEntity
             .ok()
             .body(editedMemory)
     }
 
-    @DeleteMapping("/memories/delete")
-    fun deleteMemory(
+    @DeleteMapping
+    fun deleteWish(
         @AuthenticationPrincipal user: User,
-        id: Int
+        id: Int,
     ): ResponseEntity<*> {
-        val errorResponse = verifyMemory(user, id)
+        val errorResponse = verifyWish(user, id)
 
         if (errorResponse != null) {
             return errorResponse
         }
 
-        memoryService.deleteMemory(id)
+        wishlistService.deleteWish(id)
 
         return ResponseEntity
             .ok()
@@ -86,25 +86,25 @@ class MemoriesController(
     }
 
     // ====== Private methods
-    private fun verifyAuthor(user: User, coupleId: Int): Boolean =
-        user.couple.id == coupleId
+    private fun verifyAuthor(user: User, authorId: Int): Boolean =
+        user.couple.getMemberIds().contains(authorId)
 
-    private fun verifyAuthor(user: User, memory: Memory): Boolean =
-        verifyAuthor(user, memory.coupleId)
+    private fun verifyAuthor(user: User, wish: Wish): Boolean =
+        verifyAuthor(user, wish.authorId)
 
-    private fun verifyMemory(user: User, id: Int?): ResponseEntity<Memory?>? {
+    private fun verifyWish(user: User, id: Int?): ResponseEntity<Wish?>? {
         // Check if ID is set
         val incomingId = id ?: return ResponseEntity
             .badRequest()
             .build()
 
-        // Check if the user is authorized to modify this memory
-        val savedCoupleId = memoryService.findOwner(incomingId)
+        // Check if the user is authorized to modify this wish
+        val savedAuthorId = wishlistService.findAuthor(incomingId)
             ?: return ResponseEntity
                 .badRequest()
                 .build()
 
-        if (!verifyAuthor(user, savedCoupleId)) {
+        if (!verifyAuthor(user, savedAuthorId)) {
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .build()
