@@ -24,8 +24,8 @@ data class Couple(
     @Serializable(with = LocalDateSerializer::class)
     @Column(name = "anniversary_date")
     val anniversary: LocalDate,
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupleId")
-    val members: List<Partner>,
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "coupleId")
+    val members: MutableList<Partner>,
 ) {
     // ====== Fields
     companion object {
@@ -33,7 +33,7 @@ data class Couple(
     }
 
     // ====== Constructors
-    constructor() : this(-1, LocalDate.MIN, emptyList())
+    constructor() : this(-1, LocalDate.MIN, mutableListOf())
 
     // ====== Public methods
     fun getStringAnniversaryDate(): String = dateFormatter.format(anniversary)

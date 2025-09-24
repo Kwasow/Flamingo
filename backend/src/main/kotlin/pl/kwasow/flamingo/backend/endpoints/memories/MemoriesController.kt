@@ -15,7 +15,9 @@ class MemoriesController(
     private val memoryService: MemoryService,
 ) {
     @GetMapping("/memories/get")
-    fun getMemories(@AuthenticationPrincipal user: User): ResponseEntity<Map<Int, List<Memory>>> {
+    fun getMemories(
+        @AuthenticationPrincipal user: User
+    ): ResponseEntity<Map<Int, List<Memory>>> {
         return ResponseEntity.ok(memoryService.getMemoriesForUserByYear(user))
     }
 
@@ -23,14 +25,26 @@ class MemoriesController(
     fun addMemory(
         @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory
-    ): ResponseEntity<*> {
-        val newMemory = memory.copy(id = null, coupleId = user.couple.id)
-        val id = memoryService.addUpdateMemory(newMemory)
+    ): ResponseEntity<Memory> {
+        val incomingMemory = memory.copy(id = null, coupleId = user.couple.id)
+        val newMemory = memoryService.addUpdateMemory(incomingMemory)
 
-        return if (id != -1) {
-            ResponseEntity.ok().build<Any>()
-        } else {
-            ResponseEntity.internalServerError().build<Any>()
-        }
+        return ResponseEntity
+            .ok()
+            .body(newMemory)
+    }
+
+    @PostMapping("/memories/edit")
+    fun editMemory(
+        @AuthenticationPrincipal user: User,
+        @RequestBody memory: Memory
+    ): ResponseEntity<Memory> {
+        // TODO: [SEC] Check if it is a user's couple's memory
+        val incomingMemory = memory.copy(coupleId = user.couple.id)
+        val editedMemory = memoryService.addUpdateMemory(incomingMemory)
+
+        return ResponseEntity
+            .ok()
+            .body(editedMemory)
     }
 }

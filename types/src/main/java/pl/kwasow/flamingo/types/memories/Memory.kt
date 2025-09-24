@@ -40,7 +40,7 @@ data class Memory(
     }
 
     // ====== Constructors
-    constructor() : this(0, LocalDate.MIN, LocalDate.MIN, "", "", null, -1)
+    constructor() : this(0, LocalDate.MIN, null, "", "", null, -1)
 
     // ====== Public methods
     fun getStringStartDate(): String = dateFormatter.format(startDate)

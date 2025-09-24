@@ -22,7 +22,7 @@ class SecurityConfiguration(
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .csrf { disable() }
+            .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers("/ping").permitAll()

@@ -26,7 +26,7 @@ data class User(
     @Column(name = "icon")
     @Enumerated(EnumType.STRING)
     override val icon: UserIcon,
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     val couple: Couple,
 ) : MinimalUser {
     // ====== Fields
