@@ -7,7 +7,7 @@ services:
       - dev
 
   database:
-    image: mysql:latest
+    image: mariadb:12
     volumes:
       - ./scripts/mysql:/docker-entrypoint-initdb.d
     env_file:

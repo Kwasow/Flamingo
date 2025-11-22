@@ -30,7 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    runtimeOnly("com.mysql:mysql-connector-j")
+    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
 
     // Google and Firebase
@@ -38,8 +38,13 @@ dependencies {
 
     // Testing
     testImplementation(libs.mockito)
+    testImplementation(libs.mockito.junit)
+    testImplementation(libs.testcontainers)
+    testImplementation(libs.testcontainers.junit)
+    testImplementation(libs.testcontainers.mariadb)
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-testcontainers")
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="RemoteTargetsManager">
+    <option name="projectDefaultTargetUuid" value="a39c44fc-de1b-4cfe-99e1-f45977fa3c36" />
     <targets>
       <target name="backend" type="docker-compose" uuid="a39c44fc-de1b-4cfe-99e1-f45977fa3c36">
         <config>

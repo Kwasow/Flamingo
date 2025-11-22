@@ -1,6 +1,7 @@
 package pl.kwasow.flamingo.backend.filters
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
@@ -20,13 +21,11 @@ class FirebaseTokenFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val authHeader = request.getHeader("Authorization")
+        val bearerToken = getBearerToken(request)
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            val idToken = authHeader.substring(7)
-
+        if (bearerToken != null) {
             try {
-                val firebaseToken = firebaseAuth.verifyIdToken(idToken)
+                val firebaseToken = firebaseAuth.verifyIdToken(bearerToken)
                 val email = firebaseToken.email
 
                 val user = userService.getUserByEmail(email)
@@ -37,13 +36,29 @@ class FirebaseTokenFilter(
                     val authentication = UsernamePasswordAuthenticationToken(user, null, emptyList())
                     SecurityContextHolder.getContext().authentication = authentication
                 }
-            } catch (e: Exception) {
+            } catch (_: FirebaseAuthException) {
+                SecurityContextHolder.clearContext()
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Firebase Token")
+                return
+            } catch (_: Exception) {
+                SecurityContextHolder.clearContext()
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error")
                 return
             }
         }
 
         filterChain.doFilter(request, response)
+    }
+
+
+    // ====== Private methods
+    private fun getBearerToken(request: HttpServletRequest): String? {
+        val authHeader = request.getHeader("Authorization")
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring(7)
+        }
+
+        return null
     }
 
 }

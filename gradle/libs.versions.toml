@@ -43,10 +43,11 @@ kotlinAndroidPlugins = "2.1.10"
 # ================ SERVER ================= #
 # Libraries
 firebaseAdmin = "9.5.0"
+mockito = "5.4.0"
+testcontainers = "2.0.2"
 
 # Plugins
 kotlinJvmPlugins = "2.1.10"
-mockito = "5.4.0"
 springBoot = "3.5.4"
 springManager = "1.1.7"
 
@@ -105,6 +106,10 @@ ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref =
 # ================ SERVER ================= #
 firebase-admin = { group = "com.google.firebase", name = "firebase-admin", version.ref = "firebaseAdmin" }
 mockito = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
+mockito-junit = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito" }
+testcontainers = { group = "org.testcontainers", name = "testcontainers", version.ref = "testcontainers" }
+testcontainers-junit = { group = "org.testcontainers", name = "testcontainers-junit-jupiter", version.ref = "testcontainers" }
+testcontainers-mariadb = { group = "org.testcontainers", name = "testcontainers-mariadb", version.ref = "testcontainers" }
 
 # ================= TYPES ================= #
 jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "jakartaPersistence" }
