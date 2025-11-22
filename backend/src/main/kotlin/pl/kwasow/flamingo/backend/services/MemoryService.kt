@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.MemoryRepository
 import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.user.User
-import kotlin.jvm.optionals.getOrNull
 
 @Service
 class MemoryService(
@@ -20,8 +19,8 @@ class MemoryService(
             val startDate = memory.startDate
 
             if (
-                startDate.month <= anniversary.month
-                && startDate.dayOfMonth < anniversary.dayOfMonth
+                startDate.month <= anniversary.month &&
+                startDate.dayOfMonth < anniversary.dayOfMonth
             ) {
                 startDate.year - 1
             } else {
@@ -30,13 +29,9 @@ class MemoryService(
         }
     }
 
-    fun saveMemory(memory: Memory): Memory =
-        memoryRepository.save(memory)
+    fun saveMemory(memory: Memory): Memory = memoryRepository.save(memory)
 
-    fun deleteMemory(id: Int) =
-        memoryRepository.deleteById(id)
+    fun deleteMemory(id: Int) = memoryRepository.deleteById(id)
 
-    fun findOwner(memoryId: Int): Int? =
-        memoryRepository.findByIdOrNull(memoryId)?.coupleId
-
+    fun findOwner(memoryId: Int): Int? = memoryRepository.findByIdOrNull(memoryId)?.coupleId
 }

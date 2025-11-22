@@ -17,7 +17,6 @@ class SecurityConfiguration(
     private val firebaseAuth: FirebaseAuth,
     private val userService: UserService,
 ) {
-
     // ====== Public methods
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -25,14 +24,17 @@ class SecurityConfiguration(
             .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers("/ping").permitAll()
-                    .anyRequest().authenticated()
-            }
-            .sessionManagement { session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .addFilterBefore(FirebaseTokenFilter(firebaseAuth, userService),
-                UsernamePasswordAuthenticationFilter::class.java)
+                    .requestMatchers("/ping")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated()
+            }.sessionManagement { session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }.addFilterBefore(
+                FirebaseTokenFilter(firebaseAuth, userService),
+                UsernamePasswordAuthenticationFilter::class.java,
+            )
 
         return http.build()
     }
-
 }

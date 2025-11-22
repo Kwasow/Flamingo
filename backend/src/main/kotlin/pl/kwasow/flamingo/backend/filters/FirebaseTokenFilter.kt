@@ -14,12 +14,11 @@ class FirebaseTokenFilter(
     private val firebaseAuth: FirebaseAuth,
     private val userService: UserService,
 ) : OncePerRequestFilter() {
-
     // ====== Interface methods
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        filterChain: FilterChain
+        filterChain: FilterChain,
     ) {
         val bearerToken = getBearerToken(request)
 
@@ -33,7 +32,8 @@ class FirebaseTokenFilter(
                 if (user == null) {
                     throw Exception("User not found")
                 } else {
-                    val authentication = UsernamePasswordAuthenticationToken(user, null, emptyList())
+                    val authentication =
+                        UsernamePasswordAuthenticationToken(user, null, emptyList())
                     SecurityContextHolder.getContext().authentication = authentication
                 }
             } catch (_: FirebaseAuthException) {
@@ -42,14 +42,16 @@ class FirebaseTokenFilter(
                 return
             } catch (_: Exception) {
                 SecurityContextHolder.clearContext()
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Internal server error")
+                response.sendError(
+                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    "Internal server error",
+                )
                 return
             }
         }
 
         filterChain.doFilter(request, response)
     }
-
 
     // ====== Private methods
     private fun getBearerToken(request: HttpServletRequest): String? {
@@ -60,5 +62,4 @@ class FirebaseTokenFilter(
 
         return null
     }
-
 }

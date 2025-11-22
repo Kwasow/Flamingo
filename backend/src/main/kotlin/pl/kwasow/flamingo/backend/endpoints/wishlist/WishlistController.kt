@@ -14,20 +14,19 @@ import pl.kwasow.flamingo.types.wishlist.Wish
 
 @RestController
 class WishlistController(
-    private val wishlistService: WishlistService
+    private val wishlistService: WishlistService,
 ) {
     // ====== Endpoints
     @GetMapping("/wishlist/get")
     fun getWishlist(
-        @AuthenticationPrincipal user: User
-    ): ResponseEntity<List<Wish>> {
-        return ResponseEntity.ok().body(wishlistService.getWishlistForCouple(user.couple))
-    }
+        @AuthenticationPrincipal user: User,
+    ): ResponseEntity<List<Wish>> =
+        ResponseEntity.ok().body(wishlistService.getWishlistForCouple(user.couple))
 
     @PostMapping("/wishlist/add")
     fun addWish(
         @AuthenticationPrincipal user: User,
-        @RequestBody wish: Wish
+        @RequestBody wish: Wish,
     ): ResponseEntity<Wish> {
         val incomingWish = wish.copy(id = null)
         if (!verifyAuthor(user, incomingWish)) {
@@ -46,7 +45,7 @@ class WishlistController(
     @PostMapping("/wishlist/update")
     fun updateWish(
         @AuthenticationPrincipal user: User,
-        @RequestBody wish: Wish
+        @RequestBody wish: Wish,
     ): ResponseEntity<Wish?> {
         if (!verifyAuthor(user, wish)) {
             return ResponseEntity
@@ -86,23 +85,32 @@ class WishlistController(
     }
 
     // ====== Private methods
-    private fun verifyAuthor(user: User, authorId: Int): Boolean =
-        user.couple.getMemberIds().contains(authorId)
+    private fun verifyAuthor(
+        user: User,
+        authorId: Int,
+    ): Boolean = user.couple.getMemberIds().contains(authorId)
 
-    private fun verifyAuthor(user: User, wish: Wish): Boolean =
-        verifyAuthor(user, wish.authorId)
+    private fun verifyAuthor(
+        user: User,
+        wish: Wish,
+    ): Boolean = verifyAuthor(user, wish.authorId)
 
-    private fun verifyWish(user: User, id: Int?): ResponseEntity<Wish?>? {
+    private fun verifyWish(
+        user: User,
+        id: Int?,
+    ): ResponseEntity<Wish?>? {
         // Check if ID is set
-        val incomingId = id ?: return ResponseEntity
-            .badRequest()
-            .build()
-
-        // Check if the user is authorized to modify this wish
-        val savedAuthorId = wishlistService.findAuthor(incomingId)
-            ?: return ResponseEntity
+        val incomingId =
+            id ?: return ResponseEntity
                 .badRequest()
                 .build()
+
+        // Check if the user is authorized to modify this wish
+        val savedAuthorId =
+            wishlistService.findAuthor(incomingId)
+                ?: return ResponseEntity
+                    .badRequest()
+                    .build()
 
         if (!verifyAuthor(user, savedAuthorId)) {
             return ResponseEntity

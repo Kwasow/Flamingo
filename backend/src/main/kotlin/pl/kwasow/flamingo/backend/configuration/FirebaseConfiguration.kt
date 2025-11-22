@@ -9,26 +9,27 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class FirebaseConfiguration {
-
     // ====== Public methods
     @Bean
     fun firebaseApp(): FirebaseApp {
-        val serviceAccount = System.getenv("FIREBASE_CONFIG")
-            .substring(1)
-            .dropLast(1)
-            .byteInputStream()
+        val serviceAccount =
+            System
+                .getenv("FIREBASE_CONFIG")
+                .substring(1)
+                .dropLast(1)
+                .byteInputStream()
 
         println(serviceAccount)
 
-        val options = FirebaseOptions.builder()
-            .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-            .build()
+        val options =
+            FirebaseOptions
+                .builder()
+                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                .build()
 
         return FirebaseApp.initializeApp(options)
     }
 
     @Bean
-    fun firebaseAuth(firebaseApp: FirebaseApp): FirebaseAuth {
-        return FirebaseAuth.getInstance(firebaseApp)
-    }
+    fun firebaseAuth(firebaseApp: FirebaseApp): FirebaseAuth = FirebaseAuth.getInstance(firebaseApp)
 }

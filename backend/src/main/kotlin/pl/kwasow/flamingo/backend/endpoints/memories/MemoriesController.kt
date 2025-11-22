@@ -19,15 +19,14 @@ class MemoriesController(
     // ====== Endpoints
     @GetMapping("/memories/get")
     fun getMemories(
-        @AuthenticationPrincipal user: User
-    ): ResponseEntity<Map<Int, List<Memory>>> {
-        return ResponseEntity.ok(memoryService.getMemoriesForUserByYear(user))
-    }
+        @AuthenticationPrincipal user: User,
+    ): ResponseEntity<Map<Int, List<Memory>>> =
+        ResponseEntity.ok(memoryService.getMemoriesForUserByYear(user))
 
     @PostMapping("/memories/add")
     fun addMemory(
         @AuthenticationPrincipal user: User,
-        @RequestBody memory: Memory
+        @RequestBody memory: Memory,
     ): ResponseEntity<Memory> {
         val incomingMemory = memory.copy(id = null)
         if (!verifyAuthor(user, incomingMemory)) {
@@ -46,7 +45,7 @@ class MemoriesController(
     @PostMapping("/memories/update")
     fun updateMemory(
         @AuthenticationPrincipal user: User,
-        @RequestBody memory: Memory
+        @RequestBody memory: Memory,
     ): ResponseEntity<Memory?> {
         if (!verifyAuthor(user, memory)) {
             return ResponseEntity
@@ -70,7 +69,7 @@ class MemoriesController(
     @DeleteMapping("/memories/delete")
     fun deleteMemory(
         @AuthenticationPrincipal user: User,
-        id: Int
+        id: Int,
     ): ResponseEntity<*> {
         val errorResponse = verifyMemory(user, id)
 
@@ -86,23 +85,32 @@ class MemoriesController(
     }
 
     // ====== Private methods
-    private fun verifyAuthor(user: User, coupleId: Int): Boolean =
-        user.couple.id == coupleId
+    private fun verifyAuthor(
+        user: User,
+        coupleId: Int,
+    ): Boolean = user.couple.id == coupleId
 
-    private fun verifyAuthor(user: User, memory: Memory): Boolean =
-        verifyAuthor(user, memory.coupleId)
+    private fun verifyAuthor(
+        user: User,
+        memory: Memory,
+    ): Boolean = verifyAuthor(user, memory.coupleId)
 
-    private fun verifyMemory(user: User, id: Int?): ResponseEntity<Memory?>? {
+    private fun verifyMemory(
+        user: User,
+        id: Int?,
+    ): ResponseEntity<Memory?>? {
         // Check if ID is set
-        val incomingId = id ?: return ResponseEntity
-            .badRequest()
-            .build()
-
-        // Check if the user is authorized to modify this memory
-        val savedCoupleId = memoryService.findOwner(incomingId)
-            ?: return ResponseEntity
+        val incomingId =
+            id ?: return ResponseEntity
                 .badRequest()
                 .build()
+
+        // Check if the user is authorized to modify this memory
+        val savedCoupleId =
+            memoryService.findOwner(incomingId)
+                ?: return ResponseEntity
+                    .badRequest()
+                    .build()
 
         if (!verifyAuthor(user, savedCoupleId)) {
             return ResponseEntity

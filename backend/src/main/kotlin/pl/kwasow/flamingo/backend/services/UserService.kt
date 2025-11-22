@@ -9,6 +9,5 @@ class UserService(
     private val userRepository: UserRepository,
 ) {
     // ====== Public methods
-    fun getUserByEmail(email: String): User? =
-        userRepository.findByEmail(email)
+    fun getUserByEmail(email: String): User? = userRepository.findByEmail(email)
 }

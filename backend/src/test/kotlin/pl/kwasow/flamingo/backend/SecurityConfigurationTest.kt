@@ -22,8 +22,7 @@ import kotlin.test.assertEquals
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class SecurityConfigurationTest: BaseTest() {
-
+class SecurityConfigurationTest : BaseTest() {
     companion object {
         const val VALID_TOKEN = "valid-token"
         const val VALID_EMAIL = "bob@example.com"
@@ -50,11 +49,14 @@ class SecurityConfigurationTest: BaseTest() {
             .thenReturn(VALID_EMAIL)
 
         // Setup incorrect test tokens
-        val exception = FirebaseAuthException(FirebaseException(
-            ErrorCode.UNKNOWN,
-            "Invalid token",
-            Exception("Test INVALID_TOKEN")
-        ))
+        val exception =
+            FirebaseAuthException(
+                FirebaseException(
+                    ErrorCode.UNKNOWN,
+                    "Invalid token",
+                    Exception("Test INVALID_TOKEN"),
+                ),
+            )
         whenever(firebaseAuth.verifyIdToken(INVALID_TOKEN))
             .thenThrow(exception)
     }
@@ -70,8 +72,9 @@ class SecurityConfigurationTest: BaseTest() {
 
     @Test
     fun `authenticated request to open endpoint should return 200`() {
-        val request = get("/ping")
-            .header("Authorization", "Bearer $VALID_TOKEN")
+        val request =
+            get("/ping")
+                .header("Authorization", "Bearer $VALID_TOKEN")
 
         mockMvc
             .perform(request)
@@ -91,8 +94,9 @@ class SecurityConfigurationTest: BaseTest() {
 
     @Test
     fun `authenticated request to secured endpoint should return 200`() {
-        val request = get("/auth")
-            .header("Authorization", "Bearer $VALID_TOKEN")
+        val request =
+            get("/auth")
+                .header("Authorization", "Bearer $VALID_TOKEN")
 
         mockMvc
             .perform(request)
@@ -103,8 +107,9 @@ class SecurityConfigurationTest: BaseTest() {
 
     @Test
     fun `invalid token to secured endpoint should return 401`() {
-        val request = get("/auth")
-            .header("Authorization", "Bearer $INVALID_TOKEN")
+        val request =
+            get("/auth")
+                .header("Authorization", "Bearer $INVALID_TOKEN")
 
         mockMvc
             .perform(request)

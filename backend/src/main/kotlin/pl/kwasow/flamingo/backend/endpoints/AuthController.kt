@@ -10,7 +10,7 @@ import pl.kwasow.flamingo.types.user.User
 class AuthController {
     // ====== Endpoints
     @GetMapping("/auth")
-    fun authenticateUser(@AuthenticationPrincipal user: User): ResponseEntity<User> {
-        return ResponseEntity.ok(user)
-    }
+    fun authenticateUser(
+        @AuthenticationPrincipal user: User,
+    ): ResponseEntity<User> = ResponseEntity.ok(user)
 }

@@ -8,18 +8,15 @@ import pl.kwasow.flamingo.types.wishlist.Wish
 
 @Service
 class WishlistService(
-    private val wishlistRepository: WishlistRepository
+    private val wishlistRepository: WishlistRepository,
 ) {
     // ====== Public methods
     fun getWishlistForCouple(couple: Couple): List<Wish> =
         wishlistRepository.findByAuthorIdIn(couple.getMemberIds())
 
-    fun saveWish(wish: Wish): Wish =
-        wishlistRepository.save(wish)
+    fun saveWish(wish: Wish): Wish = wishlistRepository.save(wish)
 
-    fun deleteWish(id: Int) =
-        wishlistRepository.deleteById(id)
+    fun deleteWish(id: Int) = wishlistRepository.deleteById(id)
 
-    fun findAuthor(wishId: Int): Int? =
-        wishlistRepository.findByIdOrNull(wishId)?.authorId
+    fun findAuthor(wishId: Int): Int? = wishlistRepository.findByIdOrNull(wishId)?.authorId
 }
