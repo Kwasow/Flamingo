@@ -85,6 +85,6 @@ CREATE TABLE FirebaseTokens(
 INSERT INTO Couples VALUES (1, "2023-07-31");
 INSERT INTO Couples VALUES (2, "2020-01-01");
 
-INSERT INTO Users VALUES (1, "Bob", "bob@example.com", "SHEEP", 1);
-INSERT INTO Users VALUES (2, "Alice", "alice@example.com", "CAT", 1);
+INSERT INTO Users VALUES (1, "Alice", "alice@example.com", "CAT", 1);
+INSERT INTO Users VALUES (2, "Bob", "bob@example.com", "SHEEP", 1);
 INSERT INTO Users VALUES (3, "Mallory", "mallory@example.com", "SHEEP", 2);

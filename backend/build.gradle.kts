@@ -41,6 +41,7 @@ dependencies {
     implementation(libs.firebase.admin)
 
     // Testing
+    testImplementation(libs.kotlin.serialization.json)
     testImplementation(libs.mockito)
     testImplementation(libs.mockito.junit)
     testImplementation(libs.testcontainers)

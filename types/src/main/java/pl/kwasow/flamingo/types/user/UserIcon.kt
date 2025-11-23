@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class UserIcon {
-    @SerialName("cat")
+    @SerialName("CAT")
     CAT,
 
-    @SerialName("sheep")
+    @SerialName("SHEEP")
     SHEEP,
 }
