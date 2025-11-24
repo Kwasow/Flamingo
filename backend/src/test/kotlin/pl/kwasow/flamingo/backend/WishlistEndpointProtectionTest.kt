@@ -8,37 +8,37 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import kotlin.test.Test
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class MemoriesEndpointProtectionTest : BaseTest() {
+class WishlistEndpointProtectionTest : BaseTest() {
     @Autowired
     lateinit var mockMvc: MockMvc
 
     @Transactional
     @Test
     fun `get endpoint is protected`() {
-        testProtection(mockMvc, get("/memories/get"))
+        testProtection(mockMvc, get("/wishlist/get"))
     }
 
     @Transactional
     @Test
     fun `add endpoint is protected`() {
-        testProtection(mockMvc, post("/memories/add"))
+        testProtection(mockMvc, post("/wishlist/add"))
     }
 
     @Transactional
     @Test
     fun `update endpoint is protected`() {
-        testProtection(mockMvc, post("/memories/update"))
+        testProtection(mockMvc, post("/wishlist/update"))
     }
 
     @Transactional
     @Test
     fun `delete endpoint is protected`() {
-        testProtection(mockMvc, delete("/memories/delete"))
+        testProtection(mockMvc, delete("/wishlist/delete"))
     }
+
 }

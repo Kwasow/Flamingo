@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 import pl.kwasow.flamingo.backend.services.WishlistService
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
+import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
 
 @RestController
 class WishlistController(
@@ -20,7 +21,7 @@ class WishlistController(
     @GetMapping("/wishlist/get")
     fun getWishlist(
         @AuthenticationPrincipal user: User,
-    ): ResponseEntity<List<Wish>> =
+    ): ResponseEntity<WishlistGetResponse> =
         ResponseEntity.ok().body(wishlistService.getWishlistForCouple(user.couple))
 
     @PostMapping("/wishlist/add")

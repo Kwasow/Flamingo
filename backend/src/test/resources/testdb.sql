@@ -128,3 +128,28 @@ INSERT INTO Memories VALUES (
     "https://examplephotos.org/mall",
     2
 );
+
+-- Alice and Bob wishes
+INSERT INTO Wishlist VALUES (
+    1,
+    1,
+    "A kitten",
+    false,
+    1722548749
+);
+INSERT INTO Wishlist VALUES (
+    2,
+    2,
+    "A new belt for my suit",
+    true,
+    1713720737
+);
+
+-- Mallory wishes
+INSERT INTO Wishlist VALUES (
+    3,
+    3,
+    "A new spyglass",
+    false,
+    1691230314
+);

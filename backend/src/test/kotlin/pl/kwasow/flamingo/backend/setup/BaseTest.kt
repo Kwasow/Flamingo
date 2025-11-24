@@ -14,8 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.bean.override.mockito.MockitoBean
+import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.testcontainers.mariadb.MariaDBContainer
 import org.testcontainers.utility.DockerImageName
 import pl.kwasow.flamingo.types.user.UserIcon
@@ -123,4 +125,10 @@ abstract class BaseTest {
 
     fun requestMallory(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =
         builder.header("Authorization", "Bearer ${TestData.MALLORY_TOKEN}")
+
+    fun testProtection(mvc: MockMvc, builder: MockHttpServletRequestBuilder) {
+        mvc
+            .perform(builder)
+            .andExpect(status().isForbidden)
+    }
 }
