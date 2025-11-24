@@ -31,7 +31,7 @@ class SecurityConfigurationTest : BaseTest() {
     @Transactional
     @Test
     fun `authenticated request to open endpoint should return 200`() {
-        val request = getBob("/ping")
+        val request = requestBob(get("/ping"))
 
         mockMvc
             .perform(request)
@@ -53,7 +53,7 @@ class SecurityConfigurationTest : BaseTest() {
     @Transactional
     @Test
     fun `authenticated request to secured endpoint should return 200`() {
-        val request = getBob("/auth")
+        val request = requestBob(get("/auth"))
 
         mockMvc
             .perform(request)

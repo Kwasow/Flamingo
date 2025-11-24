@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import pl.kwasow.flamingo.backend.services.MemoryService
 import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.types.memories.MemoryDeleteRequest
 import pl.kwasow.flamingo.types.user.User
 
 @RestController
@@ -31,7 +32,7 @@ class MemoriesController(
         val incomingMemory = memory.copy(id = null)
         if (!verifyAuthor(user, incomingMemory)) {
             return ResponseEntity
-                .badRequest()
+                .status(HttpStatus.UNAUTHORIZED)
                 .build()
         }
 
@@ -49,7 +50,7 @@ class MemoriesController(
     ): ResponseEntity<Memory?> {
         if (!verifyAuthor(user, memory)) {
             return ResponseEntity
-                .badRequest()
+                .status(HttpStatus.UNAUTHORIZED)
                 .build()
         }
 
@@ -69,15 +70,15 @@ class MemoriesController(
     @DeleteMapping("/memories/delete")
     fun deleteMemory(
         @AuthenticationPrincipal user: User,
-        id: Int,
+        @RequestBody deleteRequest: MemoryDeleteRequest,
     ): ResponseEntity<*> {
-        val errorResponse = verifyMemory(user, id)
+        val errorResponse = verifyMemory(user, deleteRequest.id)
 
         if (errorResponse != null) {
             return errorResponse
         }
 
-        memoryService.deleteMemory(id)
+        memoryService.deleteMemory(deleteRequest.id)
 
         return ResponseEntity
             .ok()
@@ -109,7 +110,7 @@ class MemoriesController(
         val savedCoupleId =
             memoryService.findOwner(incomingId)
                 ?: return ResponseEntity
-                    .badRequest()
+                    .status(HttpStatus.UNAUTHORIZED)
                     .build()
 
         if (!verifyAuthor(user, savedCoupleId)) {

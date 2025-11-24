@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.user.User
@@ -20,8 +21,18 @@ class AuthEndpointTest : BaseTest() {
 
     @Transactional
     @Test
+    fun `endpoint is protected`() {
+        val request = get("/auth")
+
+        mockMvc
+            .perform(request)
+            .andExpect(status().isForbidden)
+    }
+
+    @Transactional
+    @Test
     fun `2 person couple request`() {
-        val request = getBob("/auth")
+        val request = requestBob(get("/auth"))
 
         val result =
             mockMvc
@@ -43,7 +54,7 @@ class AuthEndpointTest : BaseTest() {
     @Transactional
     @Test
     fun `1 person couple request`() {
-        val request = getMallory("/auth")
+        val request = requestMallory(get("/auth"))
 
         val result =
             mockMvc

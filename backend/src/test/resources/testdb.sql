@@ -88,3 +88,43 @@ INSERT INTO Couples VALUES (2, "2020-01-01");
 INSERT INTO Users VALUES (1, "Alice", "alice@example.com", "CAT", 1);
 INSERT INTO Users VALUES (2, "Bob", "bob@example.com", "SHEEP", 1);
 INSERT INTO Users VALUES (3, "Mallory", "mallory@example.com", "SHEEP", 2);
+
+-- Alice and Bob memories
+INSERT INTO Memories VALUES (
+     1,
+     "2023-07-31",
+     "2023-08-07",
+     "First trip together",
+     "We went to a shopping mall and got lost",
+     "https://examplephotos.org/mall",
+     1
+);
+INSERT INTO Memories VALUES (
+    2,
+    "2023-09-01",
+    null,
+    "One month together!",
+    "31 days and counting",
+    null,
+    1
+);
+INSERT INTO Memories VALUES (
+    3,
+    "2024-07-31",
+    null,
+    "First anniversary",
+    "The first year is done!",
+    null,
+    1
+);
+
+-- Mallory memories
+INSERT INTO Memories VALUES (
+    4,
+    "2023-07-31",
+    null,
+    "I spied on Alice and Bob",
+    "They went to a shopping mall and got lost",
+    "https://examplephotos.org/mall",
+    2
+);

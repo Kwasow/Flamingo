@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.bean.override.mockito.MockitoBean
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.testcontainers.mariadb.MariaDBContainer
 import org.testcontainers.utility.DockerImageName
@@ -42,6 +43,7 @@ abstract class BaseTest {
     protected class TestData {
         companion object {
             val ALICE_BOB_ANNIVERSARY: LocalDate = LocalDate.parse("2023-07-31")
+            const val ALICE_BOB_COUPLE_ID = 1
 
             const val ALICE_TOKEN = "alice-token"
             const val ALICE_EMAIL = "alice@example.com"
@@ -54,6 +56,7 @@ abstract class BaseTest {
             val BOB_ICON = UserIcon.SHEEP
 
             val MALLORY_ANNIVERSARY: LocalDate = LocalDate.parse("2020-01-01")
+            const val MALLORY_COUPLE_ID = 2
 
             const val MALLORY_TOKEN = "mallory-token"
             const val MALLORY_EMAIL = "mallory@example.com"
@@ -112,12 +115,12 @@ abstract class BaseTest {
             .thenThrow(exception)
     }
 
-    fun getAlice(uriTemplate: String) =
-        get(uriTemplate).header("Authorization", "Bearer ${TestData.ALICE_TOKEN}")
+    fun requestAlice(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =
+        builder.header("Authorization", "Bearer ${TestData.ALICE_TOKEN}")
 
-    fun getBob(uriTemplate: String) =
-        get(uriTemplate).header("Authorization", "Bearer ${TestData.BOB_TOKEN}")
+    fun requestBob(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =
+        builder.header("Authorization", "Bearer ${TestData.BOB_TOKEN}")
 
-    fun getMallory(uriTemplate: String) =
-        get(uriTemplate).header("Authorization", "Bearer ${TestData.MALLORY_TOKEN}")
+    fun requestMallory(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =
+        builder.header("Authorization", "Bearer ${TestData.MALLORY_TOKEN}")
 }
