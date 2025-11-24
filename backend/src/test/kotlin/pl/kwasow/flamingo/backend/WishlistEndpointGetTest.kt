@@ -14,7 +14,7 @@ import kotlin.test.assertEquals
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class WishlistEndpointGetTest: BaseTest() {
+class WishlistEndpointGetTest : BaseTest() {
     @Autowired
     lateinit var mockMvc: MockMvc
 
@@ -53,5 +53,4 @@ class WishlistEndpointGetTest: BaseTest() {
 //    fun `wishlist response matches expected format`() {
 //
 //    }
-
 }

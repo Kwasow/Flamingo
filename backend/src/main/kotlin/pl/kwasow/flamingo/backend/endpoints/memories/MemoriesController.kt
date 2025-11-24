@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import pl.kwasow.flamingo.backend.services.MemoryService
+import pl.kwasow.flamingo.types.memories.MemoriesAddResponse
+import pl.kwasow.flamingo.types.memories.MemoriesDeleteRequest
+import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
+import pl.kwasow.flamingo.types.memories.MemoriesUpdateResponse
 import pl.kwasow.flamingo.types.memories.Memory
-import pl.kwasow.flamingo.types.memories.MemoryDeleteRequest
 import pl.kwasow.flamingo.types.user.User
 
 @RestController
@@ -21,14 +24,14 @@ class MemoriesController(
     @GetMapping("/memories/get")
     fun getMemories(
         @AuthenticationPrincipal user: User,
-    ): ResponseEntity<Map<Int, List<Memory>>> =
+    ): ResponseEntity<MemoriesGetResponse> =
         ResponseEntity.ok(memoryService.getMemoriesForUserByYear(user))
 
     @PostMapping("/memories/add")
     fun addMemory(
         @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
-    ): ResponseEntity<Memory> {
+    ): ResponseEntity<MemoriesAddResponse> {
         val incomingMemory = memory.copy(id = null)
         if (!verifyAuthor(user, incomingMemory)) {
             return ResponseEntity
@@ -47,7 +50,7 @@ class MemoriesController(
     fun updateMemory(
         @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
-    ): ResponseEntity<Memory?> {
+    ): ResponseEntity<MemoriesUpdateResponse> {
         if (!verifyAuthor(user, memory)) {
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
@@ -70,7 +73,7 @@ class MemoriesController(
     @DeleteMapping("/memories/delete")
     fun deleteMemory(
         @AuthenticationPrincipal user: User,
-        @RequestBody deleteRequest: MemoryDeleteRequest,
+        @RequestBody deleteRequest: MemoriesDeleteRequest,
     ): ResponseEntity<*> {
         val errorResponse = verifyMemory(user, deleteRequest.id)
 
@@ -99,7 +102,7 @@ class MemoriesController(
     private fun verifyMemory(
         user: User,
         id: Int?,
-    ): ResponseEntity<Memory?>? {
+    ): ResponseEntity<Memory>? {
         // Check if ID is set
         val incomingId =
             id ?: return ResponseEntity

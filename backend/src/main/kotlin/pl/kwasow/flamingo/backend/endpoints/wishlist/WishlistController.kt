@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController
 import pl.kwasow.flamingo.backend.services.WishlistService
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
+import pl.kwasow.flamingo.types.wishlist.WishlistAddResponse
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
+import pl.kwasow.flamingo.types.wishlist.WishlistUpdateResponse
 
 @RestController
 class WishlistController(
@@ -28,7 +30,7 @@ class WishlistController(
     fun addWish(
         @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
-    ): ResponseEntity<Wish> {
+    ): ResponseEntity<WishlistAddResponse> {
         val incomingWish = wish.copy(id = null)
         if (!verifyAuthor(user, incomingWish)) {
             return ResponseEntity
@@ -47,7 +49,7 @@ class WishlistController(
     fun updateWish(
         @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
-    ): ResponseEntity<Wish?> {
+    ): ResponseEntity<WishlistUpdateResponse> {
         if (!verifyAuthor(user, wish)) {
             return ResponseEntity
                 .badRequest()
@@ -99,7 +101,7 @@ class WishlistController(
     private fun verifyWish(
         user: User,
         id: Int?,
-    ): ResponseEntity<Wish?>? {
+    ): ResponseEntity<Wish>? {
         // Check if ID is set
         val incomingId =
             id ?: return ResponseEntity

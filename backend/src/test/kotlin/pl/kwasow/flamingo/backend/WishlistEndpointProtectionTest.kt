@@ -40,5 +40,4 @@ class WishlistEndpointProtectionTest : BaseTest() {
     fun `delete endpoint is protected`() {
         testProtection(mockMvc, delete("/wishlist/delete"))
     }
-
 }

@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delet
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
+import pl.kwasow.flamingo.types.memories.MemoriesDeleteRequest
 import pl.kwasow.flamingo.types.memories.Memory
-import pl.kwasow.flamingo.types.memories.MemoryDeleteRequest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -28,7 +28,7 @@ class MemoriesEndpointDeleteTest : BaseTest() {
         val request1 =
             requestBob(delete("/memories/delete"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(MemoryDeleteRequest(3)))
+                .content(json.encodeToString(MemoriesDeleteRequest(3)))
 
         mockMvc
             .perform(request1)
@@ -55,7 +55,7 @@ class MemoriesEndpointDeleteTest : BaseTest() {
         val request =
             requestMallory(delete("/memories/delete"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(MemoryDeleteRequest(1)))
+                .content(json.encodeToString(MemoriesDeleteRequest(1)))
 
         mockMvc
             .perform(request)
@@ -91,7 +91,7 @@ class MemoriesEndpointDeleteTest : BaseTest() {
         val request =
             requestMallory(delete("/memories/delete"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(MemoryDeleteRequest(42)))
+                .content(json.encodeToString(MemoriesDeleteRequest(42)))
 
         mockMvc
             .perform(request)

@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
+import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import pl.kwasow.flamingo.types.memories.Memory
 import java.time.LocalDate
 import kotlin.test.Test
@@ -21,6 +22,8 @@ import kotlin.test.assertEquals
 class MemoriesEndpointAddTest : BaseTest() {
     @Autowired
     lateinit var mockMvc: MockMvc
+
+    // TODO: Test add response
 
     @Transactional
     @Test
@@ -54,7 +57,7 @@ class MemoriesEndpointAddTest : BaseTest() {
                 .andReturn()
         val memories =
             json
-                .decodeFromString<Map<Int, List<Memory>>>(result.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
 
         assertEquals(3, memories.size)
         assert(2025 in memories.keys)

@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
-import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -34,10 +34,10 @@ class MemoriesEndpointGetTest : BaseTest() {
 
         val aliceMemories =
             json
-                .decodeFromString<Map<Int, List<Memory>>>(aliceResult.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(aliceResult.response.contentAsString)
         val bobMemories =
             json
-                .decodeFromString<Map<Int, List<Memory>>>(bobResult.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(bobResult.response.contentAsString)
 
         assertEquals(bobMemories, aliceMemories)
     }
@@ -58,10 +58,10 @@ class MemoriesEndpointGetTest : BaseTest() {
 
         val aliceMemories =
             json
-                .decodeFromString<Map<Int, List<Memory>>>(aliceResult.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(aliceResult.response.contentAsString)
         val malloryMemories =
             json
-                .decodeFromString<Map<Int, List<Memory>>>(malloryResult.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(malloryResult.response.contentAsString)
 
         malloryMemories.forEach { (year, memoryList) ->
             if (year in aliceMemories.keys) {
@@ -86,7 +86,7 @@ class MemoriesEndpointGetTest : BaseTest() {
 
         val memories =
             json
-                .decodeFromString<Map<Int, List<Memory>>>(result.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
 
         assertEquals(2, memories.size)
         assert(2023 in memories.keys)

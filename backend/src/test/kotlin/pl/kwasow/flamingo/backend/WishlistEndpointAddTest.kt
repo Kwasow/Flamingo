@@ -1,16 +1,14 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.MockMvc
 import pl.kwasow.flamingo.backend.setup.BaseTest
-import kotlin.test.Test
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class WishlistEndpointAddTest: BaseTest() {
+class WishlistEndpointAddTest : BaseTest() {
     @Autowired
     lateinit var mockMvc: MockMvc
 
@@ -37,5 +35,4 @@ class WishlistEndpointAddTest: BaseTest() {
 //    fun `mallory can't add alice's wish`() {
 //
 //    }
-
 }

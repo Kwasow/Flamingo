@@ -3,6 +3,6 @@ package pl.kwasow.flamingo.types.memories
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MemoryDeleteRequest(
+data class MemoriesDeleteRequest(
     val id: Int,
 )
