@@ -73,16 +73,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
 
     @Transactional
     @Test
-    fun `empty body memory update fails`() {
-        val request = requestMallory(post("/memories/update"))
-
-        mockMvc
-            .perform(request)
-            .andExpect(status().isBadRequest)
-    }
-
-    @Transactional
-    @Test
     fun `mallory updating alice and bob's memory fails`() {
         val newMemory =
             Memory(
@@ -93,6 +83,54 @@ class MemoriesEndpointUpdateTest : BaseTest() {
                 "We went to a shopping mall and got lost",
                 "https://examplephotos.org/mall",
                 TestData.ALICE_BOB_COUPLE_ID,
+            )
+
+        val request =
+            requestMallory(post("/memories/update"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json.encodeToString(newMemory))
+
+        mockMvc
+            .perform(request)
+            .andExpect(status().isUnauthorized)
+    }
+
+    @Transactional
+    @Test
+    fun `mallory making own memory alice and bob's fails`() {
+        val newMemory =
+            Memory(
+                4,
+                LocalDate.of(2024, 7, 31),
+                null,
+                "I spied on Alice and Bob",
+                "They went to a shopping mall and got lost",
+                "https://examplephotos.org/mall",
+                TestData.ALICE_BOB_COUPLE_ID,
+            )
+
+        val request =
+            requestMallory(post("/memories/update"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json.encodeToString(newMemory))
+
+        mockMvc
+            .perform(request)
+            .andExpect(status().isUnauthorized)
+    }
+
+    @Transactional
+    @Test
+    fun `mallory stealing alice and bob's memory fails`() {
+        val newMemory =
+            Memory(
+                1,
+                LocalDate.of(2023, 7, 31),
+                LocalDate.of(2023, 8, 7),
+                "First trip together",
+                "We went to a shopping mall and got lost",
+                "https://examplephotos.org/mall",
+                TestData.MALLORY_COUPLE_ID,
             )
 
         val request =
@@ -155,49 +193,11 @@ class MemoriesEndpointUpdateTest : BaseTest() {
 
     @Transactional
     @Test
-    fun `mallory making own memory alice and bob's fails`() {
-        val newMemory =
-            Memory(
-                4,
-                LocalDate.of(2024, 7, 31),
-                null,
-                "I spied on Alice and Bob",
-                "They went to a shopping mall and got lost",
-                "https://examplephotos.org/mall",
-                TestData.ALICE_BOB_COUPLE_ID,
-            )
-
-        val request =
-            requestMallory(post("/memories/update"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(newMemory))
+    fun `empty body memory update fails`() {
+        val request = requestMallory(post("/memories/update"))
 
         mockMvc
             .perform(request)
-            .andExpect(status().isUnauthorized)
-    }
-
-    @Transactional
-    @Test
-    fun `mallory stealing alice and bob's memory fails`() {
-        val newMemory =
-            Memory(
-                1,
-                LocalDate.of(2023, 7, 31),
-                LocalDate.of(2023, 8, 7),
-                "First trip together",
-                "We went to a shopping mall and got lost",
-                "https://examplephotos.org/mall",
-                TestData.MALLORY_COUPLE_ID,
-            )
-
-        val request =
-            requestMallory(post("/memories/update"))
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(newMemory))
-
-        mockMvc
-            .perform(request)
-            .andExpect(status().isUnauthorized)
+            .andExpect(status().isBadRequest)
     }
 }

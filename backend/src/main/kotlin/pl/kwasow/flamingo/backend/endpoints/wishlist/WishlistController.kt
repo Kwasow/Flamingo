@@ -53,11 +53,11 @@ class WishlistController(
     ): ResponseEntity<WishlistUpdateResponse> {
         if (!verifyAuthor(user, wish)) {
             return ResponseEntity
-                .badRequest()
-                .body(null)
+                .status(HttpStatus.UNAUTHORIZED)
+                .build()
         }
 
-        val errorResponse = verifyWish(user, wish.id)
+        val errorResponse = verifyWish(user, wish.id, wish.authorId)
 
         if (errorResponse != null) {
             return errorResponse
@@ -102,6 +102,7 @@ class WishlistController(
     private fun verifyWish(
         user: User,
         id: Int?,
+        authorId: Int? = null,
     ): ResponseEntity<Wish>? {
         // Check if ID is set
         val incomingId =
@@ -116,7 +117,10 @@ class WishlistController(
                     .status(HttpStatus.UNAUTHORIZED)
                     .build()
 
-        if (!verifyAuthor(user, savedAuthorId)) {
+        if (
+            !verifyAuthor(user, savedAuthorId) ||
+            (authorId != null && savedAuthorId != authorId)
+        ) {
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .build()
