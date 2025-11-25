@@ -88,15 +88,10 @@ class MemoriesEndpointGetTest : BaseTest() {
             json
                 .decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
 
-        assertEquals(2, memories.size)
-        assert(2023 in memories.keys)
-        assert(2024 in memories.keys)
-        assertEquals(2, memories[2023]?.size)
-        assert(1 in memories[2023]?.map { it.id }!!)
-        assert(2 in memories[2023]?.map { it.id }!!)
-        assert(memories[2023]!!.all { it.coupleId == TestData.ALICE_BOB_COUPLE_ID })
-        assertEquals(1, memories[2024]?.size)
-        assert(3 in memories[2024]?.map { it.id }!!)
-        assert(memories[2024]!!.all { it.coupleId == TestData.ALICE_BOB_COUPLE_ID })
+        assertEquals(setOf(2023, 2024), memories.keys)
+        assertEquals(setOf(1, 2), memories[2023]?.map { it.id }?.toSet())
+        assertEquals(setOf(3), memories[2024]?.map { it.id }?.toSet())
+        assertEquals(true, memories[2023]?.all { it.coupleId == TestData.ALICE_BOB_COUPLE_ID })
+        assertEquals(true, memories[2024]?.all { it.coupleId == TestData.ALICE_BOB_COUPLE_ID })
     }
 }

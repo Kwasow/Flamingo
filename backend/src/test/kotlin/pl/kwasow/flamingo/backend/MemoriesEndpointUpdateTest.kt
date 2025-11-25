@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
+import pl.kwasow.flamingo.types.memories.MemoriesUpdateResponse
 import pl.kwasow.flamingo.types.memories.Memory
 import java.time.LocalDate
 import kotlin.test.Test
@@ -22,8 +23,6 @@ import kotlin.test.assertEquals
 class MemoriesEndpointUpdateTest : BaseTest() {
     @Autowired
     lateinit var mockMvc: MockMvc
-
-    // TODO: Test update response
 
     @Transactional
     @Test
@@ -44,20 +43,24 @@ class MemoriesEndpointUpdateTest : BaseTest() {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json.encodeToString(updatedMemory))
 
-        mockMvc
+        val result1 = mockMvc
             .perform(request1)
             .andExpect(status().isOk)
+            .andReturn()
+        val memory = json.decodeFromString<MemoriesUpdateResponse>(result1.response.contentAsString)
+
+        assertEquals(updatedMemory, memory)
 
         val request2 = requestBob(get("/memories/get"))
 
-        val result =
+        val result2 =
             mockMvc
                 .perform(request2)
                 .andExpect(status().isOk)
                 .andReturn()
         val memories =
             json
-                .decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
+                .decodeFromString<MemoriesGetResponse>(result2.response.contentAsString)
 
         assertEquals(2, memories.size)
         assert(2023 in memories.keys)
