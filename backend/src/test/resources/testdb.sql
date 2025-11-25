@@ -74,12 +74,15 @@ CREATE TABLE Locations(
 CREATE TABLE FirebaseTokens(
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    time_stamp INT NOT NULL,
-    token TEXT NOT NULL,
+    time_stamp BIGINT NOT NULL,
+    token TEXT NOT NULL UNIQUE,
     debug BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT FK_FirebaseTokens_User FOREIGN KEY (user_id) REFERENCES Users(id)
 );
+
+-- Build indexes
+CREATE INDEX idx_fcm_token ON FirebaseTokens(token);
 
 -- Create data
 INSERT INTO Couples VALUES (1, "2023-07-31");

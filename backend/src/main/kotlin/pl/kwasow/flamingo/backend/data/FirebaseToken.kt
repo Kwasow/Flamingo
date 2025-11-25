@@ -17,7 +17,7 @@ data class FirebaseToken(
     @Column(name = "user_id")
     val userId: Int,
     @Column(name = "time_stamp")
-    val timestamp: Int,
+    val timestamp: Long,
     @Column(name = "token")
     val token: String,
     @Column(name = "debug")
