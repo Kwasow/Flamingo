@@ -1,16 +1,21 @@
 package pl.kwasow.flamingo.backend.endpoints.messaging
 
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import pl.kwasow.flamingo.backend.services.FirebaseMessagingService
 import pl.kwasow.flamingo.backend.services.FirebaseTokenService
 import pl.kwasow.flamingo.types.messaging.FcmSendMessageRequest
 import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
+import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.user.User
 
 @RestController
 class MessagingController(
+    private val firebaseMessagingService: FirebaseMessagingService,
     private val firebaseTokenService: FirebaseTokenService,
 ) {
     // ====== Endpoints
@@ -24,6 +29,15 @@ class MessagingController(
     fun sendMessage(
         @AuthenticationPrincipal user: User,
         @RequestBody message: FcmSendMessageRequest,
-    ) {
+    ): ResponseEntity<*> {
+        val result =
+            when (message) {
+                MessageType.MISSING_YOU -> firebaseMessagingService.sendMissingYouMessage(user)
+                else -> HttpStatus.BAD_REQUEST
+            }
+
+        return ResponseEntity
+            .status(result)
+            .build<Any>()
     }
 }

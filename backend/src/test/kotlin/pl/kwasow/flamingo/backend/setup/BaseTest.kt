@@ -31,7 +31,7 @@ import java.time.LocalDate
 @AutoConfigureMockMvc
 abstract class BaseTest {
     @Autowired
-    lateinit var mockMvc: MockMvc
+    protected lateinit var mockMvc: MockMvc
 
     @MockitoBean
     private lateinit var firebaseApp: FirebaseApp
@@ -40,7 +40,7 @@ abstract class BaseTest {
     private lateinit var firebaseAuth: FirebaseAuth
 
     @MockitoBean
-    private lateinit var firebaseMessaging: FirebaseMessaging
+    protected lateinit var firebaseMessaging: FirebaseMessaging
 
     @Mock
     private lateinit var bobFirebaseToken: FirebaseToken

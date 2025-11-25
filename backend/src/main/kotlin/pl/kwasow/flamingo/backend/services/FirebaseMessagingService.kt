@@ -31,7 +31,7 @@ class FirebaseMessagingService(
     }
 
     // ====== Private methods
-    fun sendMessage(
+    private fun sendMessage(
         recipients: Collection<String>,
         data: Map<String, String>,
     ): HttpStatus {

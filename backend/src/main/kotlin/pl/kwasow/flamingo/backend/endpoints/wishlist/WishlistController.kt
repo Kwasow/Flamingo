@@ -101,15 +101,9 @@ class WishlistController(
 
     private fun verifyWish(
         user: User,
-        id: Int?,
+        incomingId: Int,
         authorId: Int? = null,
     ): ResponseEntity<Wish>? {
-        // Check if ID is set
-        val incomingId =
-            id ?: return ResponseEntity
-                .badRequest()
-                .build()
-
         // Check if the user is authorized to modify this wish
         val savedAuthorId =
             wishlistService.findAuthor(incomingId)

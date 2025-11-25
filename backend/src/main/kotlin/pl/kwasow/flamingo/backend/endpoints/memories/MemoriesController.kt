@@ -101,14 +101,8 @@ class MemoriesController(
 
     private fun verifyMemory(
         user: User,
-        id: Int?,
+        incomingId: Int,
     ): ResponseEntity<Memory>? {
-        // Check if ID is set
-        val incomingId =
-            id ?: return ResponseEntity
-                .badRequest()
-                .build()
-
         // Check if the user is authorized to modify this memory
         val savedCoupleId =
             memoryService.findOwner(incomingId)
