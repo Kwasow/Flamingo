@@ -43,10 +43,11 @@ class MemoriesEndpointAddTest : BaseTest() {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json.encodeToString(newMemory))
 
-        val result1 = mockMvc
-            .perform(request1)
-            .andExpect(status().isOk)
-            .andReturn()
+        val result1 =
+            mockMvc
+                .perform(request1)
+                .andExpect(status().isOk)
+                .andReturn()
         val memory = json.decodeFromString<MemoriesAddResponse>(result1.response.contentAsString)
 
         assertEquals(newMemory.copy(id = memory.id), memory)
@@ -64,8 +65,7 @@ class MemoriesEndpointAddTest : BaseTest() {
 
         assertEquals(3, memories.size)
         assert(2025 in memories.keys)
-        val returnedMemory = memories[2025]?.get(0)
-        assertEquals(newMemory.copy(id = returnedMemory?.id), returnedMemory)
+        assert(memory in memories[2025]!!)
     }
 
     @Transactional

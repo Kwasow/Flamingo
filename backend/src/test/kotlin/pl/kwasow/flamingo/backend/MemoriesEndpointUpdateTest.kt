@@ -43,10 +43,11 @@ class MemoriesEndpointUpdateTest : BaseTest() {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(json.encodeToString(updatedMemory))
 
-        val result1 = mockMvc
-            .perform(request1)
-            .andExpect(status().isOk)
-            .andReturn()
+        val result1 =
+            mockMvc
+                .perform(request1)
+                .andExpect(status().isOk)
+                .andReturn()
         val memory = json.decodeFromString<MemoriesUpdateResponse>(result1.response.contentAsString)
 
         assertEquals(updatedMemory, memory)

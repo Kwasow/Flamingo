@@ -34,8 +34,8 @@ class WishlistController(
         val incomingWish = wish.copy(id = null)
         if (!verifyAuthor(user, incomingWish)) {
             return ResponseEntity
-                .badRequest()
-                .body(null)
+                .status(HttpStatus.UNAUTHORIZED)
+                .build()
         }
 
         val newWish = wishlistService.saveWish(incomingWish)

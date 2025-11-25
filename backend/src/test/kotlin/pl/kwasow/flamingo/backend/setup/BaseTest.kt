@@ -47,11 +47,13 @@ abstract class BaseTest {
             val ALICE_BOB_ANNIVERSARY: LocalDate = LocalDate.parse("2023-07-31")
             const val ALICE_BOB_COUPLE_ID = 1
 
+            const val ALICE_ID = 1
             const val ALICE_TOKEN = "alice-token"
             const val ALICE_EMAIL = "alice@example.com"
             const val ALICE_NAME = "Alice"
             val ALICE_ICON = UserIcon.CAT
 
+            const val BOB_ID = 2
             const val BOB_TOKEN = "bob-token"
             const val BOB_EMAIL = "bob@example.com"
             const val BOB_NAME = "Bob"
@@ -60,6 +62,7 @@ abstract class BaseTest {
             val MALLORY_ANNIVERSARY: LocalDate = LocalDate.parse("2020-01-01")
             const val MALLORY_COUPLE_ID = 2
 
+            const val MALLORY_ID = 3
             const val MALLORY_TOKEN = "mallory-token"
             const val MALLORY_EMAIL = "mallory@example.com"
             const val MALLORY_NAME = "Mallory"
