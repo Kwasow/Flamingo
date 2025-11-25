@@ -23,7 +23,7 @@ class FirebaseTokenService(
         } else {
             val newEntry =
                 FirebaseToken(
-                    -1,
+                    0,
                     userId,
                     timestamp,
                     token,
