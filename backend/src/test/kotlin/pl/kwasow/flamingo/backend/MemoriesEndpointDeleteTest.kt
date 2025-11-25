@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.memories.MemoriesDeleteRequest
-import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -42,8 +42,7 @@ class MemoriesEndpointDeleteTest : BaseTest() {
                 .andExpect(status().isOk)
                 .andReturn()
         val memories =
-            json
-                .decodeFromString<Map<Int, List<Memory>>>(result.response.contentAsString)
+            json.decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
 
         assertEquals(1, memories.size)
         assert(2023 in memories.keys)

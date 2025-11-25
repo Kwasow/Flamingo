@@ -12,6 +12,7 @@ import pl.kwasow.flamingo.backend.services.WishlistService
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishlistAddResponse
+import pl.kwasow.flamingo.types.wishlist.WishlistDeleteRequest
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
 import pl.kwasow.flamingo.types.wishlist.WishlistUpdateResponse
 
@@ -69,18 +70,18 @@ class WishlistController(
             .body(editedMemory)
     }
 
-    @DeleteMapping
+    @DeleteMapping("/wishlist/delete")
     fun deleteWish(
         @AuthenticationPrincipal user: User,
-        id: Int,
+        @RequestBody deleteRequest: WishlistDeleteRequest,
     ): ResponseEntity<*> {
-        val errorResponse = verifyWish(user, id)
+        val errorResponse = verifyWish(user, deleteRequest.id)
 
         if (errorResponse != null) {
             return errorResponse
         }
 
-        wishlistService.deleteWish(id)
+        wishlistService.deleteWish(deleteRequest.id)
 
         return ResponseEntity
             .ok()
@@ -112,7 +113,7 @@ class WishlistController(
         val savedAuthorId =
             wishlistService.findAuthor(incomingId)
                 ?: return ResponseEntity
-                    .badRequest()
+                    .status(HttpStatus.UNAUTHORIZED)
                     .build()
 
         if (!verifyAuthor(user, savedAuthorId)) {
