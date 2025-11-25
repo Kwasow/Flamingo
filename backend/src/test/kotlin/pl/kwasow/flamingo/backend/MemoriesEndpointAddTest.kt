@@ -1,12 +1,8 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
 import kotlinx.serialization.encodeToString
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -19,12 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class MemoriesEndpointAddTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `bob adding own memory succeeds`() {
         val newMemory =
@@ -68,7 +59,6 @@ class MemoriesEndpointAddTest : BaseTest() {
         assert(memory in memories[2025]!!)
     }
 
-    @Transactional
     @Test
     fun `mallory adding memory to alice and bob fails`() {
         val newMemory =

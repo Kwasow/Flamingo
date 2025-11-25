@@ -1,10 +1,6 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
@@ -13,12 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class MemoriesEndpointGetTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `couple members memories match`() {
         val aliceResult =
@@ -42,7 +33,6 @@ class MemoriesEndpointGetTest : BaseTest() {
         assertEquals(bobMemories, aliceMemories)
     }
 
-    @Transactional
     @Test
     fun `intersection between different couples is empty`() {
         val aliceResult =
@@ -73,7 +63,6 @@ class MemoriesEndpointGetTest : BaseTest() {
         }
     }
 
-    @Transactional
     @Test
     fun `memories response matches expected format`() {
         val request = requestBob(get("/memories/get"))

@@ -1,11 +1,7 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
@@ -13,12 +9,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class SecurityConfigurationTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `unauthenticated request to open endpoint should return 200`() {
         val request = get("/ping")
@@ -28,7 +19,6 @@ class SecurityConfigurationTest : BaseTest() {
             .andExpect(status().isOk)
     }
 
-    @Transactional
     @Test
     fun `authenticated request to open endpoint should return 200`() {
         val request = requestBob(get("/ping"))
@@ -38,7 +28,6 @@ class SecurityConfigurationTest : BaseTest() {
             .andExpect(status().isOk)
     }
 
-    @Transactional
     @Test
     fun `unauthenticated request to secured endpoint should return 403`() {
         val request = get("/auth")
@@ -50,7 +39,6 @@ class SecurityConfigurationTest : BaseTest() {
         assertEquals(null, SecurityContextHolder.getContext().authentication)
     }
 
-    @Transactional
     @Test
     fun `authenticated request to secured endpoint should return 200`() {
         val request = requestBob(get("/auth"))
@@ -62,7 +50,6 @@ class SecurityConfigurationTest : BaseTest() {
         assertEquals(null, SecurityContextHolder.getContext().authentication)
     }
 
-    @Transactional
     @Test
     fun `invalid token to secured endpoint should return 401`() {
         val request =

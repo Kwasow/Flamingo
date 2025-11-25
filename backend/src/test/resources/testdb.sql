@@ -156,3 +156,26 @@ INSERT INTO Wishlist VALUES (
     false,
     1691230314
 );
+
+-- FCM Tokens
+INSERT INTO FirebaseTokens VALUES (
+    1,
+    1,
+    1764068353,
+    "alice-fcm-test-token",
+    false
+);
+INSERT INTO FirebaseTokens VALUES (
+    2,
+    2,
+    1764068353,
+    "bob-fcm-test-token",
+    false
+);
+INSERT INTO FirebaseTokens VALUES (
+    3,
+    3,
+    1764068353,
+    "mallory-fcm-test-token",
+    false
+);

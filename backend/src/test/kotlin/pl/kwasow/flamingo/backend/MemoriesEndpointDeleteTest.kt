@@ -1,12 +1,8 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
 import kotlinx.serialization.encodeToString
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -17,12 +13,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class MemoriesEndpointDeleteTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `bob deleting own memory succeeds`() {
         val request1 =
@@ -48,7 +39,6 @@ class MemoriesEndpointDeleteTest : BaseTest() {
         assert(2023 in memories.keys)
     }
 
-    @Transactional
     @Test
     fun `mallory deleting alice and bob's memory fails`() {
         val request =
@@ -61,7 +51,6 @@ class MemoriesEndpointDeleteTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `empty body memory delete fails`() {
         val request = requestMallory(delete("/memories/delete"))
@@ -71,7 +60,6 @@ class MemoriesEndpointDeleteTest : BaseTest() {
             .andExpect(status().isBadRequest)
     }
 
-    @Transactional
     @Test
     fun `null id memory delete fails`() {
         val request =
@@ -84,7 +72,6 @@ class MemoriesEndpointDeleteTest : BaseTest() {
             .andExpect(status().isBadRequest)
     }
 
-    @Transactional
     @Test
     fun `deleting non existent memory fails`() {
         val request =

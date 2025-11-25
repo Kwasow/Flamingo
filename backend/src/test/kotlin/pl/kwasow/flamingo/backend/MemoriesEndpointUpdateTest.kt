@@ -1,12 +1,8 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
 import kotlinx.serialization.encodeToString
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -19,12 +15,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class MemoriesEndpointUpdateTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `updating all memory fields succeeds`() {
         val updatedMemory =
@@ -71,7 +62,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
         )
     }
 
-    @Transactional
     @Test
     fun `mallory updating alice and bob's memory fails`() {
         val newMemory =
@@ -95,7 +85,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `mallory making own memory alice and bob's fails`() {
         val newMemory =
@@ -119,7 +108,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `mallory stealing alice and bob's memory fails`() {
         val newMemory =
@@ -143,7 +131,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `updating non existent memory fails`() {
         val newMemory =
@@ -167,7 +154,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `updating null id memory fails`() {
         val newMemory =
@@ -191,7 +177,6 @@ class MemoriesEndpointUpdateTest : BaseTest() {
             .andExpect(status().isBadRequest)
     }
 
-    @Transactional
     @Test
     fun `empty body memory update fails`() {
         val request = requestMallory(post("/memories/update"))

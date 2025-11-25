@@ -1,12 +1,8 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
 import kotlinx.serialization.encodeToString
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -18,12 +14,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class WishlistEndpointAddTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `bob can add own wish`() {
         val newWish =
@@ -62,7 +53,6 @@ class WishlistEndpointAddTest : BaseTest() {
         assert(wish in wishlist)
     }
 
-    @Transactional
     @Test
     fun `bob can add alice's wish`() {
         val newWish =
@@ -101,7 +91,6 @@ class WishlistEndpointAddTest : BaseTest() {
         assert(wish in wishlist)
     }
 
-    @Transactional
     @Test
     fun `mallory can't add bob's wish`() {
         val newWish =
@@ -123,7 +112,6 @@ class WishlistEndpointAddTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `mallory can't add alice's wish`() {
         val newWish =

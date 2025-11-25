@@ -1,10 +1,6 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
@@ -14,12 +10,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class AuthEndpointTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `endpoint is protected`() {
         val request = get("/auth")
@@ -29,7 +20,6 @@ class AuthEndpointTest : BaseTest() {
             .andExpect(status().isForbidden)
     }
 
-    @Transactional
     @Test
     fun `2 person couple request`() {
         val request = requestBob(get("/auth"))
@@ -51,7 +41,6 @@ class AuthEndpointTest : BaseTest() {
         assertNotEquals(null, user.couple.members.find { it.id == user.id })
     }
 
-    @Transactional
     @Test
     fun `1 person couple request`() {
         val request = requestMallory(get("/auth"))

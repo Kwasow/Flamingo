@@ -6,30 +6,41 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.FirebaseToken
+import com.google.firebase.messaging.FirebaseMessaging
+import jakarta.transaction.Transactional
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.BeforeEach
 import org.mockito.Mock
 import org.mockito.kotlin.whenever
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.testcontainers.mariadb.MariaDBContainer
 import org.testcontainers.utility.DockerImageName
 import pl.kwasow.flamingo.types.user.UserIcon
 import java.time.LocalDate
 
+@Transactional
 @SpringBootTest
+@AutoConfigureMockMvc
 abstract class BaseTest {
+    @Autowired
+    lateinit var mockMvc: MockMvc
+
     @MockitoBean
     private lateinit var firebaseApp: FirebaseApp
 
     @MockitoBean
     private lateinit var firebaseAuth: FirebaseAuth
+
+    @MockitoBean
+    private lateinit var firebaseMessaging: FirebaseMessaging
 
     @Mock
     private lateinit var bobFirebaseToken: FirebaseToken
@@ -51,12 +62,14 @@ abstract class BaseTest {
             const val ALICE_TOKEN = "alice-token"
             const val ALICE_EMAIL = "alice@example.com"
             const val ALICE_NAME = "Alice"
+            const val ALICE_FCM_TOKEN = "alice-fcm-test-token"
             val ALICE_ICON = UserIcon.CAT
 
             const val BOB_ID = 2
             const val BOB_TOKEN = "bob-token"
             const val BOB_EMAIL = "bob@example.com"
             const val BOB_NAME = "Bob"
+            const val BOB_FCM_TOKEN = "bob-fcm-test-token"
             val BOB_ICON = UserIcon.SHEEP
 
             val MALLORY_ANNIVERSARY: LocalDate = LocalDate.parse("2020-01-01")
@@ -66,6 +79,7 @@ abstract class BaseTest {
             const val MALLORY_TOKEN = "mallory-token"
             const val MALLORY_EMAIL = "mallory@example.com"
             const val MALLORY_NAME = "Mallory"
+            const val MALORY_FCM_TOKEN = "malory-fcm-test-token"
             val MALLORY_ICON = UserIcon.SHEEP
 
             const val INVALID_TOKEN = "invalid-token"
@@ -88,7 +102,7 @@ abstract class BaseTest {
     }
 
     @BeforeEach
-    fun setup() {
+    fun setupAuth() {
         SecurityContextHolder.clearContext()
 
         // Setup correct test tokens
@@ -118,6 +132,11 @@ abstract class BaseTest {
             )
         whenever(firebaseAuth.verifyIdToken(TestData.INVALID_TOKEN))
             .thenThrow(exception)
+    }
+
+    @BeforeEach
+    fun setupMessaging() {
+        // TODO: Probably has to do something
     }
 
     fun requestAlice(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =

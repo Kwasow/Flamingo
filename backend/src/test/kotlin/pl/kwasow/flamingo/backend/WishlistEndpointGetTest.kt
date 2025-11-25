@@ -1,27 +1,16 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
-import kotlin.collections.component1
-import kotlin.collections.component2
 import kotlin.collections.map
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class WishlistEndpointGetTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `couple members wishlist matches`() {
         val aliceResult =
@@ -45,7 +34,6 @@ class WishlistEndpointGetTest : BaseTest() {
         assertEquals(bobWishlist, aliceWishlist)
     }
 
-    @Transactional
     @Test
     fun `intersection between different couples is empty`() {
         val aliceResult =
@@ -71,7 +59,6 @@ class WishlistEndpointGetTest : BaseTest() {
         }
     }
 
-    @Transactional
     @Test
     fun `wishlist response matches expected format`() {
         val aliceResult =

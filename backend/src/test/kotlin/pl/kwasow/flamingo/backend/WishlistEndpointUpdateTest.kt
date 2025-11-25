@@ -1,12 +1,8 @@
 package pl.kwasow.flamingo.backend
 
-import jakarta.transaction.Transactional
 import kotlinx.serialization.encodeToString
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -18,12 +14,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-@AutoConfigureMockMvc
 class WishlistEndpointUpdateTest : BaseTest() {
-    @Autowired
-    lateinit var mockMvc: MockMvc
-
-    @Transactional
     @Test
     fun `bob updating own wish succeeds`() {
         val newWish =
@@ -62,7 +53,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
         assert(wish in wishlist)
     }
 
-    @Transactional
     @Test
     fun `bob updating alice's wish succeeds`() {
         val newWish =
@@ -101,7 +91,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
         assert(wish in wishlist)
     }
 
-    @Transactional
     @Test
     fun `bob stealing alice's wish fails`() {
         val newWish =
@@ -123,7 +112,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `mallory stealing alice's wish fails`() {
         val newWish =
@@ -145,7 +133,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `mallory updating alice's wish fails`() {
         val newWish =
@@ -167,7 +154,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `updating non existent wish fails`() {
         val newWish =
@@ -189,7 +175,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
             .andExpect(status().isUnauthorized)
     }
 
-    @Transactional
     @Test
     fun `updating null id wish fails`() {
         val newWish =
@@ -211,7 +196,6 @@ class WishlistEndpointUpdateTest : BaseTest() {
             .andExpect(status().isBadRequest)
     }
 
-    @Transactional
     @Test
     fun `empty body wish update fails`() {
         val request = requestMallory(post("/wishlist/update"))
