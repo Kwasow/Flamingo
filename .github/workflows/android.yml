@@ -72,3 +72,4 @@ jobs:
         echo $JSON > app/google-services.json
     - name: Build with Gradle
       run: ./gradlew :app:test
+

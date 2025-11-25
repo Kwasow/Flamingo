@@ -23,7 +23,7 @@ jobs:
   analyze:
     name: Analyze (${{ matrix.language }})
 
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    runs-on: ubuntu-latest
     permissions:
       # required for all workflows
       security-events: write
@@ -43,9 +43,6 @@ jobs:
           build-mode: manual
         - language: actions
           build-mode: none
-        # CodeQL supports the following values keywords for 'language': 'c-cpp',
-        # 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python',
-        # 'ruby', 'swift'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
