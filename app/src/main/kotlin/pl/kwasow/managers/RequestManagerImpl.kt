@@ -21,10 +21,14 @@ import pl.kwasow.BuildConfig
 import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.auth.Authorization
 import pl.kwasow.flamingo.types.location.UserLocation
-import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
+import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
+import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
+import pl.kwasow.flamingo.types.wishlist.WishlistDeleteRequest
+import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
 import pl.kwasow.utils.FlamingoLogger
 
 class RequestManagerImpl(
@@ -92,52 +96,36 @@ class RequestManagerImpl(
     }
 
     override suspend fun sendMissingYouMessage(): Boolean {
-        val body =
-            buildJsonObject {
-                put("type", MessagingManager.MessageType.MISSING_YOU.id)
-            }
-
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = POST_MESSAGE_URL,
-                body = body.toString(),
+                body = json.encodeToString(MessageType.MISSING_YOU),
             )
 
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun getMemories(): Map<Int, List<Memory>>? {
+    override suspend fun getMemories(): MemoriesGetResponse? {
         return makeAuthJsonRequest(
             type = HttpMethod.Get,
             url = GET_MEMORIES_URL,
         )
     }
 
-    override suspend fun getWishlist(): List<Wish>? {
+    override suspend fun getWishlist(): WishlistGetResponse? {
         return makeAuthJsonRequest(
             type = HttpMethod.Get,
             url = GET_WISHLIST_URL,
         )
     }
 
-    override suspend fun addWish(
-        authorId: Int,
-        content: String,
-        timestamp: Long,
-    ): Boolean {
-        val body =
-            buildJsonObject {
-                put("authorId", authorId)
-                put("content", content)
-                put("timestamp", timestamp)
-            }
-
+    override suspend fun addWish(wish: Wish): Boolean {
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = ADD_WISHLIST_URL,
-                body = body.toString(),
+                body = json.encodeToString(wish),
             )
 
         return response?.status == HttpStatusCode.OK
@@ -154,17 +142,14 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun removeWish(wish: Wish): Boolean {
-        val body =
-            buildJsonObject {
-                put("id", wish.id)
-            }
+    override suspend fun removeWish(id: Int): Boolean {
+        val body = WishlistDeleteRequest(id)
 
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = REMOVE_WISHLIST_URL,
-                body = body.toString(),
+                body = json.encodeToString(body),
             )
 
         return response?.status == HttpStatusCode.OK
@@ -205,17 +190,13 @@ class RequestManagerImpl(
     }
 
     override suspend fun updateFcmToken(token: String): Boolean {
-        val body =
-            buildJsonObject {
-                put("token", token)
-                put("debug", BuildConfig.DEBUG)
-            }
+        val body = FcmUpdateTokenRequest(token, BuildConfig.DEBUG)
 
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = POST_UPDATE_FCM_TOKEN_URL,
-                body = body.toString(),
+                body = json.encodeToString(body),
             )
 
         return response?.status == HttpStatusCode.OK

@@ -8,6 +8,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.MemoriesManager
 import pl.kwasow.managers.MessagingManager
@@ -41,11 +42,11 @@ class FlamingoMessagingService : FirebaseMessagingService() {
 
         val data = message.data
 
-        when (MessagingManager.MessageType.fromString(data["type"] ?: "")) {
-            MessagingManager.MessageType.MISSING_YOU -> handleMissingYouMessage(data)
-            MessagingManager.MessageType.DAILY_MEMORY -> handleDailyMemoryMessage()
-            MessagingManager.MessageType.REQUEST_LOCATION -> handleRequestLocationMessage()
-            MessagingManager.MessageType.LOCATION_UPDATED -> handleLocationUpdatedMessage()
+        when (MessageType.fromString(data["type"] ?: "")) {
+            MessageType.MISSING_YOU -> handleMissingYouMessage(data)
+            MessageType.DAILY_MEMORY -> handleDailyMemoryMessage()
+            MessageType.REQUEST_LOCATION -> handleRequestLocationMessage()
+            MessageType.LOCATION_UPDATED -> handleLocationUpdatedMessage()
             else -> handleIncorrectMessage()
         }
     }

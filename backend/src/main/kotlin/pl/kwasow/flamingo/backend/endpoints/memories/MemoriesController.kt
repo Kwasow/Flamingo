@@ -32,7 +32,7 @@ class MemoriesController(
         @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
     ): ResponseEntity<MemoriesAddResponse> {
-        val incomingMemory = memory.copy(id = null)
+        val incomingMemory = memory.copy(id = -1)
         if (!verifyAuthor(user, incomingMemory)) {
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)

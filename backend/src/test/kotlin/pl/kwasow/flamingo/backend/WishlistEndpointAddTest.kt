@@ -28,7 +28,7 @@ class WishlistEndpointAddTest : BaseTest() {
     fun `bob can add own wish`() {
         val newWish =
             Wish(
-                null,
+                -1,
                 TestData.BOB_ID,
                 "A belgian chocolate bar",
                 false,
@@ -67,7 +67,7 @@ class WishlistEndpointAddTest : BaseTest() {
     fun `bob can add alice's wish`() {
         val newWish =
             Wish(
-                null,
+                -1,
                 TestData.ALICE_ID,
                 "A belgian chocolate bar",
                 false,
@@ -106,7 +106,7 @@ class WishlistEndpointAddTest : BaseTest() {
     fun `mallory can't add bob's wish`() {
         val newWish =
             Wish(
-                null,
+                -1,
                 TestData.BOB_ID,
                 "A belgian chocolate bar",
                 false,
@@ -128,7 +128,7 @@ class WishlistEndpointAddTest : BaseTest() {
     fun `mallory can't add alice's wish`() {
         val newWish =
             Wish(
-                null,
+                -1,
                 TestData.ALICE_ID,
                 "A belgian chocolate bar",
                 false,

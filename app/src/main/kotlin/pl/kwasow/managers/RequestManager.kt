@@ -20,15 +20,11 @@ interface RequestManager {
 
     suspend fun getWishlist(): WishlistGetResponse?
 
-    suspend fun addWish(
-        authorId: Int,
-        content: String,
-        timestamp: Long,
-    ): Boolean
+    suspend fun addWish(wish: Wish): Boolean
 
     suspend fun updateWish(wish: Wish): Boolean
 
-    suspend fun removeWish(wish: Wish): Boolean
+    suspend fun removeWish(id: Int): Boolean
 
     suspend fun getAlbums(): List<Album>?
 

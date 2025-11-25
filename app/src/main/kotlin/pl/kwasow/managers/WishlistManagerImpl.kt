@@ -16,9 +16,20 @@ class WishlistManagerImpl(
     override suspend fun addWish(
         authorId: Int,
         content: String,
-    ): Boolean = requestManager.addWish(authorId, content, System.currentTimeMillis())
+    ): Boolean {
+        val newWish =
+            Wish(
+                -1,
+                authorId,
+                content,
+                false,
+                System.currentTimeMillis(),
+            )
 
-    override suspend fun removeWish(wish: Wish): Boolean = requestManager.removeWish(wish)
+        return requestManager.addWish(newWish)
+    }
+
+    override suspend fun removeWish(wish: Wish): Boolean = requestManager.removeWish(wish.id)
 
     override suspend fun updateWish(wish: Wish): Boolean = requestManager.updateWish(wish)
 }

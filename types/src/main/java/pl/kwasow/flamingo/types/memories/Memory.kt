@@ -18,7 +18,7 @@ import java.time.format.FormatStyle
 data class Memory(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    val id: Int = -1,
     @Serializable(with = LocalDateSerializer::class)
     @Column(name = "start_date")
     val startDate: LocalDate,

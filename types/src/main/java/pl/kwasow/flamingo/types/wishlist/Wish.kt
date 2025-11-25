@@ -14,7 +14,7 @@ import kotlinx.serialization.Serializable
 data class Wish(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    val id: Int = -1,
     @Column(name = "author")
     val authorId: Int,
     @Column(name = "content")

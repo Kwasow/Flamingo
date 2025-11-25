@@ -172,7 +172,7 @@ class MemoriesEndpointUpdateTest : BaseTest() {
     fun `updating null id memory fails`() {
         val newMemory =
             Memory(
-                null,
+                -2,
                 LocalDate.of(2023, 7, 31),
                 null,
                 "First trip together",
@@ -184,7 +184,7 @@ class MemoriesEndpointUpdateTest : BaseTest() {
         val request =
             requestMallory(post("/memories/update"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(newMemory))
+                .content(json.encodeToString(newMemory).replace("-2", "null"))
 
         mockMvc
             .perform(request)

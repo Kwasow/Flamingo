@@ -32,7 +32,7 @@ class WishlistController(
         @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
     ): ResponseEntity<WishlistAddResponse> {
-        val incomingWish = wish.copy(id = null)
+        val incomingWish = wish.copy(id = -1)
         if (!verifyAuthor(user, incomingWish)) {
             return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)

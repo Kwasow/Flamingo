@@ -29,7 +29,7 @@ class MemoriesEndpointAddTest : BaseTest() {
     fun `bob adding own memory succeeds`() {
         val newMemory =
             Memory(
-                null,
+                -1,
                 LocalDate.of(2025, 9, 1),
                 null,
                 "This is my new memory",
@@ -73,7 +73,7 @@ class MemoriesEndpointAddTest : BaseTest() {
     fun `mallory adding memory to alice and bob fails`() {
         val newMemory =
             Memory(
-                null,
+                -1,
                 LocalDate.of(2023, 7, 31),
                 LocalDate.of(2023, 8, 7),
                 "First trip together",

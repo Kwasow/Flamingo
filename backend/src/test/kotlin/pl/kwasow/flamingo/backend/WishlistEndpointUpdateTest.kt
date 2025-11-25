@@ -194,7 +194,7 @@ class WishlistEndpointUpdateTest : BaseTest() {
     fun `updating null id wish fails`() {
         val newWish =
             Wish(
-                null,
+                -2,
                 TestData.BOB_ID,
                 "A newer belt for my suit",
                 false,
@@ -204,7 +204,7 @@ class WishlistEndpointUpdateTest : BaseTest() {
         val request =
             requestBob(post("/wishlist/update"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(newWish))
+                .content(json.encodeToString(newWish).replace("-2", "null"))
 
         mockMvc
             .perform(request)
