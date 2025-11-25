@@ -32,18 +32,15 @@ class WishlistController(
         @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
     ): ResponseEntity<WishlistAddResponse> {
-        val incomingWish = wish.copy(id = -1)
-        if (!verifyAuthor(user, incomingWish)) {
+        if (wishlistService.verifyWishForAdding(user, wish)) {
             return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .build()
+                .ok()
+                .body(wishlistService.saveWish(wish))
         }
 
-        val newWish = wishlistService.saveWish(incomingWish)
-
         return ResponseEntity
-            .ok()
-            .body(newWish)
+            .status(HttpStatus.UNAUTHORIZED)
+            .build()
     }
 
     @PostMapping("/wishlist/update")
@@ -51,75 +48,32 @@ class WishlistController(
         @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
     ): ResponseEntity<WishlistUpdateResponse> {
-        if (!verifyAuthor(user, wish)) {
+        if (wishlistService.verifyWishForEditing(user, wish)) {
             return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .build()
+                .ok()
+                .body(wishlistService.saveWish(wish))
         }
-
-        val errorResponse = verifyWish(user, wish.id, wish.authorId)
-
-        if (errorResponse != null) {
-            return errorResponse
-        }
-
-        val editedMemory = wishlistService.saveWish(wish)
 
         return ResponseEntity
-            .ok()
-            .body(editedMemory)
+            .status(HttpStatus.UNAUTHORIZED)
+            .build()
     }
 
     @DeleteMapping("/wishlist/delete")
     fun deleteWish(
         @AuthenticationPrincipal user: User,
         @RequestBody deleteRequest: WishlistDeleteRequest,
-    ): ResponseEntity<*> {
-        val errorResponse = verifyWish(user, deleteRequest.id)
+    ): ResponseEntity<Any> {
+        if (wishlistService.verifyWishForDeletion(user, deleteRequest.id)) {
+            wishlistService.deleteWish(deleteRequest.id)
 
-        if (errorResponse != null) {
-            return errorResponse
-        }
-
-        wishlistService.deleteWish(deleteRequest.id)
-
-        return ResponseEntity
-            .ok()
-            .build<Any>()
-    }
-
-    // ====== Private methods
-    private fun verifyAuthor(
-        user: User,
-        authorId: Int,
-    ): Boolean = user.couple.getMemberIds().contains(authorId)
-
-    private fun verifyAuthor(
-        user: User,
-        wish: Wish,
-    ): Boolean = verifyAuthor(user, wish.authorId)
-
-    private fun verifyWish(
-        user: User,
-        incomingId: Int,
-        authorId: Int? = null,
-    ): ResponseEntity<Wish>? {
-        // Check if the user is authorized to modify this wish
-        val savedAuthorId =
-            wishlistService.findAuthor(incomingId)
-                ?: return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .build()
-
-        if (
-            !verifyAuthor(user, savedAuthorId) ||
-            (authorId != null && savedAuthorId != authorId)
-        ) {
             return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
+                .ok()
                 .build()
         }
 
-        return null
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .build()
     }
 }

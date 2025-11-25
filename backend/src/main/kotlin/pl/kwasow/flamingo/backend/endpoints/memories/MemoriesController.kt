@@ -63,17 +63,17 @@ class MemoriesController(
     fun deleteMemory(
         @AuthenticationPrincipal user: User,
         @RequestBody deleteRequest: MemoriesDeleteRequest,
-    ): ResponseEntity<*> {
+    ): ResponseEntity<Any> {
         if (memoryService.verifyMemoryForDeletion(user, deleteRequest.id)) {
             memoryService.deleteMemory(deleteRequest.id)
 
             return ResponseEntity
                 .ok()
-                .build<Any>()
+                .build()
         }
 
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
-            .build<Any>()
+            .build()
     }
 }
