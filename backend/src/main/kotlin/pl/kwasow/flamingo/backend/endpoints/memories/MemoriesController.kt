@@ -32,18 +32,15 @@ class MemoriesController(
         @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
     ): ResponseEntity<MemoriesAddResponse> {
-        val incomingMemory = memory.copy(id = -1)
-        if (!verifyAuthor(user, incomingMemory)) {
+        if (memoryService.verifyMemoryForAdding(user, memory)) {
             return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .build()
+                .ok()
+                .body(memoryService.saveMemory(memory))
         }
 
-        val newMemory = memoryService.saveMemory(incomingMemory)
-
         return ResponseEntity
-            .ok()
-            .body(newMemory)
+            .status(HttpStatus.UNAUTHORIZED)
+            .build()
     }
 
     @PostMapping("/memories/update")
@@ -51,23 +48,15 @@ class MemoriesController(
         @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
     ): ResponseEntity<MemoriesUpdateResponse> {
-        if (!verifyAuthor(user, memory)) {
+        if (memoryService.verifyMemoryForEditing(user, memory)) {
             return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .build()
+                .ok()
+                .body(memoryService.saveMemory(memory))
         }
-
-        val errorResponse = verifyMemory(user, memory.id)
-
-        if (errorResponse != null) {
-            return errorResponse
-        }
-
-        val editedMemory = memoryService.saveMemory(memory)
 
         return ResponseEntity
-            .ok()
-            .body(editedMemory)
+            .status(HttpStatus.UNAUTHORIZED)
+            .build()
     }
 
     @DeleteMapping("/memories/delete")
@@ -75,47 +64,16 @@ class MemoriesController(
         @AuthenticationPrincipal user: User,
         @RequestBody deleteRequest: MemoriesDeleteRequest,
     ): ResponseEntity<*> {
-        val errorResponse = verifyMemory(user, deleteRequest.id)
+        if (memoryService.verifyMemoryForDeletion(user, deleteRequest.id)) {
+            memoryService.deleteMemory(deleteRequest.id)
 
-        if (errorResponse != null) {
-            return errorResponse
+            return ResponseEntity
+                .ok()
+                .build<Any>()
         }
-
-        memoryService.deleteMemory(deleteRequest.id)
 
         return ResponseEntity
-            .ok()
+            .status(HttpStatus.UNAUTHORIZED)
             .build<Any>()
-    }
-
-    // ====== Private methods
-    private fun verifyAuthor(
-        user: User,
-        coupleId: Int,
-    ): Boolean = user.couple.id == coupleId
-
-    private fun verifyAuthor(
-        user: User,
-        memory: Memory,
-    ): Boolean = verifyAuthor(user, memory.coupleId)
-
-    private fun verifyMemory(
-        user: User,
-        incomingId: Int,
-    ): ResponseEntity<Memory>? {
-        // Check if the user is authorized to modify this memory
-        val savedCoupleId =
-            memoryService.findOwner(incomingId)
-                ?: return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .build()
-
-        if (!verifyAuthor(user, savedCoupleId)) {
-            return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .build()
-        }
-
-        return null
     }
 }

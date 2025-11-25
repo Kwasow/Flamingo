@@ -55,7 +55,7 @@ class MessagingEndpointSendTest : BaseTest() {
 
         verify(firebaseMessaging, times(1))
             .sendEachForMulticast(argumentCaptor.capture())
-        // TODO: Verify captured argument
+
         val message = argumentCaptor.value
         val data = ReflectionTestUtils.getField(message, "data") as Map<*, *>
         val tokens = ReflectionTestUtils.getField(message, "tokens") as List<*>

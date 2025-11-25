@@ -34,4 +34,19 @@ class MemoryService(
     fun deleteMemory(id: Int) = memoryRepository.deleteById(id)
 
     fun findOwner(memoryId: Int): Int? = memoryRepository.findByIdOrNull(memoryId)?.coupleId
+
+    fun verifyMemoryForAdding(
+        user: User,
+        memory: Memory,
+    ): Boolean = user.couple.id == memory.coupleId && memory.id < 0
+
+    fun verifyMemoryForEditing(
+        user: User,
+        memory: Memory,
+    ): Boolean = user.couple.id == findOwner(memory.id) && user.couple.id == memory.coupleId
+
+    fun verifyMemoryForDeletion(
+        user: User,
+        memoryId: Int,
+    ): Boolean = user.couple.id == findOwner(memoryId)
 }
