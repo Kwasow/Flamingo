@@ -31,7 +31,7 @@ data class Memory(
     val description: String,
     @Column(name = "photo")
     val photo: String?,
-    @Column(name = "couple")
+    @Column(name = "couple_id")
     val coupleId: Int,
 ) {
     // ====== Fields

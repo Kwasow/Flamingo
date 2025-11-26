@@ -33,9 +33,7 @@ class WishlistController(
         @RequestBody wish: Wish,
     ): ResponseEntity<WishlistAddResponse> {
         if (wishlistService.verifyWishForAdding(user, wish)) {
-            return ResponseEntity
-                .ok()
-                .body(wishlistService.saveWish(wish))
+            return ResponseEntity.ok(wishlistService.saveWish(wish))
         }
 
         return ResponseEntity
@@ -49,9 +47,7 @@ class WishlistController(
         @RequestBody wish: Wish,
     ): ResponseEntity<WishlistUpdateResponse> {
         if (wishlistService.verifyWishForEditing(user, wish)) {
-            return ResponseEntity
-                .ok()
-                .body(wishlistService.saveWish(wish))
+            return ResponseEntity.ok(wishlistService.saveWish(wish))
         }
 
         return ResponseEntity

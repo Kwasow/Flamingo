@@ -33,9 +33,7 @@ class MemoriesController(
         @RequestBody memory: Memory,
     ): ResponseEntity<MemoriesAddResponse> {
         if (memoryService.verifyMemoryForAdding(user, memory)) {
-            return ResponseEntity
-                .ok()
-                .body(memoryService.saveMemory(memory))
+            return ResponseEntity.ok(memoryService.saveMemory(memory))
         }
 
         return ResponseEntity
@@ -49,9 +47,7 @@ class MemoriesController(
         @RequestBody memory: Memory,
     ): ResponseEntity<MemoriesUpdateResponse> {
         if (memoryService.verifyMemoryForEditing(user, memory)) {
-            return ResponseEntity
-                .ok()
-                .body(memoryService.saveMemory(memory))
+            return ResponseEntity.ok(memoryService.saveMemory(memory))
         }
 
         return ResponseEntity

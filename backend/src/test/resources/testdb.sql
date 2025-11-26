@@ -32,10 +32,10 @@ CREATE TABLE Albums(
     title TEXT NOT NULL,
     artist VARCHAR(64) NOT NULL,
     cover_name VARCHAR(50) NOT NULL,
-    couple INT NOT NULL,
+    couple_id INT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT UC_Album_Uuid UNIQUE (uuid),
-    CONSTRAINT FK_Album_Couple FOREIGN KEY (couple) REFERENCES Couples(id)
+    CONSTRAINT FK_Album_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
 
 CREATE TABLE Tracks(
@@ -56,9 +56,9 @@ CREATE TABLE Memories(
     title TEXT NOT NULL,
     memory_description TEXT NOT NULL,
     photo TEXT,
-    couple INT NOT NULL,
+    couple_id INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT FK_Memory_Couple FOREIGN KEY (couple) REFERENCES Couples(id)
+    CONSTRAINT FK_Memory_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
 
 CREATE TABLE Locations(
@@ -178,4 +178,48 @@ INSERT INTO FirebaseTokens VALUES (
     1764068353,
     "mallory-fcm-test-token",
     false
+);
+
+-- Albums
+INSERT INTO Albums VALUES (
+    1,
+    "alicebob-ecf4-4235-85c3-f0b5408fee17",
+    "Alice and Bob sing together",
+    "A&B Band",
+    "alicebob-fa4d-4ee1-ba48-989e46067756.jpg",
+    1
+);
+
+INSERT INTO Albums VALUES (
+    2,
+    "mallory2-e96a-4982-84db-1e2d70c72128",
+    "M&B 101",
+    "M and the boys",
+    "mallory2-4081-443e-9319-5ad35e7edebe.png",
+    2
+);
+
+-- Tracks for those albums
+INSERT INTO Tracks VALUES (
+    1,
+    "Lulaby",
+    "Sleep well",
+    "alicebob-be8c-43fb-bc38-40b327b258c7.mp3",
+    "alicebob-ecf4-4235-85c3-f0b5408fee17"
+);
+
+INSERT INTO Tracks VALUES (
+    2,
+    "Lulaby",
+    "Sleep well",
+    "alicebob-9bca-431d-ba7e-fc6a65bca088.mp3",
+    "alicebob-ecf4-4235-85c3-f0b5408fee17"
+);
+
+INSERT INTO Tracks VALUES (
+    3,
+    "ROAR",
+    null,
+    "mallory2-7a60-4cb9-b3f9-2edf340ab3e2.mp3",
+    "mallory2-e96a-4982-84db-1e2d70c72128"
 );

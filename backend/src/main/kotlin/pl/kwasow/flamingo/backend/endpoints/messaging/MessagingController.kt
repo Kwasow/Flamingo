@@ -29,7 +29,7 @@ class MessagingController(
     fun sendMessage(
         @AuthenticationPrincipal user: User,
         @RequestBody message: FcmSendMessageRequest,
-    ): ResponseEntity<*> {
+    ): ResponseEntity<Any> {
         val result =
             when (message) {
                 MessageType.MISSING_YOU -> firebaseMessagingService.sendMissingYouMessage(user)
@@ -38,6 +38,6 @@ class MessagingController(
 
         return ResponseEntity
             .status(result)
-            .build<Any>()
+            .build()
     }
 }
