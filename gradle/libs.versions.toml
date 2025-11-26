@@ -47,7 +47,7 @@ testcontainers = "2.0.2"
 
 # Plugins
 kotlinJvmPlugins = "2.1.10"
-springBoot = "3.5.4"
+springBoot = "4.0.0"
 springManager = "1.1.7"
 
 # ================ SHARED ================= #
@@ -120,7 +120,8 @@ spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-starter-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat" }
-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-webmvc" }
+spring-boot-starter-web-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test" }
 spring-boot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers" }
 spring-security-test = { module = "org.springframework.security:spring-security-test" }
 

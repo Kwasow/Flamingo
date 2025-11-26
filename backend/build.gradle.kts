@@ -49,6 +49,7 @@ dependencies {
     testImplementation(libs.testcontainers.mariadb)
 
     testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.boot.starter.web.test)
     testImplementation(libs.spring.boot.testcontainers)
     testImplementation(libs.spring.security.test)
     testImplementation(libs.kotlin.test.junit5)
