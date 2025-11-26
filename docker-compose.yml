@@ -9,7 +9,7 @@ services:
   database:
     image: mariadb:12
     volumes:
-      - ./scripts/mysql:/docker-entrypoint-initdb.d
+      - ./scripts/mariadb:/docker-entrypoint-initdb.d
     env_file:
       - env/development.env
     ports:
