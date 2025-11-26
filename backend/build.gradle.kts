@@ -28,14 +28,14 @@ dependencies {
     implementation(project(":types"))
 
     // Spring framework
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation(libs.jackson.module.kotlin)
+    implementation(libs.kotlin.reflect)
+    implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.security)
+    implementation(libs.spring.boot.starter.web)
 
-    runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
-    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    runtimeOnly(libs.mariadb.java.client)
+    providedRuntime(libs.spring.boot.starter.tomcat)
 
     // Google and Firebase
     implementation(libs.firebase.admin)
@@ -48,11 +48,11 @@ dependencies {
     testImplementation(libs.testcontainers.junit)
     testImplementation(libs.testcontainers.mariadb)
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.boot:spring-boot-testcontainers")
-    testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation(libs.spring.boot.starter.test)
+    testImplementation(libs.spring.boot.testcontainers)
+    testImplementation(libs.spring.security.test)
+    testImplementation(libs.kotlin.test.junit5)
+    testRuntimeOnly(libs.junit.platform.launcher)
 }
 
 kotlin {
