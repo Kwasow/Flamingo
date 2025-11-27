@@ -41,7 +41,7 @@ kotlinAndroidPlugins = "2.1.10"
 
 # ================ SERVER ================= #
 # Libraries
-firebaseAdmin = "9.5.0"
+firebaseAdmin = "9.7.0"
 mockito = "5.4.0"
 testcontainers = "2.0.2"
 
@@ -107,16 +107,17 @@ firebase-admin = { group = "com.google.firebase", name = "firebase-admin", versi
 mockito = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
 mockito-junit = { group = "org.mockito", name = "mockito-junit-jupiter", version.ref = "mockito" }
 testcontainers = { group = "org.testcontainers", name = "testcontainers", version.ref = "testcontainers" }
-testcontainers-junit = { group = "org.testcontainers", name = "testcontainers-junit-jupiter", version.ref = "testcontainers" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "testcontainers-junit-jupiter", version.ref = "testcontainers" }
 testcontainers-mariadb = { group = "org.testcontainers", name = "testcontainers-mariadb", version.ref = "testcontainers" }
 
 # Managed by spring boot
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
 mariadb-java-client = { module = "org.mariadb.jdbc:mariadb-java-client" }
+
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-kotlin-serialization = { module = "org.springframework.boot:spring-boot-starter-kotlin-serialization" }
 spring-boot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test" }
 spring-boot-starter-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat" }

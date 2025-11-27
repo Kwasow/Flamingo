@@ -28,9 +28,9 @@ dependencies {
     implementation(project(":types"))
 
     // Spring framework
-    implementation(libs.jackson.module.kotlin)
     implementation(libs.kotlin.reflect)
     implementation(libs.spring.boot.starter.data.jpa)
+    implementation(libs.spring.boot.starter.kotlin.serialization)
     implementation(libs.spring.boot.starter.security)
     implementation(libs.spring.boot.starter.web)
 
@@ -41,11 +41,10 @@ dependencies {
     implementation(libs.firebase.admin)
 
     // Testing
-    testImplementation(libs.kotlin.serialization.json)
     testImplementation(libs.mockito)
     testImplementation(libs.mockito.junit)
     testImplementation(libs.testcontainers)
-    testImplementation(libs.testcontainers.junit)
+    testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(libs.testcontainers.mariadb)
 
     testImplementation(libs.spring.boot.starter.test)
