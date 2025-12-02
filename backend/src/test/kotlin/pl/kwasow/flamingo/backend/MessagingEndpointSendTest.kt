@@ -3,7 +3,6 @@ package pl.kwasow.flamingo.backend
 import com.google.firebase.messaging.BatchResponse
 import com.google.firebase.messaging.MulticastMessage
 import com.google.firebase.messaging.SendResponse
-import org.mockito.ArgumentCaptor
 import org.mockito.Captor
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor

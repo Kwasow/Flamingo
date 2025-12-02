@@ -11,10 +11,7 @@ import jakarta.transaction.Transactional
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.BeforeEach
 import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
-import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
@@ -39,19 +36,22 @@ abstract class BaseTest {
     protected lateinit var mockMvc: MockMvc
 
     @Mock
-    val aliceFirebaseToken = mock<FirebaseToken> {
-        on { email } doReturn TestData.ALICE_EMAIL
-    }
+    val aliceFirebaseToken =
+        mock<FirebaseToken> {
+            on { email } doReturn TestData.ALICE_EMAIL
+        }
 
     @Mock
-    val bobFirebaseToken = mock<FirebaseToken> {
-        on { email } doReturn TestData.BOB_EMAIL
-    }
+    val bobFirebaseToken =
+        mock<FirebaseToken> {
+            on { email } doReturn TestData.BOB_EMAIL
+        }
 
     @Mock
-    val malloryFirebaseToken = mock<FirebaseToken> {
-        on { email } doReturn TestData.MALLORY_EMAIL
-    }
+    val malloryFirebaseToken =
+        mock<FirebaseToken> {
+            on { email } doReturn TestData.MALLORY_EMAIL
+        }
 
     @MockitoBean
     private lateinit var firebaseAuth: FirebaseAuth

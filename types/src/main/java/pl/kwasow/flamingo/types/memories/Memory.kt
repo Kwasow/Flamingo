@@ -40,9 +40,11 @@ data class Memory(
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
     }
 
-    @Transient
     val stringStartDate: String
         get() = dateFormatter.format(startDate)
+
+    val stringEndDate: String
+        get() = dateFormatter.format(endDate)
 
     // ====== Constructors
     constructor() : this(-1, LocalDate.MIN, null, "", "", null, -1)
