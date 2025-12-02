@@ -1,8 +1,3 @@
--- Select database
-USE flamingo;
-GRANT ALL PRIVILEGES ON flamingo.* TO 'flamingo-user'@'%';
-FLUSH PRIVILEGES;
-
 -- Create tables
 CREATE TABLE Couples(
     id INT NOT NULL AUTO_INCREMENT,
