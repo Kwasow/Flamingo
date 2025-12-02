@@ -1,5 +1,6 @@
 package pl.kwasow.flamingo.backend.endpoints.memories
 
+import kotlinx.serialization.json.Json
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal

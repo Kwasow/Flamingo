@@ -14,8 +14,7 @@ import pl.kwasow.flamingo.backend.services.UserService
 @Configuration
 @EnableWebSecurity
 class SecurityConfiguration(
-    private val firebaseAuth: FirebaseAuth,
-    private val userService: UserService,
+    private val firebaseTokenFilter: FirebaseTokenFilter,
 ) {
     // ====== Public methods
     @Bean
@@ -31,7 +30,7 @@ class SecurityConfiguration(
             }.sessionManagement { session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }.addFilterBefore(
-                FirebaseTokenFilter(firebaseAuth, userService),
+                firebaseTokenFilter,
                 UsernamePasswordAuthenticationFilter::class.java,
             )
 

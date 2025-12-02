@@ -11,9 +11,12 @@ import jakarta.transaction.Transactional
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.BeforeEach
 import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.kotlin.any
 import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.doThrow
 import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection
@@ -36,33 +39,22 @@ abstract class BaseTest {
     protected lateinit var mockMvc: MockMvc
 
     @Mock
-    private val aliceFirebaseToken = mock<FirebaseToken> {
+    val aliceFirebaseToken = mock<FirebaseToken> {
         on { email } doReturn TestData.ALICE_EMAIL
     }
 
     @Mock
-    private val bobFirebaseToken = mock<FirebaseToken> {
+    val bobFirebaseToken = mock<FirebaseToken> {
         on { email } doReturn TestData.BOB_EMAIL
     }
 
     @Mock
-    private val malloryFirebaseToken = mock<FirebaseToken> {
+    val malloryFirebaseToken = mock<FirebaseToken> {
         on { email } doReturn TestData.MALLORY_EMAIL
     }
 
     @MockitoBean
-    private val firebaseAuth = mock<FirebaseAuth> {
-        on { verifyIdToken(TestData.ALICE_TOKEN) } doReturn aliceFirebaseToken
-        on { verifyIdToken(TestData.BOB_TOKEN) } doReturn bobFirebaseToken
-        on { verifyIdToken(TestData.MALLORY_TOKEN) } doReturn malloryFirebaseToken
-        on { verifyIdToken(TestData.INVALID_TOKEN) } doThrow FirebaseAuthException(
-            FirebaseException(
-                ErrorCode.UNKNOWN,
-                "Invalid token",
-                Exception("Test INVALID_TOKEN"),
-            ),
-        )
-    }
+    private lateinit var firebaseAuth: FirebaseAuth
 
     @MockitoBean
     protected lateinit var firebaseMessaging: FirebaseMessaging
@@ -123,6 +115,28 @@ abstract class BaseTest {
     @BeforeEach
     fun setupAuth() {
         SecurityContextHolder.clearContext()
+
+        // Setup correct test tokens
+        whenever(firebaseAuth.verifyIdToken(TestData.ALICE_TOKEN))
+            .thenReturn(aliceFirebaseToken)
+
+        whenever(firebaseAuth.verifyIdToken(TestData.BOB_TOKEN))
+            .thenReturn(bobFirebaseToken)
+
+        whenever(firebaseAuth.verifyIdToken(TestData.MALLORY_TOKEN))
+            .thenReturn(malloryFirebaseToken)
+
+        // Setup incorrect test tokens
+        val exception =
+            FirebaseAuthException(
+                FirebaseException(
+                    ErrorCode.UNKNOWN,
+                    "Invalid token",
+                    Exception("Test INVALID_TOKEN"),
+                ),
+            )
+        whenever(firebaseAuth.verifyIdToken(TestData.INVALID_TOKEN))
+            .thenThrow(exception)
     }
 
     fun requestAlice(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =

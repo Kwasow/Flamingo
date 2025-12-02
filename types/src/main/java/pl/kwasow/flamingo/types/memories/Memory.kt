@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import pl.kwasow.flamingo.serializers.LocalDateSerializer
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -39,9 +40,10 @@ data class Memory(
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
     }
 
+    @Transient
+    val stringStartDate: String
+        get() = dateFormatter.format(startDate)
+
     // ====== Constructors
     constructor() : this(-1, LocalDate.MIN, null, "", "", null, -1)
-
-    // ====== Public methods
-    fun getStringStartDate(): String = dateFormatter.format(startDate)
 }

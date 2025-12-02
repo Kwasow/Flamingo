@@ -3,10 +3,10 @@ package pl.kwasow.flamingo.backend
 import com.google.firebase.messaging.BatchResponse
 import com.google.firebase.messaging.MulticastMessage
 import com.google.firebase.messaging.SendResponse
-import kotlinx.serialization.encodeToString
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
 import org.mockito.kotlin.any
+import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -24,7 +24,7 @@ import kotlin.test.assertEquals
 @SpringBootTest
 class MessagingEndpointSendTest : BaseTest() {
     @Captor
-    private lateinit var argumentCaptor: ArgumentCaptor<MulticastMessage>
+    val argumentCaptor = argumentCaptor<MulticastMessage>()
 
     @Test
     fun `bob can send a missing you message to alice`() {
@@ -56,7 +56,7 @@ class MessagingEndpointSendTest : BaseTest() {
         verify(firebaseMessaging, times(1))
             .sendEachForMulticast(argumentCaptor.capture())
 
-        val message = argumentCaptor.value
+        val message = argumentCaptor.lastValue
         val data = ReflectionTestUtils.getField(message, "data") as Map<*, *>
         val tokens = ReflectionTestUtils.getField(message, "tokens") as List<*>
 
