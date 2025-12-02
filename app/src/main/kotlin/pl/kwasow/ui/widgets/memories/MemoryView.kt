@@ -116,7 +116,7 @@ private fun SharedMemoryView(
                 .fillMaxWidth(),
     )
     Text(
-        text = memory.getStringStartDate(),
+        text = memory.stringStartDate,
         fontSize = 14.nonScaledSp,
         color = Color.Gray,
         textAlign = TextAlign.Center,

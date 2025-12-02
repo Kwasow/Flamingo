@@ -35,7 +35,7 @@ fun MemoryView(
         )
 
         Text(
-            text = memory.getStringStartDate(),
+            text = memory.stringStartDate,
             style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.padding(bottom = 8.dp),
             color = Color.Gray,

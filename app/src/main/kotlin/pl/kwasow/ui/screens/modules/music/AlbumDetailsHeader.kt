@@ -158,7 +158,8 @@ private fun AlbumDetailsHeaderPreview() {
             title = "Title",
             artist = "Artist",
             coverName = "UUID-1",
-            tracks = emptyList(),
+            coupleId = 1,
+            tracks = mutableListOf(),
         )
 
     AlbumDetailsHeader(album = album)
