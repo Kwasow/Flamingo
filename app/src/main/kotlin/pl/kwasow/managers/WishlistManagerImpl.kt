@@ -19,7 +19,7 @@ class WishlistManagerImpl(
     ): Boolean {
         val newWish =
             Wish(
-                -1,
+                null,
                 authorId,
                 content,
                 false,
@@ -29,7 +29,8 @@ class WishlistManagerImpl(
         return requestManager.addWish(newWish)
     }
 
-    override suspend fun removeWish(wish: Wish): Boolean = requestManager.removeWish(wish.id)
+    override suspend fun removeWish(wishId: Int?): Boolean =
+        wishId != null && requestManager.removeWish(wishId)
 
     override suspend fun updateWish(wish: Wish): Boolean = requestManager.updateWish(wish)
 }

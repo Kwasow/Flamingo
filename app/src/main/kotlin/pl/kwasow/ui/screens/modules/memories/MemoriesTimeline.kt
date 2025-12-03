@@ -74,7 +74,6 @@ private fun MemoriesTimelinePreview() {
             photo =
                 "https://en.wikipedia.org/wiki/Photograph#/media/" +
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
-            coupleId = -1,
         )
 
     MemoriesTimeline(memories = listOf(memory, memory, memory))

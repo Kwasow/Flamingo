@@ -135,7 +135,7 @@ class WishlistModuleViewModel(
 
         viewModelScope.launch {
             deletingWish = true
-            if (!wishlistManager.removeWish(wish)) {
+            if (!wishlistManager.removeWish(wish.id)) {
                 Toast.makeText(
                     applicationContext,
                     R.string.module_wishlist_remove_failed,

@@ -11,7 +11,7 @@ interface WishlistManager {
         content: String,
     ): Boolean
 
-    suspend fun removeWish(wish: Wish): Boolean
+    suspend fun removeWish(wishId: Int?): Boolean
 
     suspend fun updateWish(wish: Wish): Boolean
 }

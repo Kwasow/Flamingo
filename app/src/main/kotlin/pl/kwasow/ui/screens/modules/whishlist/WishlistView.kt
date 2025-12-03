@@ -76,7 +76,7 @@ fun WishlistView(
 
             items(
                 wishes,
-                key = { it.id },
+                key = { it.id!! },
             ) { wish ->
                 WishView(
                     wish = wish,

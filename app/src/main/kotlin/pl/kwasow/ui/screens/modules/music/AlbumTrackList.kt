@@ -207,8 +207,7 @@ private fun AlbumTrackListPreview() {
             title = "Title",
             artist = "Artist",
             coverName = "UUID-1",
-            coupleId = 1,
-            tracks = mutableListOf(track, track, track),
+            tracks = listOf(track, track, track),
         )
 
     AlbumTrackList(album)
