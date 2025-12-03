@@ -8,10 +8,27 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
 
-@Entity
 @Serializable
+data class AudioTrack(
+    val id: Int,
+    val title: String,
+    val comment: String? = null,
+    val resourceName: String,
+    val albumUuid: String,
+) {
+    // ====== Constructors
+    constructor(dto: AudioTrackDto) : this(
+        id = dto.id,
+        title = dto.title,
+        comment = dto.comment,
+        resourceName = dto.resourceName,
+        albumUuid = dto.albumUuid,
+    )
+}
+
+@Entity
 @Table(name = "Tracks")
-class AudioTrack(
+data class AudioTrackDto(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = -1,

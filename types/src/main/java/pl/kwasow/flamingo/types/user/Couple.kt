@@ -14,29 +14,48 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-@Entity
 @Serializable
-@Table(name = "Couples")
 data class Couple(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int,
     @Serializable(with = LocalDateSerializer::class)
-    @Column(name = "anniversary_date")
     val anniversary: LocalDate,
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "coupleId")
-    val members: MutableList<Partner>,
+    val members: List<Partner>,
 ) {
     // ====== Fields
     companion object {
         val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)
     }
 
+    val memberIds: List<Int>
+        get() = members.map { it.id }
+
+    val stringAnniversary: String
+        get() = anniversary.format(dateFormatter)
+
+    // ====== Constructors
+    constructor(dto: CoupleDto) : this(
+        id = dto.id,
+        anniversary = dto.anniversary,
+        members = dto.members.map { Partner(it) },
+    )
+}
+
+@Entity
+@Table(name = "Couples")
+data class CoupleDto(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Int,
+    @Serializable(with = LocalDateSerializer::class)
+    @Column(name = "anniversary_date")
+    val anniversary: LocalDate,
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupleId")
+    val members: MutableList<PartnerDto>,
+) {
+    // ====== Fields
+    val memberIds: List<Int>
+        get() = members.map { it.id }
+
     // ====== Constructors
     constructor() : this(-1, LocalDate.MIN, mutableListOf())
-
-    // ====== Public methods
-    fun getStringAnniversaryDate(): String = dateFormatter.format(anniversary)
-
-    fun getMemberIds(): List<Int> = members.map { it.id }
 }

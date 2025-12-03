@@ -83,4 +83,15 @@ class MemoriesEndpointDeleteTest : BaseTest() {
             .perform(request)
             .andExpect(status().isUnauthorized)
     }
+
+    fun `deleting null id memory fails`() {
+        val request =
+            requestMallory(delete("/memories/delete"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\": null}")
+
+        mockMvc
+            .perform(request)
+            .andExpect(status().isUnauthorized)
+    }
 }

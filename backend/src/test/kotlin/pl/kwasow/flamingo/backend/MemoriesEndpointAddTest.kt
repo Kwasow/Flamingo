@@ -1,6 +1,5 @@
 package pl.kwasow.flamingo.backend
 
-import kotlinx.serialization.encodeToString
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -20,13 +19,12 @@ class MemoriesEndpointAddTest : BaseTest() {
     fun `bob adding own memory succeeds`() {
         val newMemory =
             Memory(
-                -1,
+                null,
                 LocalDate.of(2025, 9, 1),
                 null,
                 "This is my new memory",
                 "It is oh so sweet",
                 null,
-                TestData.ALICE_BOB_COUPLE_ID,
             )
 
         val request1 =
@@ -60,16 +58,15 @@ class MemoriesEndpointAddTest : BaseTest() {
     }
 
     @Test
-    fun `mallory adding memory to alice and bob fails`() {
+    fun `mallory adding memory with ID fails`() {
         val newMemory =
             Memory(
-                -1,
+                1,
                 LocalDate.of(2023, 7, 31),
                 LocalDate.of(2023, 8, 7),
                 "First trip together",
                 "We went to a shopping mall and got lost",
                 "https://examplephotos.org/mall",
-                TestData.ALICE_BOB_COUPLE_ID,
             )
 
         val request =

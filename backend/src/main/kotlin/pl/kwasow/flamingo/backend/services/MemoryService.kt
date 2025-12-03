@@ -3,15 +3,15 @@ package pl.kwasow.flamingo.backend.services
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.MemoryRepository
-import pl.kwasow.flamingo.types.memories.Memory
-import pl.kwasow.flamingo.types.user.User
+import pl.kwasow.flamingo.types.memories.MemoryDto
+import pl.kwasow.flamingo.types.user.UserDto
 
 @Service
 class MemoryService(
     private val memoryRepository: MemoryRepository,
 ) {
     // ====== Public methods
-    fun getMemoriesForUserByYear(user: User): Map<Int, List<Memory>> {
+    fun getMemoriesForUserByYear(user: UserDto): Map<Int, List<MemoryDto>> {
         val memories = memoryRepository.findByCoupleId(user.couple.id)
         val anniversary = user.couple.anniversary
 
@@ -29,24 +29,16 @@ class MemoryService(
         }
     }
 
-    fun saveMemory(memory: Memory): Memory = memoryRepository.save(memory)
+    fun saveMemory(memory: MemoryDto): MemoryDto = memoryRepository.save(memory)
 
-    fun deleteMemory(id: Int) = memoryRepository.deleteById(id)
+    fun deleteMemory(memoryId: Int) = memoryRepository.deleteById(memoryId)
 
     fun findOwner(memoryId: Int): Int? = memoryRepository.findByIdOrNull(memoryId)?.coupleId
 
-    fun verifyMemoryForAdding(
-        user: User,
-        memory: Memory,
-    ): Boolean = user.couple.id == memory.coupleId && memory.id < 0
+    fun verifyMemoryForAdding(memoryId: Int?): Boolean = memoryId == null
 
     fun verifyMemoryForEditing(
-        user: User,
-        memory: Memory,
-    ): Boolean = user.couple.id == findOwner(memory.id) && user.couple.id == memory.coupleId
-
-    fun verifyMemoryForDeletion(
-        user: User,
-        memoryId: Int,
-    ): Boolean = user.couple.id == findOwner(memoryId)
+        user: UserDto,
+        memoryId: Int?,
+    ): Boolean = memoryId != null && user.couple.id == findOwner(memoryId)
 }

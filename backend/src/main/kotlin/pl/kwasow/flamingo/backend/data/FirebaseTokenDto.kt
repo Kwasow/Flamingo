@@ -9,7 +9,7 @@ import jakarta.persistence.Table
 
 @Entity
 @Table(name = "FirebaseTokens")
-data class FirebaseToken(
+data class FirebaseTokenDto(
     // ====== Fields
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

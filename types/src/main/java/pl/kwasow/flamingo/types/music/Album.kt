@@ -11,10 +11,28 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
 
-@Entity
 @Serializable
-@Table(name = "Albums")
 data class Album(
+    val id: Int,
+    val uuid: String,
+    val title: String,
+    val artist: String,
+    val coverName: String,
+    val tracks: List<AudioTrack>,
+) {
+    constructor(dto: AlbumDto) : this(
+        id = dto.id,
+        uuid = dto.uuid,
+        title = dto.title,
+        artist = dto.artist,
+        coverName = dto.coverName,
+        tracks = dto.tracks.map { AudioTrack(it) }
+    )
+}
+
+@Entity
+@Table(name = "Albums")
+data class AlbumDto(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = -1,
@@ -28,9 +46,9 @@ data class Album(
     val coverName: String,
     @Column("couple_id")
     val coupleId: Int,
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_uuid", referencedColumnName = "uuid")
-    val tracks: MutableList<AudioTrack>,
+    val tracks: MutableList<AudioTrackDto>,
 ) {
     // ====== Constructors
     constructor() : this(-1, "", "", "", "", -1, mutableListOf())

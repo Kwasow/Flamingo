@@ -2,10 +2,9 @@ package pl.kwasow.flamingo.backend.services
 
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.MulticastMessage
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.types.messaging.MessageType
-import pl.kwasow.flamingo.types.user.User
+import pl.kwasow.flamingo.types.user.UserDto
 
 @Service
 class FirebaseMessagingService(
@@ -13,14 +12,14 @@ class FirebaseMessagingService(
     private val firebaseTokenService: FirebaseTokenService,
 ) {
     // ====== Public methods
-    fun sendMissingYouMessage(user: User): HttpStatus {
+    fun sendMissingYouMessage(user: UserDto): Boolean {
         val data =
             mapOf(
                 "type" to MessageType.MISSING_YOU.id,
                 "name" to user.firstName,
             )
 
-        val partner = user.partner ?: return HttpStatus.BAD_REQUEST
+        val partner = user.partner ?: return false
 
         val recipientTokens =
             firebaseTokenService
@@ -34,7 +33,7 @@ class FirebaseMessagingService(
     private fun sendMessage(
         recipients: Collection<String>,
         data: Map<String, String>,
-    ): HttpStatus {
+    ): Boolean {
         val message =
             MulticastMessage
                 .builder()
@@ -43,12 +42,8 @@ class FirebaseMessagingService(
                 .build()
 
         // TODO: Would this benefit for running Async and returning success immediately?
-        try {
-            firebaseMessaging.sendEachForMulticast(message)
-        } catch (_: Exception) {
-            return HttpStatus.INTERNAL_SERVER_ERROR
-        }
+        firebaseMessaging.sendEachForMulticast(message)
 
-        return HttpStatus.OK
+        return true
     }
 }

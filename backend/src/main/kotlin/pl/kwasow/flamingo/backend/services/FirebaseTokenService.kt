@@ -1,7 +1,7 @@
 package pl.kwasow.flamingo.backend.services
 
 import org.springframework.stereotype.Service
-import pl.kwasow.flamingo.backend.data.FirebaseToken
+import pl.kwasow.flamingo.backend.data.FirebaseTokenDto
 import pl.kwasow.flamingo.backend.repositories.FirebaseTokenRepository
 import java.time.Instant
 
@@ -22,7 +22,7 @@ class FirebaseTokenService(
             firebaseTokenRepository.save(existingEntry.copy(timestamp = timestamp))
         } else {
             val newEntry =
-                FirebaseToken(
+                FirebaseTokenDto(
                     0,
                     userId,
                     timestamp,

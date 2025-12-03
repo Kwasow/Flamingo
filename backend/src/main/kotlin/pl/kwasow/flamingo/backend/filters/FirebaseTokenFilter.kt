@@ -26,8 +26,8 @@ class FirebaseTokenFilter(
 
         if (bearerToken != null) {
             try {
-//                val firebaseToken = firebaseAuth.verifyIdToken(bearerToken)
-                val email = "bob@example.com" // firebaseToken.email
+                val firebaseToken = firebaseAuth.verifyIdToken(bearerToken)
+                val email = firebaseToken.email
 
                 val user = userService.getUserByEmail(email)
 

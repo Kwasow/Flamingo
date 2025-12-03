@@ -193,7 +193,7 @@ class WishlistEndpointUpdateTest : BaseTest() {
 
         mockMvc
             .perform(request)
-            .andExpect(status().isBadRequest)
+            .andExpect(status().isUnauthorized)
     }
 
     @Test
