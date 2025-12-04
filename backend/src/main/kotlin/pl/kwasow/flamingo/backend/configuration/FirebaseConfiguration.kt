@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration
 
 @Configuration
 class FirebaseConfiguration {
-    // ====== Public methods
+    // ====== Beans
     @Bean
     fun firebaseApp(): FirebaseApp {
         val serviceAccount =

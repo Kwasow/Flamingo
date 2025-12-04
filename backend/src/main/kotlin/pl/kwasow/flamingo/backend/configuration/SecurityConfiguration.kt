@@ -14,7 +14,7 @@ import pl.kwasow.flamingo.backend.filters.FirebaseTokenFilter
 class SecurityConfiguration(
     private val firebaseTokenFilter: FirebaseTokenFilter,
 ) {
-    // ====== Public methods
+    // ====== Beans
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
         http
