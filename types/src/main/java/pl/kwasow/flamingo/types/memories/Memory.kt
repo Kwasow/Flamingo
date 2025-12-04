@@ -32,8 +32,8 @@ data class Memory(
     val stringStartDate: String
         get() = dateFormatter.format(startDate)
 
-    val stringEndDate: String
-        get() = dateFormatter.format(endDate)
+    val stringEndDate: String?
+        get() = endDate?.let { dateFormatter.format(endDate) }
 
     // ====== Constructors
     constructor(dto: MemoryDto) : this(
