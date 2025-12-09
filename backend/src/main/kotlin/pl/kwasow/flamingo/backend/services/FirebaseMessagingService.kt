@@ -13,23 +13,52 @@ class FirebaseMessagingService(
 ) {
     // ====== Public methods
     fun sendMissingYouMessage(user: UserDto): Boolean {
+        val partner = user.partner ?: return false
+
         val data =
             mapOf(
                 "type" to MessageType.MISSING_YOU.id,
                 "name" to user.firstName,
             )
 
+        return sendToUser(partner.id, data)
+    }
+
+    fun sendLocationUpdatedMessage(user: UserDto): Boolean {
         val partner = user.partner ?: return false
 
+        val data =
+            mapOf(
+                "type" to MessageType.LOCATION_UPDATED.id,
+            )
+
+        return sendToUser(partner.id, data)
+    }
+
+    fun sendLocationRequest(user: UserDto): Boolean {
+        val partner = user.partner ?: return false
+
+        val data =
+            mapOf(
+                "type" to MessageType.REQUEST_LOCATION.id,
+            )
+
+        return sendToUser(partner.id, data)
+    }
+
+    // ====== Private methods
+    private fun sendToUser(
+        userId: Int,
+        data: Map<String, String>,
+    ): Boolean {
         val recipientTokens =
             firebaseTokenService
-                .getTokensForUser(partner.id)
+                .getTokensForUser(userId)
                 .map { it.token }
 
         return sendMessage(recipientTokens, data)
     }
 
-    // ====== Private methods
     private fun sendMessage(
         recipients: Collection<String>,
         data: Map<String, String>,

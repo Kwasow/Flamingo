@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import pl.kwasow.flamingo.backend.services.FirebaseMessagingService
 import pl.kwasow.flamingo.backend.services.UserLocationService
 import pl.kwasow.flamingo.types.location.LocationGetResponse
 import pl.kwasow.flamingo.types.location.LocationUpdateResponse
@@ -16,6 +17,7 @@ import pl.kwasow.flamingo.types.user.UserDto
 
 @RestController
 class LocationController(
+    private val firebaseMessagingService: FirebaseMessagingService,
     private val locationService: UserLocationService,
 ) {
     // ====== Endpoints
@@ -26,6 +28,8 @@ class LocationController(
         val partnerId = user.partner?.id
 
         if (partnerId != null) {
+            firebaseMessagingService.sendLocationRequest(user)
+
             return locationService.getUserLocation(partnerId)?.let { UserLocation(it) }
         }
 
@@ -44,6 +48,7 @@ class LocationController(
     ): LocationUpdateResponse {
         if (locationService.verifyLocationForUpdating(user, location)) {
             val locationDto = locationService.updateUserLocation(UserLocationDto(location))
+            firebaseMessagingService.sendLocationUpdatedMessage(user)
 
             return UserLocation(locationDto)
         }
