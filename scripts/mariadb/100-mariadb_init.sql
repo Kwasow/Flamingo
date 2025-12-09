@@ -1,3 +1,8 @@
+-- Select database
+USE flamingo;
+GRANT ALL PRIVILEGES ON flamingo.* TO 'flamingo-user'@'%';
+FLUSH PRIVILEGES;
+
 -- Create tables
 CREATE TABLE Couples(
     id INT NOT NULL AUTO_INCREMENT,
@@ -61,7 +66,7 @@ CREATE TABLE Memories(
     CONSTRAINT FK_Memory_Couple FOREIGN KEY (couple_id) REFERENCES Couples(id)
 );
 
-CREATE TABLE Locations(
+CREATE TABLE UserLocations(
     user_id INT NOT NULL,
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
@@ -222,5 +227,30 @@ INSERT INTO Tracks VALUES (
     null,
     "mallory2-7a60-4cb9-b3f9-2edf340ab3e2.mp3",
     "mallory2-e96a-4982-84db-1e2d70c72128"
+);
+
+-- Location info
+INSERT INTO UserLocations VALUES (
+    1, -- Alice
+    1.1,
+    1.1,
+    1.1,
+    1765282633
+);
+
+INSERT INTO UserLocations VALUES (
+    2, -- Bob
+    2.2,
+    2.2,
+    2.2,
+    1765267611
+);
+
+INSERT INTO UserLocations VALUES (
+    3, -- Mallory
+    3.3,
+    3.3,
+    3.3,
+    1765282531
 );
 

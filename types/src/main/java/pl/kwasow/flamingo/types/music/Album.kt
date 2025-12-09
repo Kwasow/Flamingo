@@ -26,7 +26,7 @@ data class Album(
         title = dto.title,
         artist = dto.artist,
         coverName = dto.coverName,
-        tracks = dto.tracks.map { AudioTrack(it) }
+        tracks = dto.tracks.map { AudioTrack(it) },
     )
 }
 

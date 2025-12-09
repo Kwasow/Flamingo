@@ -3,29 +3,8 @@
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.53">
     <root id="1">
       <DefaultAuthPlugin>mysql_native_password</DefaultAuthPlugin>
-      <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
-      <Grants>flamingo|schema||flamingo-user||ALTER|G
-flamingo|schema||flamingo-user||ALTER ROUTINE|G
-flamingo|schema||flamingo-user||CREATE|G
-flamingo|schema||flamingo-user||CREATE ROUTINE|G
-flamingo|schema||flamingo-user||CREATE TEMPORARY TABLES|G
-flamingo|schema||flamingo-user||CREATE VIEW|G
-flamingo|schema||flamingo-user||DELETE|G
-flamingo|schema||flamingo-user||DELETE HISTORY|G
-flamingo|schema||flamingo-user||DROP|G
-flamingo|schema||flamingo-user||EVENT|G
-flamingo|schema||flamingo-user||EXECUTE|G
-flamingo|schema||flamingo-user||INDEX|G
-flamingo|schema||flamingo-user||INSERT|G
-flamingo|schema||flamingo-user||LOCK TABLES|G
-flamingo|schema||flamingo-user||REFERENCES|G
-flamingo|schema||flamingo-user||SELECT|G
-flamingo|schema||flamingo-user||SHOW CREATE ROUTINE|G
-flamingo|schema||flamingo-user||SHOW VIEW|G
-flamingo|schema||flamingo-user||TRIGGER|G
-flamingo|schema||flamingo-user||UPDATE|G</Grants>
-      <ServerVersion>12.1.2</ServerVersion>
+      <ServerVersion>12.0.2</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
@@ -1354,7 +1333,7 @@ flamingo|schema||flamingo-user||UPDATE|G</Grants>
       <AutoIntrospectionLevel>3</AutoIntrospectionLevel>
       <Current>1</Current>
       <LastIntrospectionLevel>3</LastIntrospectionLevel>
-      <LastIntrospectionLocalTimestamp>2025-11-26.11:32:56</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-12-08.08:42:38</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
     </schema>
     <schema id="555" parent="1" name="information_schema">
@@ -1376,17 +1355,17 @@ flamingo|schema||flamingo-user||UPDATE|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
     </table>
-    <table id="560" parent="554" name="Locations">
+    <table id="560" parent="554" name="Memories">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
     </table>
-    <table id="561" parent="554" name="Memories">
+    <table id="561" parent="554" name="Tracks">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
     </table>
-    <table id="562" parent="554" name="Tracks">
+    <table id="562" parent="554" name="UserLocations">
       <DetailsLevel>3</DetailsLevel>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_uca1400_ai_ci</CollationName>
@@ -1538,147 +1517,147 @@ flamingo|schema||flamingo-user||UPDATE|G</Grants>
     <key id="592" parent="559" name="token">
       <UnderlyingIndexName>token</UnderlyingIndexName>
     </key>
-    <column id="593" parent="560" name="user_id">
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-      <StoredType>int(11)|0s</StoredType>
-    </column>
-    <column id="594" parent="560" name="latitude">
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <StoredType>float|0s</StoredType>
-    </column>
-    <column id="595" parent="560" name="longitude">
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-      <StoredType>float|0s</StoredType>
-    </column>
-    <column id="596" parent="560" name="accuracy">
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-      <StoredType>float|0s</StoredType>
-    </column>
-    <column id="597" parent="560" name="time_stamp">
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-      <StoredType>bigint(20)|0s</StoredType>
-    </column>
-    <foreign-key id="598" parent="560" name="FK_Location_User">
-      <ColNames>user_id</ColNames>
-      <RefColNames>id</RefColNames>
-      <RefTableName>Users</RefTableName>
-    </foreign-key>
-    <index id="599" parent="560" name="PRIMARY">
-      <ColNames>user_id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="600" parent="560" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <column id="601" parent="561" name="id">
+    <column id="593" parent="560" name="id">
       <AutoIncrement>5</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int(11)|0s</StoredType>
     </column>
-    <column id="602" parent="561" name="start_date">
+    <column id="594" parent="560" name="start_date">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>date|0s</StoredType>
     </column>
-    <column id="603" parent="561" name="end_date">
+    <column id="595" parent="560" name="end_date">
       <Position>3</Position>
       <StoredType>date|0s</StoredType>
     </column>
-    <column id="604" parent="561" name="title">
+    <column id="596" parent="560" name="title">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>text|0s</StoredType>
     </column>
-    <column id="605" parent="561" name="memory_description">
+    <column id="597" parent="560" name="memory_description">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>text|0s</StoredType>
     </column>
-    <column id="606" parent="561" name="photo">
+    <column id="598" parent="560" name="photo">
       <Position>6</Position>
       <StoredType>text|0s</StoredType>
     </column>
-    <column id="607" parent="561" name="couple_id">
+    <column id="599" parent="560" name="couple_id">
       <NotNull>1</NotNull>
       <Position>7</Position>
       <StoredType>int(11)|0s</StoredType>
     </column>
-    <foreign-key id="608" parent="561" name="FK_Memory_Couple">
+    <foreign-key id="600" parent="560" name="FK_Memory_Couple">
       <ColNames>couple_id</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>Couples</RefTableName>
     </foreign-key>
-    <index id="609" parent="561" name="PRIMARY">
+    <index id="601" parent="560" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="610" parent="561" name="FK_Memory_Couple">
+    <index id="602" parent="560" name="FK_Memory_Couple">
       <ColNames>couple_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="611" parent="561" name="PRIMARY">
+    <key id="603" parent="560" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="612" parent="562" name="id">
+    <column id="604" parent="561" name="id">
       <AutoIncrement>4</AutoIncrement>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <StoredType>int(11)|0s</StoredType>
     </column>
-    <column id="613" parent="562" name="title">
+    <column id="605" parent="561" name="title">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>text|0s</StoredType>
     </column>
-    <column id="614" parent="562" name="comment">
+    <column id="606" parent="561" name="comment">
       <Position>3</Position>
       <StoredType>text|0s</StoredType>
     </column>
-    <column id="615" parent="562" name="resource_name">
+    <column id="607" parent="561" name="resource_name">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>varchar(50)|0s</StoredType>
     </column>
-    <column id="616" parent="562" name="album_uuid">
+    <column id="608" parent="561" name="album_uuid">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>varchar(36)|0s</StoredType>
     </column>
-    <foreign-key id="617" parent="562" name="FK_Track_Album">
+    <foreign-key id="609" parent="561" name="FK_Track_Album">
       <ColNames>album_uuid</ColNames>
       <RefColNames>uuid</RefColNames>
       <RefTableName>Albums</RefTableName>
     </foreign-key>
-    <index id="618" parent="562" name="PRIMARY">
+    <index id="610" parent="561" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="619" parent="562" name="UC_Track">
+    <index id="611" parent="561" name="UC_Track">
       <ColNames>album_uuid
 resource_name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="620" parent="562" name="PRIMARY">
+    <key id="612" parent="561" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="621" parent="562" name="UC_Track">
+    <key id="613" parent="561" name="UC_Track">
       <UnderlyingIndexName>UC_Track</UnderlyingIndexName>
+    </key>
+    <column id="614" parent="562" name="user_id">
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+      <StoredType>int(11)|0s</StoredType>
+    </column>
+    <column id="615" parent="562" name="latitude">
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+      <StoredType>float|0s</StoredType>
+    </column>
+    <column id="616" parent="562" name="longitude">
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+      <StoredType>float|0s</StoredType>
+    </column>
+    <column id="617" parent="562" name="accuracy">
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+      <StoredType>float|0s</StoredType>
+    </column>
+    <column id="618" parent="562" name="time_stamp">
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+      <StoredType>bigint(20)|0s</StoredType>
+    </column>
+    <foreign-key id="619" parent="562" name="FK_Location_User">
+      <ColNames>user_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Users</RefTableName>
+    </foreign-key>
+    <index id="620" parent="562" name="PRIMARY">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="621" parent="562" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="622" parent="563" name="id">
       <AutoIncrement>4</AutoIncrement>

@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
-import pl.kwasow.flamingo.types.user.UserDto
 
 @Serializable
 data class Wish(
@@ -65,4 +64,3 @@ data class WishDto(
         newDone: Boolean = done,
     ): Wish = Wish(id, authorId, newContent, newDone, timestamp)
 }
-
