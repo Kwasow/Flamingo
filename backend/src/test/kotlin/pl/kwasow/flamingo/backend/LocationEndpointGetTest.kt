@@ -1,8 +1,10 @@
 package pl.kwasow.flamingo.backend
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import pl.kwasow.flamingo.backend.repositories.UserLocationRepository
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.location.LocationGetResponse
 import kotlin.test.Test
@@ -10,6 +12,9 @@ import kotlin.test.assertEquals
 
 @SpringBootTest
 class LocationEndpointGetTest : BaseTest() {
+    @Autowired
+    lateinit var userLocationRepository: UserLocationRepository
+
     @Test
     fun `bob can get own location`() {
         val request = requestBob(get("/location/get/self"))
@@ -55,5 +60,33 @@ class LocationEndpointGetTest : BaseTest() {
         mockMvc
             .perform(request)
             .andExpect(status().isUnauthorized)
+    }
+
+    @Test
+    fun `mallory gets null own location when not set`() {
+        // Setup test
+        userLocationRepository.deleteById(TestData.MALLORY_ID)
+
+        // Run test
+        val request = requestMallory(get("/location/get/self"))
+
+        mockMvc
+            .perform(request)
+            .andExpect(status().isOk)
+            .andExpect { it.response.contentAsString == "null" }
+    }
+
+    @Test
+    fun `bob gets null partner location when not set`() {
+        // Setup test
+        userLocationRepository.deleteById(TestData.ALICE_ID)
+
+        // Run test
+        val request = requestBob(get("/location/get/partner"))
+
+        mockMvc
+            .perform(request)
+            .andExpect(status().isOk)
+            .andExpect { it.response.contentAsString == "null" }
     }
 }

@@ -148,11 +148,8 @@ abstract class BaseTest {
     fun requestMallory(builder: MockHttpServletRequestBuilder): MockHttpServletRequestBuilder =
         builder.header("Authorization", "Bearer ${TestData.MALLORY_TOKEN}")
 
-    fun testProtection(
-        mvc: MockMvc,
-        builder: MockHttpServletRequestBuilder,
-    ) {
-        mvc
+    fun testProtection(builder: MockHttpServletRequestBuilder) {
+        mockMvc
             .perform(builder)
             .andExpect(status().isForbidden)
     }

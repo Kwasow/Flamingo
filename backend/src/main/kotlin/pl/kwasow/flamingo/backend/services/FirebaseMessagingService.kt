@@ -2,7 +2,9 @@ package pl.kwasow.flamingo.backend.services
 
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.MulticastMessage
+import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Service
+import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.user.UserDto
 
@@ -24,12 +26,16 @@ class FirebaseMessagingService(
         return sendToUser(partner.id, data)
     }
 
-    fun sendLocationUpdatedMessage(user: UserDto): Boolean {
+    fun sendLocationUpdatedMessage(
+        user: UserDto,
+        location: UserLocation,
+    ): Boolean {
         val partner = user.partner ?: return false
 
         val data =
             mapOf(
                 "type" to MessageType.LOCATION_UPDATED.id,
+                "user_location_json" to Json.encodeToString(location),
             )
 
         return sendToUser(partner.id, data)

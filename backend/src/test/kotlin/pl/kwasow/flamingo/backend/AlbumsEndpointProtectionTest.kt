@@ -9,6 +9,6 @@ import kotlin.test.Test
 class AlbumsEndpointProtectionTest : BaseTest() {
     @Test
     fun `get endpoint is protected`() {
-        testProtection(mockMvc, get("/albums/get"))
+        testProtection(get("/albums/get"))
     }
 }

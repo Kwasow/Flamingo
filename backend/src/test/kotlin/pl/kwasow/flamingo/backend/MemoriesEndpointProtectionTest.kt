@@ -11,21 +11,21 @@ import kotlin.test.Test
 class MemoriesEndpointProtectionTest : BaseTest() {
     @Test
     fun `get endpoint is protected`() {
-        testProtection(mockMvc, get("/memories/get"))
+        testProtection(get("/memories/get"))
     }
 
     @Test
     fun `add endpoint is protected`() {
-        testProtection(mockMvc, post("/memories/add"))
+        testProtection(post("/memories/add"))
     }
 
     @Test
     fun `update endpoint is protected`() {
-        testProtection(mockMvc, post("/memories/update"))
+        testProtection(post("/memories/update"))
     }
 
     @Test
     fun `delete endpoint is protected`() {
-        testProtection(mockMvc, delete("/memories/delete"))
+        testProtection(delete("/memories/delete"))
     }
 }

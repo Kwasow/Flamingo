@@ -48,7 +48,7 @@ class LocationController(
     ): LocationUpdateResponse {
         if (locationService.verifyLocationForUpdating(user, location)) {
             val locationDto = locationService.updateUserLocation(UserLocationDto(location))
-            firebaseMessagingService.sendLocationUpdatedMessage(user)
+            firebaseMessagingService.sendLocationUpdatedMessage(user, location)
 
             return UserLocation(locationDto)
         }

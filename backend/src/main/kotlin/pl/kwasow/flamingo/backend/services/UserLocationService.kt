@@ -19,5 +19,11 @@ class UserLocationService(
     fun verifyLocationForUpdating(
         user: UserDto,
         location: UserLocation,
-    ): Boolean = location.userId == user.id
+    ): Boolean {
+        val userCorrect = location.userId == user.id
+        val latitudeCorrect = location.latitude in -180.0..180.0
+        val longitudeCorrect = location.longitude in -180.0..180.0
+
+        return userCorrect && latitudeCorrect && longitudeCorrect
+    }
 }

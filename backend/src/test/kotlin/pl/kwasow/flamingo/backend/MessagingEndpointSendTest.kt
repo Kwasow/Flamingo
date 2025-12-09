@@ -1,14 +1,10 @@
 package pl.kwasow.flamingo.backend
 
-import com.google.firebase.messaging.BatchResponse
 import com.google.firebase.messaging.MulticastMessage
-import com.google.firebase.messaging.SendResponse
 import org.mockito.Captor
-import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.util.ReflectionTestUtils
@@ -27,20 +23,6 @@ class MessagingEndpointSendTest : BaseTest() {
 
     @Test
     fun `bob can send a missing you message to alice`() {
-        // Setup test
-        val fcmResponse =
-            object : BatchResponse {
-                override fun getResponses(): List<SendResponse?>? = null
-
-                override fun getSuccessCount(): Int = 1
-
-                override fun getFailureCount(): Int = 0
-            }
-
-        whenever(firebaseMessaging.sendEachForMulticast(any()))
-            .thenReturn(fcmResponse)
-
-        // Test
         val notification = FcmSendMessageRequest.MISSING_YOU
 
         val request =

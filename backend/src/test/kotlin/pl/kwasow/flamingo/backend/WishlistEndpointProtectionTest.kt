@@ -11,21 +11,21 @@ import kotlin.test.Test
 class WishlistEndpointProtectionTest : BaseTest() {
     @Test
     fun `get endpoint is protected`() {
-        testProtection(mockMvc, get("/wishlist/get"))
+        testProtection(get("/wishlist/get"))
     }
 
     @Test
     fun `add endpoint is protected`() {
-        testProtection(mockMvc, post("/wishlist/add"))
+        testProtection(post("/wishlist/add"))
     }
 
     @Test
     fun `update endpoint is protected`() {
-        testProtection(mockMvc, post("/wishlist/update"))
+        testProtection(post("/wishlist/update"))
     }
 
     @Test
     fun `delete endpoint is protected`() {
-        testProtection(mockMvc, delete("/wishlist/delete"))
+        testProtection(delete("/wishlist/delete"))
     }
 }

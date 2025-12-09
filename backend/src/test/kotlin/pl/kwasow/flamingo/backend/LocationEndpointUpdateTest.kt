@@ -72,6 +72,43 @@ class LocationEndpointUpdateTest : BaseTest() {
     }
 
     @Test
+    fun `mallory can update own location`() {
+        val newLocation =
+            UserLocation(
+                TestData.MALLORY_ID,
+                -3.3,
+                -3.3,
+                13.5f,
+                124,
+            )
+
+        val request1 =
+            requestMallory(post("/location/update"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json.encodeToString(newLocation))
+
+        val result1 =
+            mockMvc
+                .perform(request1)
+                .andExpect(status().isOk)
+                .andReturn()
+
+        val updatedLocation = json.decodeFromString<UserLocation>(result1.response.contentAsString)
+        assertEquals(newLocation, updatedLocation)
+
+        val request2 = requestMallory(get("/location/get/self"))
+
+        val result2 =
+            mockMvc
+                .perform(request2)
+                .andExpect(status().isOk)
+                .andReturn()
+
+        val getLocation = json.decodeFromString<UserLocation>(result2.response.contentAsString)
+        assertEquals(newLocation, getLocation)
+    }
+
+    @Test
     fun `mallory can't update alice's location`() {
         val newLocation =
             UserLocation(
@@ -90,5 +127,40 @@ class LocationEndpointUpdateTest : BaseTest() {
         mockMvc
             .perform(request)
             .andExpect(status().isUnauthorized)
+    }
+
+    @Test
+    fun `mallory tries incorrect longitude and latitude`() {
+        val matrix =
+            listOf(
+                Pair(-190.0, 0.0),
+                Pair(190.0, 0.0),
+                Pair(0.0, -190.0),
+                Pair(0.0, 190.0),
+                Pair(-190.0, -190.0),
+                Pair(190.0, -190.0),
+                Pair(-190.0, 190.0),
+                Pair(190.0, 190.0),
+            )
+
+        for ((latitude, longitude) in matrix) {
+            val newLocation =
+                UserLocation(
+                    userId = TestData.MALLORY_ID,
+                    latitude = latitude,
+                    longitude = longitude,
+                    accuracy = 1f,
+                    timestamp = System.currentTimeMillis(),
+                )
+
+            val request =
+                requestMallory(post("/location/update"))
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(json.encodeToString(newLocation))
+
+            mockMvc
+                .perform(request)
+                .andExpect(status().isUnauthorized)
+        }
     }
 }

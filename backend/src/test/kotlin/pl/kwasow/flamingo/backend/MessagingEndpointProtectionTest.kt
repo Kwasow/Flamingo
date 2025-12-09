@@ -9,11 +9,11 @@ import kotlin.test.Test
 class MessagingEndpointProtectionTest : BaseTest() {
     @Test
     fun `updateFcmToken is protected`() {
-        testProtection(mockMvc, post("/messaging/updateFcmToken"))
+        testProtection(post("/messaging/updateFcmToken"))
     }
 
     @Test
     fun `send endpoint is protected`() {
-        testProtection(mockMvc, post("/messaging/send"))
+        testProtection(post("/messaging/send"))
     }
 }
