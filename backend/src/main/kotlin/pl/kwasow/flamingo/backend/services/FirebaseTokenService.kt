@@ -35,4 +35,11 @@ class FirebaseTokenService(
     }
 
     fun getTokensForUser(userId: Int) = firebaseTokenRepository.findByUserId(userId)
+
+
+    fun deleteOldTokens() {
+
+    }
+
+    fun deleteDevTokens() = firebaseTokenRepository.deleteByDebug(true)
 }

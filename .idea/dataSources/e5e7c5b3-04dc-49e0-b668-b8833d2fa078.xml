@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="devdb">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.53">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.54">
     <root id="1">
       <DefaultAuthPlugin>mysql_native_password</DefaultAuthPlugin>
       <DefaultEngine>InnoDB</DefaultEngine>

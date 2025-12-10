@@ -7,4 +7,6 @@ interface FirebaseTokenRepository : JpaRepository<FirebaseTokenDto, Int> {
     fun findByUserId(userId: Int): List<FirebaseTokenDto>
 
     fun findByToken(token: String): FirebaseTokenDto?
+
+    fun deleteByDebug(debug: Boolean)
 }
