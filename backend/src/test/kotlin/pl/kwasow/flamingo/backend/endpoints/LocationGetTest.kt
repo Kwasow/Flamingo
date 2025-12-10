@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,7 +11,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class LocationEndpointGetTest : BaseTest() {
+class LocationGetTest : BaseTest() {
     @Autowired
     lateinit var userLocationRepository: UserLocationRepository
 

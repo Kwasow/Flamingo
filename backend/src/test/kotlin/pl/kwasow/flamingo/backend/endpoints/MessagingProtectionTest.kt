@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -6,7 +6,7 @@ import pl.kwasow.flamingo.backend.setup.BaseTest
 import kotlin.test.Test
 
 @SpringBootTest
-class MessagingEndpointProtectionTest : BaseTest() {
+class MessagingProtectionTest : BaseTest() {
     @Test
     fun `updateFcmToken is protected`() {
         testProtection(post("/messaging/updateFcmToken"))

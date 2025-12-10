@@ -1,8 +1,8 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.configuration
 
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.user.User
 import kotlin.test.Test
@@ -10,24 +10,24 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @SpringBootTest
-class AuthEndpointTest : BaseTest() {
+class AuthTest : BaseTest() {
     @Test
     fun `endpoint is protected`() {
-        val request = get("/auth")
+        val request = MockMvcRequestBuilders.get("/auth")
 
         mockMvc
             .perform(request)
-            .andExpect(status().isForbidden)
+            .andExpect(MockMvcResultMatchers.status().isForbidden)
     }
 
     @Test
     fun `2 person couple request`() {
-        val request = requestBob(get("/auth"))
+        val request = requestBob(MockMvcRequestBuilders.get("/auth"))
 
         val result =
             mockMvc
                 .perform(request)
-                .andExpect(status().isOk)
+                .andExpect(MockMvcResultMatchers.status().isOk)
                 .andReturn()
         val user = json.decodeFromString<User>(result.response.contentAsString)
 
@@ -43,12 +43,12 @@ class AuthEndpointTest : BaseTest() {
 
     @Test
     fun `1 person couple request`() {
-        val request = requestMallory(get("/auth"))
+        val request = requestMallory(MockMvcRequestBuilders.get("/auth"))
 
         val result =
             mockMvc
                 .perform(request)
-                .andExpect(status().isOk)
+                .andExpect(MockMvcResultMatchers.status().isOk)
                 .andReturn()
         val user = json.decodeFromString<User>(result.response.contentAsString)
 

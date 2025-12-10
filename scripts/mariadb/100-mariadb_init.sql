@@ -79,7 +79,7 @@ CREATE TABLE UserLocations(
 CREATE TABLE FirebaseTokens(
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    time_stamp BIGINT NOT NULL,
+    last_seen TIMESTAMP NOT NULL,
     token TEXT NOT NULL UNIQUE,
     debug BOOLEAN NOT NULL,
     PRIMARY KEY (id),
@@ -166,21 +166,21 @@ INSERT INTO Wishlist VALUES (
 INSERT INTO FirebaseTokens VALUES (
     1,
     1,
-    1764068353,
+    NOW(),
     "alice-fcm-test-token",
     false
 );
 INSERT INTO FirebaseTokens VALUES (
     2,
     2,
-    1764068353,
+    NOW(),
     "bob-fcm-test-token",
     false
 );
 INSERT INTO FirebaseTokens VALUES (
     3,
     3,
-    1764068353,
+    NOW(),
     "mallory-fcm-test-token",
     false
 );

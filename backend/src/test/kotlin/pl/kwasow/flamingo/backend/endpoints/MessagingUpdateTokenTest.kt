@@ -1,6 +1,5 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
-import kotlinx.serialization.encodeToString
 import org.opentest4j.TestAbortedException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -14,7 +13,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class MessagingEndpointUpdateTokenTest : BaseTest() {
+class MessagingUpdateTokenTest : BaseTest() {
     @Autowired
     lateinit var firebaseTokenRepository: FirebaseTokenRepository
 
@@ -41,7 +40,7 @@ class MessagingEndpointUpdateTokenTest : BaseTest() {
     @Test
     fun `refreshing existing token succeeds`() {
         val oldTimestamp =
-            firebaseTokenRepository.findByToken(TestData.BOB_FCM_TOKEN)?.timestamp
+            firebaseTokenRepository.findByToken(TestData.BOB_FCM_TOKEN)?.lastSeen
                 ?: throw TestAbortedException("Invalid initial configuration")
 
         val requestToken = FcmUpdateTokenRequest(TestData.BOB_FCM_TOKEN, false)
@@ -59,6 +58,6 @@ class MessagingEndpointUpdateTokenTest : BaseTest() {
 
         assertEquals(1, bobTokens.size)
         assertEquals(TestData.BOB_FCM_TOKEN, bobTokens[0].token)
-        assert(bobTokens[0].timestamp > oldTimestamp)
+        assert(bobTokens[0].lastSeen > oldTimestamp)
     }
 }

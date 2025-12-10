@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -8,7 +8,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class PingEndpointTest : BaseTest() {
+class PingTest : BaseTest() {
     @Test
     fun `ping responds with pong`() {
         val request = get("/ping")

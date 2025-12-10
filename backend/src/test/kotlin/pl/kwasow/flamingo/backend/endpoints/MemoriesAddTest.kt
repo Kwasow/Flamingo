@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
@@ -14,7 +14,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class MemoriesEndpointAddTest : BaseTest() {
+class MemoriesAddTest : BaseTest() {
     @Test
     fun `bob adding own memory succeeds`() {
         val newMemory =

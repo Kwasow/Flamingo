@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import com.google.firebase.messaging.MulticastMessage
 import org.mockito.Captor
@@ -13,11 +13,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.messaging.FcmSendMessageRequest
 import pl.kwasow.flamingo.types.messaging.MessageType
+import kotlin.collections.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class MessagingEndpointSendTest : BaseTest() {
+class MessagingSendTest : BaseTest() {
     @Captor
     val argumentCaptor = argumentCaptor<MulticastMessage>()
 

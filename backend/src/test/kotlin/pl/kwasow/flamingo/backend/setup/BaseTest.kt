@@ -90,7 +90,7 @@ abstract class BaseTest {
             const val MALLORY_TOKEN = "mallory-token"
             const val MALLORY_EMAIL = "mallory@example.com"
             const val MALLORY_NAME = "Mallory"
-            const val MALORY_FCM_TOKEN = "malory-fcm-test-token"
+            const val MALLORY_FCM_TOKEN = "mallory-fcm-test-token"
             val MALLORY_ICON = UserIcon.SHEEP
 
             const val INVALID_TOKEN = "invalid-token"

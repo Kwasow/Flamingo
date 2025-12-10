@@ -52,6 +52,17 @@ class FirebaseMessagingService(
         return sendToUser(partner.id, data)
     }
 
+    fun sendMemoryNotification(): Boolean {
+        val tokens = firebaseTokenService.getAllTokens().map { it.token }
+
+        val data =
+            mapOf(
+                "type" to MessageType.DAILY_MEMORY.id,
+            )
+
+        return sendMessage(tokens, data)
+    }
+
     // ====== Private methods
     private fun sendToUser(
         userId: Int,

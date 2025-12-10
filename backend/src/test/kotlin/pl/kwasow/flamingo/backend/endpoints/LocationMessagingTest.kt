@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import com.google.firebase.messaging.MulticastMessage
 import kotlinx.serialization.json.Json
@@ -15,11 +15,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
+import kotlin.collections.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class LocationEndpointMessagingTest : BaseTest() {
+class LocationMessagingTest : BaseTest() {
     @Captor
     val argumentCaptor = argumentCaptor<MulticastMessage>()
 

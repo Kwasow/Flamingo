@@ -1,4 +1,4 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete
@@ -8,7 +8,7 @@ import pl.kwasow.flamingo.backend.setup.BaseTest
 import kotlin.test.Test
 
 @SpringBootTest
-class WishlistEndpointProtectionTest : BaseTest() {
+class WishlistProtectionTest : BaseTest() {
     @Test
     fun `get endpoint is protected`() {
         testProtection(get("/wishlist/get"))

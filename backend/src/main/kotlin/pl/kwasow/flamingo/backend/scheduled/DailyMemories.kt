@@ -3,9 +3,12 @@ package pl.kwasow.flamingo.backend.scheduled
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
+import pl.kwasow.flamingo.backend.services.FirebaseMessagingService
 
 @Component
-class DailyMemories {
+class DailyMemories(
+    private val firebaseMessaging: FirebaseMessagingService,
+) {
     // ====== Fields
     companion object {
         private val logger = LoggerFactory.getLogger(DailyMemories::class.java)
@@ -15,6 +18,8 @@ class DailyMemories {
     @Scheduled(cron = "0 30 7 * * *")
     fun sendNotifications() {
         logger.info("Sending daily notifications...")
+
+        firebaseMessaging.sendMemoryNotification()
 
         logger.info("Done")
     }

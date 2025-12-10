@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.sql.Timestamp
 
 @Entity
 @Table(name = "FirebaseTokens")
@@ -16,8 +17,8 @@ data class FirebaseTokenDto(
     val id: Int,
     @Column(name = "user_id")
     val userId: Int,
-    @Column(name = "time_stamp")
-    val timestamp: Long,
+    @Column(name = "last_seen")
+    val lastSeen: Timestamp,
     @Column(name = "token")
     val token: String,
     @Column(name = "debug")

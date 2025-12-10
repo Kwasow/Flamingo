@@ -1,6 +1,5 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
-import kotlinx.serialization.encodeToString
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -14,7 +13,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class WishlistEndpointUpdateTest : BaseTest() {
+class WishlistUpdateTest : BaseTest() {
     @Test
     fun `bob updating own wish succeeds`() {
         val newWish =

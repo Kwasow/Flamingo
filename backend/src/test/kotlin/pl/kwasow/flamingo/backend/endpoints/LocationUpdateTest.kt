@@ -1,6 +1,5 @@
-package pl.kwasow.flamingo.backend
+package pl.kwasow.flamingo.backend.endpoints
 
-import kotlinx.serialization.encodeToString
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -12,7 +11,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @SpringBootTest
-class LocationEndpointUpdateTest : BaseTest() {
+class LocationUpdateTest : BaseTest() {
     @Test
     fun `bob can update self location`() {
         val newLocation =
