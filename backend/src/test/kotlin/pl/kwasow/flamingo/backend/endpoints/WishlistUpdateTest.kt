@@ -9,6 +9,7 @@ import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
 import pl.kwasow.flamingo.types.wishlist.WishlistUpdateResponse
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -22,7 +23,7 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.BOB_ID,
                 "A newer belt for my suit",
                 false,
-                1713720737,
+                LocalDate.of(2024, 4, 21),
             )
 
         val request1 =
@@ -60,7 +61,7 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.ALICE_ID,
                 "A black kitten",
                 false,
-                1722548749,
+                LocalDate.of(2024, 8, 1),
             )
 
         val request1 =
@@ -98,7 +99,7 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.BOB_ID,
                 "A kitten",
                 false,
-                1722548749,
+                LocalDate.of(2024, 8, 1),
             )
 
         val request1 =
@@ -119,7 +120,7 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.MALLORY_ID,
                 "A kitten",
                 false,
-                1722548749,
+                LocalDate.of(2024, 8, 1),
             )
 
         val request1 =
@@ -140,7 +141,7 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.ALICE_ID,
                 "A kitten (mallory was here)",
                 true,
-                1722548749,
+                LocalDate.of(2024, 8, 1),
             )
 
         val request1 =
@@ -161,7 +162,7 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.BOB_ID,
                 "A newer belt for my suit",
                 false,
-                1713720737,
+                LocalDate.of(2024, 4, 21),
             )
 
         val request =
@@ -182,13 +183,13 @@ class WishlistUpdateTest : BaseTest() {
                 TestData.BOB_ID,
                 "A newer belt for my suit",
                 false,
-                1713720737,
+                LocalDate.of(2024, 4, 21),
             )
 
         val request =
             requestBob(post("/wishlist/update"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(json.encodeToString(newWish).replace("-2", "null"))
+                .content(json.encodeToString(newWish).replace("\"-2\"", "null"))
 
         mockMvc
             .perform(request)

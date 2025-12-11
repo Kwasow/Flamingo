@@ -6,6 +6,8 @@ import pl.kwasow.flamingo.backend.repositories.UserLocationRepository
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.location.UserLocationDto
 import pl.kwasow.flamingo.types.user.UserDto
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 @Service
 class UserLocationService(
@@ -14,7 +16,11 @@ class UserLocationService(
     fun getUserLocation(userId: Int): UserLocationDto? =
         userLocationRepository.findByIdOrNull(userId)
 
-    fun updateUserLocation(location: UserLocationDto) = userLocationRepository.save(location)
+    fun updateUserLocation(location: UserLocation): UserLocationDto {
+        val nowLocation = location.copy(lastSeen = LocalDateTime.now(ZoneOffset.UTC))
+
+        return userLocationRepository.save(UserLocationDto(nowLocation))
+    }
 
     fun verifyLocationForUpdating(
         user: UserDto,

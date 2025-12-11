@@ -26,7 +26,7 @@ CREATE TABLE Wishlist(
     author INT NOT NULL,
     content TEXT NOT NULL,
     done BOOLEAN NOT NULL,
-    time_stamp BIGINT NOT NULL,
+    date DATE NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT FK_Wishlist_Author FOREIGN KEY (author) REFERENCES Users(id)
 );
@@ -56,7 +56,7 @@ CREATE TABLE Tracks(
 
 CREATE TABLE Memories(
     id INT NOT NULL AUTO_INCREMENT,
-    `start_date` DATE NOT NULL,
+    start_date DATE NOT NULL,
     end_date DATE,
     title TEXT NOT NULL,
     memory_description TEXT NOT NULL,
@@ -71,7 +71,7 @@ CREATE TABLE UserLocations(
     latitude FLOAT NOT NULL,
     longitude FLOAT NOT NULL,
     accuracy FLOAT NOT NULL,
-    time_stamp BIGINT NOT NULL,
+    last_seen TIMESTAMP NOT NULL,
     PRIMARY KEY (user_id),
     CONSTRAINT FK_Location_User FOREIGN KEY (user_id) REFERENCES Users(id)
 );
@@ -143,14 +143,14 @@ INSERT INTO Wishlist VALUES (
     1,
     "A kitten",
     false,
-    1722548749
+    "2024-08-01"
 );
 INSERT INTO Wishlist VALUES (
     2,
     2,
     "A new belt for my suit",
     true,
-    1713720737
+    "2024-04-21"
 );
 
 -- Mallory wishes
@@ -159,7 +159,7 @@ INSERT INTO Wishlist VALUES (
     3,
     "A new spyglass",
     false,
-    1691230314
+    "2023-08-05"
 );
 
 -- FCM Tokens
@@ -235,7 +235,7 @@ INSERT INTO UserLocations VALUES (
     1.1,
     1.1,
     1.1,
-    1765282633
+    NOW()
 );
 
 INSERT INTO UserLocations VALUES (
@@ -243,7 +243,7 @@ INSERT INTO UserLocations VALUES (
     2.2,
     2.2,
     2.2,
-    1765267611
+    NOW()
 );
 
 INSERT INTO UserLocations VALUES (
@@ -251,5 +251,5 @@ INSERT INTO UserLocations VALUES (
     3.3,
     3.3,
     3.3,
-    1765282531
+    NOW()
 );

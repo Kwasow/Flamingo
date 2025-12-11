@@ -7,6 +7,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.location.UserLocation
+import java.time.LocalDateTime
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -20,7 +21,7 @@ class LocationUpdateTest : BaseTest() {
                 -2.2,
                 -2.2,
                 12.5f,
-                123,
+                LocalDateTime.now(),
             )
 
         val request1 =
@@ -35,7 +36,7 @@ class LocationUpdateTest : BaseTest() {
                 .andReturn()
 
         val updatedLocation = json.decodeFromString<UserLocation>(result1.response.contentAsString)
-        assertEquals(newLocation, updatedLocation)
+        assertEquals(newLocation.copy(lastSeen = updatedLocation.lastSeen), updatedLocation)
 
         val request2 = requestBob(get("/location/get/self"))
 
@@ -46,7 +47,7 @@ class LocationUpdateTest : BaseTest() {
                 .andReturn()
 
         val getLocation = json.decodeFromString<UserLocation>(result2.response.contentAsString)
-        assertEquals(newLocation, getLocation)
+        assertEquals(newLocation.copy(lastSeen = updatedLocation.lastSeen), getLocation)
     }
 
     @Test
@@ -57,7 +58,7 @@ class LocationUpdateTest : BaseTest() {
                 -2.2,
                 -2.2,
                 12.5f,
-                123,
+                LocalDateTime.now(),
             )
 
         val request =
@@ -78,7 +79,7 @@ class LocationUpdateTest : BaseTest() {
                 -3.3,
                 -3.3,
                 13.5f,
-                124,
+                LocalDateTime.now(),
             )
 
         val request1 =
@@ -93,7 +94,7 @@ class LocationUpdateTest : BaseTest() {
                 .andReturn()
 
         val updatedLocation = json.decodeFromString<UserLocation>(result1.response.contentAsString)
-        assertEquals(newLocation, updatedLocation)
+        assertEquals(newLocation.copy(lastSeen = updatedLocation.lastSeen), updatedLocation)
 
         val request2 = requestMallory(get("/location/get/self"))
 
@@ -104,7 +105,7 @@ class LocationUpdateTest : BaseTest() {
                 .andReturn()
 
         val getLocation = json.decodeFromString<UserLocation>(result2.response.contentAsString)
-        assertEquals(newLocation, getLocation)
+        assertEquals(newLocation.copy(lastSeen = updatedLocation.lastSeen), getLocation)
     }
 
     @Test
@@ -115,7 +116,7 @@ class LocationUpdateTest : BaseTest() {
                 -2.2,
                 -2.2,
                 12.5f,
-                123,
+                LocalDateTime.now(),
             )
 
         val request =
@@ -149,7 +150,7 @@ class LocationUpdateTest : BaseTest() {
                     latitude = latitude,
                     longitude = longitude,
                     accuracy = 1f,
-                    timestamp = System.currentTimeMillis(),
+                    lastSeen = LocalDateTime.now(),
                 )
 
             val request =

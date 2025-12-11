@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
+import pl.kwasow.flamingo.serializers.LocalDateSerializer
+import java.time.LocalDate
 
 @Serializable
 data class Wish(
@@ -14,7 +16,8 @@ data class Wish(
     val authorId: Int,
     val content: String,
     val done: Boolean,
-    val timestamp: Long,
+    @Serializable(with = LocalDateSerializer::class)
+    val date: LocalDate,
 ) {
     // ====== Constructors
     constructor(dto: WishDto) : this(
@@ -22,14 +25,14 @@ data class Wish(
         authorId = dto.authorId,
         content = dto.content,
         done = dto.done,
-        timestamp = dto.timestamp,
+        date = dto.date,
     )
 
     // ====== Public methods
     fun update(
         newContent: String = content,
         newDone: Boolean = done,
-    ): Wish = Wish(id, authorId, newContent, newDone, timestamp)
+    ): Wish = Wish(id, authorId, newContent, newDone, date)
 }
 
 @Entity
@@ -44,8 +47,8 @@ data class WishDto(
     val content: String,
     @Column(name = "done")
     val done: Boolean,
-    @Column(name = "time_stamp")
-    val timestamp: Long,
+    @Column(name = "date")
+    val date: LocalDate,
 ) {
     // ====== Constructors
     constructor(wish: Wish) : this(
@@ -53,14 +56,8 @@ data class WishDto(
         authorId = wish.authorId,
         content = wish.content,
         done = wish.done,
-        timestamp = wish.timestamp,
+        date = wish.date,
     )
 
-    constructor() : this(-1, -1, "", false, -1)
-
-    // ====== Public methods
-    fun update(
-        newContent: String = content,
-        newDone: Boolean = done,
-    ): Wish = Wish(id, authorId, newContent, newDone, timestamp)
+    constructor() : this(-1, -1, "", false, LocalDate.MIN)
 }

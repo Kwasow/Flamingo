@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
+import java.time.LocalDateTime
 import kotlin.collections.get
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -33,7 +34,7 @@ class LocationMessagingTest : BaseTest() {
                 -3.3,
                 -3.3,
                 13.5f,
-                124,
+                LocalDateTime.now(),
             )
 
         val request =
@@ -89,7 +90,7 @@ class LocationMessagingTest : BaseTest() {
                 -3.3,
                 -3.3,
                 13.5f,
-                124,
+                LocalDateTime.now(),
             )
 
         val request2 =

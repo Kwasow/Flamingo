@@ -15,7 +15,7 @@ plugins {
 }
 
 group = "pl.kwasow.flamingo"
-version = "0.0.1-SNAPSHOT"
+version = "3.0.0-SNAPSHOT"
 
 java {
     toolchain {

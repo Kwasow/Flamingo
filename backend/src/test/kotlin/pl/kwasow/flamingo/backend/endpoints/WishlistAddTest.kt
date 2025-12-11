@@ -9,6 +9,7 @@ import pl.kwasow.flamingo.backend.setup.BaseTest
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishlistAddResponse
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
+import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -22,7 +23,7 @@ class WishlistAddTest : BaseTest() {
                 TestData.BOB_ID,
                 "A belgian chocolate bar",
                 false,
-                1764058114,
+                LocalDate.of(2025, 11, 25),
             )
 
         val request1 =
@@ -60,7 +61,7 @@ class WishlistAddTest : BaseTest() {
                 TestData.ALICE_ID,
                 "A belgian chocolate bar",
                 false,
-                1764058114,
+                LocalDate.of(2025, 11, 25),
             )
 
         val request1 =
@@ -98,7 +99,7 @@ class WishlistAddTest : BaseTest() {
                 TestData.BOB_ID,
                 "A belgian chocolate bar",
                 false,
-                1764058114,
+                LocalDate.of(2025, 11, 25),
             )
 
         val request =
@@ -119,7 +120,7 @@ class WishlistAddTest : BaseTest() {
                 TestData.ALICE_ID,
                 "A belgian chocolate bar",
                 false,
-                1764058114,
+                LocalDate.of(2025, 11, 25),
             )
 
         val request =
