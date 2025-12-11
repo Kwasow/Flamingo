@@ -1,16 +1,21 @@
 services:
-  main:
-    build: backend/
-    volumes:
-      - ./backend:/usr/local/apache2/htdocs/flamingo
+  backend:
+    image: openjdk:21-jdk
     ports:
-      - 8080:8080
-    env_file:
-      - env/development.env
+      - "8080:8080"
+    networks:
+      - dev
 
   database:
-    image: mysql:latest
+    image: mariadb:12
     volumes:
-      - ./scripts/mysql:/docker-entrypoint-initdb.d
+      - ./scripts/mariadb:/docker-entrypoint-initdb.d
     env_file:
       - env/development.env
+    ports:
+      - "3306:3306"
+    networks:
+      - dev
+
+networks:
+  dev:

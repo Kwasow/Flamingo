@@ -1,0 +1,55 @@
+-- From PHP backend to Spring Boot
+DROP TABLE IF EXISTS mod609_commentmeta;
+DROP TABLE IF EXISTS mod609_comments;
+DROP TABLE IF EXISTS mod609_links;
+DROP TABLE IF EXISTS mod609_options;
+DROP TABLE IF EXISTS mod609_postmeta;
+DROP TABLE IF EXISTS mod609_posts;
+DROP TABLE IF EXISTS mod609_term_relationships;
+DROP TABLE IF EXISTS mod609_term_taxonomy;
+DROP TABLE IF EXISTS mod609_termmeta;
+DROP TABLE IF EXISTS mod609_terms;
+DROP TABLE IF EXISTS mod609_usermeta;
+DROP TABLE IF EXISTS mod609_users;
+
+ALTER TABLE Users RENAME COLUMN couple TO couple_id;
+
+ALTER TABLE Wishlist ADD COLUMN date DATE;
+UPDATE Wishlist
+SET date = DATE(DATE_ADD(FROM_UNIXTIME(time_stamp / 1000), INTERVAL 1 HOUR))
+WHERE true;
+ALTER TABLE Wishlist MODIFY COLUMN date DATE NOT NULL;
+ALTER TABLE Wishlist DROP COLUMN time_stamp;
+
+ALTER TABLE Tracks DROP CONSTRAINT FK_Track_Album;
+ALTER TABLE Albums MODIFY COLUMN uuid UUID NOT NULL;
+ALTER TABLE Albums MODIFY COLUMN title VARCHAR(128) NOT NULL;
+ALTER TABLE Albums MODIFY COLUMN cover_name VARCHAR(64) NOT NULL;
+ALTER TABLE Albums RENAME COLUMN couple TO couple_id;
+
+ALTER TABLE Tracks MODIFY COLUMN title VARCHAR(128) NOT NULL;
+ALTER TABLE Tracks MODIFY COLUMN comment VARCHAR(256);
+ALTER TABLE Tracks MODIFY COLUMN resource_name VARCHAR(64) NOT NULL;
+ALTER TABLE Tracks MODIFY COLUMN album_uuid UUID NOT NULL;
+ALTER TABLE Tracks ADD CONSTRAINT FK_Track_Album FOREIGN KEY (album_uuid) REFERENCES Albums(uuid);
+
+ALTER TABLE Memories MODIFY COLUMN title VARCHAR(128) NOT NULL;
+ALTER TABLE Memories RENAME COLUMN couple TO couple_id;
+
+RENAME TABLE Locations TO UserLocations;
+ALTER TABLE UserLocations ADD COLUMN last_seen TIMESTAMP;
+UPDATE UserLocations
+SET last_seen = FROM_UNIXTIME(time_stamp / 1000)
+WHERE true;
+ALTER TABLE UserLocations MODIFY COLUMN last_seen TIMESTAMP NOT NULL;
+ALTER TABLE UserLocations DROP COLUMN time_stamp;
+
+ALTER TABLE FirebaseTokens MODIFY COLUMN token TEXT NOT NULL UNIQUE;
+ALTER TABLE FirebaseTokens ADD COLUMN last_seen TIMESTAMP;
+UPDATE FirebaseTokens
+SET last_seen = FROM_UNIXTIME(time_stamp)
+WHERE true;
+ALTER TABLE FirebaseTokens MODIFY COLUMN last_seen TIMESTAMP NOT NULL;
+ALTER TABLE FirebaseTokens DROP COLUMN time_stamp;
+
+-- First snapshot release (after #60 merge)

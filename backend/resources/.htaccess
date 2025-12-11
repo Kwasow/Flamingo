@@ -1,4 +1,0 @@
-<FilesMatch "\.(jpe?g|png|mp3)$">
-  Order allow,deny
-  Allow from all
-</FilesMatch>
