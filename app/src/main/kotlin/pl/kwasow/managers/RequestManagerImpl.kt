@@ -1,6 +1,5 @@
 package pl.kwasow.managers
 
-import android.location.Location
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.request.bearerAuth
@@ -170,7 +169,7 @@ class RequestManagerImpl(
         )
     }
 
-    override suspend fun updateLocation(location: Location): Boolean {
+    override suspend fun updateLocation(location: UserLocation): Boolean {
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
