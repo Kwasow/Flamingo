@@ -27,7 +27,7 @@ jobs:
         cp secrets.default.properties secrets.properties
         echo $JSON > app/google-services.json
     - name: Build with Gradle
-      run: ./gradlew :app:build
+      run: ./gradlew :app:assembleRelease
 
   lint:
     runs-on: ubuntu-latest
@@ -72,3 +72,4 @@ jobs:
         echo $JSON > app/google-services.json
     - name: Build with Gradle
       run: ./gradlew :app:test
+
