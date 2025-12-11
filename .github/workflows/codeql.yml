@@ -51,7 +51,8 @@ jobs:
       run: |
         cp secrets.default.properties secrets.properties
         echo $JSON > app/google-services.json
-        ./gradlew build
+        ./gradlew :app:build
+        ./gradlew :backend:war
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
