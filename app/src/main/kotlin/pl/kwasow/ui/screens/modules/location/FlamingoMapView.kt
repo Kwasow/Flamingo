@@ -43,7 +43,9 @@ import pl.kwasow.R
 import pl.kwasow.data.types.UserIconDetails
 import pl.kwasow.extensions.details
 import pl.kwasow.flamingo.types.location.UserLocation
+import pl.kwasow.flamingo.types.user.MinimalUser
 import pl.kwasow.flamingo.types.user.User
+import pl.kwasow.flamingo.types.user.UserIcon
 import pl.kwasow.utils.FlamingoDateUtils
 
 // ====== Public composables
@@ -108,8 +110,8 @@ fun FlamingoMapView(
 // ====== Private composables
 @Composable
 private fun CurrentLocationMarker(
-    user: User?,
     location: Location,
+    user: User?,
 ) {
     FlamingoMarker(
         latitude = location.latitude,
@@ -123,15 +125,16 @@ private fun CurrentLocationMarker(
 
 @Composable
 private fun PersonMarker(
-    user: User?,
     location: UserLocation,
+    user: MinimalUser?,
 ) {
     FlamingoMarker(
         latitude = location.latitude,
         longitude = location.longitude,
-        title = location.userName,
+        title = user?.firstName ?: "[TODO]",
         time = location.timestamp,
-        icon = user?.partner?.icon?.details(),
+        // TODO: Fix this
+        icon = user?.icon?.details() ?: UserIcon.SHEEP.details(),
         fallbackIcon = R.drawable.ic_map_user_marker,
     )
 }

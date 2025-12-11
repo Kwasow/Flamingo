@@ -13,5 +13,5 @@ interface LocationManager {
     // ====== Public methods
     suspend fun requestLocation()
 
-    suspend fun requestPartnerLocation(cached: Boolean = true)
+    suspend fun requestPartnerLocation()
 }

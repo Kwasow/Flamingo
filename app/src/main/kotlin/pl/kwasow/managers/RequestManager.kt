@@ -3,10 +3,9 @@ package pl.kwasow.managers
 import android.location.Location
 import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.location.UserLocation
-import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
+import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.flamingo.types.wishlist.Wish
-import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
 
 interface RequestManager {
     // ====== Methods
@@ -16,9 +15,9 @@ interface RequestManager {
 
     suspend fun sendMissingYouMessage(): Boolean
 
-    suspend fun getMemories(): MemoriesGetResponse?
+    suspend fun getMemories(): Map<Int, List<Memory>>?
 
-    suspend fun getWishlist(): WishlistGetResponse?
+    suspend fun getWishlist(): List<Wish>?
 
     suspend fun addWish(wish: Wish): Boolean
 
@@ -28,7 +27,7 @@ interface RequestManager {
 
     suspend fun getAlbums(): List<Album>?
 
-    suspend fun getPartnerLocation(cached: Boolean = true): UserLocation?
+    suspend fun getPartnerLocation(): UserLocation?
 
     suspend fun updateLocation(location: Location): Boolean
 

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.utils.FlamingoLogger
@@ -36,13 +35,10 @@ class LocationManagerImpl(
         updateLocationOnServer(location)
     }
 
-    override suspend fun requestPartnerLocation(cached: Boolean) {
+    override suspend fun requestPartnerLocation() {
         // If the user didn't allow background location requests, we'll only allow them to
         // request the server cached location
-        val partnerLocation =
-            requestManager.getPartnerLocation(
-                cached || !preferencesManager.allowLocationRequests.first(),
-            )
+        val partnerLocation = requestManager.getPartnerLocation()
         if (partnerLocation != null) {
             this.partnerLocation.postValue(partnerLocation)
         }

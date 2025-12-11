@@ -84,7 +84,7 @@ class FlamingoMessagingService : FirebaseMessagingService() {
         // We want the cached location in this case, to prevent an infinite loop of location
         // requests
         scope.launch {
-            locationManager.requestPartnerLocation(true)
+            locationManager.requestPartnerLocation()
         }
     }
 

@@ -38,7 +38,7 @@ class LocationModuleViewModel(
             isLoading = true
 
             locationManager.requestLocation()
-            locationManager.requestPartnerLocation(false)
+            locationManager.requestPartnerLocation()
 
             isLoading = false
         }

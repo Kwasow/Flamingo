@@ -15,16 +15,16 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
 import io.ktor.http.path
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.buildJsonObject
-import kotlinx.serialization.json.put
 import pl.kwasow.BuildConfig
 import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.auth.Authorization
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
+import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.music.Album
+import pl.kwasow.flamingo.types.music.AlbumsGetResponse
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishlistDeleteRequest
@@ -38,23 +38,23 @@ class RequestManagerImpl(
     companion object {
         private const val HOST = BuildConfig.BASE_URL
 
-        private const val PING_URL = "/api/ping.php"
-        private const val AUTH_URL = "/api/auth.php"
+        private const val PING_URL = "/api/ping"
+        private const val AUTH_URL = "/api/auth"
 
-        private const val POST_MESSAGE_URL = "/api/messaging/send.php"
-        private const val POST_UPDATE_FCM_TOKEN_URL = "/api/messaging/updateToken.php"
+        private const val POST_MESSAGE_URL = "/api/messaging/send"
+        private const val POST_UPDATE_FCM_TOKEN_URL = "/api/messaging/updateFcmToken"
 
-        private const val GET_MEMORIES_URL = "/api/memories/get.php"
+        private const val GET_MEMORIES_URL = "/api/memories/get"
 
-        private const val GET_WISHLIST_URL = "/api/wishlist/get.php"
-        private const val ADD_WISHLIST_URL = "/api/wishlist/add.php"
-        private const val UPDATE_WISHLIST_URL = "/api/wishlist/update.php"
-        private const val REMOVE_WISHLIST_URL = "/api/wishlist/remove.php"
+        private const val GET_WISHLIST_URL = "/api/wishlist/get"
+        private const val ADD_WISHLIST_URL = "/api/wishlist/add"
+        private const val UPDATE_WISHLIST_URL = "/api/wishlist/update"
+        private const val REMOVE_WISHLIST_URL = "/api/wishlist/remove"
 
-        private const val GET_ALBUMS_URL = "/api/albums/get.php"
+        private const val GET_ALBUMS_URL = "/api/albums/get"
 
-        private const val GET_LOCATION_URL = "/api/location/partnerGet.php"
-        private const val UPDATE_LOCATION_URL = "/api/location/selfUpdate.php"
+        private const val GET_LOCATION_URL = "/api/location/get/partner"
+        private const val UPDATE_LOCATION_URL = "/api/location/get/self"
     }
 
     private val client = HttpClient(Android)
@@ -106,15 +106,15 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun getMemories(): MemoriesGetResponse? {
-        return makeAuthJsonRequest(
+    override suspend fun getMemories(): Map<Int, List<Memory>>? {
+        return makeAuthJsonRequest<MemoriesGetResponse>(
             type = HttpMethod.Get,
             url = GET_MEMORIES_URL,
         )
     }
 
-    override suspend fun getWishlist(): WishlistGetResponse? {
-        return makeAuthJsonRequest(
+    override suspend fun getWishlist(): List<Wish>? {
+        return makeAuthJsonRequest<WishlistGetResponse>(
             type = HttpMethod.Get,
             url = GET_WISHLIST_URL,
         )
@@ -156,34 +156,25 @@ class RequestManagerImpl(
     }
 
     override suspend fun getAlbums(): List<Album>? {
-        return makeAuthJsonRequest(
+        return makeAuthJsonRequest<AlbumsGetResponse>(
             type = HttpMethod.Get,
             url = GET_ALBUMS_URL,
         )
     }
 
-    override suspend fun getPartnerLocation(cached: Boolean): UserLocation? {
+    override suspend fun getPartnerLocation(): UserLocation? {
         return makeAuthJsonRequest(
             type = HttpMethod.Get,
             url = GET_LOCATION_URL,
-            parameters = mapOf("cached" to cached.toString()),
         )
     }
 
     override suspend fun updateLocation(location: Location): Boolean {
-        val body =
-            buildJsonObject {
-                put("latitude", location.latitude)
-                put("longitude", location.longitude)
-                put("accuracy", location.accuracy)
-                put("timestamp", location.time)
-            }
-
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = UPDATE_LOCATION_URL,
-                body = body.toString(),
+                body = json.encodeToString(location),
             )
 
         return response?.status == HttpStatusCode.OK
