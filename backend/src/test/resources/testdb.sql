@@ -33,10 +33,10 @@ CREATE TABLE Wishlist(
 
 CREATE TABLE Albums(
     id INT NOT NULL AUTO_INCREMENT,
-    uuid VARCHAR(36) NOT NULL,
-    title TEXT NOT NULL,
+    uuid UUID NOT NULL,
+    title VARCHAR(128) NOT NULL,
     artist VARCHAR(64) NOT NULL,
-    cover_name VARCHAR(50) NOT NULL,
+    cover_name VARCHAR(64) NOT NULL,
     couple_id INT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT UC_Album_Uuid UNIQUE (uuid),
@@ -45,10 +45,10 @@ CREATE TABLE Albums(
 
 CREATE TABLE Tracks(
     id INT NOT NULL AUTO_INCREMENT,
-    title TEXT NOT NULL,
-    comment TEXT,
-    resource_name VARCHAR(50) NOT NULL,
-    album_uuid VARCHAR(36) NOT NULL,
+    title VARCHAR(128) NOT NULL,
+    comment VARCHAR(256),
+    resource_name VARCHAR(64) NOT NULL,
+    album_uuid UUID NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT UC_Track UNIQUE (album_uuid, resource_name),
     CONSTRAINT FK_Track_Album FOREIGN KEY (album_uuid) REFERENCES Albums(uuid)
@@ -58,7 +58,7 @@ CREATE TABLE Memories(
     id INT NOT NULL AUTO_INCREMENT,
     start_date DATE NOT NULL,
     end_date DATE,
-    title TEXT NOT NULL,
+    title VARCHAR(128) NOT NULL,
     memory_description TEXT NOT NULL,
     photo TEXT,
     couple_id INT NOT NULL,
@@ -76,6 +76,7 @@ CREATE TABLE UserLocations(
     CONSTRAINT FK_Location_User FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
+-- TODO: Last seen was all in 1970
 CREATE TABLE FirebaseTokens(
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -188,19 +189,19 @@ INSERT INTO FirebaseTokens VALUES (
 -- Albums
 INSERT INTO Albums VALUES (
     1,
-    "alicebob-ecf4-4235-85c3-f0b5408fee17",
+    "aaaaabbb-ecf4-4235-85c3-f0b5408fee17",
     "Alice and Bob sing together",
     "A&B Band",
-    "alicebob-fa4d-4ee1-ba48-989e46067756.jpg",
+    "aaaaabbb-fa4d-4ee1-ba48-989e46067756.jpg",
     1
 );
 
 INSERT INTO Albums VALUES (
     2,
-    "mallory2-e96a-4982-84db-1e2d70c72128",
+    "ffffffff-e96a-4982-84db-1e2d70c72128",
     "M&B 101",
     "M and the boys",
-    "mallory2-4081-443e-9319-5ad35e7edebe.png",
+    "ffffffff-4081-443e-9319-5ad35e7edebe.png",
     2
 );
 
@@ -209,24 +210,24 @@ INSERT INTO Tracks VALUES (
     1,
     "Lulaby",
     "Sleep well",
-    "alicebob-be8c-43fb-bc38-40b327b258c7.mp3",
-    "alicebob-ecf4-4235-85c3-f0b5408fee17"
+    "aaaaabbb-be8c-43fb-bc38-40b327b258c7.mp3",
+    "aaaaabbb-ecf4-4235-85c3-f0b5408fee17"
 );
 
 INSERT INTO Tracks VALUES (
     2,
     "Lulaby",
     "Sleep well",
-    "alicebob-9bca-431d-ba7e-fc6a65bca088.mp3",
-    "alicebob-ecf4-4235-85c3-f0b5408fee17"
+    "aaaaabbb-9bca-431d-ba7e-fc6a65bca088.mp3",
+    "aaaaabbb-ecf4-4235-85c3-f0b5408fee17"
 );
 
 INSERT INTO Tracks VALUES (
     3,
     "ROAR",
     null,
-    "mallory2-7a60-4cb9-b3f9-2edf340ab3e2.mp3",
-    "mallory2-e96a-4982-84db-1e2d70c72128"
+    "ffffffff-7a60-4cb9-b3f9-2edf340ab3e2.mp3",
+    "ffffffff-e96a-4982-84db-1e2d70c72128"
 );
 
 -- Location info

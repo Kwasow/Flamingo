@@ -78,12 +78,12 @@ class AlbumsGetTest : BaseTest() {
 
         assertEquals(1, albums.size)
         assertEquals(2, albums[0].tracks.size)
-        assert(albums[0].uuid.startsWith("alicebob"))
-        assert(albums[0].coverName.startsWith("alicebob"))
+        assert(albums[0].uuid.startsWith("aaaaabbb"))
+        assert(albums[0].coverName.startsWith("aaaaabbb"))
 
         for (track in albums[0].tracks) {
             assert(track.albumUuid == albums[0].uuid)
-            assert(track.resourceName.startsWith("alicebob"))
+            assert(track.resourceName.startsWith("aaaaabbb"))
         }
     }
 }
