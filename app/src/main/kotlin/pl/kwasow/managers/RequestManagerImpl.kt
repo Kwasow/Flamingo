@@ -16,8 +16,10 @@ import io.ktor.http.URLProtocol
 import io.ktor.http.path
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
+import pl.kwasow.flamingo.types.auth.AuthResponse
 import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.auth.Authorization
+import pl.kwasow.flamingo.types.location.LocationGetResponse
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import pl.kwasow.flamingo.types.memories.Memory
@@ -25,7 +27,6 @@ import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.flamingo.types.music.AlbumsGetResponse
-import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishlistDeleteRequest
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
@@ -73,7 +74,7 @@ class RequestManagerImpl(
 
     override suspend fun getAuthenticatedUser(): AuthenticationResult {
         val response =
-            makeFullAuthJsonRequest<User>(
+            makeFullAuthJsonRequest<AuthResponse>(
                 type = HttpMethod.Get,
                 url = AUTH_URL,
             )
@@ -163,7 +164,7 @@ class RequestManagerImpl(
     }
 
     override suspend fun getPartnerLocation(): UserLocation? {
-        return makeAuthJsonRequest(
+        return makeAuthJsonRequest<LocationGetResponse>(
             type = HttpMethod.Get,
             url = GET_LOCATION_URL,
         )

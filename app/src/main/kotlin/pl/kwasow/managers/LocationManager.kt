@@ -11,6 +11,8 @@ interface LocationManager {
     val partnerLocation: LiveData<UserLocation?>
 
     // ====== Public methods
+    fun updatePartnerLocation(location: UserLocation)
+
     suspend fun requestLocation()
 
     suspend fun requestPartnerLocation()

@@ -22,6 +22,10 @@ class LocationManagerImpl(
     override val partnerLocation = MutableLiveData<UserLocation?>(null)
 
     // ====== Interface methods
+    override fun updatePartnerLocation(location: UserLocation) {
+        partnerLocation.postValue(location)
+    }
+
     override suspend fun requestLocation() {
         if (userLocation.value == null) {
             userLocation.postValue(getCachedLocation())

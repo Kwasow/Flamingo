@@ -6,6 +6,7 @@ import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
+import pl.kwasow.flamingo.types.messaging.MessagingKeys
 import pl.kwasow.flamingo.types.user.UserDto
 
 @Service
@@ -19,8 +20,8 @@ class FirebaseMessagingService(
 
         val data =
             mapOf(
-                "type" to MessageType.MISSING_YOU.id,
-                "name" to user.firstName,
+                MessagingKeys.TYPE.key to MessageType.MISSING_YOU.id,
+                MessagingKeys.MISSING_YOU_NAME.key to user.firstName,
             )
 
         return sendToUser(partner.id, data)
@@ -34,8 +35,8 @@ class FirebaseMessagingService(
 
         val data =
             mapOf(
-                "type" to MessageType.LOCATION_UPDATED.id,
-                "user_location_json" to Json.encodeToString(location),
+                MessagingKeys.TYPE.key to MessageType.LOCATION_UPDATED.id,
+                MessagingKeys.LOCATION_JSON.key to Json.encodeToString(location),
             )
 
         return sendToUser(partner.id, data)
@@ -46,7 +47,7 @@ class FirebaseMessagingService(
 
         val data =
             mapOf(
-                "type" to MessageType.REQUEST_LOCATION.id,
+                MessagingKeys.TYPE.key to MessageType.REQUEST_LOCATION.id,
             )
 
         return sendToUser(partner.id, data)
@@ -57,7 +58,7 @@ class FirebaseMessagingService(
 
         val data =
             mapOf(
-                "type" to MessageType.DAILY_MEMORY.id,
+                MessagingKeys.TYPE.key to MessageType.DAILY_MEMORY.id,
             )
 
         return sendMessage(tokens, data)
