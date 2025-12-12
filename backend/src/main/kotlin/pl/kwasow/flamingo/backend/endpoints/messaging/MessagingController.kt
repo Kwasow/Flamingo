@@ -11,7 +11,7 @@ import pl.kwasow.flamingo.backend.services.FirebaseTokenService
 import pl.kwasow.flamingo.types.messaging.FcmSendMessageRequest
 import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
 import pl.kwasow.flamingo.types.messaging.MessageType
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 
 @RestController
 class MessagingController(
@@ -21,13 +21,13 @@ class MessagingController(
     // ====== Endpoints
     @PostMapping("/messaging/updateFcmToken")
     fun updateToken(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody tokenDetails: FcmUpdateTokenRequest,
     ) = firebaseTokenService.updateTokenForUser(tokenDetails.token, tokenDetails.debug, user.id)
 
     @PostMapping("/messaging/send")
     fun sendMessage(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody message: FcmSendMessageRequest,
     ) {
         val result =

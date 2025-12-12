@@ -12,7 +12,7 @@ import pl.kwasow.flamingo.backend.services.UserLocationService
 import pl.kwasow.flamingo.types.location.LocationGetResponse
 import pl.kwasow.flamingo.types.location.LocationUpdateResponse
 import pl.kwasow.flamingo.types.location.UserLocation
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 
 @RestController
 class LocationController(
@@ -22,7 +22,7 @@ class LocationController(
     // ====== Endpoints
     @GetMapping("/location/get/partner")
     fun getPartnerLocation(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
     ): LocationGetResponse {
         val partnerId = user.partner?.id
 
@@ -37,12 +37,12 @@ class LocationController(
 
     @GetMapping("/location/get/self")
     fun getSelfLocation(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
     ): LocationGetResponse = locationService.getUserLocation(user.id)?.let { UserLocation(it) }
 
     @PostMapping("/location/update")
     fun updateLocation(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody location: UserLocation,
     ): LocationUpdateResponse {
         if (locationService.verifyLocationForUpdating(user, location)) {

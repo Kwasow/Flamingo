@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.messaging.MessagingKeys
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 
 @Service
 class FirebaseMessagingService(
@@ -15,7 +15,7 @@ class FirebaseMessagingService(
     private val firebaseTokenService: FirebaseTokenService,
 ) {
     // ====== Public methods
-    fun sendMissingYouMessage(user: UserDto): Boolean {
+    fun sendMissingYouMessage(user: User): Boolean {
         val partner = user.partner ?: return false
 
         val data =
@@ -28,7 +28,7 @@ class FirebaseMessagingService(
     }
 
     fun sendLocationUpdatedMessage(
-        user: UserDto,
+        user: User,
         location: UserLocation,
     ): Boolean {
         val partner = user.partner ?: return false
@@ -42,7 +42,7 @@ class FirebaseMessagingService(
         return sendToUser(partner.id, data)
     }
 
-    fun sendLocationRequest(user: UserDto): Boolean {
+    fun sendLocationRequest(user: User): Boolean {
         val partner = user.partner ?: return false
 
         val data =

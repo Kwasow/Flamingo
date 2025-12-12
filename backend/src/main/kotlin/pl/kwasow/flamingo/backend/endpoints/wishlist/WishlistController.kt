@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 import pl.kwasow.flamingo.backend.services.WishlistService
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishDto
 import pl.kwasow.flamingo.types.wishlist.WishlistAddResponse
@@ -24,7 +24,7 @@ class WishlistController(
     // ====== Endpoints
     @GetMapping("/wishlist/get")
     fun getWishlist(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
     ): WishlistGetResponse {
         val wishlistDto = wishlistService.getWishlistForCouple(user.couple)
         val wishlist = wishlistDto.map { Wish(it) }
@@ -34,7 +34,7 @@ class WishlistController(
 
     @PostMapping("/wishlist/add")
     fun addWish(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
     ): WishlistAddResponse {
         if (wishlistService.verifyWishForAdding(user, wish)) {
@@ -48,7 +48,7 @@ class WishlistController(
 
     @PostMapping("/wishlist/update")
     fun updateWish(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody wish: Wish,
     ): WishlistUpdateResponse {
         if (wishlistService.verifyWishForEditing(user, wish)) {
@@ -62,7 +62,7 @@ class WishlistController(
 
     @DeleteMapping("/wishlist/delete")
     fun deleteWish(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody deleteRequest: WishlistDeleteRequest,
     ) {
         if (wishlistService.verifyWishForDeletion(user, deleteRequest.id)) {

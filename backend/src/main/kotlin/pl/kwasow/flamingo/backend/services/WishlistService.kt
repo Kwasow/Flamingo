@@ -3,8 +3,8 @@ package pl.kwasow.flamingo.backend.services
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.WishlistRepository
-import pl.kwasow.flamingo.types.user.CoupleDto
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.Couple
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishDto
 
@@ -13,7 +13,7 @@ class WishlistService(
     private val wishlistRepository: WishlistRepository,
 ) {
     // ====== Public methods
-    fun getWishlistForCouple(couple: CoupleDto): List<WishDto> =
+    fun getWishlistForCouple(couple: Couple): List<WishDto> =
         wishlistRepository.findByAuthorIdIn(couple.memberIds)
 
     fun saveWish(wish: WishDto): WishDto = wishlistRepository.save(wish)
@@ -23,12 +23,12 @@ class WishlistService(
     fun findAuthor(wishId: Int): Int? = wishlistRepository.findByIdOrNull(wishId)?.authorId
 
     fun verifyWishForAdding(
-        user: UserDto,
+        user: User,
         wish: Wish,
     ): Boolean = wish.authorId in user.couple.memberIds && wish.id == null
 
     fun verifyWishForEditing(
-        user: UserDto,
+        user: User,
         wish: Wish,
     ): Boolean =
         wish.authorId in user.couple.memberIds &&
@@ -36,7 +36,7 @@ class WishlistService(
             findAuthor(wish.id!!) == wish.authorId
 
     fun verifyWishForDeletion(
-        user: UserDto,
+        user: User,
         wishId: Int,
     ): Boolean = findAuthor(wishId) in user.couple.memberIds
 }
