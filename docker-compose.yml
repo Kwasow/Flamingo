@@ -3,6 +3,10 @@ services:
     image: openjdk:21-jdk
     ports:
       - "8080:8080"
+    volumes:
+      - ./credentials:/credentials
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: /credentials/google-service-account.json
     networks:
       - dev
 
