@@ -9,6 +9,7 @@ import io.ktor.client.request.request
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.request
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
@@ -36,7 +37,7 @@ class RequestManagerImpl(
 ) : RequestManager {
     // ====== Fields
     companion object {
-        private const val HOST = BuildConfig.BASE_URL
+        private const val HOST = BuildConfig.DEVELOPMENT_BASE_URL
 
         private const val PING_URL = "/api/ping"
         private const val AUTH_URL = "/api/auth"
@@ -53,7 +54,7 @@ class RequestManagerImpl(
 
         private const val GET_ALBUMS_URL = "/api/albums/get"
 
-        private const val GET_LOCATION_URL = "/api/location/get/partner"
+          private const val GET_LOCATION_URL = "/api/location/get/partner"
         private const val UPDATE_LOCATION_URL = "/api/location/get/self"
     }
 
@@ -257,7 +258,7 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (auth) to $url [${request.status.value}]: ${request.bodyAsText()}",
+                "Request (auth) to ${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
         } catch (e: Exception) {
@@ -293,7 +294,7 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (no auth) to $url [${request.status.value}]: ${request.bodyAsText()}",
+                "Request (no auth) to ${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
         } catch (e: Exception) {

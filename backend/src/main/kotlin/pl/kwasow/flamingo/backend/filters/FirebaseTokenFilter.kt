@@ -42,12 +42,14 @@ class FirebaseTokenFilter(
                 SecurityContextHolder.clearContext()
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Firebase Token")
                 return
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 SecurityContextHolder.clearContext()
                 response.sendError(
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "Internal server error",
                 )
+
+                logger.error(e)
                 return
             }
         }
