@@ -5,6 +5,8 @@ services:
       - "8080:8080"
     volumes:
       - ./credentials:/credentials
+    env_file:
+      - env/development.env
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: /credentials/google-service-account.json
     networks:
