@@ -82,6 +82,10 @@ tasks {
     }
 }
 
+tasks.war {
+    archiveFileName = "api.war"
+}
+
 configure<KtlintExtension> {
     version.set("1.5.0")
 }
