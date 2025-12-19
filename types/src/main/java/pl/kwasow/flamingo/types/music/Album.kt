@@ -46,7 +46,7 @@ data class AlbumDto(
     val coverName: String,
     @Column("couple_id")
     val coupleId: Int,
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "album_uuid", referencedColumnName = "uuid")
     val tracks: MutableList<AudioTrackDto>,
 ) {

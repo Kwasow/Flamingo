@@ -47,7 +47,7 @@ data class UserDto(
     @Column(name = "icon")
     @Enumerated(EnumType.STRING)
     override val icon: UserIcon,
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     val couple: CoupleDto,
 ) : MinimalUser {
     // ====== Fields
