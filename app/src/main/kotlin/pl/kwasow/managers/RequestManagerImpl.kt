@@ -10,9 +10,11 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
 import io.ktor.client.statement.request
+import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
+import io.ktor.http.contentType
 import io.ktor.http.path
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
@@ -37,7 +39,7 @@ class RequestManagerImpl(
 ) : RequestManager {
     // ====== Fields
     companion object {
-        private const val HOST = BuildConfig.DEVELOPMENT_BASE_URL
+        private const val HOST = BuildConfig.BASE_URL
 
         private const val PING_URL = "/api/ping"
         private const val AUTH_URL = "/api/auth"
@@ -50,7 +52,7 @@ class RequestManagerImpl(
         private const val GET_WISHLIST_URL = "/api/wishlist/get"
         private const val ADD_WISHLIST_URL = "/api/wishlist/add"
         private const val UPDATE_WISHLIST_URL = "/api/wishlist/update"
-        private const val REMOVE_WISHLIST_URL = "/api/wishlist/remove"
+        private const val REMOVE_WISHLIST_URL = "/api/wishlist/delete"
 
         private const val GET_ALBUMS_URL = "/api/albums/get"
 
@@ -148,7 +150,7 @@ class RequestManagerImpl(
 
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                type = HttpMethod.Delete,
                 url = REMOVE_WISHLIST_URL,
                 body = json.encodeToString(body),
             )
@@ -250,6 +252,7 @@ class RequestManagerImpl(
 
                     if (body != null) {
                         setBody(body)
+                        contentType(ContentType.Application.Json)
                     }
 
                     parameters?.forEach { (key, value) ->
@@ -286,6 +289,7 @@ class RequestManagerImpl(
 
                     if (body != null) {
                         setBody(body)
+                        contentType(ContentType.Application.Json)
                     }
 
                     parameters?.forEach { (key, value) ->

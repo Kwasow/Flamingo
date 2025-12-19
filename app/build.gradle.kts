@@ -40,6 +40,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+
+            buildConfigField("String", "BASE_URL", "\"flamingo.kwasow.pl\"")
         }
 
         debug {
@@ -47,6 +49,8 @@ android {
 
             versionNameSuffix = "-beta"
             applicationIdSuffix = ".beta"
+
+            buildConfigField("String", "BASE_URL", "\"flamingo-test.kwasow.pl\"")
         }
     }
 
