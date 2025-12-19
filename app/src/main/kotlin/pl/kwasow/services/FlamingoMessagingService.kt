@@ -7,8 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import org.koin.android.ext.android.inject
+import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
+import pl.kwasow.flamingo.types.messaging.MessagingKeys
 import pl.kwasow.managers.LocationManager
 import pl.kwasow.managers.MemoriesManager
 import pl.kwasow.managers.MessagingManager
@@ -27,6 +30,8 @@ class FlamingoMessagingService : FirebaseMessagingService() {
     private val notificationManager by inject<NotificationManager>()
     private val preferencesManager by inject<PreferencesManager>()
 
+    private val json = Json { ignoreUnknownKeys = true }
+
     // ====== Interface methods
     override fun onNewToken(token: String) {
         super.onNewToken(token)
@@ -42,11 +47,11 @@ class FlamingoMessagingService : FirebaseMessagingService() {
 
         val data = message.data
 
-        when (MessageType.fromString(data["type"] ?: "")) {
+        when (MessageType.fromString(data[MessagingKeys.TYPE.key] ?: "")) {
             MessageType.MISSING_YOU -> handleMissingYouMessage(data)
             MessageType.DAILY_MEMORY -> handleDailyMemoryMessage()
             MessageType.REQUEST_LOCATION -> handleRequestLocationMessage()
-            MessageType.LOCATION_UPDATED -> handleLocationUpdatedMessage()
+            MessageType.LOCATION_UPDATED -> handleLocationUpdatedMessage(data)
             else -> handleIncorrectMessage()
         }
     }
@@ -58,7 +63,7 @@ class FlamingoMessagingService : FirebaseMessagingService() {
 
     // ====== Private methods
     private fun handleMissingYouMessage(data: Map<String, String>) {
-        val senderName = data["name"] ?: return handleIncorrectMessage()
+        val senderName = data[MessagingKeys.MISSING_YOU_NAME.key] ?: return handleIncorrectMessage()
         notificationManager.postMissingYouNotification(senderName)
     }
 
@@ -80,12 +85,11 @@ class FlamingoMessagingService : FirebaseMessagingService() {
         }
     }
 
-    private fun handleLocationUpdatedMessage() {
-        // We want the cached location in this case, to prevent an infinite loop of location
-        // requests
-        scope.launch {
-            locationManager.requestPartnerLocation()
-        }
+    private fun handleLocationUpdatedMessage(data: Map<String, String>) {
+        val locationJson = data[MessagingKeys.LOCATION_JSON.key] ?: return handleIncorrectMessage()
+        val partnerLocation = json.decodeFromString<UserLocation>(locationJson)
+
+        locationManager.updatePartnerLocation(partnerLocation)
     }
 
     private fun handleIncorrectMessage() {

@@ -39,6 +39,7 @@ import pl.kwasow.R
 import pl.kwasow.extensions.linkify
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.utils.FlamingoDateUtils
+import java.time.LocalDate
 
 // ====== Public composables
 @Composable
@@ -141,7 +142,7 @@ private fun Content(
             )
         }
         Text(
-            text = FlamingoDateUtils.timestampToString(wish.timestamp),
+            text = FlamingoDateUtils.localDateToString(wish.date),
             style = MaterialTheme.typography.labelSmall,
             color = Color.Gray,
         )
@@ -218,7 +219,7 @@ private fun WishViewPreview() {
             id = 0,
             authorId = 123,
             content = "This is a link to https://google.com",
-            timestamp = 0,
+            date = LocalDate.of(2024, 8, 3),
             done = false,
         )
 
@@ -239,7 +240,7 @@ private fun WishViewPreviewDone() {
             id = 0,
             authorId = 123,
             content = "This is a link to https://google.com",
-            timestamp = 0,
+            date = LocalDate.of(2024, 8, 3),
             done = true,
         )
 
@@ -260,7 +261,7 @@ private fun WishViewPreviewLoading() {
             id = 0,
             authorId = 123,
             content = "This is a link to https://google.com",
-            timestamp = 0,
+            date = LocalDate.of(2024, 8, 3),
             done = false,
         )
 
@@ -281,7 +282,7 @@ private fun WishViewPreviewNoLink() {
             id = 0,
             authorId = 123,
             content = "This is a wish without links",
-            timestamp = 0,
+            date = LocalDate.of(2024, 8, 3),
             done = false,
         )
 

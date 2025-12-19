@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.wishlist.Wish
+import java.time.LocalDate
 
 // ====== Public composables
 @Composable
@@ -118,7 +119,7 @@ private fun DeleteWishDialogPreview() {
             id = 0,
             authorId = 123,
             content = "This is a link to https://google.com",
-            timestamp = 0,
+            date = LocalDate.of(2022, 1, 12),
             done = true,
         )
 
@@ -138,7 +139,7 @@ private fun DeleteWishDialogPreviewButtonsDisabled() {
             id = 0,
             authorId = 123,
             content = "This is a link to https://google.com",
-            timestamp = 0,
+            date = LocalDate.of(2022, 1, 12),
             done = true,
         )
 

@@ -40,6 +40,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+
+            buildConfigField("String", "BASE_URL", "\"flamingo.kwasow.pl\"")
         }
 
         debug {
@@ -47,6 +49,8 @@ android {
 
             versionNameSuffix = "-beta"
             applicationIdSuffix = ".beta"
+
+            buildConfigField("String", "BASE_URL", "\"flamingo-test.kwasow.pl\"")
         }
     }
 
@@ -112,7 +116,9 @@ dependencies {
 
     // Ktor
     implementation(libs.ktor.client.android)
+    implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.core)
+    implementation(libs.ktor.serialization.kotlinx.json)
 
     // Koin
     implementation(libs.koin.compose.base)

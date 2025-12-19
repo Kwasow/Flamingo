@@ -49,7 +49,7 @@ data class CoupleDto(
     @Serializable(with = LocalDateSerializer::class)
     @Column(name = "anniversary_date")
     val anniversary: LocalDate,
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "coupleId")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "coupleId")
     val members: MutableList<PartnerDto>,
 ) {
     // ====== Fields

@@ -1,6 +1,5 @@
 package pl.kwasow.managers
 
-import android.location.Location
 import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.memories.Memory
@@ -29,7 +28,7 @@ interface RequestManager {
 
     suspend fun getPartnerLocation(): UserLocation?
 
-    suspend fun updateLocation(location: Location): Boolean
+    suspend fun updateLocation(location: UserLocation): Boolean
 
     suspend fun updateFcmToken(token: String): Boolean
 }

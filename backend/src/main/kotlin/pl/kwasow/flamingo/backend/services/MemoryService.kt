@@ -4,14 +4,14 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.MemoryRepository
 import pl.kwasow.flamingo.types.memories.MemoryDto
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 
 @Service
 class MemoryService(
     private val memoryRepository: MemoryRepository,
 ) {
     // ====== Public methods
-    fun getMemoriesForUserByYear(user: UserDto): Map<Int, List<MemoryDto>> {
+    fun getMemoriesForUserByYear(user: User): Map<Int, List<MemoryDto>> {
         val memories = memoryRepository.findByCoupleId(user.couple.id)
         val anniversary = user.couple.anniversary
 
@@ -38,7 +38,7 @@ class MemoryService(
     fun verifyMemoryForAdding(memoryId: Int?): Boolean = memoryId == null
 
     fun verifyMemoryForEditing(
-        user: UserDto,
+        user: User,
         memoryId: Int?,
     ): Boolean = memoryId != null && user.couple.id == findOwner(memoryId)
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
 import pl.kwasow.flamingo.serializers.LocalDateSerializer
+import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.user.UserDto
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -66,7 +67,7 @@ data class MemoryDto(
     val coupleId: Int,
 ) {
     // ====== Constructors
-    constructor(memory: Memory, user: UserDto) : this(
+    constructor(memory: Memory, user: User) : this(
         id = memory.id ?: -1,
         startDate = memory.startDate,
         endDate = memory.endDate,

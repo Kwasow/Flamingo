@@ -1,8 +1,9 @@
 package pl.kwasow.managers
 
-import android.location.Location
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.headers
 import io.ktor.client.request.parameter
@@ -10,14 +11,20 @@ import io.ktor.client.request.request
 import io.ktor.client.request.setBody
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.request
+import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
+import io.ktor.http.contentType
 import io.ktor.http.path
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
+import pl.kwasow.flamingo.types.auth.AuthResponse
 import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.auth.Authorization
+import pl.kwasow.flamingo.types.location.LocationGetResponse
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import pl.kwasow.flamingo.types.memories.Memory
@@ -25,7 +32,6 @@ import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.flamingo.types.music.AlbumsGetResponse
-import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.flamingo.types.wishlist.WishlistDeleteRequest
 import pl.kwasow.flamingo.types.wishlist.WishlistGetResponse
@@ -49,7 +55,7 @@ class RequestManagerImpl(
         private const val GET_WISHLIST_URL = "/api/wishlist/get"
         private const val ADD_WISHLIST_URL = "/api/wishlist/add"
         private const val UPDATE_WISHLIST_URL = "/api/wishlist/update"
-        private const val REMOVE_WISHLIST_URL = "/api/wishlist/remove"
+        private const val REMOVE_WISHLIST_URL = "/api/wishlist/delete"
 
         private const val GET_ALBUMS_URL = "/api/albums/get"
 
@@ -57,8 +63,16 @@ class RequestManagerImpl(
         private const val UPDATE_LOCATION_URL = "/api/location/get/self"
     }
 
-    private val client = HttpClient(Android)
-    private val json = Json { ignoreUnknownKeys = true }
+    private val client =
+        HttpClient(Android) {
+            install(ContentNegotiation) {
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                    },
+                )
+            }
+        }
 
     // ====== Interface methods
     override suspend fun ping(): Boolean {
@@ -73,7 +87,7 @@ class RequestManagerImpl(
 
     override suspend fun getAuthenticatedUser(): AuthenticationResult {
         val response =
-            makeFullAuthJsonRequest<User>(
+            makeFullAuthJsonRequest<AuthResponse>(
                 type = HttpMethod.Get,
                 url = AUTH_URL,
             )
@@ -100,7 +114,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = POST_MESSAGE_URL,
-                body = json.encodeToString(MessageType.MISSING_YOU),
+                body = MessageType.MISSING_YOU,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -125,7 +139,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = ADD_WISHLIST_URL,
-                body = json.encodeToString(wish),
+                body = wish,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -136,7 +150,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = UPDATE_WISHLIST_URL,
-                body = json.encodeToString(wish),
+                body = wish,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -147,9 +161,9 @@ class RequestManagerImpl(
 
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                type = HttpMethod.Delete,
                 url = REMOVE_WISHLIST_URL,
-                body = json.encodeToString(body),
+                body = body,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -163,18 +177,18 @@ class RequestManagerImpl(
     }
 
     override suspend fun getPartnerLocation(): UserLocation? {
-        return makeAuthJsonRequest(
+        return makeAuthJsonRequest<LocationGetResponse>(
             type = HttpMethod.Get,
             url = GET_LOCATION_URL,
         )
     }
 
-    override suspend fun updateLocation(location: Location): Boolean {
+    override suspend fun updateLocation(location: UserLocation): Boolean {
         val response =
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = UPDATE_LOCATION_URL,
-                body = json.encodeToString(location),
+                body = location,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -187,7 +201,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = POST_UPDATE_FCM_TOKEN_URL,
-                body = json.encodeToString(body),
+                body = body,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -197,14 +211,14 @@ class RequestManagerImpl(
     private suspend inline fun <reified T> makeAuthJsonRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): T? = makeFullAuthJsonRequest<T>(type, url, body, parameters).second
 
     private suspend inline fun <reified T> makeFullAuthJsonRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): Pair<HttpResponse?, T?> {
         val response = makeAuthRequest(type, url, body, parameters)
@@ -215,7 +229,7 @@ class RequestManagerImpl(
 
         val jsonResponse =
             try {
-                json.decodeFromString<T>(response.bodyAsText())
+                response.body<T>()
             } catch (e: Exception) {
                 FlamingoLogger.d("Failed to decode json response", e)
                 null
@@ -227,7 +241,7 @@ class RequestManagerImpl(
     private suspend fun makeAuthRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): HttpResponse? {
         val token = tokenManager.getIdToken() ?: return null
@@ -249,6 +263,7 @@ class RequestManagerImpl(
 
                     if (body != null) {
                         setBody(body)
+                        contentType(ContentType.Application.Json)
                     }
 
                     parameters?.forEach { (key, value) ->
@@ -257,7 +272,8 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (auth) to $url [${request.status.value}]: ${request.bodyAsText()}",
+                "Request (auth) to" +
+                    "${request.request.url} ${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
         } catch (e: Exception) {
@@ -269,7 +285,7 @@ class RequestManagerImpl(
     private suspend fun makeRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): HttpResponse? {
         try {
@@ -285,6 +301,7 @@ class RequestManagerImpl(
 
                     if (body != null) {
                         setBody(body)
+                        contentType(ContentType.Application.Json)
                     }
 
                     parameters?.forEach { (key, value) ->
@@ -293,7 +310,8 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (no auth) to $url [${request.status.value}]: ${request.bodyAsText()}",
+                "Request (no auth) to" +
+                    "${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
         } catch (e: Exception) {

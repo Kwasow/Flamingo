@@ -15,7 +15,7 @@ import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import pl.kwasow.flamingo.types.memories.MemoriesUpdateResponse
 import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.memories.MemoryDto
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 
 @RestController
 class MemoriesController(
@@ -24,7 +24,7 @@ class MemoriesController(
     // ====== Endpoints
     @GetMapping("/memories/get")
     fun getMemories(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
     ): MemoriesGetResponse {
         val memoryDtoMap = memoryService.getMemoriesForUserByYear(user)
         val memories =
@@ -37,7 +37,7 @@ class MemoriesController(
 
     @PostMapping("/memories/add")
     fun addMemory(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
     ): MemoriesAddResponse {
         if (memoryService.verifyMemoryForAdding(memory.id)) {
@@ -51,7 +51,7 @@ class MemoriesController(
 
     @PostMapping("/memories/update")
     fun updateMemory(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody memory: Memory,
     ): MemoriesUpdateResponse {
         if (memoryService.verifyMemoryForEditing(user, memory.id)) {
@@ -65,7 +65,7 @@ class MemoriesController(
 
     @DeleteMapping("/memories/delete")
     fun deleteMemory(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
         @RequestBody deleteRequest: MemoriesDeleteRequest,
     ) {
         if (memoryService.verifyMemoryForEditing(user, deleteRequest.id)) {

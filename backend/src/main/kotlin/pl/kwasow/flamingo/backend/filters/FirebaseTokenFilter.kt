@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import pl.kwasow.flamingo.backend.services.UserService
+import pl.kwasow.flamingo.types.user.User
 
 @Component
 class FirebaseTokenFilter(
@@ -35,19 +36,21 @@ class FirebaseTokenFilter(
                     throw Exception("User not found")
                 } else {
                     val authentication =
-                        UsernamePasswordAuthenticationToken(user, null, emptyList())
+                        UsernamePasswordAuthenticationToken(User(user), null, emptyList())
                     SecurityContextHolder.getContext().authentication = authentication
                 }
             } catch (_: FirebaseAuthException) {
                 SecurityContextHolder.clearContext()
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Firebase Token")
                 return
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 SecurityContextHolder.clearContext()
                 response.sendError(
                     HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
                     "Internal server error",
                 )
+
+                logger.error(e)
                 return
             }
         }

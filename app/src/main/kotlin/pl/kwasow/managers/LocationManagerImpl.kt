@@ -7,37 +7,44 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.tasks.await
+import pl.kwasow.extensions.toUserLocation
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.utils.FlamingoLogger
 
 class LocationManagerImpl(
     context: Context,
     private val requestManager: RequestManager,
-    private val preferencesManager: PreferencesManager,
+    private val userManager: UserManager,
 ) : LocationManager {
     // ====== Fields
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
 
-    override val userLocation = MutableLiveData<Location?>(null)
+    override val userLocation = MutableLiveData<UserLocation?>(null)
     override val partnerLocation = MutableLiveData<UserLocation?>(null)
 
     // ====== Interface methods
+    override fun updatePartnerLocation(location: UserLocation) {
+        partnerLocation.postValue(location)
+    }
+
     override suspend fun requestLocation() {
+        val user = userManager.user.value ?: return
+
         if (userLocation.value == null) {
-            userLocation.postValue(getCachedLocation())
+            userLocation.postValue(
+                getCachedLocation()?.toUserLocation(user),
+            )
         }
 
         val location = getCurrentLocation()
         if (location != null) {
-            userLocation.postValue(location)
+            userLocation.postValue(location.toUserLocation(user))
         }
 
         updateLocationOnServer(location)
     }
 
     override suspend fun requestPartnerLocation() {
-        // If the user didn't allow background location requests, we'll only allow them to
-        // request the server cached location
         val partnerLocation = requestManager.getPartnerLocation()
         if (partnerLocation != null) {
             this.partnerLocation.postValue(partnerLocation)
@@ -82,11 +89,13 @@ class LocationManagerImpl(
     }
 
     private suspend fun updateLocationOnServer(location: Location?) {
+        val user = userManager.user.value ?: return
+
         if (location == null) {
             return
         }
 
-        if (requestManager.updateLocation(location)) {
+        if (requestManager.updateLocation(location.toUserLocation(user))) {
             FlamingoLogger.i("Location updated on server")
         } else {
             FlamingoLogger.e("Location update on server failed")

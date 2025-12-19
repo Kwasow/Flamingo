@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 import pl.kwasow.flamingo.backend.repositories.UserLocationRepository
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.location.UserLocationDto
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
@@ -23,7 +23,7 @@ class UserLocationService(
     }
 
     fun verifyLocationForUpdating(
-        user: UserDto,
+        user: User,
         location: UserLocation,
     ): Boolean {
         val userCorrect = location.userId == user.id

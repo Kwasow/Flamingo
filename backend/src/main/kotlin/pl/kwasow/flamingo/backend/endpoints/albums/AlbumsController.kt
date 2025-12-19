@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController
 import pl.kwasow.flamingo.backend.services.AlbumService
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.flamingo.types.music.AlbumsGetResponse
-import pl.kwasow.flamingo.types.user.UserDto
+import pl.kwasow.flamingo.types.user.User
 
 @RestController
 class AlbumsController(
@@ -15,7 +15,7 @@ class AlbumsController(
     // ====== Endpoints
     @GetMapping("/albums/get")
     fun getAlbums(
-        @AuthenticationPrincipal user: UserDto,
+        @AuthenticationPrincipal user: User,
     ): AlbumsGetResponse {
         val albumDtoList = albumService.getAlbumsForCouple(user.couple.id)
         val albums = albumDtoList.map { Album(it) }

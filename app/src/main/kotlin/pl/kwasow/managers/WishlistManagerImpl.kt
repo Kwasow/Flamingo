@@ -1,6 +1,7 @@
 package pl.kwasow.managers
 
 import pl.kwasow.flamingo.types.wishlist.Wish
+import java.time.LocalDate
 
 class WishlistManagerImpl(
     private val requestManager: RequestManager,
@@ -8,7 +9,7 @@ class WishlistManagerImpl(
     // ====== Public methods
     override suspend fun getWishlist(): Map<Int, List<Wish>>? {
         val wishlist = requestManager.getWishlist() ?: return null
-        val grouped = wishlist.sortedByDescending { it.timestamp }.groupBy { it.authorId }
+        val grouped = wishlist.sortedByDescending { it.date }.groupBy { it.authorId }
 
         return grouped
     }
@@ -19,11 +20,11 @@ class WishlistManagerImpl(
     ): Boolean {
         val newWish =
             Wish(
-                null,
-                authorId,
-                content,
-                false,
-                System.currentTimeMillis(),
+                id = null,
+                authorId = authorId,
+                content = content,
+                done = false,
+                date = LocalDate.now(),
             )
 
         return requestManager.addWish(newWish)

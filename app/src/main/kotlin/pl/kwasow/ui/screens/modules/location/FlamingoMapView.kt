@@ -1,6 +1,5 @@
 package pl.kwasow.ui.screens.modules.location
 
-import android.location.Location
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -47,6 +46,7 @@ import pl.kwasow.flamingo.types.user.MinimalUser
 import pl.kwasow.flamingo.types.user.User
 import pl.kwasow.flamingo.types.user.UserIcon
 import pl.kwasow.utils.FlamingoDateUtils
+import java.time.LocalDateTime
 
 // ====== Public composables
 @Composable
@@ -110,14 +110,14 @@ fun FlamingoMapView(
 // ====== Private composables
 @Composable
 private fun CurrentLocationMarker(
-    location: Location,
+    location: UserLocation,
     user: User?,
 ) {
     FlamingoMarker(
         latitude = location.latitude,
         longitude = location.longitude,
         title = stringResource(id = R.string.module_location_your_location),
-        time = location.time,
+        lastSeen = location.lastSeen,
         icon = user?.icon?.details(),
         fallbackIcon = R.drawable.ic_current_location,
     )
@@ -132,7 +132,7 @@ private fun PersonMarker(
         latitude = location.latitude,
         longitude = location.longitude,
         title = user?.firstName ?: "[TODO]",
-        time = location.timestamp,
+        lastSeen = location.lastSeen,
         // TODO: Fix this
         icon = user?.icon?.details() ?: UserIcon.SHEEP.details(),
         fallbackIcon = R.drawable.ic_map_user_marker,
@@ -144,7 +144,7 @@ private fun FlamingoMarker(
     latitude: Double,
     longitude: Double,
     title: String,
-    time: Long,
+    lastSeen: LocalDateTime,
     icon: UserIconDetails?,
     @DrawableRes fallbackIcon: Int,
 ) {
@@ -156,7 +156,7 @@ private fun FlamingoMarker(
         infoContent = {
             MarkerInfo(
                 name = title,
-                time = time,
+                lastSeen = lastSeen,
                 icon = icon,
             )
         },
@@ -195,7 +195,7 @@ private fun FlamingoMarker(
 @Composable
 private fun MarkerInfo(
     name: String,
-    time: Long,
+    lastSeen: LocalDateTime,
     icon: UserIconDetails?,
 ) {
     Card(modifier = Modifier.padding(4.dp)) {
@@ -209,7 +209,7 @@ private fun MarkerInfo(
                     style = MaterialTheme.typography.titleMedium,
                 )
                 Text(
-                    text = FlamingoDateUtils.getRelativeTimeString(time),
+                    text = FlamingoDateUtils.getRelativeTimeString(lastSeen),
                     style = MaterialTheme.typography.bodySmall,
                     fontStyle = FontStyle.Italic,
                 )
@@ -237,7 +237,7 @@ private fun MarkerInfo(
 private fun MarkerInfoPreview() {
     MarkerInfo(
         name = "My location",
-        time = System.currentTimeMillis() - 1000000,
+        lastSeen = LocalDateTime.now().minusMinutes(16),
         icon = UserIconDetails(R.drawable.ic_sheep, R.string.contentDescription_sheep_icon),
     )
 }

@@ -13,6 +13,8 @@ DROP TABLE IF EXISTS mod609_usermeta;
 DROP TABLE IF EXISTS mod609_users;
 
 ALTER TABLE Users RENAME COLUMN couple TO couple_id;
+UPDATE Users SET icon="SHEEP" WHERE icon="sheep";
+UPDATE Users SET icon="CAT" WHERE icon="cat";
 
 ALTER TABLE Wishlist ADD COLUMN date DATE;
 UPDATE Wishlist

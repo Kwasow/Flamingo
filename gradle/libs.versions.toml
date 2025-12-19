@@ -99,7 +99,9 @@ koin-compose-base = { group = "io.insert-koin", name = "koin-androidx-compose" }
 koin-compose-navigation = { group = "io.insert-koin", name = "koin-androidx-compose-navigation" }
 kotlin-core = { group = "androidx.core", name = "core-ktx", version.ref = "kotlinCore" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
 # ================ SERVER ================= #
 firebase-admin = { group = "com.google.firebase", name = "firebase-admin", version.ref = "firebaseAdmin" }

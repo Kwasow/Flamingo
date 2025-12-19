@@ -34,6 +34,7 @@ import pl.kwasow.flamingo.types.user.Partner
 import pl.kwasow.flamingo.types.user.UserIcon
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.ui.components.UndecoratedTextField
+import java.time.LocalDate
 
 // ====== Public composables
 @Composable
@@ -192,7 +193,7 @@ private fun WishlistViewPreview() {
             id = 0,
             authorId = 123,
             content = "This is a link to https://google.com",
-            timestamp = 0,
+            date = LocalDate.of(2022, 1, 12),
             done = true,
         )
 
