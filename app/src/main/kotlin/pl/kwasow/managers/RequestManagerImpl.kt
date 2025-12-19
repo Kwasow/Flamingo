@@ -1,7 +1,9 @@
 package pl.kwasow.managers
 
 import io.ktor.client.HttpClient
+import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.headers
 import io.ktor.client.request.parameter
@@ -16,6 +18,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.URLProtocol
 import io.ktor.http.contentType
 import io.ktor.http.path
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import pl.kwasow.BuildConfig
 import pl.kwasow.flamingo.types.auth.AuthResponse
@@ -60,8 +63,13 @@ class RequestManagerImpl(
         private const val UPDATE_LOCATION_URL = "/api/location/get/self"
     }
 
-    private val client = HttpClient(Android)
-    private val json = Json { ignoreUnknownKeys = true }
+    private val client = HttpClient(Android) {
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+            })
+        }
+    }
 
     // ====== Interface methods
     override suspend fun ping(): Boolean {
@@ -103,7 +111,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = POST_MESSAGE_URL,
-                body = json.encodeToString(MessageType.MISSING_YOU),
+                body = MessageType.MISSING_YOU,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -128,7 +136,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = ADD_WISHLIST_URL,
-                body = json.encodeToString(wish),
+                body = wish,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -139,7 +147,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = UPDATE_WISHLIST_URL,
-                body = json.encodeToString(wish),
+                body = wish,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -152,7 +160,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Delete,
                 url = REMOVE_WISHLIST_URL,
-                body = json.encodeToString(body),
+                body = body,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -177,7 +185,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = UPDATE_LOCATION_URL,
-                body = json.encodeToString(location),
+                body = location,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -190,7 +198,7 @@ class RequestManagerImpl(
             makeAuthRequest(
                 type = HttpMethod.Post,
                 url = POST_UPDATE_FCM_TOKEN_URL,
-                body = json.encodeToString(body),
+                body = body,
             )
 
         return response?.status == HttpStatusCode.OK
@@ -200,14 +208,14 @@ class RequestManagerImpl(
     private suspend inline fun <reified T> makeAuthJsonRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): T? = makeFullAuthJsonRequest<T>(type, url, body, parameters).second
 
     private suspend inline fun <reified T> makeFullAuthJsonRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): Pair<HttpResponse?, T?> {
         val response = makeAuthRequest(type, url, body, parameters)
@@ -218,7 +226,7 @@ class RequestManagerImpl(
 
         val jsonResponse =
             try {
-                json.decodeFromString<T>(response.bodyAsText())
+                response.body<T>()
             } catch (e: Exception) {
                 FlamingoLogger.d("Failed to decode json response", e)
                 null
@@ -230,7 +238,7 @@ class RequestManagerImpl(
     private suspend fun makeAuthRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): HttpResponse? {
         val token = tokenManager.getIdToken() ?: return null
@@ -273,7 +281,7 @@ class RequestManagerImpl(
     private suspend fun makeRequest(
         type: HttpMethod,
         url: String,
-        body: String? = null,
+        body: Any? = null,
         parameters: Map<String, String>? = null,
     ): HttpResponse? {
         try {
