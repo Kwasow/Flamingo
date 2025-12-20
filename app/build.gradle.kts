@@ -41,7 +41,7 @@ android {
                 "proguard-rules.pro",
             )
 
-            buildConfigField("String", "BASE_URL", "\"flamingo.kwasow.pl\"")
+            buildConfigField("String", "BASE_URL", "\"https://flamingo.kwasow.pl\"")
         }
 
         debug {
@@ -50,7 +50,7 @@ android {
             versionNameSuffix = "-beta"
             applicationIdSuffix = ".beta"
 
-            buildConfigField("String", "BASE_URL", "\"flamingo-test.kwasow.pl\"")
+            buildConfigField("String", "BASE_URL", "\"https://flamingo-test.kwasow.pl\"")
         }
     }
 
