@@ -24,7 +24,7 @@ class AudioManagerImpl(
 ) : AudioManager {
     // ====== Fields
     companion object {
-        private const val ALBUMS_PATH = "resources/albums"
+        private const val ALBUMS_PATH = "api/resources/albums"
         private const val ALBUMS_URL = "${BuildConfig.BASE_URL}/$ALBUMS_PATH"
         private const val ALBUM_INFO_FILE_NAME = "album.json"
     }

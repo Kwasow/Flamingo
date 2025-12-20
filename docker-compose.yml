@@ -5,6 +5,7 @@ services:
       - "8080:8080"
     volumes:
       - ./credentials:/credentials
+      - ./test_resources:/resources
     env_file:
       - env/development.env
     environment:
