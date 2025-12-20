@@ -74,7 +74,11 @@ class FirebaseMessagingService(
                 .getTokensForUser(userId)
                 .map { it.token }
 
-        return sendMessage(recipientTokens, data)
+        return if (recipientTokens.isEmpty()) {
+            false
+        } else {
+            sendMessage(recipientTokens, data)
+        }
     }
 
     private fun sendMessage(

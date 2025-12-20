@@ -13,7 +13,8 @@ fun Location.toUserLocation(user: User): UserLocation =
         latitude = this.latitude,
         longitude = this.longitude,
         accuracy = this.accuracy,
-        lastSeen = LocalDateTime.from(
-            Instant.ofEpochMilli(this.time).atZone(ZoneId.systemDefault())
-        ),
+        lastSeen =
+            LocalDateTime.from(
+                Instant.ofEpochMilli(this.time).atZone(ZoneId.systemDefault()),
+            ),
     )
