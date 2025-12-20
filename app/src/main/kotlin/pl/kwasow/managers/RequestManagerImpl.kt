@@ -272,8 +272,8 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (auth) to" +
-                    "${request.request.url} ${request.status.value}]: ${request.bodyAsText()}",
+                "Request (auth) to " +
+                    "${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
         } catch (e: Exception) {
@@ -310,7 +310,7 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (no auth) to" +
+                "Request (no auth) to " +
                     "${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
