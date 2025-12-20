@@ -32,7 +32,7 @@ playServicesMaps = "19.2.0"
 protobuf = "4.33.2"
 
 # Plugins
-androidGradlePlugin = "8.8.2"
+androidGradlePlugin = "8.13.2"
 firebaseCrashlyticsPlugin = "3.0.6"
 googleMapsplatformPlugin = "2.0.1"
 googleProtobufPlugin = "0.9.6"
