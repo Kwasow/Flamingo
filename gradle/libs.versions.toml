@@ -46,11 +46,11 @@ mockitoKotlin = "6.1.0"
 
 # Plugins
 kotlinJvmPlugins = "2.1.10"
-springBoot = "4.0.0"
+springBoot = "4.0.1"
 springManager = "1.1.7"
 
 # ================ SHARED ================= #
-kotlinSerializationJson = "1.8.0"
+kotlinSerializationJson = "1.9.0"
 ktlintPlugin = "12.2.0"
 
 # ================= TYPES ================= #

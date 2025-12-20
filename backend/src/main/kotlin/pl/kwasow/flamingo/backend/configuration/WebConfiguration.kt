@@ -18,16 +18,4 @@ class WebConfiguration : WebMvcConfigurer {
             .addResourceHandler("/resources/**")
             .addResourceLocations("file:/resources/")
     }
-
-    override fun configureMessageConverters(builder: HttpMessageConverters.ServerBuilder) {
-        builder.withJsonConverter(buildKotlinxJsonConverter())
-    }
-
-    // ====== Private methods
-    private fun buildKotlinxJsonConverter(): KotlinSerializationJsonHttpMessageConverter {
-        val json = Json
-        val predicate = { _: ResolvableType? -> true }
-
-        return KotlinSerializationJsonHttpMessageConverter(json, predicate)
-    }
 }
