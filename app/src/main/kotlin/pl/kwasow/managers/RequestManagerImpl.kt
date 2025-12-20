@@ -60,7 +60,7 @@ class RequestManagerImpl(
         private const val GET_ALBUMS_URL = "/api/albums/get"
 
         private const val GET_LOCATION_URL = "/api/location/get/partner"
-        private const val UPDATE_LOCATION_URL = "/api/location/get/self"
+        private const val UPDATE_LOCATION_URL = "/api/location/update"
     }
 
     private val client =
@@ -272,8 +272,8 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (auth) to" +
-                    "${request.request.url} ${request.status.value}]: ${request.bodyAsText()}",
+                "Request (auth) to " +
+                    "${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request
         } catch (e: Exception) {
@@ -310,7 +310,7 @@ class RequestManagerImpl(
                 }
 
             FlamingoLogger.d(
-                "Request (no auth) to" +
+                "Request (no auth) to " +
                     "${request.request.url} [${request.status.value}]: ${request.bodyAsText()}",
             )
             return request

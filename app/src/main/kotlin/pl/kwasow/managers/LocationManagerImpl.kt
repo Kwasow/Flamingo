@@ -30,12 +30,6 @@ class LocationManagerImpl(
     override suspend fun requestLocation() {
         val user = userManager.user.value ?: return
 
-        if (userLocation.value == null) {
-            userLocation.postValue(
-                getCachedLocation()?.toUserLocation(user),
-            )
-        }
-
         val location = getCurrentLocation()
         if (location != null) {
             userLocation.postValue(location.toUserLocation(user))
@@ -52,21 +46,6 @@ class LocationManagerImpl(
     }
 
     // ====== Private methods
-    private suspend fun getCachedLocation(): Location? {
-        try {
-            val location: Location? = fusedLocationClient.lastLocation.await()
-            updateLocationOnServer(location)
-
-            return location
-        } catch (e: SecurityException) {
-            FlamingoLogger.e("Location permission not granted", e)
-            return null
-        } catch (e: Exception) {
-            FlamingoLogger.e("Error getting location", e)
-            return null
-        }
-    }
-
     private suspend fun getCurrentLocation(): Location? {
         val accuracy = Priority.PRIORITY_BALANCED_POWER_ACCURACY
 
@@ -76,7 +55,6 @@ class LocationManagerImpl(
                     accuracy,
                     CancellationTokenSource().token,
                 ).await()
-            updateLocationOnServer(location)
 
             return location
         } catch (e: SecurityException) {
@@ -89,11 +67,11 @@ class LocationManagerImpl(
     }
 
     private suspend fun updateLocationOnServer(location: Location?) {
-        val user = userManager.user.value ?: return
-
         if (location == null) {
             return
         }
+
+        val user = userManager.user.value ?: return
 
         if (requestManager.updateLocation(location.toUserLocation(user))) {
             FlamingoLogger.i("Location updated on server")
