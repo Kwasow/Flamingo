@@ -60,7 +60,7 @@ class RequestManagerImpl(
         private const val GET_ALBUMS_URL = "/api/albums/get"
 
         private const val GET_LOCATION_URL = "/api/location/get/partner"
-        private const val UPDATE_LOCATION_URL = "/api/location/get/self"
+        private const val UPDATE_LOCATION_URL = "/api/location/update"
     }
 
     private val client =
