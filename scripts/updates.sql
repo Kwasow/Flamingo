@@ -54,4 +54,5 @@ WHERE true;
 ALTER TABLE FirebaseTokens MODIFY COLUMN last_seen TIMESTAMP NOT NULL;
 ALTER TABLE FirebaseTokens DROP COLUMN time_stamp;
 
--- First snapshot release (after #60 merge)
+-- Release 2.4.0
+
