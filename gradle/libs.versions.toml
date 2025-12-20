@@ -1,8 +1,8 @@
 [versions]
 # ================== APP ================== #
 # Build details
-compileSdk = "35"
-targetSdk = "35"
+compileSdk = "36"
+targetSdk = "36"
 minSdk = "26"
 versionCode = "57"
 versionName = "2.4.1"
