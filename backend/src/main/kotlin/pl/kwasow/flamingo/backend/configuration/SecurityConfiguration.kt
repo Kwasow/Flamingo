@@ -21,7 +21,7 @@ class SecurityConfiguration(
             .csrf { it.disable() }
             .authorizeHttpRequests { auth ->
                 auth
-                    .requestMatchers("/ping")
+                    .requestMatchers("/ping", "/resources/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated()
