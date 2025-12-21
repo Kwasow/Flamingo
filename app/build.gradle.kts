@@ -84,10 +84,6 @@ android {
         buildConfig = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
-    }
-
     // Specify build flavors
     flavorDimensions += "version"
     productFlavors {

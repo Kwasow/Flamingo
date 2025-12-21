@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.net.Uri
+import androidx.core.net.toUri
 import coil.annotation.ExperimentalCoilApi
 import coil.imageLoader
 import kotlinx.serialization.json.Json
@@ -28,7 +28,7 @@ class SystemManagerImpl(
         val intent =
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}"),
+                "market://details?id=${BuildConfig.APPLICATION_ID}".toUri(),
             )
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
@@ -39,9 +39,8 @@ class SystemManagerImpl(
         val intent =
             Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse(
-                    "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}",
-                ),
+                "https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}"
+                    .toUri(),
             )
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
