@@ -28,7 +28,8 @@ fun PhotoView(
     val navigation = LocalFlamingoNavigation.current
 
     val imageRequest =
-        ImageRequest.Builder(context)
+        ImageRequest
+            .Builder(context)
             .data(uri)
             .diskCacheKey(uri)
             .memoryCacheKey(uri)

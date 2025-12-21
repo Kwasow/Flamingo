@@ -80,8 +80,7 @@ private fun AppDetails() {
                         start = 12.dp,
                         bottom = 12.dp,
                         end = 12.dp,
-                    )
-                    .aspectRatio(1f),
+                    ).aspectRatio(1f),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         ) {

@@ -177,13 +177,11 @@ private fun YearsGrid(
                     .background(
                         color = backgroundColor,
                         shape = MaterialTheme.shapes.small,
-                    )
-                    .border(
+                    ).border(
                         width = 1.dp,
                         color = borderColor,
                         shape = MaterialTheme.shapes.small,
-                    )
-                    .width(IntrinsicSize.Min)
+                    ).width(IntrinsicSize.Min)
                     .padding(8.dp)
             val modifier =
                 if (years.contains(year)) {

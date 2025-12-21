@@ -39,14 +39,16 @@ class PlaybackManagerImpl(
                 val trackId = audioManager.getTrackId(track)
 
                 val metadataBuilder =
-                    MediaMetadata.Builder()
+                    MediaMetadata
+                        .Builder()
                         .setTitle(track.title)
                         .setArtist(album.artist)
                         .setMediaType(MediaMetadata.MEDIA_TYPE_ALBUM)
                         .setArtworkUri(coverUri)
 
                 val mediaItemBuilder =
-                    MediaItem.Builder()
+                    MediaItem
+                        .Builder()
                         .setUri(trackUri)
                         .setMediaId(trackId)
                         .setMediaMetadata(metadataBuilder.build())

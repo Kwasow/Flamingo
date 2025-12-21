@@ -42,9 +42,7 @@ class UserManagerImpl(
     override val userFlow: Flow<User?> = user.asFlow()
 
     // ====== Public methods
-    override fun isUserLoggedIn(): Boolean {
-        return firebaseAuth.currentUser != null
-    }
+    override fun isUserLoggedIn(): Boolean = firebaseAuth.currentUser != null
 
     override suspend fun checkAuthorization(): Authorization = getAuthenticatedUser().authorization
 
@@ -94,14 +92,16 @@ class UserManagerImpl(
         onFailed: () -> Unit,
     ) {
         val googleIdOption =
-            GetGoogleIdOption.Builder()
+            GetGoogleIdOption
+                .Builder()
                 .setFilterByAuthorizedAccounts(filterAuthorizedAccounts)
                 .setServerClientId(BuildConfig.GOOGLE_WEB_CLIENT_ID)
                 .setAutoSelectEnabled(true)
                 .build()
 
         val request =
-            GetCredentialRequest.Builder()
+            GetCredentialRequest
+                .Builder()
                 .addCredentialOption(googleIdOption)
                 .build()
 
@@ -160,7 +160,8 @@ class UserManagerImpl(
                 .createFrom(credential.data)
         val idToken = googleIdTokenCredential.idToken
         val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-        firebaseAuth.signInWithCredential(firebaseCredential)
+        firebaseAuth
+            .signInWithCredential(firebaseCredential)
             .addOnCompleteListener { verifyFirebaseLogin(it, loginContext) }
     }
 

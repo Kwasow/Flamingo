@@ -51,10 +51,11 @@ class LocationManagerImpl(
 
         try {
             val location: Location? =
-                fusedLocationClient.getCurrentLocation(
-                    accuracy,
-                    CancellationTokenSource().token,
-                ).await()
+                fusedLocationClient
+                    .getCurrentLocation(
+                        accuracy,
+                        CancellationTokenSource().token,
+                    ).await()
 
             return location
         } catch (e: SecurityException) {

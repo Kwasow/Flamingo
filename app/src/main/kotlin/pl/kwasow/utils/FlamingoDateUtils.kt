@@ -24,7 +24,6 @@ object FlamingoDateUtils {
                 zonedDate.toEpochSecond() * 1000,
                 System.currentTimeMillis(),
                 DateUtils.MINUTE_IN_MILLIS,
-            )
-            .toString()
+            ).toString()
     }
 }

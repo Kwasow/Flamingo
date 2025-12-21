@@ -78,8 +78,8 @@ private fun DaysTogetherText(daysTogether: Long?) {
 
 private fun daysTogetherTransitionSpec(
     scope: AnimatedContentTransitionScope<Long?>,
-): ContentTransform {
-    return with(scope) {
+): ContentTransform =
+    with(scope) {
         val enterTransition = (
             fadeIn(animationSpec = tween(500)) +
                 slideIntoContainer(towards = AnimatedContentTransitionScope.SlideDirection.Down)
@@ -92,7 +92,6 @@ private fun daysTogetherTransitionSpec(
 
         enterTransition.togetherWith(exitTransition)
     }
-}
 
 // ====== Previews
 @Composable

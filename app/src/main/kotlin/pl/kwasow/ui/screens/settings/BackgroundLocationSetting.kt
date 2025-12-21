@@ -33,7 +33,8 @@ import pl.kwasow.R
 fun BackgroundLocationEntry() {
     val viewModel = koinViewModel<SettingsScreenViewModel>()
     val activity = LocalActivity.current
-    val lifecycleState by LocalLifecycleOwner.current.lifecycle.currentStateFlow.collectAsState()
+    val lifecycleState by LocalLifecycleOwner.current.lifecycle.currentStateFlow
+        .collectAsState()
     val allowLocationRequests by viewModel.allowLocationRequests.collectAsState(false)
     var showDialog by remember { mutableStateOf(false) }
 

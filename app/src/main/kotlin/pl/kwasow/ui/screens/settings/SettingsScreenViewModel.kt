@@ -24,17 +24,20 @@ class SettingsScreenViewModel(
     val allowLocationRequests = preferencesManager.allowLocationRequests
 
     val partnerName =
-        userManager.user.value?.partner?.firstName
+        userManager.user.value
+            ?.partner
+            ?.firstName
             ?: applicationContext.getString(R.string.partner)
 
     // ====== Methods
     fun freeUpMemory() {
         systemManager.clearCoilCache()
-        Toast.makeText(
-            applicationContext,
-            applicationContext.getString(R.string.settings_cache_cleared),
-            Toast.LENGTH_SHORT,
-        ).show()
+        Toast
+            .makeText(
+                applicationContext,
+                applicationContext.getString(R.string.settings_cache_cleared),
+                Toast.LENGTH_SHORT,
+            ).show()
     }
 
     fun signOut(onSuccess: () -> Unit) {

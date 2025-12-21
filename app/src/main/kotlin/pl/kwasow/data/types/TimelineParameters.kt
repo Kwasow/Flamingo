@@ -14,13 +14,12 @@ data class TimelineParameters(
 ) {
     companion object {
         @Composable
-        fun defaults(): TimelineParameters {
-            return TimelineParameters(
+        fun defaults(): TimelineParameters =
+            TimelineParameters(
                 MaterialTheme.colorScheme.primary,
                 MaterialTheme.colorScheme.onPrimary,
                 12.dp,
                 2.dp,
             )
-        }
     }
 }

@@ -9,7 +9,6 @@ import jakarta.persistence.Table
 import kotlinx.serialization.Serializable
 import pl.kwasow.flamingo.serializers.LocalDateSerializer
 import pl.kwasow.flamingo.types.user.User
-import pl.kwasow.flamingo.types.user.UserDto
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle

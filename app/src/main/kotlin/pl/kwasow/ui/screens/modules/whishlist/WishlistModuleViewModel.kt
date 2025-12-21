@@ -77,11 +77,12 @@ class WishlistModuleViewModel(
             if (wishlistManager.addWish(user.id, inputWishContent)) {
                 inputWishContent = ""
             } else {
-                Toast.makeText(
-                    applicationContext,
-                    R.string.module_wishlist_add_failed,
-                    Toast.LENGTH_SHORT,
-                ).show()
+                Toast
+                    .makeText(
+                        applicationContext,
+                        R.string.module_wishlist_add_failed,
+                        Toast.LENGTH_SHORT,
+                    ).show()
             }
 
             silentRefresh()
@@ -99,11 +100,12 @@ class WishlistModuleViewModel(
                 inputWishContent = ""
                 editedWish = null
             } else {
-                Toast.makeText(
-                    applicationContext,
-                    R.string.module_wishlist_update_failed,
-                    Toast.LENGTH_SHORT,
-                ).show()
+                Toast
+                    .makeText(
+                        applicationContext,
+                        R.string.module_wishlist_update_failed,
+                        Toast.LENGTH_SHORT,
+                    ).show()
             }
 
             silentRefresh()
@@ -136,11 +138,12 @@ class WishlistModuleViewModel(
         viewModelScope.launch {
             deletingWish = true
             if (!wishlistManager.removeWish(wish.id)) {
-                Toast.makeText(
-                    applicationContext,
-                    R.string.module_wishlist_remove_failed,
-                    Toast.LENGTH_SHORT,
-                ).show()
+                Toast
+                    .makeText(
+                        applicationContext,
+                        R.string.module_wishlist_remove_failed,
+                        Toast.LENGTH_SHORT,
+                    ).show()
             }
             wishToDelete = null
             silentRefresh()

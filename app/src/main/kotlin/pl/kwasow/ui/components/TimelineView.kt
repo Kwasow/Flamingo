@@ -68,8 +68,8 @@ private fun TimelineNode(
 private fun Modifier.drawTimeline(
     parameters: TimelineParameters,
     isLast: Boolean,
-): Modifier {
-    return drawBehind {
+): Modifier =
+    drawBehind {
         val circleRadiusPx = parameters.radius.toPx()
         val smallCircleRadiusPx = circleRadiusPx / 2
 
@@ -94,4 +94,3 @@ private fun Modifier.drawTimeline(
             )
         }
     }
-}

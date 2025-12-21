@@ -156,10 +156,11 @@ class AudioManagerImpl(
     @OptIn(androidx.media3.common.util.UnstableApi::class)
     private fun downloadTrack(track: AudioTrack) {
         val downloadRequest =
-            DownloadRequest.Builder(
-                getTrackId(track),
-                getTrackUri(track),
-            ).build()
+            DownloadRequest
+                .Builder(
+                    getTrackId(track),
+                    getTrackUri(track),
+                ).build()
 
         DownloadService.sendAddDownload(
             context,

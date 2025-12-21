@@ -26,7 +26,10 @@ class MemoriesWidgetViewModel(
         viewModelScope.launch {
             areMemoriesLoading = true
             photoMemories =
-                memoriesManager.getMemories().values.flatten()
+                memoriesManager
+                    .getMemories()
+                    .values
+                    .flatten()
                     .filter { it.photo != null }
             todayMemories = memoriesManager.getTodayMemories()
             if (leadingMemories.isEmpty()) {

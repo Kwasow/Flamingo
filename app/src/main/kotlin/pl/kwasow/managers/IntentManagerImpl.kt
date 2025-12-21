@@ -70,7 +70,8 @@ class IntentManagerImpl(
         val icon = IconCompat.createWithResource(context, details.icon)
 
         val shortcut =
-            ShortcutInfoCompat.Builder(context, details.id)
+            ShortcutInfoCompat
+                .Builder(context, details.id)
                 .setShortLabel(context.getString(details.label))
                 .setLongLabel(context.getString(details.label))
                 .setIcon(icon)

@@ -20,13 +20,25 @@ secrets {
 
 android {
     namespace = "pl.kwasow"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.compileSdk
+            .get()
+            .toInt()
 
     defaultConfig {
         applicationId = "pl.kwasow"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
-        versionCode = libs.versions.versionCode.get().toInt()
+        minSdk =
+            libs.versions.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.targetSdk
+                .get()
+                .toInt()
+        versionCode =
+            libs.versions.versionCode
+                .get()
+                .toInt()
         versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -165,7 +177,10 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = libs.google.libraries.protobuf.compiler.get().toString()
+        artifact =
+            libs.google.libraries.protobuf.compiler
+                .get()
+                .toString()
     }
 
     generateProtoTasks {
