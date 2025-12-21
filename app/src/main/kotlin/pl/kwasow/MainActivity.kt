@@ -21,9 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         setContent {
             FlamingoTheme {
-                KoinContext {
-                    App()
-                }
+                App()
             }
         }
     }

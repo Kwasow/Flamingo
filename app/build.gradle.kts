@@ -125,13 +125,16 @@ dependencies {
     implementation(libs.ktor.serialization.kotlinx.json)
 
     // Koin
-    implementation(libs.koin.compose.base)
-    implementation(libs.koin.compose.navigation)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.compose.navigation)
+    implementation(libs.koin.core)
 
     // Compose
     implementation(libs.compose.accompanist.permissions)
     implementation(libs.compose.livedata)
-    implementation(libs.compose.material)
+    implementation(libs.compose.material.icons.core)
+    implementation(libs.compose.material.icons.extended)
     implementation(libs.compose.material3)
     implementation(libs.compose.navigation)
     implementation(libs.compose.ui.base)
