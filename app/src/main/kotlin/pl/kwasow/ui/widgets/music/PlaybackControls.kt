@@ -22,7 +22,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
@@ -74,22 +73,12 @@ private fun PlaybackControls(
 
     val dismissState =
         rememberSwipeToDismissBoxState(
-            confirmValueChange = { newValue ->
-                if (
-                    newValue == SwipeToDismissBoxValue.StartToEnd ||
-                    newValue == SwipeToDismissBoxValue.EndToStart
-                ) {
-                    viewModel.stop()
-                }
-
-                // We always want to reset the state back to it's initial value
-                return@rememberSwipeToDismissBoxState false
-            },
             positionalThreshold = with(density) { { 150.dp.toPx() } },
         )
 
     SwipeToDismissBox(
         state = dismissState,
+        onDismiss = { viewModel.stop() },
         backgroundContent = {},
     ) {
         Card(

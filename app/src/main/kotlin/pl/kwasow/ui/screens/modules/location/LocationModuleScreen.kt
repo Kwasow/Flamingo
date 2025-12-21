@@ -76,7 +76,7 @@ private fun AppBar(
         onBackPressed = onBackPressed,
         modifier = Modifier.hazeEffect(state = hazeState, style = style),
         colors =
-            TopAppBarDefaults.centerAlignedTopAppBarColors(
+            TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
                 scrolledContainerColor = Color.Transparent,
             ),

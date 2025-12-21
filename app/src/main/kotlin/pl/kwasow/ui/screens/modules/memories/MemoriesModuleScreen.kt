@@ -89,7 +89,7 @@ private fun AppBar(
         title = stringResource(id = MemoriesModuleInfo.nameId),
         onBackPressed = onBackPressed,
         colors =
-            TopAppBarDefaults.centerAlignedTopAppBarColors(
+            TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
                 scrolledContainerColor = Color.Transparent,
             ),

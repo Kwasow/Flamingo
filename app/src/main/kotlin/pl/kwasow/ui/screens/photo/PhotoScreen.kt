@@ -47,7 +47,7 @@ private fun TopAppBar() {
     CenterAlignedTopAppBar(
         title = {},
         colors =
-            TopAppBarDefaults.centerAlignedTopAppBarColors(
+            TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
                 navigationIconContentColor = Color.White,
             ),
