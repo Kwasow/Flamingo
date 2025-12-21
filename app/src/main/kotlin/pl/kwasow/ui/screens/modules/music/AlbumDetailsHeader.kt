@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.DownloadDone
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -23,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -135,12 +137,8 @@ private fun AlbumActions(
             },
         ) {
             Icon(
-                painter =
-                    if (downloaded) {
-                        painterResource(id = R.drawable.ic_download_done)
-                    } else {
-                        painterResource(id = R.drawable.ic_download)
-                    },
+                imageVector =
+                    if (downloaded) Icons.Default.DownloadDone else Icons.Default.Download,
                 contentDescription = stringResource(id = R.string.contentDescription_download_icon),
             )
         }

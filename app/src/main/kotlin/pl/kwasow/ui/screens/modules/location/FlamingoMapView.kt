@@ -1,6 +1,5 @@
 package pl.kwasow.ui.screens.modules.location
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -11,6 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.MyLocation
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -22,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -34,7 +37,7 @@ import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.MarkerInfoWindowComposable
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.google.maps.android.compose.rememberMarkerState
+import com.google.maps.android.compose.rememberUpdatedMarkerState
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import org.koin.androidx.compose.koinViewModel
@@ -119,7 +122,7 @@ private fun CurrentLocationMarker(
         title = stringResource(id = R.string.module_location_your_location),
         lastSeen = location.lastSeen,
         icon = user?.icon?.details(),
-        fallbackIcon = R.drawable.ic_current_location,
+        fallbackIcon = Icons.Default.MyLocation,
     )
 }
 
@@ -135,7 +138,7 @@ private fun PersonMarker(
         lastSeen = location.lastSeen,
         // TODO: Fix this
         icon = user?.icon?.details() ?: UserIcon.SHEEP.details(),
-        fallbackIcon = R.drawable.ic_map_user_marker,
+        fallbackIcon = Icons.Default.LocationOn,
     )
 }
 
@@ -146,9 +149,9 @@ private fun FlamingoMarker(
     title: String,
     lastSeen: LocalDateTime,
     icon: UserIconDetails?,
-    @DrawableRes fallbackIcon: Int,
+    fallbackIcon: ImageVector,
 ) {
-    val markerState = rememberMarkerState(position = LatLng(latitude, longitude))
+    val markerState = rememberUpdatedMarkerState(position = LatLng(latitude, longitude))
 
     MarkerInfoWindowComposable(
         state = markerState,
@@ -184,7 +187,7 @@ private fun FlamingoMarker(
             }
         } else {
             Image(
-                painter = painterResource(id = fallbackIcon),
+                imageVector = fallbackIcon,
                 contentDescription = title,
                 modifier = Modifier.size(24.dp),
             )

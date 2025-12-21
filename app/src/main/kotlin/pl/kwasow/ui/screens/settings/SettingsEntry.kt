@@ -16,8 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,7 +27,7 @@ import pl.kwasow.data.types.ContentAlpha
 // ====== Public composables
 @Composable
 fun SettingsEntry(
-    icon: Painter,
+    icon: ImageVector,
     iconTint: Color = LocalContentColor.current,
     name: String,
     description: String = "",
@@ -61,12 +60,12 @@ fun SettingsEntry(
 // ====== Private composable
 @Composable
 private fun SettingIcon(
-    icon: Painter,
+    icon: ImageVector,
     name: String,
     tint: Color = LocalContentColor.current,
 ) {
     Icon(
-        icon,
+        imageVector = icon,
         contentDescription =
             stringResource(
                 id = R.string.contentDescription_settings_entry_icon,
@@ -109,7 +108,7 @@ private fun SettingName(
 @Composable
 private fun SettingsEntryPreview() {
     SettingsEntry(
-        icon = rememberVectorPainter(image = Icons.Outlined.Delete),
+        icon = Icons.Outlined.Delete,
         name = "Settings entry",
         description = "This is the setting description",
         onClick = {},
