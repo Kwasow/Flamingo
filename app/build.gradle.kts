@@ -10,7 +10,8 @@ plugins {
     alias(libs.plugins.google.protobuf)
     alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ktlint)
+
+    alias(libs.plugins.template.kotlin.lint)
 }
 
 secrets {

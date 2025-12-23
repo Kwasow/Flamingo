@@ -1,5 +1,3 @@
-import org.jlleitschuh.gradle.ktlint.KtlintExtension
-
 plugins {
     war
 
@@ -11,7 +9,7 @@ plugins {
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.manager)
 
-    alias(libs.plugins.ktlint)
+    alias(libs.plugins.template.kotlin.lint)
 }
 
 group = "pl.kwasow.flamingo"
@@ -84,8 +82,4 @@ tasks {
 
 tasks.war {
     archiveFileName = "api.war"
-}
-
-configure<KtlintExtension> {
-    version.set("1.5.0")
 }
