@@ -15,7 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -59,20 +58,20 @@ private fun SettingsSectionPreview() {
     ) {
         SettingsSection(title = "General") {
             SettingsEntry(
-                icon = rememberVectorPainter(image = Icons.Outlined.Add),
+                icon = Icons.Outlined.Add,
                 name = "Entry 1",
                 description = "This is the setting description",
                 onClick = {},
             )
             HorizontalDivider()
             SettingsEntry(
-                icon = rememberVectorPainter(image = Icons.Outlined.Add),
+                icon = Icons.Outlined.Add,
                 name = "Entry 2 (no description)",
                 onClick = {},
             )
             HorizontalDivider()
             SettingsEntry(
-                icon = rememberVectorPainter(image = Icons.Outlined.Add),
+                icon = Icons.Outlined.Add,
                 name = "Entry 3",
                 description =
                     "This is the setting description that is so long that it doesn't" +

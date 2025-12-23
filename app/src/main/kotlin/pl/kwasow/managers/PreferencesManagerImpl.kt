@@ -25,7 +25,8 @@ class PreferencesManagerImpl(
     // ====== Public methods
     override suspend fun setAllowLocationRequests(value: Boolean) {
         context.userPreferencesDataStore.updateData { currentPreferences ->
-            currentPreferences.toBuilder()
+            currentPreferences
+                .toBuilder()
                 .setAllowLocationRequests(value)
                 .build()
         }
@@ -33,7 +34,8 @@ class PreferencesManagerImpl(
 
     override suspend fun setLastFcmTokenSyncTimestamp(value: Long) {
         context.appStateDataStore.updateData { currentPreferences ->
-            currentPreferences.toBuilder()
+            currentPreferences
+                .toBuilder()
                 .setLastFcmTokenSync(value)
                 .build()
         }

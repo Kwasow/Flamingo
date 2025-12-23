@@ -95,8 +95,7 @@ private fun AlbumDetailsPhotoOverlay(album: Album) {
                                     Color.DarkGray,
                                 ),
                         ),
-                )
-                .padding(12.dp),
+                ).padding(12.dp),
     ) {
         Text(
             text = album.title,

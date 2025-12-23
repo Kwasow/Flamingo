@@ -16,13 +16,14 @@ import pl.kwasow.R
 import pl.kwasow.managers.FlamingoDownloadManager
 
 @UnstableApi
-class FlamingoDownloadService : DownloadService(
-    FOREGROUND_NOTIFICATION_ID,
-    DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
-    null,
-    -1,
-    -1,
-) {
+class FlamingoDownloadService :
+    DownloadService(
+        FOREGROUND_NOTIFICATION_ID,
+        DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
+        null,
+        -1,
+        -1,
+    ) {
     // ====== Fields
     companion object {
         private const val JOB_ID = 1
@@ -87,8 +88,8 @@ class FlamingoDownloadService : DownloadService(
     override fun getForegroundNotification(
         downloads: MutableList<Download>,
         notMetRequirements: Int,
-    ): Notification {
-        return flamingoDownloadManager.downloadNotificationHelper
+    ): Notification =
+        flamingoDownloadManager.downloadNotificationHelper
             .buildProgressNotification(
                 this,
                 R.drawable.ic_download,
@@ -97,5 +98,4 @@ class FlamingoDownloadService : DownloadService(
                 downloads,
                 notMetRequirements,
             )
-    }
 }

@@ -11,13 +11,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.PauseCircleOutline
+import androidx.compose.material.icons.filled.PlayCircleOutline
+import androidx.compose.material.icons.filled.SkipNext
+import androidx.compose.material.icons.filled.SkipPrevious
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
@@ -28,7 +32,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -70,22 +73,12 @@ private fun PlaybackControls(
 
     val dismissState =
         rememberSwipeToDismissBoxState(
-            confirmValueChange = { newValue ->
-                if (
-                    newValue == SwipeToDismissBoxValue.StartToEnd ||
-                    newValue == SwipeToDismissBoxValue.EndToStart
-                ) {
-                    viewModel.stop()
-                }
-
-                // We always want to reset the state back to it's initial value
-                return@rememberSwipeToDismissBoxState false
-            },
             positionalThreshold = with(density) { { 150.dp.toPx() } },
         )
 
     SwipeToDismissBox(
         state = dismissState,
+        onDismiss = { viewModel.stop() },
         backgroundContent = {},
     ) {
         Card(
@@ -161,7 +154,7 @@ private fun ButtonControls(modifier: Modifier = Modifier) {
     ) {
         IconButton(onClick = { viewModel.previous() }) {
             Icon(
-                painterResource(id = R.drawable.ic_previous),
+                imageVector = Icons.Default.SkipPrevious,
                 contentDescription =
                     stringResource(
                         id = R.string.contentDescription_previous_track_icon,
@@ -173,7 +166,7 @@ private fun ButtonControls(modifier: Modifier = Modifier) {
 
         IconButton(onClick = { viewModel.next() }) {
             Icon(
-                painterResource(id = R.drawable.ic_next),
+                imageVector = Icons.Default.SkipNext,
                 contentDescription =
                     stringResource(
                         id = R.string.contentDescription_next_track_icon,
@@ -199,7 +192,7 @@ private fun PlayPauseButton() {
         } else if (isPlaying == true) {
             IconButton(onClick = { viewModel.pause() }) {
                 Icon(
-                    painterResource(id = R.drawable.ic_pause),
+                    imageVector = Icons.Default.PauseCircleOutline,
                     contentDescription = stringResource(id = R.string.contentDescription_pause),
                     modifier = Modifier.fillMaxSize(),
                 )
@@ -207,7 +200,7 @@ private fun PlayPauseButton() {
         } else {
             IconButton(onClick = { viewModel.play() }) {
                 Icon(
-                    painterResource(id = R.drawable.ic_play),
+                    imageVector = Icons.Default.PlayCircleOutline,
                     contentDescription = stringResource(id = R.string.contentDescription_play),
                     modifier = Modifier.fillMaxSize(),
                 )

@@ -16,13 +16,12 @@ class AppViewModel(
     val missingYouUrl = intentManager.getMissingYouUrl()
 
     // ====== Public methods
-    fun getInitialRoute(): Any {
-        return if (userManager.isUserLoggedIn()) {
+    fun getInitialRoute(): Any =
+        if (userManager.isUserLoggedIn()) {
             HomeScreen
         } else {
             LoginScreen
         }
-    }
 
     fun runStartupTasks() {
         intentManager.setupShortcuts()

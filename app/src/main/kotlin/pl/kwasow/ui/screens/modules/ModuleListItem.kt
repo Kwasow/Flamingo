@@ -111,8 +111,7 @@ private fun ModuleIcon(
                 .background(
                     color = onColor,
                     shape = RoundedCornerShape(100f),
-                )
-                .padding(10.dp),
+                ).padding(10.dp),
     )
 }
 

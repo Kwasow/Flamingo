@@ -32,7 +32,7 @@ dependencies {
     // Spring framework
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-kotlin-serialization")
+    implementation("org.springframework.boot:spring-boot-starter-kotlinx-serialization-json")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-webmvc")
 

@@ -12,7 +12,9 @@ object HomeScreen
 object LoginScreen
 
 @Serializable
-data class PhotoScreen(val uri: String)
+data class PhotoScreen(
+    val uri: String,
+)
 
 @Serializable
 object SettingsScreen
@@ -25,7 +27,9 @@ object MemoriesScreen
 object MusicScreen
 
 @Serializable
-data class AlbumScreen(val albumUuid: String)
+data class AlbumScreen(
+    val albumUuid: String,
+)
 
 @Serializable
 object WishlistScreen

@@ -3,6 +3,7 @@ package pl.kwasow.ui.components
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -12,7 +13,6 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import pl.kwasow.R
@@ -25,7 +25,7 @@ fun FlamingoTopAppBar(
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
     actions: @Composable RowScope.() -> Unit = {},
-    colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = title) },
@@ -69,7 +69,7 @@ private fun FlamingoTopAppBarWithActionsPreview() {
         actions = {
             IconButton(onClick = {}) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_calendar),
+                    imageVector = Icons.Outlined.CalendarMonth,
                     contentDescription = stringResource(id = R.string.contentDescription_calendar),
                 )
             }

@@ -52,7 +52,8 @@ class NotificationManagerImpl(
         val pendingIntent = intentManager.buildPendingIntent(intent)
 
         val notification =
-            NotificationCompat.Builder(context, memoriesChannelInfo.channelId)
+            NotificationCompat
+                .Builder(context, memoriesChannelInfo.channelId)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.notification_memories_title))
                 .setContentText(context.getString(R.string.notification_memories_text))
@@ -70,7 +71,8 @@ class NotificationManagerImpl(
         val pendingIntent = intentManager.buildPendingIntent(intent)
 
         val notification =
-            NotificationCompat.Builder(context, missingYouChannelInfo.channelId)
+            NotificationCompat
+                .Builder(context, missingYouChannelInfo.channelId)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.module_missingyou_miss_you))
                 .setContentText(getRandomMissingYouText(context, senderName))
@@ -111,11 +113,10 @@ class NotificationManagerImpl(
     private fun getRandomMissingYouText(
         context: Context,
         senderName: String,
-    ): String {
-        return when ((0..2).random()) {
+    ): String =
+        when ((0..2).random()) {
             0 -> context.getString(R.string.notification_missingyou_title1, senderName)
             2 -> context.getString(R.string.notification_missingyou_title3, senderName)
             else -> context.getString(R.string.notification_missingyou_title2)
         }
-    }
 }

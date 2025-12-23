@@ -1,7 +1,7 @@
 package pl.kwasow.managers
 
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
+import com.google.firebase.Firebase
+import com.google.firebase.messaging.messaging
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.tasks.await
 

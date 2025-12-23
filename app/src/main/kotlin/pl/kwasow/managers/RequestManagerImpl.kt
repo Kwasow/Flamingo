@@ -120,19 +120,17 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun getMemories(): Map<Int, List<Memory>>? {
-        return makeAuthJsonRequest<MemoriesGetResponse>(
+    override suspend fun getMemories(): Map<Int, List<Memory>>? =
+        makeAuthJsonRequest<MemoriesGetResponse>(
             type = HttpMethod.Get,
             url = GET_MEMORIES_URL,
         )
-    }
 
-    override suspend fun getWishlist(): List<Wish>? {
-        return makeAuthJsonRequest<WishlistGetResponse>(
+    override suspend fun getWishlist(): List<Wish>? =
+        makeAuthJsonRequest<WishlistGetResponse>(
             type = HttpMethod.Get,
             url = GET_WISHLIST_URL,
         )
-    }
 
     override suspend fun addWish(wish: Wish): Boolean {
         val response =
@@ -169,19 +167,17 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun getAlbums(): List<Album>? {
-        return makeAuthJsonRequest<AlbumsGetResponse>(
+    override suspend fun getAlbums(): List<Album>? =
+        makeAuthJsonRequest<AlbumsGetResponse>(
             type = HttpMethod.Get,
             url = GET_ALBUMS_URL,
         )
-    }
 
-    override suspend fun getPartnerLocation(): UserLocation? {
-        return makeAuthJsonRequest<LocationGetResponse>(
+    override suspend fun getPartnerLocation(): UserLocation? =
+        makeAuthJsonRequest<LocationGetResponse>(
             type = HttpMethod.Get,
             url = GET_LOCATION_URL,
         )
-    }
 
     override suspend fun updateLocation(location: UserLocation): Boolean {
         val response =

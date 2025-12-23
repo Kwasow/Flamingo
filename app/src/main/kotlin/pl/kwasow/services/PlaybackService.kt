@@ -20,16 +20,17 @@ class PlaybackService : MediaSessionService() {
         super.onCreate()
 
         val cacheDataSourceFactory =
-            CacheDataSource.Factory()
+            CacheDataSource
+                .Factory()
                 .setCache(flamingoDownloadManager.downloadCache)
                 .setUpstreamDataSourceFactory(flamingoDownloadManager.sourceFactory)
                 .setCacheWriteDataSinkFactory(null)
         val player =
-            ExoPlayer.Builder(this)
+            ExoPlayer
+                .Builder(this)
                 .setMediaSourceFactory(
                     DefaultMediaSourceFactory(this).setDataSourceFactory(cacheDataSourceFactory),
-                )
-                .build()
+                ).build()
         mediaSession = MediaSession.Builder(this, player).build()
     }
 

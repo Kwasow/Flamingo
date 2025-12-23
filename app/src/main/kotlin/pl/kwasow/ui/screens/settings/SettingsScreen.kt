@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.Storefront
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -21,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -79,8 +80,7 @@ private fun AppDetails() {
                         start = 12.dp,
                         bottom = 12.dp,
                         end = 12.dp,
-                    )
-                    .aspectRatio(1f),
+                    ).aspectRatio(1f),
             colors = CardDefaults.cardColors(containerColor = Color.White),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         ) {
@@ -114,7 +114,7 @@ private fun GeneralSettingsSection() {
         HorizontalDivider()
 
         SettingsEntry(
-            icon = rememberVectorPainter(image = Icons.Outlined.Delete),
+            icon = Icons.Outlined.Delete,
             name = stringResource(id = R.string.settings_clear_cache),
             description = stringResource(id = R.string.settings_clear_cache_description),
             onClick = { viewModel.freeUpMemory() },
@@ -123,7 +123,7 @@ private fun GeneralSettingsSection() {
         HorizontalDivider()
 
         SettingsEntry(
-            icon = painterResource(id = R.drawable.ic_logout),
+            icon = Icons.AutoMirrored.Default.Logout,
             iconTint = MaterialTheme.colorScheme.error,
             name = stringResource(id = R.string.settings_logout),
             description = stringResource(id = R.string.settings_logout_description),
@@ -138,7 +138,7 @@ private fun InfoSettingsSection() {
 
     SettingsSection {
         SettingsEntry(
-            icon = painterResource(id = R.drawable.ic_store),
+            icon = Icons.Default.Storefront,
             name = stringResource(id = R.string.settings_play_store),
             description = stringResource(id = R.string.settings_play_store_description),
             onClick = { viewModel.launchStore() },

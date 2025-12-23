@@ -1,6 +1,6 @@
 package pl.kwasow.ui.screens.settings
 
-import android.app.Activity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -19,8 +19,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,8 +32,9 @@ import pl.kwasow.R
 @Composable
 fun BackgroundLocationEntry() {
     val viewModel = koinViewModel<SettingsScreenViewModel>()
-    val activity = LocalContext.current as Activity
-    val lifecycleState by LocalLifecycleOwner.current.lifecycle.currentStateFlow.collectAsState()
+    val activity = LocalActivity.current
+    val lifecycleState by LocalLifecycleOwner.current.lifecycle.currentStateFlow
+        .collectAsState()
     val allowLocationRequests by viewModel.allowLocationRequests.collectAsState(false)
     var showDialog by remember { mutableStateOf(false) }
 
@@ -51,7 +50,7 @@ fun BackgroundLocationEntry() {
     }
 
     SettingsEntry(
-        icon = rememberVectorPainter(image = Icons.Outlined.LocationOn),
+        icon = Icons.Outlined.LocationOn,
         name = stringResource(id = R.string.settings_location_sharing),
         description = stringResource(id = R.string.settings_location_sharing_description),
         onClick = onToggle,

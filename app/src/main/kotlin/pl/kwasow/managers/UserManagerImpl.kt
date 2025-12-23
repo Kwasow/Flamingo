@@ -12,10 +12,10 @@ import androidx.lifecycle.asFlow
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
+import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.auth
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -42,9 +42,7 @@ class UserManagerImpl(
     override val userFlow: Flow<User?> = user.asFlow()
 
     // ====== Public methods
-    override fun isUserLoggedIn(): Boolean {
-        return firebaseAuth.currentUser != null
-    }
+    override fun isUserLoggedIn(): Boolean = firebaseAuth.currentUser != null
 
     override suspend fun checkAuthorization(): Authorization = getAuthenticatedUser().authorization
 
@@ -94,14 +92,16 @@ class UserManagerImpl(
         onFailed: () -> Unit,
     ) {
         val googleIdOption =
-            GetGoogleIdOption.Builder()
+            GetGoogleIdOption
+                .Builder()
                 .setFilterByAuthorizedAccounts(filterAuthorizedAccounts)
                 .setServerClientId(BuildConfig.GOOGLE_WEB_CLIENT_ID)
                 .setAutoSelectEnabled(true)
                 .build()
 
         val request =
-            GetCredentialRequest.Builder()
+            GetCredentialRequest
+                .Builder()
                 .addCredentialOption(googleIdOption)
                 .build()
 
@@ -160,7 +160,8 @@ class UserManagerImpl(
                 .createFrom(credential.data)
         val idToken = googleIdTokenCredential.idToken
         val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
-        firebaseAuth.signInWithCredential(firebaseCredential)
+        firebaseAuth
+            .signInWithCredential(firebaseCredential)
             .addOnCompleteListener { verifyFirebaseLogin(it, loginContext) }
     }
 

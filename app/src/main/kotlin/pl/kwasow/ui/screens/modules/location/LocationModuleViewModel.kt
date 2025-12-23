@@ -44,6 +44,11 @@ class LocationModuleViewModel(
         }
     }
 
-    fun launchPermissionSettings(activity: Activity) =
+    fun launchPermissionSettings(activity: Activity?) {
+        if (activity == null) {
+            return
+        }
+
         permissionManager.launchPermissionSettings(activity)
+    }
 }

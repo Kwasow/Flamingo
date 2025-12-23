@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.Uri
 import androidx.annotation.OptIn
 import androidx.core.net.toUri
-import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.offline.DownloadRequest
 import androidx.media3.exoplayer.offline.DownloadService
 import kotlinx.coroutines.CoroutineScope
@@ -59,13 +58,11 @@ class AudioManagerImpl(
         val remoteUrl = "$ALBUMS_URL/${album.uuid}/${album.coverName}"
 
         return localFile?.toUri()
-            ?: Uri.parse(remoteUrl)
+            ?: remoteUrl.toUri()
     }
 
     override fun getTrackUri(track: AudioTrack): Uri =
-        Uri.parse(
-            "$ALBUMS_URL/${track.albumUuid}/${track.resourceName}",
-        )
+        "$ALBUMS_URL/${track.albumUuid}/${track.resourceName}".toUri()
 
     override fun getTrackId(track: AudioTrack): String = "${track.albumUuid}/${track.resourceName}"
 
@@ -89,7 +86,7 @@ class AudioManagerImpl(
         }
     }
 
-    @OptIn(UnstableApi::class)
+    @OptIn(androidx.media3.common.util.UnstableApi::class)
     override fun removeAlbum(album: Album) {
         val albumDirectory = File(context.filesDir, "$ALBUMS_PATH/${album.uuid}")
         albumDirectory.deleteRecursively()
@@ -104,7 +101,7 @@ class AudioManagerImpl(
         }
     }
 
-    @OptIn(UnstableApi::class)
+    @OptIn(androidx.media3.common.util.UnstableApi::class)
     override fun removeAllDownloads() {
         DownloadService.sendRemoveAllDownloads(
             context,
@@ -156,10 +153,11 @@ class AudioManagerImpl(
     @OptIn(androidx.media3.common.util.UnstableApi::class)
     private fun downloadTrack(track: AudioTrack) {
         val downloadRequest =
-            DownloadRequest.Builder(
-                getTrackId(track),
-                getTrackUri(track),
-            ).build()
+            DownloadRequest
+                .Builder(
+                    getTrackId(track),
+                    getTrackUri(track),
+                ).build()
 
         DownloadService.sendAddDownload(
             context,
