@@ -51,7 +51,7 @@ jobs:
     - name: Run ktlint
       run: ./gradlew :app:ktlintCheck
 
-  unit-test:
+  test:
     runs-on: ubuntu-latest
     permissions: read-all
     steps:
