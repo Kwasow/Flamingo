@@ -16,7 +16,7 @@ class CodeQLConventionPlugin : Plugin<Project> {
             apply(plugin = libs.plugins.detekt.get().pluginId)
 
             dependencies {
-                "implementation"(libs.detekt.plugins.ktlint)
+                "detektPlugins"(libs.detekt.plugins.ktlint)
             }
 
             extensions.configure<DetektExtension> {
