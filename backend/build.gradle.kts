@@ -3,13 +3,13 @@ plugins {
 
     alias(libs.plugins.kotlin.jpa)
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.spring)
 
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.manager)
 
     alias(libs.plugins.template.kotlin.lint)
+    alias(libs.plugins.template.kotlinx.serialization)
 }
 
 group = "pl.kwasow.flamingo"

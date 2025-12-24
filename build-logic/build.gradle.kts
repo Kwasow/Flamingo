@@ -19,6 +19,7 @@ kotlin {
 
 dependencies {
     implementation(libs.kotlin.gradlePlugin)
+    implementation(libs.kotlinx.serialization.gradlePlugin)
     implementation(libs.ktlint.gradlePlugin)
 
     // Allow using version catalog in convention plugins
@@ -30,6 +31,10 @@ gradlePlugin {
         register("kotlinLint") {
             id = libs.plugins.template.kotlin.lint.get().pluginId
             implementationClass = "KtlintConventionPlugin"
+        }
+        register("kotlinxSerialization") {
+            id = libs.plugins.template.kotlinx.serialization.get().pluginId
+            implementationClass = "KotlinxSerializationConventionPlugin"
         }
     }
 }

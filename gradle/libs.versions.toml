@@ -113,13 +113,13 @@ mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", versio
 # ================= TYPES ================= #
 jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "jakartaPersistence" }
 
-# ================= SHARED ================ #
+# =============== BUILD LOGIC ============= #
 detekt-plugins-ktlint = { group = "dev.detekt", name = "detekt-rules-ktlint-wrapper", version.ref = "detekt" }
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
 
-# =============== BUILD LOGIC ============= #
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlintPlugin" }
+kotlinx-serialization-gradlePlugin = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 
 [plugins]
 # ================== APP ================== #
@@ -141,7 +141,9 @@ spring-manager = { id = "io.spring.dependency-management", version.ref = "spring
 # ================ SHARED ================= #
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# ============== BUILD LOGIC ============== #
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPlugin" }
 
-# ========= BUILD LOGIC TEMPLATES ========= #
 template-kotlin-lint = { id = "template.kotlin.lint" }
+template-kotlinx-serialization = { id = "template.kotlinx.serialization" }

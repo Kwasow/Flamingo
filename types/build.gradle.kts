@@ -2,9 +2,9 @@ plugins {
     id("java-library")
 
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.kotlin.serialization)
 
     alias(libs.plugins.template.kotlin.lint)
+    alias(libs.plugins.template.kotlinx.serialization)
 }
 
 java {
@@ -19,6 +19,5 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.kotlin.serialization.json)
     implementation(libs.jakarta.persistence)
 }
