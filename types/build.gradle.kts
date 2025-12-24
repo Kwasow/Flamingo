@@ -3,6 +3,7 @@ plugins {
 
     alias(libs.plugins.kotlin.jvm)
 
+    alias(libs.plugins.template.kotlin.codeql)
     alias(libs.plugins.template.kotlin.lint)
     alias(libs.plugins.template.kotlinx.serialization)
 }

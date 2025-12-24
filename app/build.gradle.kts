@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.compose)
 
+    alias(libs.plugins.template.kotlin.codeql)
     alias(libs.plugins.template.kotlin.lint)
     alias(libs.plugins.template.kotlinx.serialization)
 }

@@ -18,6 +18,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(libs.detekt.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.kotlinx.serialization.gradlePlugin)
     implementation(libs.ktlint.gradlePlugin)
@@ -28,6 +29,10 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("kotlinCodeQL") {
+            id = libs.plugins.template.kotlin.codeql.get().pluginId
+            implementationClass = "CodeQLConventionPlugin"
+        }
         register("kotlinLint") {
             id = libs.plugins.template.kotlin.lint.get().pluginId
             implementationClass = "KtlintConventionPlugin"

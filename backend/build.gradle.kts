@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.spring.boot)
     alias(libs.plugins.spring.manager)
 
+    alias(libs.plugins.template.kotlin.codeql)
     alias(libs.plugins.template.kotlin.lint)
     alias(libs.plugins.template.kotlinx.serialization)
 }
