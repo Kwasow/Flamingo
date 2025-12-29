@@ -15,13 +15,9 @@ class CodeQLConventionPlugin : Plugin<Project> {
 
             apply(plugin = libs.plugins.detekt.get().pluginId)
 
-            dependencies {
-                "detektPlugins"(libs.detekt.plugins.ktlint)
-            }
-
             extensions.configure<DetektExtension> {
-                buildUponDefaultConfig.set(true)
-                allRules.set(false)
+                buildUponDefaultConfig.set(false)
+                config.setFrom(files("$rootDir/config/detekt.yml"))
             }
         }
     }
