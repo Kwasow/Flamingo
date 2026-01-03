@@ -2,7 +2,6 @@
 
 [![Android](https://github.com/Kwasow/Flamingo/actions/workflows/android.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/android.yml)
 [![Backend](https://github.com/Kwasow/Flamingo/actions/workflows/backend.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/backend.yml)
-[![CodeQL Advanced](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml/badge.svg)](https://github.com/Kwasow/Flamingo/actions/workflows/codeql.yml)
 
 **The backend is currently being rewritten to Spring Boot. The main branch contains
 the latest SNAPSHOT code. This version is unstable and may receive breaking changes
