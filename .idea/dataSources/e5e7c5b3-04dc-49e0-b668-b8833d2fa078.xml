@@ -3,29 +3,8 @@
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.54">
     <root id="1">
       <DefaultAuthPlugin>mysql_native_password</DefaultAuthPlugin>
-      <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
-      <Grants>flamingo|schema||flamingo-user||ALTER|G
-flamingo|schema||flamingo-user||ALTER ROUTINE|G
-flamingo|schema||flamingo-user||CREATE|G
-flamingo|schema||flamingo-user||CREATE ROUTINE|G
-flamingo|schema||flamingo-user||CREATE TEMPORARY TABLES|G
-flamingo|schema||flamingo-user||CREATE VIEW|G
-flamingo|schema||flamingo-user||DELETE|G
-flamingo|schema||flamingo-user||DELETE HISTORY|G
-flamingo|schema||flamingo-user||DROP|G
-flamingo|schema||flamingo-user||EVENT|G
-flamingo|schema||flamingo-user||EXECUTE|G
-flamingo|schema||flamingo-user||INDEX|G
-flamingo|schema||flamingo-user||INSERT|G
-flamingo|schema||flamingo-user||LOCK TABLES|G
-flamingo|schema||flamingo-user||REFERENCES|G
-flamingo|schema||flamingo-user||SELECT|G
-flamingo|schema||flamingo-user||SHOW CREATE ROUTINE|G
-flamingo|schema||flamingo-user||SHOW VIEW|G
-flamingo|schema||flamingo-user||TRIGGER|G
-flamingo|schema||flamingo-user||UPDATE|G</Grants>
-      <ServerVersion>12.0.2</ServerVersion>
+      <ServerVersion>12.1.2</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
