@@ -16,7 +16,8 @@ class CodeQLConventionPlugin : Plugin<Project> {
             apply(plugin = libs.plugins.delvelin.get().pluginId)
 
             extensions.configure<DetektExtension> {
-                buildUponDefaultConfig.set(false)
+                buildUponDefaultConfig.set(true)
+                allRules.set(false)
                 config.setFrom(files("$rootDir/config/detekt.yml"))
             }
         }

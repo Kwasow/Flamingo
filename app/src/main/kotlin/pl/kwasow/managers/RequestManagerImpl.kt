@@ -273,7 +273,7 @@ class RequestManagerImpl(
             )
             return request
         } catch (e: Exception) {
-            e.printStackTrace()
+            FlamingoLogger.e("Authenticated request failed", e)
             return null
         }
     }
@@ -311,7 +311,7 @@ class RequestManagerImpl(
             )
             return request
         } catch (e: Exception) {
-            e.printStackTrace()
+            FlamingoLogger.e("Request failed", e)
             return null
         }
     }
