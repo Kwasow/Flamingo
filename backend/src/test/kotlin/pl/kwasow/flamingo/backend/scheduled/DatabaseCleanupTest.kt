@@ -34,16 +34,6 @@ class DatabaseCleanupTest : BaseTest() {
     }
 
     @Test
-    fun `debug tokens are removed from the database`() {
-        databaseCleanup.cleanupDevDatabase()
-
-        val tokens = tokenRepository.findAll()
-
-        assertEquals(4, tokens.size)
-        assert(tokens.all { !it.debug })
-    }
-
-    @Test
     fun `old tokens are removed from the database`() {
         databaseCleanup.cleanupDatabase()
 

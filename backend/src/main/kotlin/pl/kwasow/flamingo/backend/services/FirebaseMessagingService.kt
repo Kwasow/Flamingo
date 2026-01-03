@@ -102,7 +102,7 @@ class FirebaseMessagingService(
         // TODO: Would this benefit for running Async and returning success immediately?
         val res = firebaseMessaging.sendEachForMulticast(message)
 
-        if (res.failureCount != 0) {
+        if (res != null && res.failureCount != 0) {
             logger.info("FCM multicast result: ${res.showFailed()}")
         }
 
