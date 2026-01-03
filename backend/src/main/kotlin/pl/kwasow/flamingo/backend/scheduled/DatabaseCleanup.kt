@@ -17,7 +17,7 @@ class DatabaseCleanup(
 
     // ====== Public methods
     @Transactional
-    //@Scheduled(cron = "0 0 1 * * *")
+//    @Scheduled(cron = "0 0 1 * * *")
     @Scheduled(cron = "0 * * * * *")
     fun cleanupDatabase() {
         logger.info("Database cleanup starting...")
@@ -25,16 +25,5 @@ class DatabaseCleanup(
         firebaseTokenService.deleteOldTokens()
 
         logger.info("Done")
-    }
-
-    @Transactional
-    //@Scheduled(cron = "0 0 1 6 * *")
-    @Scheduled(cron = "0 * * * * *")
-    fun cleanupDevDatabase() {
-        logger.info("[DEV] Database cleanup starting...")
-
-        firebaseTokenService.deleteDevTokens()
-
-        logger.info("[DEV] Done")
     }
 }
