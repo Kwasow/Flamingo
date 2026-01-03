@@ -18,7 +18,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.delvelin.gradlePlugin)
     implementation(libs.detekt.gradlePlugin)
     implementation(libs.kotlin.gradlePlugin)
     implementation(libs.kotlinx.serialization.gradlePlugin)

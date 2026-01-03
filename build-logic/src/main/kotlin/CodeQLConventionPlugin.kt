@@ -13,7 +13,6 @@ class CodeQLConventionPlugin : Plugin<Project> {
             val libs = the<LibrariesForLibs>()
 
             apply(plugin = libs.plugins.detekt.get().pluginId)
-            apply(plugin = libs.plugins.delvelin.get().pluginId)
 
             extensions.configure<DetektExtension> {
                 buildUponDefaultConfig.set(true)
