@@ -5,7 +5,7 @@ import com.google.firebase.messaging.MulticastMessage
 import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
-import pl.kwasow.flamingo.backend.extensions.prettyPrint
+import pl.kwasow.flamingo.backend.extensions.showFailed
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.messaging.MessagingKeys
@@ -101,7 +101,10 @@ class FirebaseMessagingService(
 
         // TODO: Would this benefit for running Async and returning success immediately?
         val res = firebaseMessaging.sendEachForMulticast(message)
-        logger.info("FCM multicast result: ${res.prettyPrint()}")
+
+        if (res.failureCount != 0) {
+            logger.info("FCM multicast result: ${res.showFailed()}")
+        }
 
         return true
     }

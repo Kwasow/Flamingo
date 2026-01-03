@@ -16,8 +16,7 @@ class DailyMemories(
     }
 
     // ====== Public methods
-//    @Scheduled(cron = "0 30 7 * * *")
-    @Scheduled(fixedRate = 5, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(cron = "0 30 7 * * *")
     fun sendNotifications() {
         logger.info("Sending daily notifications...")
 
