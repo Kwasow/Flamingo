@@ -48,6 +48,7 @@ springBoot = "4.0.1"
 springManager = "1.1.7"
 
 # ================ SHARED ================= #
+delvelin = "0.2.2-beta"
 detekt = "2.0.0-alpha.1"
 kotlin = "2.2.20"
 kotlinSerializationJson = "1.9.0"
@@ -116,6 +117,7 @@ jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persisten
 # =============== BUILD LOGIC ============= #
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
 
+delvelin-gradlePlugin = { group = "io.github.hangga.delvelin", name = "io.github.hangga.delvelin.gradle.plugin", version.ref = "delvelin" }
 detekt-gradlePlugin = { group = "dev.detekt", name = "dev.detekt.gradle.plugin", version.ref = "detekt"}
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlintPlugin" }
@@ -142,6 +144,7 @@ spring-manager = { id = "io.spring.dependency-management", version.ref = "spring
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 # ============== BUILD LOGIC ============== #
+delvelin = { id = "io.github.hangga.delvelin", version.ref = "delvelin" }
 detekt = { id = "dev.detekt", version.ref = "detekt" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPlugin" }
 

@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.gradle.internal.Actions.with
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.the
 
 class CodeQLConventionPlugin : Plugin<Project> {
@@ -14,6 +13,7 @@ class CodeQLConventionPlugin : Plugin<Project> {
             val libs = the<LibrariesForLibs>()
 
             apply(plugin = libs.plugins.detekt.get().pluginId)
+            apply(plugin = libs.plugins.delvelin.get().pluginId)
 
             extensions.configure<DetektExtension> {
                 buildUponDefaultConfig.set(false)
