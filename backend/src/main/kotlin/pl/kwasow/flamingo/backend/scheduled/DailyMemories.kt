@@ -4,7 +4,6 @@ import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import pl.kwasow.flamingo.backend.services.FirebaseMessagingService
-import java.util.concurrent.TimeUnit
 
 @Component
 class DailyMemories(
