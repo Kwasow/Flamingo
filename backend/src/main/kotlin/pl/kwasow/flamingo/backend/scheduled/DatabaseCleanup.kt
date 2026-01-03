@@ -3,6 +3,7 @@ package pl.kwasow.flamingo.backend.scheduled
 import org.slf4j.LoggerFactory
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import pl.kwasow.flamingo.backend.services.FirebaseTokenService
 
 @Component
@@ -15,7 +16,9 @@ class DatabaseCleanup(
     }
 
     // ====== Public methods
-    @Scheduled(cron = "0 0 1 * * *")
+    @Transactional
+    //@Scheduled(cron = "0 0 1 * * *")
+    @Scheduled(cron = "0 * * * * *")
     fun cleanupDatabase() {
         logger.info("Database cleanup starting...")
 
@@ -24,7 +27,9 @@ class DatabaseCleanup(
         logger.info("Done")
     }
 
-    @Scheduled(cron = "0 0 1 6 * *")
+    @Transactional
+    //@Scheduled(cron = "0 0 1 6 * *")
+    @Scheduled(cron = "0 * * * * *")
     fun cleanupDevDatabase() {
         logger.info("[DEV] Database cleanup starting...")
 
