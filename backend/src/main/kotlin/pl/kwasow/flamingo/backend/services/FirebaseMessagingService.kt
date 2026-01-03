@@ -3,7 +3,9 @@ package pl.kwasow.flamingo.backend.services
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.MulticastMessage
 import kotlinx.serialization.json.Json
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import pl.kwasow.flamingo.backend.extensions.showFailed
 import pl.kwasow.flamingo.types.location.UserLocation
 import pl.kwasow.flamingo.types.messaging.MessageType
 import pl.kwasow.flamingo.types.messaging.MessagingKeys
@@ -14,6 +16,11 @@ class FirebaseMessagingService(
     private val firebaseMessaging: FirebaseMessaging,
     private val firebaseTokenService: FirebaseTokenService,
 ) {
+    // ====== Fields
+    companion object {
+        private val logger = LoggerFactory.getLogger(FirebaseMessagingService::class.java)
+    }
+
     // ====== Public methods
     fun sendMissingYouMessage(user: User): Boolean {
         val partner = user.partner ?: return false
@@ -93,7 +100,11 @@ class FirebaseMessagingService(
                 .build()
 
         // TODO: Would this benefit for running Async and returning success immediately?
-        firebaseMessaging.sendEachForMulticast(message)
+        val res = firebaseMessaging.sendEachForMulticast(message)
+
+        if (res != null && res.failureCount != 0) {
+            logger.info("FCM multicast result: ${res.showFailed()}")
+        }
 
         return true
     }

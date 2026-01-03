@@ -254,3 +254,4 @@ INSERT INTO UserLocations VALUES (
     3.3,
     NOW()
 );
+

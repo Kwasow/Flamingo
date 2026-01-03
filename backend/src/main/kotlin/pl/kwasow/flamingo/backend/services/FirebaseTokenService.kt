@@ -44,6 +44,4 @@ class FirebaseTokenService(
 
         firebaseTokenRepository.deleteBeforeTimestamp(halfYearAgo)
     }
-
-    fun deleteDevTokens() = firebaseTokenRepository.deleteByDebug(true)
 }
