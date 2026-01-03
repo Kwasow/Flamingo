@@ -17,8 +17,7 @@ class DatabaseCleanup(
 
     // ====== Public methods
     @Transactional
-//    @Scheduled(cron = "0 0 1 * * *")
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     fun cleanupDatabase() {
         logger.info("Database cleanup starting...")
 
