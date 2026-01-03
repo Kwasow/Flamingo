@@ -14,6 +14,7 @@ import pl.kwasow.BuildConfig
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.flamingo.types.music.AudioTrack
 import pl.kwasow.services.FlamingoDownloadService
+import pl.kwasow.utils.FlamingoLogger
 import java.io.File
 import java.net.URL
 
@@ -134,6 +135,7 @@ class AudioManagerImpl(
                     albums.add(album)
                 } catch (e: Exception) {
                     // Remove corrupted downloads
+                    FlamingoLogger.e("Corrupted album metadata", e)
                     it.deleteRecursively()
                 }
             }

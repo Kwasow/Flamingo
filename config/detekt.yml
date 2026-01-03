@@ -1,0 +1,16 @@
+# Disable features that are handled by ktlint
+comments:
+  active: false
+
+complexity:
+  active: false
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: false
+
+naming:
+  active: false
+
+style:
+  active: false

@@ -1,4 +1,6 @@
 pluginManagement {
+    includeBuild("build-logic")
+
     repositories {
         google()
         mavenCentral()
@@ -16,5 +18,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Flamingo"
 include(":app")
-include(":types")
 include(":backend")
+include(":types")

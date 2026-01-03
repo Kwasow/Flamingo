@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.serialization)
 
     alias(libs.plugins.android.application)
     alias(libs.plugins.firebase.crashlytics)
@@ -10,7 +9,10 @@ plugins {
     alias(libs.plugins.google.protobuf)
     alias(libs.plugins.google.services)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.ktlint)
+
+    alias(libs.plugins.template.kotlin.codeql)
+    alias(libs.plugins.template.kotlin.lint)
+    alias(libs.plugins.template.kotlinx.serialization)
 }
 
 secrets {
@@ -124,7 +126,6 @@ dependencies {
 
     // Kotlin
     implementation(libs.kotlin.core)
-    implementation(libs.kotlin.serialization.json)
 
     // Ktor
     implementation(libs.ktor.client.android)

@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuthException
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
@@ -33,7 +34,7 @@ class FirebaseTokenFilter(
                 val user = userService.getUserByEmail(email)
 
                 if (user == null) {
-                    throw Exception("User not found")
+                    throw AuthenticationCredentialsNotFoundException("User not found")
                 } else {
                     val authentication =
                         UsernamePasswordAuthenticationToken(User(user), null, emptyList())
@@ -42,6 +43,12 @@ class FirebaseTokenFilter(
             } catch (_: FirebaseAuthException) {
                 SecurityContextHolder.clearContext()
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid Firebase Token")
+
+                return
+            } catch (_: AuthenticationCredentialsNotFoundException) {
+                SecurityContextHolder.clearContext()
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Not registered")
+
                 return
             } catch (e: Exception) {
                 SecurityContextHolder.clearContext()

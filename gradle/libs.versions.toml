@@ -48,7 +48,9 @@ springBoot = "4.0.1"
 springManager = "1.1.7"
 
 # ================ SHARED ================= #
-kotlin = "2.3.0"
+delvelin = "0.2.2-beta"
+detekt = "2.0.0-alpha.1"
+kotlin = "2.2.20"
 kotlinSerializationJson = "1.9.0"
 ktlintPlugin = "14.0.1"
 
@@ -112,8 +114,13 @@ mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", versio
 # ================= TYPES ================= #
 jakarta-persistence = { group = "jakarta.persistence", name = "jakarta.persistence-api", version.ref = "jakartaPersistence" }
 
-# ================= SHARED ================ #
+# =============== BUILD LOGIC ============= #
 kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinSerializationJson" }
+
+detekt-gradlePlugin = { group = "dev.detekt", name = "dev.detekt.gradle.plugin", version.ref = "detekt"}
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ktlint-gradlePlugin = { group = "org.jlleitschuh.gradle.ktlint", name = "org.jlleitschuh.gradle.ktlint.gradle.plugin", version.ref = "ktlintPlugin" }
+kotlinx-serialization-gradlePlugin = { group = "org.jetbrains.kotlin.plugin.serialization", name = "org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "kotlin" }
 
 [plugins]
 # ================== APP ================== #
@@ -124,7 +131,6 @@ google-protobuf = { id = "com.google.protobuf", version.ref = "googleProtobufPlu
 google-services = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPlugin" }
 
 # ================ SERVER ================= #
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -135,3 +141,11 @@ spring-manager = { id = "io.spring.dependency-management", version.ref = "spring
 
 # ================ SHARED ================= #
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+# ============== BUILD LOGIC ============== #
+detekt = { id = "dev.detekt", version.ref = "detekt" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintPlugin" }
+
+template-kotlin-codeql = { id = "template.kotlin.codeql" }
+template-kotlin-lint = { id = "template.kotlin.lint" }
+template-kotlinx-serialization = { id = "template.kotlinx.serialization" }
