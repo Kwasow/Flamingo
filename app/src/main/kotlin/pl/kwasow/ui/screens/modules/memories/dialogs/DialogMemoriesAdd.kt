@@ -5,8 +5,10 @@ import androidx.compose.material.icons.outlined.PostAdd
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import org.koin.androidx.compose.koinViewModel
+import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 import java.time.LocalDate
@@ -63,7 +65,7 @@ private fun AlertIcon() {
 @Composable
 private fun AlertTitle() {
     Text(
-        text = "Add memory (TODO)",
+        text = stringResource(id = R.string.module_memories_add_memory),
         textAlign = TextAlign.Center,
     )
 }

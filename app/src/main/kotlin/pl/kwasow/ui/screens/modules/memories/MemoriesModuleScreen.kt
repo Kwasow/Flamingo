@@ -35,6 +35,7 @@ import pl.kwasow.ui.components.FlamingoTopAppBar
 import pl.kwasow.ui.components.YearPickerDialog
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 import pl.kwasow.ui.screens.modules.memories.dialogs.DialogMemoriesAdd
+import pl.kwasow.ui.screens.modules.memories.dialogs.DialogMemoriesEdit
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
@@ -71,6 +72,7 @@ fun MemoriesModuleScreen() {
         }
 
         DialogMemoriesAdd()
+        DialogMemoriesEdit()
     }
 }
 

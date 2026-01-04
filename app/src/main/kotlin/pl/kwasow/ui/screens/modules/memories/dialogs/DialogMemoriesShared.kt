@@ -103,40 +103,39 @@ private fun AlertContent(
     }
 
     Column {
-        // Bigger title edit text
         OutlinedTextField(
             value = title,
             onValueChange = { title = it },
-            label = { Text("Title (TODO)") },
+            label = { Text(text = stringResource(id = R.string.module_memories_memory_title)) },
             singleLine = true,
         )
 
-        // Normal description edit text
         OutlinedTextField(
             value = description,
             onValueChange = { description = it },
-            label = { Text("Description (TODO)") },
+            label = {
+                Text(
+                    text = stringResource(id = R.string.module_memories_memory_description),
+                )
+            },
         )
 
-        // Normal photo edit text
         OutlinedTextField(
             value = photo,
             onValueChange = { photo = it },
-            label = { Text("Photo link (TODO)") },
+            label = { Text(text = stringResource(id = R.string.module_memories_memory_photo_url)) },
             singleLine = true,
         )
 
-        // Start date picker
         DatePicker(
-            label = "Start (TODO)",
+            label = stringResource(id = R.string.module_memories_memory_start_date),
             value = startDate,
             onPick = { it?.let { startDate = it } },
             onReset = { startDate = initialMemory.startDate },
         )
 
-        // End date picker
         DatePicker(
-            label = "End (TODO)",
+            label = stringResource(id = R.string.module_memories_memory_end_date),
             value = endDate,
             onPick = { endDate = it },
             onReset = { endDate = initialMemory.endDate },

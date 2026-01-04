@@ -26,7 +26,7 @@ class MemoriesModuleViewModel(
 
     var showYearPickerDialog: Boolean by mutableStateOf(false)
     var showAddMemoryDialog: Boolean by mutableStateOf(false)
-    var showEditMemoryDialog: Boolean by mutableStateOf(false)
+    var editedMemory: Memory? by mutableStateOf(null)
 
     // ====== Constructors
     init {
@@ -55,6 +55,10 @@ class MemoriesModuleViewModel(
     }
 
     fun addMemory(memory: Memory) {
-        println(Json.encodeToString(memory))
+        println("Saving: " + Json.encodeToString(memory))
+    }
+
+    fun updateMemory(memory: Memory) {
+        println("Updating: " + Json.encodeToString(memory))
     }
 }

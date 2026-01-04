@@ -5,22 +5,26 @@ import androidx.compose.material.icons.outlined.EditNote
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import org.koin.androidx.compose.koinViewModel
+import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 
 // ====== Public composables
-// @Composable
-// fun DialogMemoriesEdit() {
-//    val viewModel = koinViewModel<MemoriesModuleViewModel>()
-//
-//    if (viewModel.showEditMemoryDialog) {
-//        DialogMemoriesEdit(
-//            initialMemory = null,
-//            onConfirm = {},
-//            onCancel = { viewModel.showEditMemoryDialog = false },
-//        )
-//    }
-// }
+@Composable
+fun DialogMemoriesEdit() {
+    val viewModel = koinViewModel<MemoriesModuleViewModel>()
+
+    viewModel.editedMemory?.let { memory ->
+        DialogMemoriesEdit(
+            initialMemory = memory,
+            onConfirm = { viewModel.updateMemory(it) },
+            onCancel = { viewModel.editedMemory = null },
+        )
+    }
+}
 
 // ====== Private composables
 @Composable
@@ -49,7 +53,7 @@ private fun AlertIcon() {
 @Composable
 private fun AlertTitle() {
     Text(
-        text = "TODO",
+        text = stringResource(id = R.string.module_memories_update_memory),
         textAlign = TextAlign.Center,
     )
 }
