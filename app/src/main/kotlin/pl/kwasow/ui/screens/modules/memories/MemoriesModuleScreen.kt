@@ -143,6 +143,7 @@ private fun MainView(
 
             MemoriesTimeline(
                 memories = currentYearMemories,
+                onEdit = { viewModel.editedMemory = it },
                 modifier = Modifier.hazeSource(hazeState),
                 contentPadding = paddingValues,
             )

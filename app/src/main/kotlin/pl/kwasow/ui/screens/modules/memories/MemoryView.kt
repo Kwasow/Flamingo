@@ -1,13 +1,20 @@
 package pl.kwasow.ui.screens.modules.memories
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -24,22 +31,37 @@ import java.time.LocalDate
 @Composable
 fun MemoryView(
     memory: Memory,
+    onEdit: (Memory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
-        Text(
-            text = memory.title,
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 4.dp),
-        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Column {
+                Text(
+                    text = memory.title,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 4.dp),
+                )
 
-        Text(
-            text = memory.stringStartDate,
-            style = MaterialTheme.typography.labelMedium,
-            modifier = Modifier.padding(bottom = 8.dp),
-            color = Color.Gray,
-        )
+                Text(
+                    text = memory.stringStartDate,
+                    style = MaterialTheme.typography.labelMedium,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                    color = Color.Gray,
+                )
+            }
+
+            IconButton(
+                onClick = { onEdit(memory) },
+            ) {
+                Icon(imageVector = Icons.Outlined.Edit, contentDescription = "TODO")
+            }
+        }
 
         Text(text = memory.description)
 
@@ -83,5 +105,5 @@ private fun MemoryViewPreview() {
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
         )
 
-    MemoryView(memory)
+    MemoryView(memory, {})
 }
