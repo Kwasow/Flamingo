@@ -105,7 +105,7 @@ fun FlamingoMapView(
 
         val partnerLoc = partnerLocation.value
         if (partnerLoc != null) {
-            PersonMarker(location = partnerLoc, user = user.value)
+            PersonMarker(location = partnerLoc, user = user.value?.partner)
         }
     }
 }
