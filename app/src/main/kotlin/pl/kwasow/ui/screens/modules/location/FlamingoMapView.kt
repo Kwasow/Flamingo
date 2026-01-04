@@ -62,10 +62,10 @@ fun FlamingoMapView(
     val partnerLocation = viewModel.partnerLocation.observeAsState()
     val user = viewModel.user.collectAsState(null)
 
-    val warsaw = LatLng(52.229845, 21.0104188)
+    val default = LatLng(49.842972, 9.901899)
     val cameraPositionState =
         rememberCameraPositionState {
-            position = CameraPosition.fromLatLngZoom(warsaw, 10f)
+            position = CameraPosition.fromLatLngZoom(default, 1f)
         }
 
     LaunchedEffect(userLocation.value) {
@@ -105,7 +105,7 @@ fun FlamingoMapView(
 
         val partnerLoc = partnerLocation.value
         if (partnerLoc != null) {
-            PersonMarker(location = partnerLoc, user = user.value)
+            PersonMarker(location = partnerLoc, user = user.value?.partner)
         }
     }
 }
