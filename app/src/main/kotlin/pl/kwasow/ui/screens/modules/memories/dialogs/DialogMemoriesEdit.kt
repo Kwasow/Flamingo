@@ -6,13 +6,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.style.TextAlign
-import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.flamingo.types.memories.Memory
-import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 
 // ====== Public composables
-//@Composable
-//fun DialogMemoriesEdit() {
+// @Composable
+// fun DialogMemoriesEdit() {
 //    val viewModel = koinViewModel<MemoriesModuleViewModel>()
 //
 //    if (viewModel.showEditMemoryDialog) {
@@ -22,7 +20,7 @@ import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 //            onCancel = { viewModel.showEditMemoryDialog = false },
 //        )
 //    }
-//}
+// }
 
 // ====== Private composables
 @Composable

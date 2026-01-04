@@ -50,7 +50,7 @@ fun MemoriesModuleScreen() {
                 modifier = Modifier.hazeEffect(state = hazeState, style = style),
             )
         },
-        floatingActionButton = { FloatingActionButton() }
+        floatingActionButton = { FloatingActionButton() },
     ) { paddingValues ->
         MainView(
             paddingValues = paddingValues,
@@ -77,9 +77,7 @@ fun MemoriesModuleScreen() {
 // ====== Private composables
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AppBar(
-    modifier: Modifier = Modifier,
-) {
+private fun AppBar(modifier: Modifier = Modifier) {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
     val navigation = LocalFlamingoNavigation.current
 

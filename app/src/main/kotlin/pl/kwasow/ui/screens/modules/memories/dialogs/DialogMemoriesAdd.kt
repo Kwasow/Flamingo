@@ -18,7 +18,10 @@ fun DialogMemoriesAdd() {
 
     if (viewModel.showAddMemoryDialog) {
         DialogMemoriesAdd(
-            onConfirm = {},
+            onConfirm = {
+                viewModel.addMemory(it)
+                viewModel.showAddMemoryDialog = false
+            },
             onCancel = { viewModel.showAddMemoryDialog = false },
         )
     }
@@ -30,14 +33,15 @@ private fun DialogMemoriesAdd(
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
 ) {
-    val initialMemory = Memory(
-        id = null,
-        startDate = LocalDate.now(),
-        endDate = null,
-        title = "",
-        description = "",
-        photo = null,
-    )
+    val initialMemory =
+        Memory(
+            id = null,
+            startDate = LocalDate.now(),
+            endDate = null,
+            title = "",
+            description = "",
+            photo = null,
+        )
 
     DialogMemoriesShared(
         initialMemory = initialMemory,
