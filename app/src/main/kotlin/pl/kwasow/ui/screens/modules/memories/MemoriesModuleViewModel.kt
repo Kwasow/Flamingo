@@ -23,6 +23,10 @@ class MemoriesModuleViewModel(
     var memoriesLoaded: Boolean by mutableStateOf(false)
         private set
 
+    var showYearPickerDialog: Boolean by mutableStateOf(false)
+    var showAddMemoryDialog: Boolean by mutableStateOf(false)
+    var showEditMemoryDialog: Boolean by mutableStateOf(false)
+
     // ====== Constructors
     init {
         refreshMemories()

@@ -33,7 +33,7 @@ fun DeleteWishDialog() {
 
 // ====== Private composables
 @Composable
-fun DeleteWishDialog(
+private fun DeleteWishDialog(
     wish: Wish,
     buttonsEnabled: Boolean,
     onConfirm: () -> Unit,
@@ -59,7 +59,6 @@ fun DeleteWishDialog(
     )
 }
 
-// ====== Private composables
 @Composable
 private fun AlertIcon() {
     Icon(

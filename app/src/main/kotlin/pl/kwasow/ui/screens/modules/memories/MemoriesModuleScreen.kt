@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -15,10 +17,7 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,25 +34,23 @@ import pl.kwasow.ui.components.FlamingoBackgroundLight
 import pl.kwasow.ui.components.FlamingoTopAppBar
 import pl.kwasow.ui.components.YearPickerDialog
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
+import pl.kwasow.ui.screens.modules.memories.dialogs.DialogMemoriesAdd
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
 @Composable
 fun MemoriesModuleScreen() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
-    val navigation = LocalFlamingoNavigation.current
     val hazeState = remember { HazeState() }
     val style = HazeMaterials.ultraThin(MaterialTheme.colorScheme.surface)
-    var yearPickerOpen by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             AppBar(
-                onBackPressed = navigation.navigateBack,
-                onOpenYearPicker = { yearPickerOpen = true },
                 modifier = Modifier.hazeEffect(state = hazeState, style = style),
             )
         },
+        floatingActionButton = { FloatingActionButton() }
     ) { paddingValues ->
         MainView(
             paddingValues = paddingValues,
@@ -64,14 +61,16 @@ fun MemoriesModuleScreen() {
             YearPickerDialog(
                 years = viewModel.memories.keys,
                 currentYear = viewModel.currentYear,
-                isShowing = yearPickerOpen,
+                isShowing = viewModel.showYearPickerDialog,
                 onYearConfirmed = { year ->
                     viewModel.setSelectedYear(year)
-                    yearPickerOpen = false
+                    viewModel.showYearPickerDialog = false
                 },
-                onDismiss = { yearPickerOpen = false },
+                onDismiss = { viewModel.showYearPickerDialog = false },
             )
         }
+
+        DialogMemoriesAdd()
     }
 }
 
@@ -79,15 +78,14 @@ fun MemoriesModuleScreen() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar(
-    onBackPressed: () -> Unit,
-    onOpenYearPicker: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
+    val navigation = LocalFlamingoNavigation.current
 
     FlamingoTopAppBar(
         title = stringResource(id = MemoriesModuleInfo.nameId),
-        onBackPressed = onBackPressed,
+        onBackPressed = { navigation.navigateBack() },
         colors =
             TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.Transparent,
@@ -96,7 +94,7 @@ private fun AppBar(
         modifier = modifier,
         actions = {
             if (viewModel.memories.isNotEmpty()) {
-                IconButton(onClick = onOpenYearPicker) {
+                IconButton(onClick = { viewModel.showYearPickerDialog = true }) {
                     Icon(
                         imageVector = Icons.Outlined.CalendarMonth,
                         contentDescription =
@@ -109,6 +107,19 @@ private fun AppBar(
             }
         },
     )
+}
+
+@Composable
+private fun FloatingActionButton() {
+    val viewModel = koinViewModel<MemoriesModuleViewModel>()
+
+    FloatingActionButton(
+        onClick = { viewModel.showAddMemoryDialog = true },
+        containerColor = MaterialTheme.colorScheme.primary,
+        contentColor = MaterialTheme.colorScheme.onPrimary,
+    ) {
+        Icon(imageVector = Icons.Outlined.Add, contentDescription = "TODO")
+    }
 }
 
 @Composable
