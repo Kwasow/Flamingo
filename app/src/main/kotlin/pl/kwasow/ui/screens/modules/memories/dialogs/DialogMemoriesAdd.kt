@@ -59,7 +59,7 @@ private fun AlertIcon() {
 @Composable
 private fun AlertTitle() {
     Text(
-        text = "TODO",
+        text = "Add memory (TODO)",
         textAlign = TextAlign.Center,
     )
 }
