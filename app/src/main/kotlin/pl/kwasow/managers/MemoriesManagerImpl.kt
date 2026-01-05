@@ -43,4 +43,8 @@ class MemoriesManagerImpl(
 
         return todayMemories
     }
+
+    override suspend fun addMemory(memory: Memory): Boolean = requestManager.addMemory(memory)
+
+    override suspend fun updateMemory(memory: Memory): Boolean = requestManager.updateMemory(memory)
 }

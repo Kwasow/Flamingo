@@ -19,6 +19,7 @@ fun UndecoratedTextField(
     modifier: Modifier = Modifier,
     hint: String = "",
     singleLine: Boolean = false,
+    textStyle: TextStyle = TextStyle.Default.copy(fontSize = 16.sp),
 ) {
     BasicTextField(
         value = value,
@@ -40,7 +41,7 @@ fun UndecoratedTextField(
                 },
         singleLine = singleLine,
         keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
-        textStyle = TextStyle.Default.copy(fontSize = 16.sp),
+        textStyle = textStyle,
         decorationBox = { innerTextField ->
             if (value.isEmpty()) {
                 Text(

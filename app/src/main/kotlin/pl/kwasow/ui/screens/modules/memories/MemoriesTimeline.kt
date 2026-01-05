@@ -22,6 +22,7 @@ import java.time.LocalDate
 @Composable
 fun MemoriesTimeline(
     memories: List<Memory>,
+    onEdit: (Memory) -> Unit,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
@@ -37,6 +38,7 @@ fun MemoriesTimeline(
     ) { memory, innerModifier ->
         MemoryView(
             memory = memory,
+            onEdit = onEdit,
             modifier = innerModifier,
         )
     }
@@ -76,7 +78,7 @@ private fun MemoriesTimelinePreview() {
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
         )
 
-    MemoriesTimeline(memories = listOf(memory, memory, memory))
+    MemoriesTimeline(memories = listOf(memory, memory, memory), onEdit = {})
 }
 
 @Preview

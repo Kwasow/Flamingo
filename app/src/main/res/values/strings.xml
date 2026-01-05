@@ -42,6 +42,16 @@
     <!-- Module: Memories -->
     <string name="module_memories_name">Memories</string>
     <string name="module_memories_no_memories">Failed to load memories</string>
+    <string name="module_memories_add_memory">Add memory</string>
+    <string name="module_memories_update_memory">Update memory</string>
+    <string name="module_memories_memory_title">Title</string>
+    <string name="module_memories_memory_description">Description</string>
+    <string name="module_memories_memory_photo_url">Photo URL (optional)</string>
+    <string name="module_memories_memory_start_date">Start</string>
+    <string name="module_memories_memory_end_date">End (optional)</string>
+    <string name="module_memories_memory_title_empty_error">Memory title cannot be empty</string>
+    <string name="module_memories_memory_end_before_start_error">End cannot be before start</string>
+    <string name="module_memories_memory_saving_failed">Failed saving changes</string>
 
     <!-- Widget: Memories -->
     <string name="widget_memories_no_memories">No memories to show\nLove you ❤️</string>
@@ -123,4 +133,9 @@
     <string name="contentDescription_three_dot_menu">Menu</string>
     <string name="contentDescription_refresh">Refresh</string>
     <string name="contentDescription_location">Location</string>
+    <string name="contentDescription_photo_icon">Photo</string>
+    <string name="contentDescription_title_icon">Title</string>
+    <string name="contentDescription_description_icon">Description</string>
+    <string name="contentDescription_reset_date_icon">Reset date</string>
+    <string name="contentDescription_close">Close</string>
 </resources>

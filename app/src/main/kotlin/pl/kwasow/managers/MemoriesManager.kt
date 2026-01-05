@@ -7,4 +7,8 @@ interface MemoriesManager {
     suspend fun getMemories(forceRefresh: Boolean = false): Map<Int, List<Memory>>
 
     suspend fun getTodayMemories(): List<Memory>
+
+    suspend fun addMemory(memory: Memory): Boolean
+
+    suspend fun updateMemory(memory: Memory): Boolean
 }

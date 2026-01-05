@@ -51,6 +51,8 @@ class RequestManagerImpl(
         private const val POST_UPDATE_FCM_TOKEN_URL = "/api/messaging/updateFcmToken"
 
         private const val GET_MEMORIES_URL = "/api/memories/get"
+        private const val ADD_MEMORIES_URL = "/api/memories/add"
+        private const val UPDATE_MEMORIES_URL = "/api/memories/update"
 
         private const val GET_WISHLIST_URL = "/api/wishlist/get"
         private const val ADD_WISHLIST_URL = "/api/wishlist/add"
@@ -112,7 +114,7 @@ class RequestManagerImpl(
     override suspend fun sendMissingYouMessage(): Boolean {
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                method = HttpMethod.Post,
                 url = POST_MESSAGE_URL,
                 body = MessageType.MISSING_YOU,
             )
@@ -126,6 +128,28 @@ class RequestManagerImpl(
             url = GET_MEMORIES_URL,
         )
 
+    override suspend fun addMemory(memory: Memory): Boolean {
+        val response =
+            makeAuthRequest(
+                method = HttpMethod.Post,
+                url = ADD_MEMORIES_URL,
+                body = memory,
+            )
+
+        return response?.status == HttpStatusCode.OK
+    }
+
+    override suspend fun updateMemory(memory: Memory): Boolean {
+        val response =
+            makeAuthRequest(
+                method = HttpMethod.Post,
+                url = UPDATE_MEMORIES_URL,
+                body = memory,
+            )
+
+        return response?.status == HttpStatusCode.OK
+    }
+
     override suspend fun getWishlist(): List<Wish>? =
         makeAuthJsonRequest<WishlistGetResponse>(
             type = HttpMethod.Get,
@@ -135,7 +159,7 @@ class RequestManagerImpl(
     override suspend fun addWish(wish: Wish): Boolean {
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                method = HttpMethod.Post,
                 url = ADD_WISHLIST_URL,
                 body = wish,
             )
@@ -146,7 +170,7 @@ class RequestManagerImpl(
     override suspend fun updateWish(wish: Wish): Boolean {
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                method = HttpMethod.Post,
                 url = UPDATE_WISHLIST_URL,
                 body = wish,
             )
@@ -159,7 +183,7 @@ class RequestManagerImpl(
 
         val response =
             makeAuthRequest(
-                type = HttpMethod.Delete,
+                method = HttpMethod.Delete,
                 url = REMOVE_WISHLIST_URL,
                 body = body,
             )
@@ -182,7 +206,7 @@ class RequestManagerImpl(
     override suspend fun updateLocation(location: UserLocation): Boolean {
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                method = HttpMethod.Post,
                 url = UPDATE_LOCATION_URL,
                 body = location,
             )
@@ -195,7 +219,7 @@ class RequestManagerImpl(
 
         val response =
             makeAuthRequest(
-                type = HttpMethod.Post,
+                method = HttpMethod.Post,
                 url = POST_UPDATE_FCM_TOKEN_URL,
                 body = body,
             )
@@ -235,7 +259,7 @@ class RequestManagerImpl(
     }
 
     private suspend fun makeAuthRequest(
-        type: HttpMethod,
+        method: HttpMethod,
         url: String,
         body: Any? = null,
         parameters: Map<String, String>? = null,
@@ -245,7 +269,7 @@ class RequestManagerImpl(
         try {
             val request =
                 client.request {
-                    method = type
+                    this.method = method
 
                     url {
                         protocol = URLProtocol.HTTPS
