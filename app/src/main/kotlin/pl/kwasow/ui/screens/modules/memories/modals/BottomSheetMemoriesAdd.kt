@@ -10,27 +10,11 @@ import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 import java.time.LocalDate
 
 // ====== Public composables
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetMemoriesAdd() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
-    if (viewModel.showAddMemoryDialog) {
-        BottomSheetMemoriesAdd(
-            onConfirm = { viewModel.addMemory(it) },
-            onCancel = { viewModel.closeDialogs() },
-            error = viewModel.savingError,
-        )
-    }
-}
-
-// ====== Private composables
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun BottomSheetMemoriesAdd(
-    onConfirm: (Memory) -> Unit,
-    onCancel: () -> Unit,
-    error: Boolean,
-) {
     val initialMemory =
         Memory(
             id = null,
@@ -41,11 +25,14 @@ private fun BottomSheetMemoriesAdd(
             photo = null,
         )
 
-    BottomSheetMemoriesShared(
-        initialMemory = initialMemory,
-        title = stringResource(id = R.string.module_memories_add_memory),
-        onConfirm = onConfirm,
-        onCancel = onCancel,
-        error = error,
-    )
+    if (viewModel.showAddMemoryDialog) {
+        BottomSheetMemoriesShared(
+            initialMemory = initialMemory,
+            title = stringResource(id = R.string.module_memories_add_memory),
+            onConfirm = { viewModel.addMemory(it) },
+            onCancel = { viewModel.closeDialogs() },
+            isSaving = viewModel.isSaving,
+            isError = viewModel.savingError,
+        )
+    }
 }

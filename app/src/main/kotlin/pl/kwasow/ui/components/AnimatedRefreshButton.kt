@@ -1,8 +1,10 @@
 package pl.kwasow.ui.components
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
@@ -26,24 +28,22 @@ fun AnimatedRefreshButton(
         onClick = onRefresh,
         enabled = !isRefreshing,
     ) {
-        AnimatedVisibility(
-            visible = isRefreshing,
-            enter = fadeIn(),
-            exit = fadeOut(),
-        ) {
-            LoadingView(modifier = Modifier.padding(8.dp))
-        }
-
-        AnimatedVisibility(
-            visible = !isRefreshing,
-            enter = fadeIn(),
-            exit = fadeOut(),
-        ) {
-            Icon(
-                imageVector = Icons.Default.Refresh,
-                contentDescription = stringResource(id = R.string.contentDescription_refresh),
-                tint = MaterialTheme.colorScheme.onSurface,
-            )
+        AnimatedContent(
+            targetState = isRefreshing,
+            transitionSpec = {
+                fadeIn(animationSpec = tween(220, delayMillis = 90))
+                    .togetherWith(fadeOut(animationSpec = tween(90)))
+            },
+        ) { isRefreshing ->
+            if (isRefreshing) {
+                LoadingView(modifier = Modifier.padding(8.dp))
+            } else {
+                Icon(
+                    imageVector = Icons.Default.Refresh,
+                    contentDescription = stringResource(id = R.string.contentDescription_refresh),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+            }
         }
     }
 }

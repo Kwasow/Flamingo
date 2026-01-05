@@ -29,7 +29,6 @@ import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.getSelectedDate
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -49,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.ui.components.AnimatedSaveButton
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -61,7 +61,8 @@ fun BottomSheetMemoriesShared(
     title: String,
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
-    error: Boolean,
+    isSaving: Boolean,
+    isError: Boolean,
     sheetState: SheetState = rememberModalBottomSheetState(),
 ) {
     var memoryValid by remember { mutableStateOf(true) }
@@ -75,10 +76,11 @@ fun BottomSheetMemoriesShared(
             title = title,
             onSave = { onConfirm(newMemory) },
             onCancel = onCancel,
+            isSaving = isSaving,
             enabled = memoryValid,
         )
 
-        ErrorMessage(enabled = error)
+        ErrorMessage(enabled = isError)
 
         MainContent(
             initialMemory = initialMemory,
@@ -96,6 +98,7 @@ private fun TitleBar(
     title: String,
     onSave: () -> Unit,
     onCancel: () -> Unit,
+    isSaving: Boolean,
     enabled: Boolean,
 ) {
     Row(
@@ -121,12 +124,11 @@ private fun TitleBar(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        TextButton(
-            onClick = onSave,
-            enabled = enabled,
-        ) {
-            Text(text = stringResource(id = R.string.save))
-        }
+        AnimatedSaveButton(
+            onSave = onSave,
+            isSaving = isSaving,
+            isEnabled = enabled,
+        )
     }
 }
 
@@ -247,7 +249,7 @@ private fun MainContent(
                 onValueChange = {
                     it?.let {
                         startDate = it
-                        endDateValid = endDate != null && it.isBefore(endDate)
+                        endDateValid = endDate == null || it.isBefore(endDate)
                     }
                 },
                 modifier = Modifier.weight(1f).padding(end = 6.dp),
@@ -258,7 +260,7 @@ private fun MainContent(
                 label = stringResource(id = R.string.module_memories_memory_end_date),
                 onValueChange = {
                     endDate = it
-                    endDateValid = it != null && startDate.isBefore(it)
+                    endDateValid = it == null || startDate.isBefore(it)
                 },
                 isError = !endDateValid,
                 modifier = Modifier.weight(1f).padding(start = 6.dp),
@@ -414,7 +416,8 @@ private fun BottomSheetMemoriesSharedEmptyMemoryPreview() {
         onConfirm = {},
         onCancel = {},
         sheetState = sheetState,
-        error = false,
+        isSaving = false,
+        isError = false,
     )
 }
 
@@ -442,7 +445,37 @@ private fun BottomSheetMemoriesSharedCorrectMemoryPreview() {
         onConfirm = {},
         onCancel = {},
         sheetState = sheetState,
-        error = false,
+        isSaving = false,
+        isError = false,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+private fun BottomSheetMemoriesSharedSavingPreview() {
+    val initialMemory =
+        Memory(
+            id = null,
+            startDate = LocalDate.now(),
+            endDate = null,
+            title = "This is a title",
+            description = "Some description",
+            photo = null,
+        )
+    val sheetState =
+        rememberStandardBottomSheetState(
+            initialValue = SheetValue.Expanded,
+        )
+
+    BottomSheetMemoriesShared(
+        initialMemory = initialMemory,
+        title = "Adding memory",
+        onConfirm = {},
+        onCancel = {},
+        sheetState = sheetState,
+        isSaving = true,
+        isError = false,
     )
 }
 
@@ -470,6 +503,7 @@ private fun BottomSheetMemoriesSharedErrorSavingPreview() {
         onConfirm = {},
         onCancel = {},
         sheetState = sheetState,
-        error = true,
+        isSaving = false,
+        isError = true,
     )
 }
