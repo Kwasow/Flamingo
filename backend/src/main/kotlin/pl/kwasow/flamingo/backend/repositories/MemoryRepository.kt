@@ -5,7 +5,5 @@ import pl.kwasow.flamingo.types.memories.MemoryDto
 
 interface MemoryRepository : JpaRepository<MemoryDto, Int> {
     // ====== Public methods
-    fun findByCoupleId(coupleId: Int): List<MemoryDto>
-
     fun findByCoupleIdOrderByStartDate(coupleId: Int): List<MemoryDto>
 }
