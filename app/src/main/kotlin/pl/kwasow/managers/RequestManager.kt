@@ -14,7 +14,7 @@ interface RequestManager {
 
     suspend fun sendMissingYouMessage(): Boolean
 
-    suspend fun getMemories(): Map<Int, List<Memory>>?
+    suspend fun getMemories(): List<Memory>?
 
     suspend fun addMemory(memory: Memory): Boolean
 

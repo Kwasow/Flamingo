@@ -51,7 +51,7 @@ val managersModule =
         }
 
         single<MemoriesManager> {
-            MemoriesManagerImpl(get(), get())
+            MemoriesManagerImpl(get(), get(), get())
         }
 
         single<MessagingManager> {

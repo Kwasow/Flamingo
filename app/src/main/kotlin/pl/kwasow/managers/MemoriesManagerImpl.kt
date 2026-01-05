@@ -6,6 +6,7 @@ import java.time.LocalDate
 class MemoriesManagerImpl(
     private val requestManager: RequestManager,
     private val systemManager: SystemManager,
+    private val userManager: UserManager,
 ) : MemoriesManager {
     // ====== Fields
     private var cachedMemories: Map<Int, List<Memory>>? = null
@@ -18,7 +19,7 @@ class MemoriesManagerImpl(
 
         val memories =
             cachedMemories
-                ?: requestManager.getMemories()
+                ?: loadMemoriesFromServer()
                 ?: systemManager.getCachedMemories()
         systemManager.cacheMemories(memories)
         cachedMemories = memories
@@ -47,4 +48,26 @@ class MemoriesManagerImpl(
     override suspend fun addMemory(memory: Memory): Boolean = requestManager.addMemory(memory)
 
     override suspend fun updateMemory(memory: Memory): Boolean = requestManager.updateMemory(memory)
+
+    // ====== Private methods
+    private suspend fun loadMemoriesFromServer(): Map<Int, List<Memory>>? {
+        val memories = requestManager.getMemories() ?: return null
+        val anniversary =
+            userManager.user.value
+                ?.couple
+                ?.anniversary ?: return null
+
+        return memories.groupBy { memory ->
+            val startDate = memory.startDate
+
+            if (
+                startDate.month <= anniversary.month &&
+                startDate.dayOfMonth < anniversary.dayOfMonth
+            ) {
+                startDate.year - 1
+            } else {
+                startDate.year
+            }
+        }
+    }
 }

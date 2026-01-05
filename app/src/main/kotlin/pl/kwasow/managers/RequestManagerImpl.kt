@@ -122,7 +122,7 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun getMemories(): Map<Int, List<Memory>>? =
+    override suspend fun getMemories(): List<Memory>? =
         makeAuthJsonRequest<MemoriesGetResponse>(
             type = HttpMethod.Get,
             url = GET_MEMORIES_URL,
