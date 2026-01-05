@@ -23,17 +23,19 @@ class MemoriesModuleViewModel(
     var memoriesLoaded: Boolean by mutableStateOf(false)
         private set
 
-    var isSaving: Boolean by mutableStateOf(false)
+    // User for add/update/delete
+    var isOperationRunning: Boolean by mutableStateOf(false)
         private set
-    var savingError: Boolean by mutableStateOf(false)
+    var operationError: Boolean by mutableStateOf(false)
         private set
+
     var showYearPickerDialog: Boolean by mutableStateOf(false)
         private set
     var showAddMemoryDialog: Boolean by mutableStateOf(false)
         private set
-    var editedMemory: Memory? by mutableStateOf(null)
+    var memoryToEdit: Memory? by mutableStateOf(null)
         private set
-    var deletedMemory: Memory? by mutableStateOf(null)
+    var memoryToDelete: Memory? by mutableStateOf(null)
         private set
 
     // ====== Constructors
@@ -70,56 +72,75 @@ class MemoriesModuleViewModel(
         currentYear = year
     }
 
-    fun closeDialogs() {
-        savingError = false
-
-        showAddMemoryDialog = false
-        editedMemory = null
-    }
-
     fun startAddingMemory() {
         showAddMemoryDialog = true
     }
 
     fun addMemory(memory: Memory) {
         viewModelScope.launch {
-            isSaving = true
+            isOperationRunning = true
 
             if (memoriesManager.addMemory(memory)) {
-                closeDialogs()
+                closeAddMemoryDialog()
                 refreshMemories(true)
             } else {
-                savingError = true
+                operationError = true
             }
 
-            isSaving = false
+            isOperationRunning = false
         }
     }
 
+    fun closeAddMemoryDialog() {
+        operationError = false
+        showAddMemoryDialog = false
+    }
+
     fun startEditingMemory(memory: Memory) {
-        editedMemory = memory
+        memoryToEdit = memory
     }
 
     fun updateMemory(memory: Memory) {
         viewModelScope.launch {
-            isSaving = true
+            isOperationRunning = true
 
             if (memoriesManager.updateMemory(memory)) {
-                closeDialogs()
+                closeEditMemoryDialog()
                 refreshMemories(true)
             } else {
-                savingError = true
+                operationError = true
             }
 
-            isSaving = false
+            isOperationRunning = false
         }
     }
 
+    fun closeEditMemoryDialog() {
+        operationError = false
+        memoryToEdit = null
+    }
+
     fun startDeletingMemory(memory: Memory) {
-        deletedMemory = memory
+        memoryToDelete = memory
     }
 
     fun deleteMemory(memory: Memory) {
-        deletedMemory = null
+        viewModelScope.launch {
+            isOperationRunning = true
+
+            if (memoriesManager.deleteMemory(memory.id)) {
+                closeDeleteMemoryDialog()
+                refreshMemories(true)
+            } else {
+                operationError = true
+            }
+
+            isOperationRunning = false
+        }
+    }
+
+    fun closeDeleteMemoryDialog() {
+        operationError = false
+        memoryToDelete = null
     }
 }

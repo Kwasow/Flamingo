@@ -137,7 +137,7 @@ class WishlistModuleViewModel(
 
         viewModelScope.launch {
             deletingWish = true
-            if (!wishlistManager.removeWish(wish.id)) {
+            if (!wishlistManager.deleteWish(wish.id)) {
                 Toast
                     .makeText(
                         applicationContext,

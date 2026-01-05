@@ -13,14 +13,14 @@ import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 fun BottomSheetMemoriesEdit() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
-    viewModel.editedMemory?.let { memory ->
+    viewModel.memoryToEdit?.let { memory ->
         BottomSheetMemoriesShared(
             initialMemory = memory,
             title = stringResource(id = R.string.module_memories_update_memory),
             onConfirm = { viewModel.updateMemory(it) },
-            onCancel = { viewModel.closeDialogs() },
-            isSaving = viewModel.isSaving,
-            isError = viewModel.savingError,
+            onCancel = { viewModel.closeEditMemoryDialog() },
+            isSaving = viewModel.isOperationRunning,
+            isError = viewModel.operationError,
         )
     }
 }

@@ -10,8 +10,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,7 +28,8 @@ import java.time.LocalDate
 @Composable
 fun MemoryView(
     memory: Memory,
-    onEdit: (Memory) -> Unit,
+    onEditRequest: (Memory) -> Unit,
+    onDeleteRequest: (Memory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -56,8 +55,8 @@ fun MemoryView(
             }
 
             EditDeleteActions(
-                onDeleteRequest = {},
-                onEditRequest = { onEdit(memory) },
+                onDeleteRequest = { onDeleteRequest(memory) },
+                onEditRequest = { onEditRequest(memory) },
             )
         }
 
@@ -103,5 +102,5 @@ private fun MemoryViewPreview() {
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
         )
 
-    MemoryView(memory, {})
+    MemoryView(memory, {}, {})
 }

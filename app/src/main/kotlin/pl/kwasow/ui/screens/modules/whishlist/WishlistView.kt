@@ -34,6 +34,7 @@ import pl.kwasow.flamingo.types.user.Partner
 import pl.kwasow.flamingo.types.user.UserIcon
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.ui.components.UndecoratedTextField
+import pl.kwasow.ui.screens.modules.whishlist.modals.DeleteWishDialog
 import java.time.LocalDate
 
 // ====== Public composables

@@ -1,4 +1,4 @@
-package pl.kwasow.ui.screens.modules.whishlist
+package pl.kwasow.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Delete
@@ -10,39 +10,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
-import pl.kwasow.flamingo.types.wishlist.Wish
-import java.time.LocalDate
 
 // ====== Public composables
 @Composable
-fun DeleteWishDialog() {
-    val viewModel = koinViewModel<WishlistModuleViewModel>()
-    val wish = viewModel.wishToDelete
-
-    if (wish != null) {
-        DeleteWishDialog(
-            wish = wish,
-            buttonsEnabled = !viewModel.deletingWish,
-            onConfirm = { viewModel.confirmDeleteWish() },
-            onCancel = { viewModel.cancelDeleteWish() },
-        )
-    }
-}
-
-// ====== Private composables
-@Composable
-private fun DeleteWishDialog(
-    wish: Wish,
+fun DeleteDialog(
+    title: String,
+    content: String,
     buttonsEnabled: Boolean,
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
 ) {
     AlertDialog(
         icon = { AlertIcon() },
-        title = { AlertTitle() },
-        text = { AlertContent(content = wish.content) },
+        title = { AlertTitle(title = title) },
+        text = { AlertContent(content = content) },
         confirmButton = {
             AlertConfirmButton(
                 enabled = buttonsEnabled,
@@ -59,6 +41,7 @@ private fun DeleteWishDialog(
     )
 }
 
+// ====== Private composables
 @Composable
 private fun AlertIcon() {
     Icon(
@@ -68,9 +51,9 @@ private fun AlertIcon() {
 }
 
 @Composable
-private fun AlertTitle() {
+private fun AlertTitle(title: String) {
     Text(
-        text = stringResource(id = R.string.module_wishlist_delete_dialog_header),
+        text = title,
         textAlign = TextAlign.Center,
     )
 }
@@ -78,7 +61,7 @@ private fun AlertTitle() {
 @Composable
 private fun AlertContent(content: String) {
     Text(
-        text = stringResource(id = R.string.module_wishlist_delete_dialog_text, content),
+        text = stringResource(id = R.string.delete_item, content),
         textAlign = TextAlign.Center,
     )
 }
@@ -112,18 +95,10 @@ private fun AlertDismissButton(
 // ====== Previews
 @Preview
 @Composable
-private fun DeleteWishDialogPreview() {
-    val wish =
-        Wish(
-            id = 0,
-            authorId = 123,
-            content = "This is a link to https://google.com",
-            date = LocalDate.of(2022, 1, 12),
-            done = true,
-        )
-
-    DeleteWishDialog(
-        wish = wish,
+private fun DeleteDialogPreview() {
+    DeleteDialog(
+        title = stringResource(id = R.string.module_wishlist_delete_dialog_header),
+        content = "I'd like a new car",
         buttonsEnabled = true,
         onConfirm = {},
         onCancel = {},
@@ -132,18 +107,10 @@ private fun DeleteWishDialogPreview() {
 
 @Preview
 @Composable
-private fun DeleteWishDialogPreviewButtonsDisabled() {
-    val wish =
-        Wish(
-            id = 0,
-            authorId = 123,
-            content = "This is a link to https://google.com",
-            date = LocalDate.of(2022, 1, 12),
-            done = true,
-        )
-
-    DeleteWishDialog(
-        wish = wish,
+private fun DeleteDialogPreviewButtonsDisabled() {
+    DeleteDialog(
+        title = stringResource(id = R.string.module_memories_delete_dialog_header),
+        content = "We went on a boat trip",
         buttonsEnabled = false,
         onConfirm = {},
         onCancel = {},

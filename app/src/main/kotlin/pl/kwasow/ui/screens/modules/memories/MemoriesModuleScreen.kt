@@ -36,6 +36,7 @@ import pl.kwasow.ui.components.YearPickerDialog
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 import pl.kwasow.ui.screens.modules.memories.modals.BottomSheetMemoriesAdd
 import pl.kwasow.ui.screens.modules.memories.modals.BottomSheetMemoriesEdit
+import pl.kwasow.ui.screens.modules.memories.modals.DialogMemoriesDelete
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
@@ -73,6 +74,7 @@ fun MemoriesModuleScreen() {
 
         BottomSheetMemoriesAdd()
         BottomSheetMemoriesEdit()
+        DialogMemoriesDelete()
     }
 }
 
@@ -143,7 +145,8 @@ private fun MainView(
 
             MemoriesTimeline(
                 memories = currentYearMemories,
-                onEdit = { viewModel.startEditingMemory(it) },
+                onEditRequest = { viewModel.startEditingMemory(it) },
+                onDeleteRequest = { viewModel.startDeletingMemory(it) },
                 modifier = Modifier.hazeSource(hazeState),
                 contentPadding = paddingValues,
             )

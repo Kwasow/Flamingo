@@ -70,4 +70,7 @@ class MemoriesManagerImpl(
             }
         }
     }
+
+    override suspend fun deleteMemory(id: Int?): Boolean =
+        id != null && requestManager.deleteMemory(id)
 }
