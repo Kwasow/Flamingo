@@ -15,7 +15,6 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import pl.kwasow.ui.composition.LocalBottomBarHeight
-import pl.kwasow.utils.FlamingoLogger
 
 // ====== Public composables
 @Composable
@@ -45,7 +44,6 @@ fun RootLayout(
                 Modifier.onGloballyPositioned { coordinates ->
                     with(density) {
                         bottomBarHeight = coordinates.size.height.toDp()
-                        FlamingoLogger.d(bottomBarHeight.toString())
                     }
                 },
             )

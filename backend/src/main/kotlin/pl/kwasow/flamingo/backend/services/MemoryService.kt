@@ -11,6 +11,9 @@ class MemoryService(
     private val memoryRepository: MemoryRepository,
 ) {
     // ====== Public methods
+    fun getUserMemoriesSorted(user: User): List<MemoryDto> =
+        memoryRepository.findByCoupleIdOrderByStartDate(user.couple.id)
+
     fun getMemoriesForUserByYear(user: User): Map<Int, List<MemoryDto>> {
         val memories = memoryRepository.findByCoupleId(user.couple.id)
         val anniversary = user.couple.anniversary

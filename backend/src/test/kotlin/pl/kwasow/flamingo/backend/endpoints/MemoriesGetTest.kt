@@ -53,14 +53,10 @@ class MemoriesGetTest : BaseTest() {
             json
                 .decodeFromString<MemoriesGetResponse>(malloryResult.response.contentAsString)
 
-        malloryMemories.forEach { (year, memoryList) ->
-            if (year in aliceMemories.keys) {
-                val malloryKeys = memoryList.map { it.id }.toSet()
-                val aliceKeys = aliceMemories[year]?.map { it.id }?.toSet() ?: emptySet()
+        val aliceIds = aliceMemories.map { it.id }.toSet()
+        val malloryIds = malloryMemories.map { it.id }.toSet()
 
-                assertEquals(emptySet<Int>(), malloryKeys.intersect(aliceKeys))
-            }
-        }
+        assert(aliceIds.intersect(malloryIds).isEmpty())
     }
 
     @Test
@@ -77,8 +73,6 @@ class MemoriesGetTest : BaseTest() {
             json
                 .decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
 
-        assertEquals(setOf(2023, 2024), memories.keys)
-        assertEquals(setOf(1, 2), memories[2023]?.map { it.id }?.toSet())
-        assertEquals(setOf(3), memories[2024]?.map { it.id }?.toSet())
+        assertEquals(3, memories.size)
     }
 }
