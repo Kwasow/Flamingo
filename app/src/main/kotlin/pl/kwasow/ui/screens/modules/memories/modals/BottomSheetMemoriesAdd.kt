@@ -16,11 +16,9 @@ fun BottomSheetMemoriesAdd() {
 
     if (viewModel.showAddMemoryDialog) {
         BottomSheetMemoriesAdd(
-            onConfirm = {
-                viewModel.addMemory(it)
-                viewModel.showAddMemoryDialog = false
-            },
-            onCancel = { viewModel.showAddMemoryDialog = false },
+            onConfirm = { viewModel.addMemory(it) },
+            onCancel = { viewModel.closeDialogs() },
+            error = viewModel.savingError,
         )
     }
 }
@@ -31,6 +29,7 @@ fun BottomSheetMemoriesAdd() {
 private fun BottomSheetMemoriesAdd(
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
+    error: Boolean,
 ) {
     val initialMemory =
         Memory(
@@ -47,5 +46,6 @@ private fun BottomSheetMemoriesAdd(
         title = stringResource(id = R.string.module_memories_add_memory),
         onConfirm = onConfirm,
         onCancel = onCancel,
+        error = error,
     )
 }

@@ -35,6 +35,7 @@
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>
     <string name="module_memories_memory_end_date">Koniec (opcjonalnie)</string>
     <string name="module_memories_memory_end_before_start_error">Koniec nie może być przed początkiem</string>
+    <string name="module_memories_memory_saving_failed">Nie udało się zapisać zmian</string>
     <string name="widget_memories_no_memories">Brak wspomnień\nKocham Cię ❤️</string>
     <string name="module_music_name">Piosenki</string>
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>

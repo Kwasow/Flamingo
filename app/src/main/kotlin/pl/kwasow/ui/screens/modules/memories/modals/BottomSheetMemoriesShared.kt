@@ -1,5 +1,6 @@
 package pl.kwasow.ui.screens.modules.memories.modals
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -60,6 +61,7 @@ fun BottomSheetMemoriesShared(
     title: String,
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
+    error: Boolean,
     sheetState: SheetState = rememberModalBottomSheetState(),
 ) {
     var memoryValid by remember { mutableStateOf(true) }
@@ -75,6 +77,8 @@ fun BottomSheetMemoriesShared(
             onCancel = onCancel,
             enabled = memoryValid,
         )
+
+        ErrorMessage(enabled = error)
 
         MainContent(
             initialMemory = initialMemory,
@@ -123,6 +127,20 @@ private fun TitleBar(
         ) {
             Text(text = stringResource(id = R.string.save))
         }
+    }
+}
+
+@Composable
+private fun ErrorMessage(enabled: Boolean) {
+    AnimatedVisibility(
+        visible = enabled,
+        modifier = Modifier.padding(horizontal = 16.dp),
+    ) {
+        Text(
+            text = stringResource(id = R.string.module_memories_memory_saving_failed),
+            color = MaterialTheme.colorScheme.error,
+            modifier = Modifier.padding(bottom = 12.dp),
+        )
     }
 }
 
@@ -396,6 +414,7 @@ private fun BottomSheetMemoriesSharedEmptyMemoryPreview() {
         onConfirm = {},
         onCancel = {},
         sheetState = sheetState,
+        error = false,
     )
 }
 
@@ -423,5 +442,34 @@ private fun BottomSheetMemoriesSharedCorrectMemoryPreview() {
         onConfirm = {},
         onCancel = {},
         sheetState = sheetState,
+        error = false,
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+private fun BottomSheetMemoriesSharedErrorSavingPreview() {
+    val initialMemory =
+        Memory(
+            id = null,
+            startDate = LocalDate.now(),
+            endDate = null,
+            title = "This is a title",
+            description = "Some description",
+            photo = null,
+        )
+    val sheetState =
+        rememberStandardBottomSheetState(
+            initialValue = SheetValue.Expanded,
+        )
+
+    BottomSheetMemoriesShared(
+        initialMemory = initialMemory,
+        title = "Adding memory",
+        onConfirm = {},
+        onCancel = {},
+        sheetState = sheetState,
+        error = true,
     )
 }

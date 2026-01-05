@@ -17,7 +17,8 @@ fun BottomSheetMemoriesEdit() {
         BottomSheetMemoriesEdit(
             initialMemory = memory,
             onConfirm = { viewModel.updateMemory(it) },
-            onCancel = { viewModel.editedMemory = null },
+            onCancel = { viewModel.closeDialogs() },
+            error = viewModel.savingError,
         )
     }
 }
@@ -29,11 +30,13 @@ private fun BottomSheetMemoriesEdit(
     initialMemory: Memory,
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
+    error: Boolean,
 ) {
     BottomSheetMemoriesShared(
         initialMemory = initialMemory,
         title = stringResource(id = R.string.module_memories_update_memory),
         onConfirm = onConfirm,
         onCancel = onCancel,
+        error = error,
     )
 }
