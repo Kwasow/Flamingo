@@ -34,8 +34,8 @@ import pl.kwasow.ui.components.FlamingoBackgroundLight
 import pl.kwasow.ui.components.FlamingoTopAppBar
 import pl.kwasow.ui.components.YearPickerDialog
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
-import pl.kwasow.ui.screens.modules.memories.dialogs.DialogMemoriesAdd
-import pl.kwasow.ui.screens.modules.memories.dialogs.DialogMemoriesEdit
+import pl.kwasow.ui.screens.modules.memories.modals.BottomSheetMemoriesAdd
+import pl.kwasow.ui.screens.modules.memories.modals.BottomSheetMemoriesEdit
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
@@ -71,8 +71,8 @@ fun MemoriesModuleScreen() {
             )
         }
 
-        DialogMemoriesAdd()
-        DialogMemoriesEdit()
+        BottomSheetMemoriesAdd()
+        BottomSheetMemoriesEdit()
     }
 }
 

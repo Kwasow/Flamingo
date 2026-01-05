@@ -1,12 +1,8 @@
-package pl.kwasow.ui.screens.modules.memories.dialogs
+package pl.kwasow.ui.screens.modules.memories.modals
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.PostAdd
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
@@ -15,11 +11,11 @@ import java.time.LocalDate
 
 // ====== Public composables
 @Composable
-fun DialogMemoriesAdd() {
+fun BottomSheetMemoriesAdd() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
     if (viewModel.showAddMemoryDialog) {
-        DialogMemoriesAdd(
+        BottomSheetMemoriesAdd(
             onConfirm = {
                 viewModel.addMemory(it)
                 viewModel.showAddMemoryDialog = false
@@ -30,8 +26,9 @@ fun DialogMemoriesAdd() {
 }
 
 // ====== Private composables
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DialogMemoriesAdd(
+private fun BottomSheetMemoriesAdd(
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
 ) {
@@ -45,27 +42,10 @@ private fun DialogMemoriesAdd(
             photo = null,
         )
 
-    DialogMemoriesShared(
+    BottomSheetMemoriesShared(
         initialMemory = initialMemory,
-        icon = { AlertIcon() },
-        title = { AlertTitle() },
+        title = stringResource(id = R.string.module_memories_add_memory),
         onConfirm = onConfirm,
         onCancel = onCancel,
-    )
-}
-
-@Composable
-private fun AlertIcon() {
-    Icon(
-        imageVector = Icons.Outlined.PostAdd,
-        contentDescription = "TODO",
-    )
-}
-
-@Composable
-private fun AlertTitle() {
-    Text(
-        text = stringResource(id = R.string.module_memories_add_memory),
-        textAlign = TextAlign.Center,
     )
 }

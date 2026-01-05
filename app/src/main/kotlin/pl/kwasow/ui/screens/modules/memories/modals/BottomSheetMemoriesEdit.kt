@@ -1,12 +1,8 @@
-package pl.kwasow.ui.screens.modules.memories.dialogs
+package pl.kwasow.ui.screens.modules.memories.modals
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.EditNote
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
@@ -14,11 +10,11 @@ import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 
 // ====== Public composables
 @Composable
-fun DialogMemoriesEdit() {
+fun BottomSheetMemoriesEdit() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
     viewModel.editedMemory?.let { memory ->
-        DialogMemoriesEdit(
+        BottomSheetMemoriesEdit(
             initialMemory = memory,
             onConfirm = { viewModel.updateMemory(it) },
             onCancel = { viewModel.editedMemory = null },
@@ -27,33 +23,17 @@ fun DialogMemoriesEdit() {
 }
 
 // ====== Private composables
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun DialogMemoriesEdit(
+private fun BottomSheetMemoriesEdit(
     initialMemory: Memory,
     onConfirm: (Memory) -> Unit,
     onCancel: () -> Unit,
 ) {
-    DialogMemoriesShared(
+    BottomSheetMemoriesShared(
         initialMemory = initialMemory,
-        icon = { AlertIcon() },
-        title = { AlertTitle() },
+        title = stringResource(id = R.string.module_memories_update_memory),
         onConfirm = onConfirm,
         onCancel = onCancel,
-    )
-}
-
-@Composable
-private fun AlertIcon() {
-    Icon(
-        imageVector = Icons.Outlined.EditNote,
-        contentDescription = "TODO",
-    )
-}
-
-@Composable
-private fun AlertTitle() {
-    Text(
-        text = stringResource(id = R.string.module_memories_update_memory),
-        textAlign = TextAlign.Center,
     )
 }

@@ -95,7 +95,7 @@
     <string name="contentDescription_three_dot_menu">Menu</string>
     <string name="contentDescription_refresh">Odśwież</string>
     <string name="contentDescription_location">Lokalizacja</string>
-    <string name="module_memories_update_memory">Zaktualizuj wspomnienie</string>
+    <string name="module_memories_update_memory">Edytuj wspomnienie</string>
     <string name="module_memories_memory_title">Nazwa</string>
     <string name="module_memories_memory_description">Opis</string>
     <string name="module_memories_memory_photo_url">URL zdjęcia (opcjonalnie)</string>
