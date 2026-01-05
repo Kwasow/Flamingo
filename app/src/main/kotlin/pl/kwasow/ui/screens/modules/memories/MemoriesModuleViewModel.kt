@@ -60,7 +60,7 @@ class MemoriesModuleViewModel(
 
             if (memoriesManager.addMemory(memory)) {
                 showAddMemoryDialog = false
-                refreshMemories()
+                refreshMemories(true)
             } else {
                 // TODO: Show error to user
             }
@@ -75,7 +75,7 @@ class MemoriesModuleViewModel(
 
             if (memoriesManager.updateMemory(memory)) {
                 editedMemory = null
-                refreshMemories()
+                refreshMemories(true)
             } else {
                 // TODO: Show error to user
             }
