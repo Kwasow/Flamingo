@@ -52,6 +52,7 @@ class RequestManagerImpl(
 
         private const val GET_MEMORIES_URL = "/api/memories/get"
         private const val ADD_MEMORIES_URL = "/api/memories/add"
+        private const val UPDATE_MEMORIES_URL = "/api/memories/update"
 
         private const val GET_WISHLIST_URL = "/api/wishlist/get"
         private const val ADD_WISHLIST_URL = "/api/wishlist/add"
@@ -132,6 +133,17 @@ class RequestManagerImpl(
             makeAuthRequest(
                 method = HttpMethod.Post,
                 url = ADD_MEMORIES_URL,
+                body = memory,
+            )
+
+        return response?.status == HttpStatusCode.OK
+    }
+
+    override suspend fun updateMemory(memory: Memory): Boolean {
+        val response =
+            makeAuthRequest(
+                method = HttpMethod.Post,
+                url = UPDATE_MEMORIES_URL,
                 body = memory,
             )
 

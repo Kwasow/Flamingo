@@ -18,6 +18,8 @@ interface RequestManager {
 
     suspend fun addMemory(memory: Memory): Boolean
 
+    suspend fun updateMemory(memory: Memory): Boolean
+
     suspend fun getWishlist(): List<Wish>?
 
     suspend fun addWish(wish: Wish): Boolean

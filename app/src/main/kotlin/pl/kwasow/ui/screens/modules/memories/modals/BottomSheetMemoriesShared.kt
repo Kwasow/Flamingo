@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Description
 import androidx.compose.material.icons.outlined.Image
-import androidx.compose.material.icons.outlined.Preview
 import androidx.compose.material.icons.outlined.Restore
 import androidx.compose.material.icons.outlined.Title
 import androidx.compose.material3.Button
@@ -43,6 +43,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
@@ -105,7 +106,7 @@ private fun TitleBar(
         IconButton(onClick = onCancel) {
             Icon(
                 imageVector = Icons.Outlined.Close,
-                contentDescription = "TODO",
+                contentDescription = stringResource(id = R.string.contentDescription_close),
             )
         }
 
@@ -131,14 +132,14 @@ private fun MainContent(
     onUpdate: (Boolean, Memory) -> Unit,
 ) {
     var title by remember { mutableStateOf(initialMemory.title) }
-    val titleValid by remember { derivedStateOf { title.isNotBlank() } }
+    var titleValid by remember { mutableStateOf(true) }
     var startDate by remember { mutableStateOf(initialMemory.startDate) }
     var endDate by remember { mutableStateOf(initialMemory.endDate) }
-    val endDateValid by remember { derivedStateOf { endDate?.isAfter(startDate) } }
+    var endDateValid by remember { mutableStateOf(true) }
     var description by remember { mutableStateOf(initialMemory.description) }
     var photo by remember { mutableStateOf(initialMemory.photo ?: "") }
 
-    val valid by remember { derivedStateOf { titleValid } }
+    val valid by remember { derivedStateOf { titleValid && endDateValid } }
     val newMemory by remember {
         derivedStateOf {
             initialMemory.copy(
@@ -146,7 +147,7 @@ private fun MainContent(
                 startDate = startDate,
                 endDate = endDate,
                 description = description,
-                photo = photo,
+                photo = photo.ifBlank { null },
             )
         }
     }
@@ -163,15 +164,37 @@ private fun MainContent(
     ) {
         OutlinedTextField(
             value = title,
-            onValueChange = { title = it },
+            onValueChange = {
+                title = it
+                titleValid = it.isNotEmpty()
+            },
             label = { Text(text = stringResource(id = R.string.module_memories_memory_title)) },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+            modifier = Modifier.fillMaxWidth(),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Title,
-                    contentDescription = "TODO",
+                    contentDescription =
+                        stringResource(
+                            id = R.string.contentDescription_title_icon,
+                        ),
                 )
+            },
+            isError = !titleValid,
+            keyboardOptions =
+                KeyboardOptions.Default.copy(
+                    capitalization = KeyboardCapitalization.Sentences,
+                ),
+            supportingText = {
+                if (!titleValid) {
+                    Text(
+                        text =
+                            stringResource(
+                                id = R.string.module_memories_memory_title_empty_error,
+                            ),
+                        color = MaterialTheme.colorScheme.error,
+                    )
+                }
             },
         )
 
@@ -183,28 +206,55 @@ private fun MainContent(
                     text = stringResource(id = R.string.module_memories_memory_description),
                 )
             },
-            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Description,
-                    contentDescription = "TODO",
+                    contentDescription =
+                        stringResource(
+                            id = R.string.contentDescription_description_icon,
+                        ),
                 )
             },
+            keyboardOptions =
+                KeyboardOptions.Default.copy(
+                    capitalization = KeyboardCapitalization.Sentences,
+                ),
         )
 
         Row {
             DatePicker(
                 initialValue = initialMemory.startDate,
                 label = stringResource(id = R.string.module_memories_memory_start_date),
-                onPick = { it?.let { startDate = it } },
+                onValueChange = {
+                    it?.let {
+                        startDate = it
+                        endDateValid = endDate != null && it.isBefore(endDate)
+                    }
+                },
                 modifier = Modifier.weight(1f).padding(end = 6.dp),
             )
 
             DatePicker(
                 initialValue = initialMemory.endDate,
                 label = stringResource(id = R.string.module_memories_memory_end_date),
-                onPick = { endDate = it },
+                onValueChange = {
+                    endDate = it
+                    endDateValid = it != null && startDate.isBefore(it)
+                },
+                isError = !endDateValid,
                 modifier = Modifier.weight(1f).padding(start = 6.dp),
+                supportingText = {
+                    if (!endDateValid) {
+                        Text(
+                            text =
+                                stringResource(
+                                    id = R.string.module_memories_memory_end_before_start_error,
+                                ),
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    }
+                },
             )
         }
 
@@ -213,11 +263,14 @@ private fun MainContent(
             onValueChange = { photo = it },
             label = { Text(text = stringResource(id = R.string.module_memories_memory_photo_url)) },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+            modifier = Modifier.fillMaxWidth(),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Image,
-                    contentDescription = "TODO",
+                    contentDescription =
+                        stringResource(
+                            id = R.string.contentDescription_photo_icon,
+                        ),
                 )
             },
         )
@@ -229,8 +282,10 @@ private fun MainContent(
 private fun DatePicker(
     initialValue: LocalDate?,
     label: String,
-    onPick: (LocalDate?) -> Unit,
+    onValueChange: (LocalDate?) -> Unit,
     modifier: Modifier = Modifier,
+    isError: Boolean = false,
+    supportingText: @Composable () -> Unit = {},
 ) {
     val pickerState =
         rememberDatePickerState(
@@ -240,6 +295,11 @@ private fun DatePicker(
     var showPickerDialog by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
     var value by remember { mutableStateOf(initialValue) }
+
+    val onUpdate = { date: LocalDate? ->
+        value = date
+        onValueChange(date)
+    }
 
     if (interactionSource.collectIsPressedAsState().value) {
         showPickerDialog = true
@@ -253,18 +313,20 @@ private fun DatePicker(
         interactionSource = interactionSource,
         trailingIcon = {
             if (value != initialValue) {
-                IconButton(onClick = {
-                    value = initialValue
-                    onPick(initialValue)
-                }) {
+                IconButton(onClick = { onUpdate(initialValue) }) {
                     Icon(
                         imageVector = Icons.Outlined.Restore,
-                        contentDescription = "TODO",
+                        contentDescription =
+                            stringResource(
+                                id = R.string.contentDescription_reset_date_icon,
+                            ),
                     )
                 }
             }
         },
+        supportingText = supportingText,
         modifier = modifier,
+        isError = isError,
     )
 
     if (showPickerDialog) {
@@ -274,8 +336,7 @@ private fun DatePicker(
                 Button(
                     onClick = {
                         showPickerDialog = false
-                        value = pickerState.getSelectedDate()
-                        onPick(pickerState.getSelectedDate())
+                        onUpdate(pickerState.getSelectedDate())
                     },
                 ) {
                     Text(text = stringResource(id = R.string.ok))

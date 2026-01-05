@@ -1,7 +1,6 @@
 package pl.kwasow.managers
 
 import pl.kwasow.flamingo.types.memories.Memory
-import java.time.LocalDate
 
 interface MemoriesManager {
     // ====== Methods
@@ -9,10 +8,7 @@ interface MemoriesManager {
 
     suspend fun getTodayMemories(): List<Memory>
 
-    suspend fun addMemory(
-        startDate: LocalDate,
-        endDate: LocalDate?,
-        title: String,
-        description: String,
-    ): Boolean
+    suspend fun addMemory(memory: Memory): Boolean
+
+    suspend fun updateMemory(memory: Memory): Boolean
 }

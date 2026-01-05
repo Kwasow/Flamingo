@@ -7,7 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.managers.MemoriesManager
 
@@ -24,6 +23,7 @@ class MemoriesModuleViewModel(
     var memoriesLoaded: Boolean by mutableStateOf(false)
         private set
 
+    var savingChanges: Boolean by mutableStateOf(false)
     var showYearPickerDialog: Boolean by mutableStateOf(false)
     var showAddMemoryDialog: Boolean by mutableStateOf(false)
     var editedMemory: Memory? by mutableStateOf(null)
@@ -55,10 +55,32 @@ class MemoriesModuleViewModel(
     }
 
     fun addMemory(memory: Memory) {
-        println("Saving: " + Json.encodeToString(memory))
+        viewModelScope.launch {
+            savingChanges = true
+
+            if (memoriesManager.addMemory(memory)) {
+                showAddMemoryDialog = false
+                refreshMemories()
+            } else {
+                // TODO: Show error to user
+            }
+
+            savingChanges = false
+        }
     }
 
     fun updateMemory(memory: Memory) {
-        println("Updating: " + Json.encodeToString(memory))
+        viewModelScope.launch {
+            savingChanges = true
+
+            if (memoriesManager.updateMemory(memory)) {
+                editedMemory = null
+                refreshMemories()
+            } else {
+                // TODO: Show error to user
+            }
+
+            savingChanges = false
+        }
     }
 }

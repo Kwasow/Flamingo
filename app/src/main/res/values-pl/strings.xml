@@ -34,6 +34,7 @@
     <string name="module_memories_name">Wspomnienia</string>
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>
     <string name="module_memories_memory_end_date">Koniec (opcjonalnie)</string>
+    <string name="module_memories_memory_end_before_start_error">Koniec nie może być przed początkiem</string>
     <string name="widget_memories_no_memories">Brak wspomnień\nKocham Cię ❤️</string>
     <string name="module_music_name">Piosenki</string>
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>
@@ -101,4 +102,10 @@
     <string name="module_memories_memory_photo_url">URL zdjęcia (opcjonalnie)</string>
     <string name="module_memories_memory_start_date">Początek</string>
     <string name="module_memories_add_memory">Dodaj wspomnienie</string>
+    <string name="module_memories_memory_title_empty_error">Nazwa nie może być pusta</string>
+    <string name="contentDescription_photo_icon">Zdjęcie</string>
+    <string name="contentDescription_title_icon">Nazwa</string>
+    <string name="contentDescription_description_icon">Opis</string>
+    <string name="contentDescription_reset_date_icon">Zresetuj datę</string>
+    <string name="contentDescription_close">Zamknij</string>
 </resources>

@@ -44,22 +44,7 @@ class MemoriesManagerImpl(
         return todayMemories
     }
 
-    override suspend fun addMemory(
-        startDate: LocalDate,
-        endDate: LocalDate?,
-        title: String,
-        description: String,
-    ): Boolean {
-        val newMemory =
-            Memory(
-                id = null,
-                startDate = startDate,
-                endDate = endDate,
-                title = title,
-                description = description,
-                photo = null,
-            )
+    override suspend fun addMemory(memory: Memory): Boolean = requestManager.addMemory(memory)
 
-        return requestManager.addMemory(newMemory)
-    }
+    override suspend fun updateMemory(memory: Memory): Boolean = requestManager.updateMemory(memory)
 }

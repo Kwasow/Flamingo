@@ -61,7 +61,7 @@ fun MemoryView(
             ) {
                 Icon(
                     imageVector = Icons.Outlined.Edit,
-                    contentDescription = "TODO",
+                    contentDescription = stringResource(id = R.string.contentDescription_edit_icon),
                     tint = MaterialTheme.colorScheme.outline,
                 )
             }
