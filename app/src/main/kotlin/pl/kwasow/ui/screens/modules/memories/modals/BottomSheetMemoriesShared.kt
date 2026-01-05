@@ -131,14 +131,14 @@ private fun MainContent(
     onUpdate: (Boolean, Memory) -> Unit,
 ) {
     var title by remember { mutableStateOf(initialMemory.title) }
+    val titleValid by remember { derivedStateOf { title.isNotBlank() } }
     var startDate by remember { mutableStateOf(initialMemory.startDate) }
     var endDate by remember { mutableStateOf(initialMemory.endDate) }
+    val endDateValid by remember { derivedStateOf { endDate?.isAfter(startDate) } }
     var description by remember { mutableStateOf(initialMemory.description) }
     var photo by remember { mutableStateOf(initialMemory.photo ?: "") }
 
-    val valid by remember {
-        derivedStateOf { title.isNotBlank() }
-    }
+    val valid by remember { derivedStateOf { titleValid } }
     val newMemory by remember {
         derivedStateOf {
             initialMemory.copy(
@@ -192,12 +192,28 @@ private fun MainContent(
             },
         )
 
+        Row {
+            DatePicker(
+                initialValue = initialMemory.startDate,
+                label = stringResource(id = R.string.module_memories_memory_start_date),
+                onPick = { it?.let { startDate = it } },
+                modifier = Modifier.weight(1f).padding(end = 6.dp),
+            )
+
+            DatePicker(
+                initialValue = initialMemory.endDate,
+                label = stringResource(id = R.string.module_memories_memory_end_date),
+                onPick = { endDate = it },
+                modifier = Modifier.weight(1f).padding(start = 6.dp),
+            )
+        }
+
         OutlinedTextField(
             value = photo,
             onValueChange = { photo = it },
             label = { Text(text = stringResource(id = R.string.module_memories_memory_photo_url)) },
             singleLine = true,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Outlined.Image,
@@ -205,43 +221,25 @@ private fun MainContent(
                 )
             },
         )
-
-        Row {
-            DatePicker(
-                label = stringResource(id = R.string.module_memories_memory_start_date),
-                value = startDate,
-                onPick = { it?.let { startDate = it } },
-                onReset = { startDate = initialMemory.startDate },
-                modifier = Modifier.weight(1f).padding(end = 6.dp),
-            )
-
-            DatePicker(
-                label = stringResource(id = R.string.module_memories_memory_end_date),
-                value = endDate,
-                onPick = { endDate = it },
-                onReset = { endDate = initialMemory.endDate },
-                modifier = Modifier.weight(1f).padding(start = 6.dp),
-            )
-        }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DatePicker(
+    initialValue: LocalDate?,
     label: String,
-    value: LocalDate?,
     onPick: (LocalDate?) -> Unit,
-    onReset: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val pickerState =
         rememberDatePickerState(
-            initialSelectedDate = value,
+            initialSelectedDate = initialValue,
             selectableDates = PastDates(),
         )
     var showPickerDialog by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
+    var value by remember { mutableStateOf(initialValue) }
 
     if (interactionSource.collectIsPressedAsState().value) {
         showPickerDialog = true
@@ -254,11 +252,16 @@ private fun DatePicker(
         readOnly = true,
         interactionSource = interactionSource,
         trailingIcon = {
-            IconButton(onClick = onReset) {
-                Icon(
-                    imageVector = Icons.Outlined.Restore,
-                    contentDescription = "TODO",
-                )
+            if (value != initialValue) {
+                IconButton(onClick = {
+                    value = initialValue
+                    onPick(initialValue)
+                }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Restore,
+                        contentDescription = "TODO",
+                    )
+                }
             }
         },
         modifier = modifier,
@@ -271,6 +274,7 @@ private fun DatePicker(
                 Button(
                     onClick = {
                         showPickerDialog = false
+                        value = pickerState.getSelectedDate()
                         onPick(pickerState.getSelectedDate())
                     },
                 ) {

@@ -59,7 +59,11 @@ fun MemoryView(
             IconButton(
                 onClick = { onEdit(memory) },
             ) {
-                Icon(imageVector = Icons.Outlined.Edit, contentDescription = "TODO")
+                Icon(
+                    imageVector = Icons.Outlined.Edit,
+                    contentDescription = "TODO",
+                    tint = MaterialTheme.colorScheme.outline,
+                )
             }
         }
 
