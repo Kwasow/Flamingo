@@ -24,10 +24,17 @@ class MemoriesModuleViewModel(
         private set
 
     var isSaving: Boolean by mutableStateOf(false)
+        private set
     var savingError: Boolean by mutableStateOf(false)
+        private set
     var showYearPickerDialog: Boolean by mutableStateOf(false)
+        private set
     var showAddMemoryDialog: Boolean by mutableStateOf(false)
+        private set
     var editedMemory: Memory? by mutableStateOf(null)
+        private set
+    var deletedMemory: Memory? by mutableStateOf(null)
+        private set
 
     // ====== Constructors
     init {
@@ -43,6 +50,14 @@ class MemoriesModuleViewModel(
             areMemoriesLoading = false
             memoriesLoaded = true
         }
+    }
+
+    fun openYearPicker() {
+        showYearPickerDialog = true
+    }
+
+    fun closeYearPicker() {
+        showYearPickerDialog = false
     }
 
     fun setSelectedYear(year: Int) {
@@ -62,6 +77,10 @@ class MemoriesModuleViewModel(
         editedMemory = null
     }
 
+    fun startAddingMemory() {
+        showAddMemoryDialog = true
+    }
+
     fun addMemory(memory: Memory) {
         viewModelScope.launch {
             isSaving = true
@@ -77,6 +96,10 @@ class MemoriesModuleViewModel(
         }
     }
 
+    fun startEditingMemory(memory: Memory) {
+        editedMemory = memory
+    }
+
     fun updateMemory(memory: Memory) {
         viewModelScope.launch {
             isSaving = true
@@ -90,5 +113,13 @@ class MemoriesModuleViewModel(
 
             isSaving = false
         }
+    }
+
+    fun startDeletingMemory(memory: Memory) {
+        deletedMemory = memory
+    }
+
+    fun deleteMemory(memory: Memory) {
+        deletedMemory = null
     }
 }
