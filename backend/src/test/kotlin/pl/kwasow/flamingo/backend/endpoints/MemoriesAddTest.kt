@@ -52,9 +52,8 @@ class MemoriesAddTest : BaseTest() {
             json
                 .decodeFromString<MemoriesGetResponse>(result2.response.contentAsString)
 
-        assertEquals(3, memories.size)
-        assert(2025 in memories.keys)
-        assert(memory in memories[2025]!!)
+        assertEquals(4, memories.size)
+        assert(memory in memories)
     }
 
     @Test

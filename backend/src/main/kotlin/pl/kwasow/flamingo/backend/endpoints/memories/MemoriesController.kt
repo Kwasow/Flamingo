@@ -26,11 +26,8 @@ class MemoriesController(
     fun getMemories(
         @AuthenticationPrincipal user: User,
     ): MemoriesGetResponse {
-        val memoryDtoMap = memoryService.getMemoriesForUserByYear(user)
-        val memories =
-            memoryDtoMap.mapValues { (_, value) ->
-                value.map { Memory(it) }
-            }
+        val memoryDtos = memoryService.getUserMemoriesSorted(user)
+        val memories = memoryDtos.map { Memory(it) }
 
         return memories
     }

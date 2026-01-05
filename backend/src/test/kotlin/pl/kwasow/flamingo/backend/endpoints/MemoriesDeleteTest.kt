@@ -34,8 +34,8 @@ class MemoriesDeleteTest : BaseTest() {
         val memories =
             json.decodeFromString<MemoriesGetResponse>(result.response.contentAsString)
 
-        assertEquals(1, memories.size)
-        assert(2023 in memories.keys)
+        assertEquals(2, memories.size)
+        assert(3 !in memories.map { it.id })
     }
 
     @Test

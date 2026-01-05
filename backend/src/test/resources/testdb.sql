@@ -76,7 +76,6 @@ CREATE TABLE UserLocations(
     CONSTRAINT FK_Location_User FOREIGN KEY (user_id) REFERENCES Users(id)
 );
 
--- TODO: Last seen was all in 1970
 CREATE TABLE FirebaseTokens(
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,

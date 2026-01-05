@@ -52,12 +52,8 @@ class MemoriesUpdateTest : BaseTest() {
             json
                 .decodeFromString<MemoriesGetResponse>(result2.response.contentAsString)
 
-        assertEquals(2, memories.size)
-        assert(2023 in memories.keys)
-        assertEquals(
-            updatedMemory,
-            memories[2023]?.find { it.id == updatedMemory.id },
-        )
+        assertEquals(3, memories.size)
+        assert(updatedMemory in memories)
     }
 
     @Test
