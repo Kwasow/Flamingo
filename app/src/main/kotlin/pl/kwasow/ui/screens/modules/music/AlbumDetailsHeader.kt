@@ -34,6 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.ui.components.PhotoView
+import pl.kwasow.ui.screens.modules.music.modals.DialogMusicAlbumDelete
 
 // ====== Public composables
 @Composable
@@ -64,7 +65,7 @@ fun AlbumDetailsHeader(album: Album) {
         }
     }
 
-    DeleteAlbumDialog(
+    DialogMusicAlbumDelete(
         isShowing = showRemoveDialog,
         albumName = album.title,
         onConfirm = {

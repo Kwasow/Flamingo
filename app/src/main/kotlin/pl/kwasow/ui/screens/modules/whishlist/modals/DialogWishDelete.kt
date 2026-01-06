@@ -9,7 +9,7 @@ import pl.kwasow.ui.screens.modules.whishlist.WishlistModuleViewModel
 
 // ====== Public composables
 @Composable
-fun DeleteWishDialog() {
+fun DialogWishDelete() {
     val viewModel = koinViewModel<WishlistModuleViewModel>()
     val wish = viewModel.wishToDelete
 
