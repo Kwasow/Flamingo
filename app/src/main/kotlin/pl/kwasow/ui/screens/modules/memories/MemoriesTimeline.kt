@@ -80,7 +80,8 @@ private fun MemoriesTimelinePreview() {
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
         )
 
-    MemoriesTimeline(memories = listOf(memory, memory, memory), onEditRequest = {}, onDeleteRequest = {})
+    MemoriesTimeline(memories = listOf(memory, memory, memory), onEditRequest = {
+    }, onDeleteRequest = {})
 }
 
 @Preview

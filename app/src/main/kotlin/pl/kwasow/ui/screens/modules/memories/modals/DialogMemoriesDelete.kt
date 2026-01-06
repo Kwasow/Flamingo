@@ -16,7 +16,8 @@ fun DialogMemoriesDelete() {
         DeleteDialog(
             title = stringResource(id = R.string.module_memories_delete_dialog_header),
             content = memory.title,
-            buttonsEnabled = !viewModel.isOperationRunning,
+            isEnabled = !viewModel.isOperationRunning,
+            isError = viewModel.operationError,
             onConfirm = { viewModel.deleteMemory(memory) },
             onCancel = { viewModel.closeDeleteMemoryDialog() },
         )

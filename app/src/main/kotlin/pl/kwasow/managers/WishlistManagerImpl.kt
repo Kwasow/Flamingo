@@ -32,6 +32,5 @@ class WishlistManagerImpl(
 
     override suspend fun updateWish(wish: Wish): Boolean = requestManager.updateWish(wish)
 
-    override suspend fun deleteWish(id: Int?): Boolean =
-        id != null && requestManager.deleteWish(id)
+    override suspend fun deleteWish(id: Int?): Boolean = id != null && requestManager.deleteWish(id)
 }

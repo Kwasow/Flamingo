@@ -39,6 +39,7 @@
     <string name="error_loading_user">Something went wrong while loading the user details</string>
     <string name="error">Error</string>
     <string name="delete_item">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="delete_failed">Failed to delete element</string>
 
     <!-- Module: Memories -->
     <string name="module_memories_name">Memories</string>

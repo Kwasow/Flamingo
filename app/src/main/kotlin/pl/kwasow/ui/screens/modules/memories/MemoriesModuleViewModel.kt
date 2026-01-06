@@ -79,6 +79,7 @@ class MemoriesModuleViewModel(
     fun addMemory(memory: Memory) {
         viewModelScope.launch {
             isOperationRunning = true
+            operationError = false
 
             if (memoriesManager.addMemory(memory)) {
                 closeAddMemoryDialog()
@@ -103,6 +104,7 @@ class MemoriesModuleViewModel(
     fun updateMemory(memory: Memory) {
         viewModelScope.launch {
             isOperationRunning = true
+            operationError = false
 
             if (memoriesManager.updateMemory(memory)) {
                 closeEditMemoryDialog()
@@ -127,6 +129,7 @@ class MemoriesModuleViewModel(
     fun deleteMemory(memory: Memory) {
         viewModelScope.launch {
             isOperationRunning = true
+            operationError = false
 
             if (memoriesManager.deleteMemory(memory.id)) {
                 closeDeleteMemoryDialog()

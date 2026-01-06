@@ -17,9 +17,10 @@ fun DeleteWishDialog() {
         DeleteDialog(
             title = stringResource(id = R.string.module_wishlist_delete_dialog_header),
             content = wish.content,
-            buttonsEnabled = !viewModel.deletingWish,
-            onConfirm = { viewModel.confirmDeleteWish() },
-            onCancel = { viewModel.cancelDeleteWish() },
+            isEnabled = !viewModel.isDeletingWish,
+            isError = viewModel.deleteError,
+            onConfirm = { viewModel.deleteWish(wish) },
+            onCancel = { viewModel.closeDeleteWishDialog() },
         )
     }
 }

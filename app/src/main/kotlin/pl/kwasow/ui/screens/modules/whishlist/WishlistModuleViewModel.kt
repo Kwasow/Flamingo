@@ -19,7 +19,7 @@ import pl.kwasow.managers.WishlistManager
 
 class WishlistModuleViewModel(
     private val applicationContext: Context,
-    userManager: UserManager,
+    private val userManager: UserManager,
     private val wishlistManager: WishlistManager,
 ) : ViewModel() {
     // ====== Fields
@@ -30,13 +30,17 @@ class WishlistModuleViewModel(
     var isWishlistLoading: Boolean by mutableStateOf(true)
         private set
 
-    var editedWish: Wish? by mutableStateOf(null)
     var inputWishContent: String by mutableStateOf("")
-    var sendingWish: Boolean by mutableStateOf(false)
+
+    var isAddingWish: Boolean by mutableStateOf(false)
         private set
-    var deletingWish: Boolean by mutableStateOf(false)
+    var isDeletingWish: Boolean by mutableStateOf(false)
+        private set
+    var deleteError: Boolean by mutableStateOf(false)
         private set
 
+    var wishToEdit: Wish? by mutableStateOf(null)
+        private set
     var wishToDelete: Wish? by mutableStateOf(null)
         private set
     var wishToUpdate: Wish? by mutableStateOf(null)
@@ -72,7 +76,7 @@ class WishlistModuleViewModel(
         }
 
         viewModelScope.launch {
-            sendingWish = true
+            isAddingWish = true
 
             if (wishlistManager.addWish(user.id, inputWishContent)) {
                 inputWishContent = ""
@@ -86,19 +90,24 @@ class WishlistModuleViewModel(
             }
 
             silentRefresh()
-            sendingWish = false
+            isAddingWish = false
         }
     }
 
-    fun updateEditedWish() {
-        val wish = editedWish ?: return
+    fun startEditingWish(wish: Wish) {
+        wishToEdit = wish
+        inputWishContent = wish.content
+    }
+
+    fun editWish() {
+        val wish = wishToEdit ?: return
 
         viewModelScope.launch {
-            sendingWish = true
+            isAddingWish = true
 
             if (wishlistManager.updateWish(wish.update(newContent = inputWishContent))) {
                 inputWishContent = ""
-                editedWish = null
+                wishToEdit = null
             } else {
                 Toast
                     .makeText(
@@ -109,8 +118,13 @@ class WishlistModuleViewModel(
             }
 
             silentRefresh()
-            sendingWish = false
+            isAddingWish = false
         }
+    }
+
+    fun finishEditWishAction() {
+        inputWishContent = ""
+        wishToEdit = null
     }
 
     fun changeWishState(wish: Wish) {
@@ -122,33 +136,29 @@ class WishlistModuleViewModel(
         }
     }
 
-    fun askDeleteWish(wish: Wish) {
+    fun startDeletingWish(wish: Wish) {
         wishToDelete = wish
     }
 
-    fun cancelDeleteWish() {
-        wishToDelete = null
+    fun deleteWish(wish: Wish) {
+        viewModelScope.launch {
+            isDeletingWish = true
+            deleteError = false
+
+            if (wishlistManager.deleteWish(wish.id)) {
+                closeDeleteWishDialog()
+                silentRefresh()
+            } else {
+                deleteError = true
+            }
+
+            isDeletingWish = false
+        }
     }
 
-    fun confirmDeleteWish() {
-        val wish =
-            wishToDelete
-                ?: throw IllegalStateException("Cannot confirm deletion of null wish")
-
-        viewModelScope.launch {
-            deletingWish = true
-            if (!wishlistManager.deleteWish(wish.id)) {
-                Toast
-                    .makeText(
-                        applicationContext,
-                        R.string.module_wishlist_remove_failed,
-                        Toast.LENGTH_SHORT,
-                    ).show()
-            }
-            wishToDelete = null
-            silentRefresh()
-            deletingWish = false
-        }
+    fun closeDeleteWishDialog() {
+        deleteError = false
+        wishToDelete = null
     }
 
     // ====== Private methods
