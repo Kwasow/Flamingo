@@ -20,13 +20,15 @@ interface RequestManager {
 
     suspend fun updateMemory(memory: Memory): Boolean
 
+    suspend fun deleteMemory(id: Int): Boolean
+
     suspend fun getWishlist(): List<Wish>?
 
     suspend fun addWish(wish: Wish): Boolean
 
     suspend fun updateWish(wish: Wish): Boolean
 
-    suspend fun removeWish(id: Int): Boolean
+    suspend fun deleteWish(id: Int): Boolean
 
     suspend fun getAlbums(): List<Album>?
 

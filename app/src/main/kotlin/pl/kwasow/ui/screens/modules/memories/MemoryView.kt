@@ -6,11 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.memories.Memory
+import pl.kwasow.ui.components.EditDeleteActions
 import pl.kwasow.ui.components.PhotoView
 import java.time.LocalDate
 
@@ -31,7 +28,8 @@ import java.time.LocalDate
 @Composable
 fun MemoryView(
     memory: Memory,
-    onEdit: (Memory) -> Unit,
+    onEditRequest: (Memory) -> Unit,
+    onDeleteRequest: (Memory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
@@ -56,15 +54,10 @@ fun MemoryView(
                 )
             }
 
-            IconButton(
-                onClick = { onEdit(memory) },
-            ) {
-                Icon(
-                    imageVector = Icons.Outlined.Edit,
-                    contentDescription = stringResource(id = R.string.contentDescription_edit_icon),
-                    tint = MaterialTheme.colorScheme.outline,
-                )
-            }
+            EditDeleteActions(
+                onDeleteRequest = { onDeleteRequest(memory) },
+                onEditRequest = { onEditRequest(memory) },
+            )
         }
 
         Text(text = memory.description)
@@ -109,5 +102,5 @@ private fun MemoryViewPreview() {
                     "File:Nic%C3%A9phore_Ni%C3%A9pce_Oldest_Photograph_1825.jpg",
         )
 
-    MemoryView(memory, {})
+    MemoryView(memory, {}, {})
 }

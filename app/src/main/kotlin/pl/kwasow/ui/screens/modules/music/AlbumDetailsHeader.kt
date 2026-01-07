@@ -34,6 +34,7 @@ import org.koin.androidx.compose.koinViewModel
 import pl.kwasow.R
 import pl.kwasow.flamingo.types.music.Album
 import pl.kwasow.ui.components.PhotoView
+import pl.kwasow.ui.screens.modules.music.modals.DialogMusicAlbumDelete
 
 // ====== Public composables
 @Composable
@@ -41,7 +42,6 @@ fun AlbumDetailsHeader(album: Album) {
     val viewModel = koinViewModel<MusicModuleViewModel>()
 
     var downloaded by remember { mutableStateOf(viewModel.checkAlbumDownloaded(album)) }
-    var showRemoveDialog by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -55,7 +55,7 @@ fun AlbumDetailsHeader(album: Album) {
             AlbumActions(
                 album = album,
                 downloaded = downloaded,
-                showRemoveDialog = { showRemoveDialog = true },
+                showRemoveDialog = { viewModel.startDeleteAlbumFromDownloads(album) },
                 downloadAlbum = {
                     viewModel.downloadAlbum(album)
                     downloaded = !downloaded
@@ -64,16 +64,7 @@ fun AlbumDetailsHeader(album: Album) {
         }
     }
 
-    DeleteAlbumDialog(
-        isShowing = showRemoveDialog,
-        albumName = album.title,
-        onConfirm = {
-            viewModel.removeAlbum(album)
-            downloaded = false
-            showRemoveDialog = false
-        },
-        onCancel = { showRemoveDialog = false },
-    )
+    DialogMusicAlbumDelete()
 }
 
 // ====== Private composables

@@ -26,6 +26,7 @@ import pl.kwasow.flamingo.types.auth.AuthenticationResult
 import pl.kwasow.flamingo.types.auth.Authorization
 import pl.kwasow.flamingo.types.location.LocationGetResponse
 import pl.kwasow.flamingo.types.location.UserLocation
+import pl.kwasow.flamingo.types.memories.MemoriesDeleteRequest
 import pl.kwasow.flamingo.types.memories.MemoriesGetResponse
 import pl.kwasow.flamingo.types.memories.Memory
 import pl.kwasow.flamingo.types.messaging.FcmUpdateTokenRequest
@@ -53,11 +54,12 @@ class RequestManagerImpl(
         private const val GET_MEMORIES_URL = "/api/memories/get"
         private const val ADD_MEMORIES_URL = "/api/memories/add"
         private const val UPDATE_MEMORIES_URL = "/api/memories/update"
+        private const val DELETE_MEMORIES_URL = "/api/memories/delete"
 
         private const val GET_WISHLIST_URL = "/api/wishlist/get"
         private const val ADD_WISHLIST_URL = "/api/wishlist/add"
         private const val UPDATE_WISHLIST_URL = "/api/wishlist/update"
-        private const val REMOVE_WISHLIST_URL = "/api/wishlist/delete"
+        private const val DELETE_WISHLIST_URL = "/api/wishlist/delete"
 
         private const val GET_ALBUMS_URL = "/api/albums/get"
 
@@ -150,6 +152,19 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
+    override suspend fun deleteMemory(id: Int): Boolean {
+        val body = MemoriesDeleteRequest(id)
+
+        val response =
+            makeAuthRequest(
+                method = HttpMethod.Delete,
+                url = DELETE_MEMORIES_URL,
+                body = body,
+            )
+
+        return response?.status == HttpStatusCode.OK
+    }
+
     override suspend fun getWishlist(): List<Wish>? =
         makeAuthJsonRequest<WishlistGetResponse>(
             type = HttpMethod.Get,
@@ -178,13 +193,13 @@ class RequestManagerImpl(
         return response?.status == HttpStatusCode.OK
     }
 
-    override suspend fun removeWish(id: Int): Boolean {
+    override suspend fun deleteWish(id: Int): Boolean {
         val body = WishlistDeleteRequest(id)
 
         val response =
             makeAuthRequest(
                 method = HttpMethod.Delete,
-                url = REMOVE_WISHLIST_URL,
+                url = DELETE_WISHLIST_URL,
                 body = body,
             )
 

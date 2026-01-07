@@ -11,4 +11,6 @@ interface MemoriesManager {
     suspend fun addMemory(memory: Memory): Boolean
 
     suspend fun updateMemory(memory: Memory): Boolean
+
+    suspend fun deleteMemory(id: Int?): Boolean
 }

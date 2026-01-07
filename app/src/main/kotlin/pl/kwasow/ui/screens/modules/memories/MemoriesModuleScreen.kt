@@ -36,6 +36,7 @@ import pl.kwasow.ui.components.YearPickerDialog
 import pl.kwasow.ui.composition.LocalFlamingoNavigation
 import pl.kwasow.ui.screens.modules.memories.modals.BottomSheetMemoriesAdd
 import pl.kwasow.ui.screens.modules.memories.modals.BottomSheetMemoriesEdit
+import pl.kwasow.ui.screens.modules.memories.modals.DialogMemoriesDelete
 
 // ====== Public composables
 @OptIn(ExperimentalHazeMaterialsApi::class)
@@ -65,14 +66,15 @@ fun MemoriesModuleScreen() {
                 isShowing = viewModel.showYearPickerDialog,
                 onYearConfirmed = { year ->
                     viewModel.setSelectedYear(year)
-                    viewModel.showYearPickerDialog = false
+                    viewModel.closeYearPicker()
                 },
-                onDismiss = { viewModel.showYearPickerDialog = false },
+                onDismiss = { viewModel.closeYearPicker() },
             )
         }
 
         BottomSheetMemoriesAdd()
         BottomSheetMemoriesEdit()
+        DialogMemoriesDelete()
     }
 }
 
@@ -94,7 +96,7 @@ private fun AppBar(modifier: Modifier = Modifier) {
         modifier = modifier,
         actions = {
             if (viewModel.memories.isNotEmpty()) {
-                IconButton(onClick = { viewModel.showYearPickerDialog = true }) {
+                IconButton(onClick = { viewModel.openYearPicker() }) {
                     Icon(
                         imageVector = Icons.Outlined.CalendarMonth,
                         contentDescription =
@@ -114,7 +116,7 @@ private fun FloatingActionButton() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
 
     FloatingActionButton(
-        onClick = { viewModel.showAddMemoryDialog = true },
+        onClick = { viewModel.startAddingMemory() },
         containerColor = MaterialTheme.colorScheme.primary,
         contentColor = MaterialTheme.colorScheme.onPrimary,
     ) {
@@ -143,7 +145,8 @@ private fun MainView(
 
             MemoriesTimeline(
                 memories = currentYearMemories,
-                onEdit = { viewModel.editedMemory = it },
+                onEditRequest = { viewModel.startEditingMemory(it) },
+                onDeleteRequest = { viewModel.startDeletingMemory(it) },
                 modifier = Modifier.hazeSource(hazeState),
                 contentPadding = paddingValues,
             )

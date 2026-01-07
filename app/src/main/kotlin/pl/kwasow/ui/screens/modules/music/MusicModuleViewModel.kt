@@ -24,8 +24,11 @@ class MusicModuleViewModel(
     var albumListLoaded: Boolean by mutableStateOf(false)
         private set
 
-    var currentTrack = playbackManager.currentTrack
-    var isPlaying = playbackManager.isPlaybackActive
+    var albumToDeleteFromDownloads: Album? by mutableStateOf(null)
+        private set
+
+    val currentTrack = playbackManager.currentTrack
+    val isPlaying = playbackManager.isPlaybackActive
 
     // ====== Public methods
     fun refreshAlbumList(force: Boolean = false) {
@@ -48,7 +51,18 @@ class MusicModuleViewModel(
 
     fun downloadAlbum(album: Album) = audioManager.downloadAlbum(album)
 
-    fun removeAlbum(album: Album) = audioManager.removeAlbum(album)
+    fun startDeleteAlbumFromDownloads(album: Album) {
+        albumToDeleteFromDownloads = album
+    }
+
+    fun deleteAlbumFromDownloads(album: Album) {
+        audioManager.removeAlbum(album)
+        closeDeleteAlbumFromDownloadsDialog()
+    }
+
+    fun closeDeleteAlbumFromDownloadsDialog() {
+        albumToDeleteFromDownloads = null
+    }
 
     // Playback management
     fun playAlbum(

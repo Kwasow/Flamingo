@@ -34,6 +34,7 @@ import pl.kwasow.flamingo.types.user.Partner
 import pl.kwasow.flamingo.types.user.UserIcon
 import pl.kwasow.flamingo.types.wishlist.Wish
 import pl.kwasow.ui.components.UndecoratedTextField
+import pl.kwasow.ui.screens.modules.whishlist.modals.DialogWishDelete
 import java.time.LocalDate
 
 // ====== Public composables
@@ -90,7 +91,7 @@ fun WishlistView(
         }
     }
 
-    DeleteWishDialog()
+    DialogWishDelete()
 }
 
 @Composable
@@ -129,7 +130,7 @@ private fun WishInputActions(user: MinimalUser) {
 
     AnimatedVisibility(visible = viewModel.inputWishContent.isNotBlank()) {
         AnimatedContent(
-            targetState = viewModel.sendingWish,
+            targetState = viewModel.isAddingWish,
             label = "adding_wish_animation",
         ) { addingWish ->
             if (addingWish) {
@@ -140,7 +141,7 @@ private fun WishInputActions(user: MinimalUser) {
                             .width(64.dp),
                 )
             } else {
-                if (viewModel.editedWish != null) {
+                if (viewModel.wishToEdit != null) {
                     EditWishActions()
                 } else {
                     AddWishActions(user = user)
@@ -156,16 +157,13 @@ private fun EditWishActions() {
 
     Row {
         TextButton(
-            onClick = {
-                viewModel.inputWishContent = ""
-                viewModel.editedWish = null
-            },
+            onClick = { viewModel.finishEditWishAction() },
         ) {
             Text(text = stringResource(id = R.string.cancel))
         }
 
         TextButton(
-            onClick = { viewModel.updateEditedWish() },
+            onClick = { viewModel.editWish() },
         ) {
             Text(text = stringResource(id = R.string.save))
         }

@@ -30,9 +30,9 @@ fun BottomSheetMemoriesAdd() {
             initialMemory = initialMemory,
             title = stringResource(id = R.string.module_memories_add_memory),
             onConfirm = { viewModel.addMemory(it) },
-            onCancel = { viewModel.closeDialogs() },
-            isSaving = viewModel.isSaving,
-            isError = viewModel.savingError,
+            onCancel = { viewModel.closeAddMemoryDialog() },
+            isSaving = viewModel.isOperationRunning,
+            isError = viewModel.operationError,
         )
     }
 }

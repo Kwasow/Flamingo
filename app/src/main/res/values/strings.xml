@@ -34,10 +34,11 @@
     <string name="add">Add</string>
     <string name="edit">Edit</string>
     <string name="dialog_year_picker_title">Pick year</string>
-    <string name="something_went_wrong">Something went wrong</string>
     <string name="partner">partner</string>
     <string name="error_loading_user">Something went wrong while loading the user details</string>
     <string name="error">Error</string>
+    <string name="delete_item">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="delete_failed">Failed to delete element</string>
 
     <!-- Module: Memories -->
     <string name="module_memories_name">Memories</string>
@@ -52,6 +53,7 @@
     <string name="module_memories_memory_title_empty_error">Memory title cannot be empty</string>
     <string name="module_memories_memory_end_before_start_error">End cannot be before start</string>
     <string name="module_memories_memory_saving_failed">Failed saving changes</string>
+    <string name="module_memories_delete_dialog_header">Delete memory</string>
 
     <!-- Widget: Memories -->
     <string name="widget_memories_no_memories">No memories to show\nLove you ❤️</string>
@@ -59,18 +61,15 @@
     <!-- Module: Music -->
     <string name="module_music_name">Music</string>
     <string name="module_music_no_albums">Failed to load albums</string>
-    <string name="module_music_delete_dialog_header">Deleting album</string>
-    <string name="module_music_delete_dialog_text">Are you sure you want to delete the \"%1$s\" album?</string>
+    <string name="module_music_delete_dialog_header">Remove album from downloads</string>
     <string name="module_music_unknown_album_uuid">Couldn\'t load album for UUID \"%1$s\"</string>
 
     <!-- Module: Wishlist -->
     <string name="module_wishlist_name">Wishlist</string>
     <string name="module_wishlist_wish_entry_hint">Start typing…</string>
-    <string name="module_wishlist_delete_dialog_header">Deleting wish</string>
-    <string name="module_wishlist_delete_dialog_text">Are you sure you want to delete \"%1$s\" from the list?</string>
+    <string name="module_wishlist_delete_dialog_header">Delete wish</string>
     <string name="module_wishlist_add_failed">Failed to add wish</string>
     <string name="module_wishlist_update_failed">Failed to update wish</string>
-    <string name="module_wishlist_remove_failed">Failed to delete wish</string>
 
     <!-- Module: Missing You -->
     <string name="module_missingyou_name">Missing You</string>

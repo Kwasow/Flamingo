@@ -27,28 +27,26 @@
     <string name="add">Dodaj</string>
     <string name="edit">Edytuj</string>
     <string name="dialog_year_picker_title">Wybierz rok</string>
-    <string name="something_went_wrong">Coś poszło nie tak</string>
     <string name="partner">partner</string>
     <string name="error_loading_user">Coś poszło nie tak w trakcie wczytywania danych o użytkownikach</string>
     <string name="error">Błąd</string>
+    <string name="delete_failed">Nie udało się usunąć elementu</string>
     <string name="module_memories_name">Wspomnienia</string>
     <string name="module_memories_no_memories">Nie udało się załadować wspomnień</string>
     <string name="module_memories_memory_end_date">Koniec (opcjonalnie)</string>
     <string name="module_memories_memory_end_before_start_error">Koniec nie może być przed początkiem</string>
     <string name="module_memories_memory_saving_failed">Nie udało się zapisać zmian</string>
+    <string name="module_memories_delete_dialog_header">Usuń wspomnienie</string>
     <string name="widget_memories_no_memories">Brak wspomnień\nKocham Cię ❤️</string>
     <string name="module_music_name">Piosenki</string>
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>
     <string name="module_music_delete_dialog_header">Usuwanie albumu</string>
-    <string name="module_music_delete_dialog_text">Czy na pewno chcesz usunąć album \"%1$s\"?</string>
     <string name="module_music_unknown_album_uuid">Nie udało się załadować albumu o UUID \"%1$s\"</string>
     <string name="module_wishlist_name">Prezenty</string>
     <string name="module_wishlist_wish_entry_hint">Zacznij pisać…</string>
-    <string name="module_wishlist_delete_dialog_header">Usuwanie prezentu</string>
-    <string name="module_wishlist_delete_dialog_text">Czy na pewno chcesz usunąć \"%1$s\" z listy?</string>
+    <string name="module_wishlist_delete_dialog_header">Usuń prezent</string>
     <string name="module_wishlist_add_failed">Nie udało się dodać życzenia</string>
     <string name="module_wishlist_update_failed">Nie udało się zaktualizować życzenia</string>
-    <string name="module_wishlist_remove_failed">Nie udało się usunąć życzenia</string>
     <string name="module_missingyou_name">Tęsknota</string>
     <string name="module_missingyou_miss_you">Tęsknię</string>
     <string name="module_missingyou_sending_success">❤️ Tęsknota wysłana</string>
@@ -109,4 +107,5 @@
     <string name="contentDescription_description_icon">Opis</string>
     <string name="contentDescription_reset_date_icon">Zresetuj datę</string>
     <string name="contentDescription_close">Zamknij</string>
+    <string name="delete_item">Czy na pewno chcesz usuńąć \"%1$s\"?</string>
 </resources>
