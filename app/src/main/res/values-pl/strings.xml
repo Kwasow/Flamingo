@@ -40,7 +40,7 @@
     <string name="widget_memories_no_memories">Brak wspomnień\nKocham Cię ❤️</string>
     <string name="module_music_name">Piosenki</string>
     <string name="module_music_no_albums">Nie udało się załadować albumów</string>
-    <string name="module_music_delete_dialog_header">Usuwanie albumu</string>
+    <string name="module_music_delete_dialog_header">Usuń albumu z pobranych</string>
     <string name="module_music_unknown_album_uuid">Nie udało się załadować albumu o UUID \"%1$s\"</string>
     <string name="module_wishlist_name">Prezenty</string>
     <string name="module_wishlist_wish_entry_hint">Zacznij pisać…</string>
