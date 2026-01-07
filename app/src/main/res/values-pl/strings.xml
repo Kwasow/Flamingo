@@ -107,5 +107,5 @@
     <string name="contentDescription_description_icon">Opis</string>
     <string name="contentDescription_reset_date_icon">Zresetuj datę</string>
     <string name="contentDescription_close">Zamknij</string>
-    <string name="delete_item">Czy na pewno chcesz usuńąć \"%1$s\"?</string>
+    <string name="delete_item">Czy na pewno chcesz usunąć \"%1$s\"?</string>
 </resources>
