@@ -12,8 +12,9 @@ import pl.kwasow.ui.screens.modules.memories.MemoriesModuleViewModel
 @Composable
 fun BottomSheetMemoriesEdit() {
     val viewModel = koinViewModel<MemoriesModuleViewModel>()
+    val memory = viewModel.memoryToEdit
 
-    viewModel.memoryToEdit?.let { memory ->
+    if (memory != null) {
         BottomSheetMemoriesShared(
             initialMemory = memory,
             title = stringResource(id = R.string.module_memories_update_memory),

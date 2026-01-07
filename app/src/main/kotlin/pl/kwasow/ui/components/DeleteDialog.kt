@@ -24,10 +24,10 @@ import pl.kwasow.R
 fun DeleteDialog(
     title: String,
     content: String,
-    isEnabled: Boolean,
-    isError: Boolean,
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
+    isEnabled: Boolean = true,
+    isError: Boolean = false,
 ) {
     AlertDialog(
         icon = { AlertIcon() },
