@@ -22,6 +22,8 @@ fun <T> TimelineView(
     dataArray: List<T>,
     item: @Composable (data: T, modifier: Modifier) -> Unit,
 ) {
+    val fabPadding = 56.dp + 16.dp
+
     LazyColumn(
         modifier = modifier,
         contentPadding = contentPadding,
@@ -37,7 +39,7 @@ fun <T> TimelineView(
         }
 
         item {
-            Spacer(modifier = Modifier.padding(top = 12.dp))
+            Spacer(modifier = Modifier.padding(top = 12.dp + fabPadding))
         }
     }
 }
